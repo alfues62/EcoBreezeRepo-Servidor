@@ -1,71 +1,80 @@
 <?php
-date_default_timezone_set('Europe/Madrid');
-// Datos de conexión a la base de datos
-$host = getenv('MYSQL_HOST');
-$dbname = getenv('MYSQL_DATABASE');
-$user = getenv('MYSQL_USER');
-$pass = getenv('MYSQL_PASSWORD');
+// index.php
 
-try {
-    // Conectar a la base de datos
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $user, $pass);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Incluir el archivo de conexión a la base de datos
+include_once 'db/db.php';  // Cambia la ruta a la correcta según la estructura del contenedor
 
-    // Si se ha enviado el formulario para guardar el número
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['numero'])) {
-        $numero = intval($_POST['numero']);
-        $stmt = $pdo->prepare("INSERT INTO acciones (numero) VALUES (:numero)");
-        $stmt->bindParam(':numero', $numero);
-        $stmt->execute();
-        echo "<p>¡Número guardado correctamente!</p>";
+// Verificar si se envía el número por POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['numero'])) {
+    $numero = intval($_POST['numero']);
+    
+    // Insertar el número en la base de datos
+    $stmt = $conn->prepare("INSERT INTO acciones (numero) VALUES (:numero)");
+    
+    // Verifica si la preparación tuvo éxito
+    if (!$stmt) {
+        die("Error en la preparación: " . implode(", ", $conn->errorInfo()));
     }
 
-    // Si se ha enviado el formulario para buscar el número
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['buscar_numero'])) {
-        $numero_buscar = intval($_POST['buscar_numero']);
-        $stmt = $pdo->prepare("SELECT numero FROM acciones WHERE numero = :numero");
-        $stmt->bindParam(':numero', $numero_buscar);
-        $stmt->execute();
-        
-        if ($stmt->rowCount() > 0) {
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            echo "<p>¡Número encontrado en la base de datos: " . htmlspecialchars($resultado['numero']) . "!</p>";
-        } else {
-            echo "<p>El número no se encuentra en la base de datos.</p>";
-        }
+    // Ejecutar la consulta con el número proporcionado
+    if (!$stmt->execute([':numero' => $numero])) {
+        die("Error al insertar el número: " . implode(", ", $stmt->errorInfo()));
     }
-
-    // Obtener el último número ingresado
-    $stmt = $pdo->prepare("SELECT numero FROM acciones ORDER BY id DESC LIMIT 1");
-    $stmt->execute();
-    $ultimo_numero = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    // Debugging: Verifica qué devuelve la consulta
-    var_dump($ultimo_numero); // Muestra el último número obtenido
-
-    // Mostrar el último número en la página
-    if ($ultimo_numero) {
-        echo "<p>Último número guardado en la base de datos: " . htmlspecialchars($ultimo_numero['numero']) . "</p>";
-    } else {
-        echo "<p>No hay números guardados en la base de datos.</p>";
-    }
-
-} catch (PDOException $e) {
-    echo "<p>Error en la conexión: " . $e->getMessage() . "</p>";
 }
+
+// Leer el último número insertado
+$result = $conn->query("SELECT numero FROM acciones ORDER BY created_at DESC LIMIT 1");
+$ultimoNumero = $result->fetch(PDO::FETCH_ASSOC);
+
+// Verificar si se recibió un número para buscar
+$numeroBuscado = isset($_GET['numero']) ? intval($_GET['numero']) : null;
+
+// Buscar el número en la base de datos
+$numeroEncontrado = null;
+if ($numeroBuscado !== null) {
+    $stmt = $conn->prepare("SELECT * FROM acciones WHERE numero = :numero");
+    
+    // Verifica si la preparación tuvo éxito
+    if (!$stmt) {
+        die("Error en la preparación: " . implode(", ", $conn->errorInfo()));
+    }
+
+    // Ejecutar la consulta con el número buscado
+    $stmt->execute([':numero' => $numeroBuscado]);
+    $numeroEncontrado = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 ?>
 
-<!-- Formulario para teclear el número -->
-<form method="POST" action="">
-    <label for="numero">Introduce un número para guardar:</label>
-    <input type="number" id="numero" name="numero" required>
-    <button type="submit">Guardar número</button>
-</form>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biometría</title>
+</head>
+<body>
+    <h1>Registrar Número</h1>
+    <form method="POST">
+        <input type="number" name="numero" required>
+        <button type="submit">Enviar</button>
+    </form>
 
-<!-- Formulario para buscar el número -->
-<form method="POST" action="">
-    <label for="buscar_numero">Buscar un número:</label>
-    <input type="number" id="buscar_numero" name="buscar_numero" required>
-    <button type="submit">Buscar número</button>
-</form>
+    <h2>Último Número: <?php echo isset($ultimoNumero['numero']) ? htmlspecialchars($ultimoNumero['numero']) : 'N/A'; ?></h2>
 
+    <h2>Buscar Número</h2>
+    <form method="GET">
+        <input type="number" name="numero" required>
+        <button type="submit">Buscar</button>
+    </form>
+
+    <?php if ($numeroBuscado !== null): ?>
+        <h2>Resultado de la Búsqueda</h2>
+        <?php if ($numeroEncontrado): ?>
+            <p>Número encontrado: <?php echo htmlspecialchars($numeroEncontrado['numero']); ?></p>
+        <?php else: ?>
+            <p>No se encontró el número buscado.</p>
+        <?php endif; ?>
+    <?php endif; ?>
+</body>
+</html>
