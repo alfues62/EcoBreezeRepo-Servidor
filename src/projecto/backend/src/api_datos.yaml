@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: Sprint0 Biometría
+  description: Api para lectura, escritura, eliminación y edición de datos
+  version: 1.0.0
+servers:
+  - url: 'http://localhost/SPRINT0-BIOMETRIA-SERVIDOR/v1.0/'
+    description: 'Servidor de desarrollo'
+paths:
+  /leer/:
+    get:
+      summary: Devuelve todas las mediciones
+      tags:
+        - Usuarios
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mediciones'
+        '5XX':
+          description: Error del servidor.
+  /leer/{id}:
+    get:
+      summary: Obtiene las mediciones de un sensor en concreto {id}
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: Id numérico del sensor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Mediciones'
+        '404':
+          description: No se encontró el sensor.
+        '5XX':
+          description: Error del servidor.
+  /insertar:
+    post:
+      summary: Crea una nueva medición
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                valor_major:
+                  type: integer
+                valor_minor:
+                  type: integer
+              required:
+                - valor_major
+                - valor_minor
+      responses:
+        '200':
+          description: OK
+        '5XX':
+          description: Error del servidor.
+  /editar:
+    put:
+      summary: Modifica el valor de una medicion
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id_medicion:
+                  type: integer
+                valor_major:
+                  type: integer
+                valor_minor:
+                  type: integer
+              required:
+                - id_medicion
+                - valor_major
+                - valor_minor
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /borrar/{id_medicion}:
+    delete:
+      summary: Elimina una medición {id}
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id_medicion
+          schema:
+            type: integer
+          required: true
+          description: Id numérico de la medición
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+components:
+  schemas:
+    Mediciones:
+      type: object
+      properties:
+        id_medicion:
+          type: integer
+          description: id de la medicion
+        valor_major:
+          type: integer
+          description: valor de la medicion major
+        valor_minor:
+          type: integer
+          description: valor de la medicion minor

@@ -1,0 +1,9 @@
+CREATE DATABASE IF NOT EXISTS DockerBBDD;
+USE DockerBBDD;
+
+CREATE TABLE IF NOT EXISTS mediciones (
+    id_medicion INT AUTO_INCREMENT PRIMARY KEY,
+    valor_major INT NOT NULL,
+    valor_minor INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

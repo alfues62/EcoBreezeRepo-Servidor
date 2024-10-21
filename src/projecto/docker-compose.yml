@@ -6,7 +6,8 @@ services:
       - ./backend/src:/var/www/html  # Mapea los archivos PHP al contenedor
       - ./db:/var/www/html/db  # Mapea los archivos de base de datos al contenedor
       - ./controllers:/var/www/html/controllers  # Mapea los archivos de controladores al contenedor
-      - ./.env:/var/www/html/db/.env  # Mapea el archivo .env al contenedor
+      - ./.env:/var/www/html/.env  # Mapea el archivo .env al contenedor
+      - ./logs:/var/www/html/logs  # Mapea la carpeta de logs al contenedor
     ports:
       - "8080:80"  # Acceso al servidor PHP en el puerto 8080
     depends_on:
