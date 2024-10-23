@@ -1,22 +1,25 @@
+
 services:
   php:
     image: haoxux/biometria-php:v2
     container_name: php-backend
     volumes:
       - ./backend/src:/var/www/html  # Mapea los archivos PHP al contenedor
-      - ./db:/var/www/html/db  # Mapea los archivos de base de datos al contenedor
-      - ./controllers:/var/www/html/controllers  # Mapea los archivos de controladores al contenedor
-      - ./.env:/var/www/html/.env  # Mapea el archivo .env al contenedor
-      - ./logs:/var/www/html/logs  # Mapea la carpeta de logs al contenedor
+      - ./db:/var/www/db  # Mapea los archivos de base de datos al contenedor
+      - ./controllers:/var/www/controllers  # Mapea los archivos de controladores al contenedor
+      - ./.env:/var/www/.env  # Mapea el archivo .env al contenedor
+      - ./logs:/var/www/logs  # Mapea la carpeta de logs al contenedor
+      - ./api:/var/www/api  # Mapea la carpeta de api al contenedor
     ports:
       - "8080:80"  # Acceso al servidor PHP en el puerto 8080
     depends_on:
       - db  # Depende del servicio de base de datos
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_HOST: ${MYSQL_HOST}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Asegúrate de incluir la raíz
 
   db:
     image: haoxux/biometria-sql:v0  # Usa la imagen de MySQL que ya tienes

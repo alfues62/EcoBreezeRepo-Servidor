@@ -1,69 +1,22 @@
 <?php
-require_once 'db/conexion.php';
+// Incluir la conexión y la clase DatosCRUD
+require_once '../db/conexion.php'; // Asegúrate de que la ruta sea correcta
+require_once '../controllers/datos_CRUD.php'; // Asegúrate de que la ruta sea correcta
 
-class Acciones {
-    private $conexion;
+$datosCRUD = new DatosCRUD();
+$mediciones = $datosCRUD->leer(); // Obtener todas las mediciones
 
-    public function __construct() {
-        $this->conexion = (new Conexion())->getConnection();
-    }
+$medicionBuscada = null;
 
-    public function obtenerAcciones() {
-        $query = "SELECT * FROM acciones";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    public function insertarAccion($numero) {
-        $query = "INSERT INTO acciones (numero) VALUES (:numero)";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':numero', $numero);
-        return $stmt->execute();
-    }
-
-    public function eliminarAccion($id) {
-        $query = "DELETE FROM acciones WHERE id = :id";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-    }
-
-    public function obtenerAccionPorId($id) {
-        $query = "SELECT * FROM acciones WHERE id = :id";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function editarAccion($id, $numero) {
-        $query = "UPDATE acciones SET numero = :numero WHERE id = :id";
-        $stmt = $this->conexion->prepare($query);
-        $stmt->bindParam(':numero', $numero);
-        $stmt->bindParam(':id', $id);
-        return $stmt->execute();
-    }
-}
-
-$acciones = new Acciones();
-$listaAcciones = $acciones->obtenerAcciones();
-
-// Manejo de formularios
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['insertar'])) {
-        $numero = $_POST['numero'];
-        $acciones->insertarAccion($numero);
-        header('Location: index.php');
-    } elseif (isset($_POST['eliminar'])) {
-        $id = $_POST['id'];
-        $acciones->eliminarAccion($id);
-        header('Location: index.php');
-    } elseif (isset($_POST['editar'])) {
-        $id = $_POST['id'];
-        $numero = $_POST['numero'];
-        $acciones->editarAccion($id, $numero);
-        header('Location: index.php');
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['idMedicion'])) {
+    $idMedicion = intval($_POST['idMedicion']);
+    $mediciones = array_filter($mediciones, function($medicion) use ($idMedicion) {
+        return $medicion['IDMedicion'] === $idMedicion;
+    });
+    if (empty($mediciones)) {
+        $mediciones = ['error' => 'No se encontró la medición con esta ID.'];
+    } else {
+        $medicionBuscada = reset($mediciones); // Obtiene la primera medición encontrada
     }
 }
 
@@ -74,73 +27,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acciones</title>
+    <title>Mediciones EcoBreeze</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<div class="container">
-    <h1 class="mt-5">Lista de Acciones</h1>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Número</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($listaAcciones as $accion): ?>
-                <tr>
-                    <td><?php echo $accion['id']; ?></td>
-                    <td><?php echo $accion['numero']; ?></td>
-                    <td>
-                        <form method="post" style="display:inline;">
-                            <input type="hidden" name="id" value="<?php echo $accion['id']; ?>">
-                            <button type="submit" name="eliminar" class="btn btn-danger btn-sm">Eliminar</button>
-                        </form>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editModal<?php echo $accion['id']; ?>">Editar</button>
+    <div class="container mt-5">
+        <h1 class="mb-4">Mediciones EcoBreeze</h1>
 
-                        <!-- Modal para editar acción -->
-                        <div class="modal fade" id="editModal<?php echo $accion['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="editModalLabel">Editar Acción</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form method="post">
-                                            <input type="hidden" name="id" value="<?php echo $accion['id']; ?>">
-                                            <div class="form-group">
-                                                <label for="numero">Número</label>
-                                                <input type="number" class="form-control" name="numero" value="<?php echo $accion['numero']; ?>" required>
-                                            </div>
-                                            <button type="submit" name="editar" class="btn btn-primary">Guardar cambios</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+        <!-- Formulario para buscar una medición por ID -->
+        <form method="POST" class="mb-4">
+            <div class="form-group">
+                <label for="idMedicion">Ingrese la ID de la Medición:</label>
+                <input type="number" name="idMedicion" id="idMedicion" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar Medición</button>
+        </form>
 
-    <h2 class="mt-5">Agregar Nueva Acción</h2>
-    <form method="post">
-        <div class="form-group">
-            <label for="numero">Número</label>
-            <input type="number" class="form-control" name="numero" required>
-        </div>
-        <button type="submit" name="insertar" class="btn btn-success">Agregar Acción</button>
-    </form>
-</div>
+        <!-- Tabla de Mediciones -->
+        <?php if (!empty($mediciones) && !isset($mediciones['error'])): ?>
+            <table class="table table-bordered mt-3">
+                <thead>
+                    <tr>
+                        <th>ID Medición</th>
+                        <th>Valor</th>
+                        <th>Longitud</th>
+                        <th>Latitud</th>
+                        <th>Fecha</th>
+                        <th>Hora</th>
+                        <th>ID Tipo Gas</th>
+                        <th>ID Umbral</th>
+                        <th>ID Sensor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if ($medicionBuscada): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($medicionBuscada['IDMedicion']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['Valor']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['Lon']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['Lat']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['Fecha']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['Hora']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['TIPOGAS_TipoID']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['UMBRAL_ID']); ?></td>
+                            <td><?php echo htmlspecialchars($medicionBuscada['SENSOR_ID_Sensor']); ?></td>
+                        </tr>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="9" class="text-center"><?php echo htmlspecialchars($mediciones['error']); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        <?php else: ?>
+            <div class="alert alert-warning mt-3">No se encontraron mediciones o ocurrió un error al intentar leer los datos.</div>
+        <?php endif; ?>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
