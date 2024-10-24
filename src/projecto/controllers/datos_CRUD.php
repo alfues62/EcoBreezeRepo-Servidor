@@ -1,4 +1,7 @@
 <?php
+
+require_once '../db/conexion.php';
+
 class DatosCRUD {
     private $conexion;
 
@@ -14,7 +17,7 @@ class DatosCRUD {
         } catch (Exception $e) {
             error_log('Error al leer datos: ' . $e->getMessage(), 3, '../logs/app.log');
             return ['error' => 'Error al leer datos'];
-        }
+        } 
     }
 
     public function insertar($data) {

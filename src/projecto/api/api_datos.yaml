@@ -52,6 +52,12 @@ paths:
             type: integer
           required: false
           description: ID del sensor (opcional)
+        - in: query
+          name: categoria_umbral
+          schema:
+            type: string
+          required: false
+          description: Categoría del umbral (opcional)
       responses:
         '200':
           description: OK
@@ -75,13 +81,34 @@ paths:
             schema:
               type: object
               properties:
-                valor_major:
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
                   type: integer
-                valor_minor:
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
                   type: integer
               required:
-                - valor_major
-                - valor_minor
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
       responses:
         '200':
           description: OK
@@ -99,16 +126,37 @@ paths:
             schema:
               type: object
               properties:
-                id_medicion:
+                IDMedicion:
                   type: integer
-                valor_major:
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
                   type: integer
-                valor_minor:
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
                   type: integer
               required:
-                - id_medicion
-                - valor_major
-                - valor_minor
+                - IDMedicion
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
       responses:
         '200':
           description: OK
