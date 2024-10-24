@@ -1,5 +1,5 @@
 <?php 
-require_once '../controllers/usuario_CRUD.php';
+/* require_once '../controllers/usuario_CRUD.php';
 
 if (isset($_GET['token'])) {
     $token = $_GET['token'];
@@ -16,5 +16,5 @@ if (isset($_GET['token'])) {
     }
 } else {
     echo "Token no proporcionado.";
-}
+} */
 ?>

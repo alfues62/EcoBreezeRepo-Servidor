@@ -141,3 +141,10 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- 2. Insertar rol Usuario
+INSERT INTO ROL (RolID, Rol) 
+VALUES (2, 'User');
+-- 1. Insertar rol administrador
+INSERT INTO ROL (RolID, Rol) 
+VALUES (1, 'Admin');

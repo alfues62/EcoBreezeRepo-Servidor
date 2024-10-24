@@ -13,7 +13,7 @@ class Conexion {
             // Configurar el modo de error de PDO a excepción
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            error_log('Error de conexión a MySQL: ' . $e->getMessage(), 3, '../logs/app.log');
+            error_log('Error de conexión a MySQL: ' . $e->getMessage(), 3, '/var/www/html/logs/app.log');
             die('Error de conexión a MySQL: ' . $e->getMessage());
         }
 

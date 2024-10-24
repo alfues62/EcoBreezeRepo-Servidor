@@ -2,10 +2,13 @@
 session_start(); // Inicia la sesión para manejar la autenticación
 $message = '';
 
+// Verifica si el método de la solicitud es POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Conectar a la base de datos
-    require_once '../controllers/usuario_CRUD.php';
-    $usuariosCRUD = new UsuariosCRUD();
+    require_once(__DIR__ . '/controllers/usuario_CRUD.php');
+    require_once(__DIR__ . '/../db/conexion.php'); // Asegúrate de incluir la conexión
+    $conn = (new Conexion())->getConnection(); // Obtiene la conexión a la base de datos
+    $usuariosCRUD = new UsuariosCRUD($conn); // Pasa la conexión al CRUD
 
     // Recoge los datos del formulario
     $email = $_POST['email'];
@@ -47,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <h1>Login</h1>
 
     <?php if ($message): ?>
-        <p><?php echo $message; ?></p>
+        <p><?php echo htmlspecialchars($message); ?></p> <!-- Escapa el mensaje para mayor seguridad -->
     <?php endif; ?>
 
     <form action="" method="POST">

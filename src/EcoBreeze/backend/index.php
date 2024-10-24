@@ -1,7 +1,7 @@
 <?php
 // Incluir la conexión y la clase DatosCRUD
-require_once '../db/conexion.php'; // Asegúrate de que la ruta sea correcta
-require_once '../controllers/datos_CRUD.php'; // Asegúrate de que la ruta sea correcta
+require_once(__DIR__ . '/../db/conexion.php');
+require_once(__DIR__ . '/controllers/datos_CRUD.php');
 
 $datosCRUD = new DatosCRUD();
 $mediciones = $datosCRUD->leer(); // Obtener todas las mediciones

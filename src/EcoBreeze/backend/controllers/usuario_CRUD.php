@@ -1,13 +1,15 @@
 <?php
 
-require_once '../db/conexion.php';
+require_once(__DIR__ . '/../../db/conexion.php');
 
 class UsuariosCRUD {
     private $conn;
+    private $logFile; // Propiedad para el archivo de log
 
-    public function __construct() {
-        // Crea una nueva instancia de la conexión a la base de datos
-        $this->conn = (new Conexion())->getConnection(); // Asegúrate de que esta clase exista y devuelva una conexión válida
+    // Modificación del constructor para aceptar la conexión existente y definir el archivo de log
+    public function __construct($conn) {
+        $this->conn = $conn; // Usar la conexión pasada como argumento
+        $this->logFile = __DIR__ . '/../../logs/app.log'; // Establecer la ruta del archivo de log
     }
 
     // Método para obtener usuarios
@@ -37,8 +39,7 @@ class UsuariosCRUD {
             $stmt->execute($params);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            // Manejo de errores
-            error_log("Error en leer usuarios: " . $e->getMessage());
+            error_log("Error en leer usuarios: " . $e->getMessage() . "\n", 3, $this->logFile);
             return ['error' => 'Error al obtener usuarios'];
         }
     }
@@ -46,11 +47,11 @@ class UsuariosCRUD {
     // Método para insertar un nuevo usuario
     public function insertar($nombre, $apellidos, $email, $contrasenaHash, $tfa_secret = null) {
         try {
-            // Establecer el rol como 2
-            $rol_rolid = 2;
+            // Registro de datos que se intentan insertar
+            error_log("Datos para insertar: Nombre: $nombre, Apellidos: $apellidos, Email: $email", 3, $this->logFile);
 
-            // Generar un token único para la verificación
-            $token = bin2hex(random_bytes(16));
+            $rol_rolid = 2; // Establecer el rol como 2
+            $token = bin2hex(random_bytes(16)); // Generar un token único
 
             $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, TFA_Secret, Verificado, TokenVerificacion, ROL_RolID) 
                       VALUES (?, ?, ?, ?, ?, 0, ?, ?)";
@@ -59,51 +60,37 @@ class UsuariosCRUD {
 
             return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
         } catch (PDOException $e) {
-            // Manejo de errores
-            error_log("Error en insertar usuario: " . $e->getMessage());
-            return ['error' => 'Error al insertar usuario'];
+            error_log("Error en insertar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+            return ['error' => 'Error al insertar usuario: ' . $e->getMessage()]; // Mensaje más detallado
         }
     }
 
     // Método para editar un usuario existente
     public function editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret = null) {
         try {
-            $query = "UPDATE USUARIO SET Nombre = ?, Apellidos = ?, Email = ?, ContrasenaHash = ?, ROL_RolID = ?, TFA_Secret = ? WHERE ID = ?";
+            $query = "UPDATE USUARIO SET Nombre = ?, Apellidos = ?, Email = ?, ContrasenaHash = ?, TFA_Secret = ?, ROL_RolID = ? WHERE ID = ?";
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret, $id]);
-            return ['success' => 'Usuario actualizado con éxito'];
+            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $rol_rolid, $id]);
+
+            return ['success' => 'Usuario actualizado con éxito.'];
         } catch (PDOException $e) {
-            // Manejo de errores
-            error_log("Error en editar usuario: " . $e->getMessage());
-            return ['error' => 'Error al editar usuario'];
+            error_log("Error en editar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+            return ['error' => 'Error al editar usuario: ' . $e->getMessage()];
         }
     }
 
-    // Método para eliminar un usuario
+    // Método para borrar un usuario
     public function borrar($id) {
         try {
             $query = "DELETE FROM USUARIO WHERE ID = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$id]);
-            return ['success' => 'Usuario eliminado con éxito'];
-        } catch (PDOException $e) {
-            // Manejo de errores
-            error_log("Error en borrar usuario: " . $e->getMessage());
-            return ['error' => 'Error al eliminar usuario'];
-        }
-    }
 
-    // Método para verificar el correo electrónico mediante el token
-    public function verificarEmail($token) {
-        try {
-            $query = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = NULL WHERE TokenVerificacion = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$token]);
-    
-            return $stmt->rowCount() > 0; // Retorna true si se actualizó un registro
+            return ['success' => 'Usuario eliminado con éxito.'];
         } catch (PDOException $e) {
-            error_log("Error en verificar email: " . $e->getMessage());
-            return false; // Retorna false en caso de error
+            error_log("Error en borrar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+            return ['error' => 'Error al eliminar usuario: ' . $e->getMessage()];
         }
     }
 }
+?>

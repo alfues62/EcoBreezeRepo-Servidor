@@ -1,9 +1,9 @@
 <?php
 // Incluye el controlador de usuarios
-require_once 'usuarios_CRUD.php';
+require_once(__DIR__ . '/../../db/conexion.php');
+require_once(__DIR__ . '/../controllers/usuario_CRUD.php');
 
-// Crea una instancia de la clase UsuariosCRUD
-$usuariosCRUD = new UsuariosCRUD();
+
 
 // Establece el encabezado para la respuesta en formato JSON
 header('Content-Type: application/json');
@@ -38,6 +38,7 @@ switch ($method) {
             $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
             echo json_encode($resultado);
         } else {
+            error_log("Datos incompletos para insertar el usuario.\n", 3, 'C:\UPV\Biometria\EcoBreezeRepo-Servidor\src\projecto\logs\app.log');
             echo json_encode(['error' => 'Datos incompletos para insertar el usuario.']);
         }
         break;
@@ -58,6 +59,7 @@ switch ($method) {
             $resultado = $usuariosCRUD->editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
             echo json_encode($resultado);
         } else {
+            error_log("Datos incompletos para editar el usuario.\n", 3, 'C:\UPV\Biometria\EcoBreezeRepo-Servidor\src\projecto\logs\app.log');
             echo json_encode(['error' => 'Datos incompletos para editar el usuario.']);
         }
         break;
@@ -70,6 +72,7 @@ switch ($method) {
             $resultado = $usuariosCRUD->borrar($id);
             echo json_encode($resultado);
         } else {
+            error_log("ID del usuario no especificado.\n", 3, 'C:\UPV\Biometria\EcoBreezeRepo-Servidor\src\projecto\logs\app.log');
             echo json_encode(['error' => 'ID del usuario no especificado.']);
         }
         break;
@@ -77,6 +80,7 @@ switch ($method) {
     default:
         // Maneja métodos no permitidos
         http_response_code(405); // Método no permitido
+        error_log("Método no permitido\n", 3, 'C:\UPV\Biometria\EcoBreezeRepo-Servidor\src\projecto\logs\app.log');
         echo json_encode(['error' => 'Método no permitido']);
         break;
 }
