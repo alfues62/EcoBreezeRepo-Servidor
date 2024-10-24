@@ -1,0 +1,272 @@
+openapi: 3.0.3
+info:
+  title: API ECOBREEZE
+  description: API para lectura, escritura, eliminación y edición de datos.
+  version: 1.0.0
+servers:
+  - url: http://localhost/ECOBREEZE
+    description: 'Servidor de desarrollo'
+paths:
+  /leer:
+    get:
+      summary: Obtiene las mediciones filtradas por diferentes criterios (sin latitud ni longitud)
+      tags:
+        - Usuarios
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          required: false
+          description: Id numérico de la medición (opcional)
+        - in: query
+          name: fecha
+          schema:
+            type: string
+            format: date
+          required: false
+          description: Fecha de la medición (opcional)
+        - in: query
+          name: hora
+          schema:
+            type: string
+            format: time
+          required: false
+          description: Hora de la medición (opcional)
+        - in: query
+          name: tipogas_tipoid
+          schema:
+            type: integer
+          required: false
+          description: ID del tipo de gas (opcional)
+        - in: query
+          name: valor
+          schema:
+            type: number
+            format: float
+          required: false
+          description: Valor de la medición (opcional)
+        - in: query
+          name: sensor_id
+          schema:
+            type: integer
+          required: false
+          description: ID del sensor (opcional)
+        - in: query
+          name: categoria_umbral
+          schema:
+            type: string
+          required: false
+          description: Categoría del umbral (opcional)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicionSinLocalizacion'
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /insertar:
+    post:
+      summary: Crea una nueva medición
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
+                  type: integer
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
+                  type: integer
+              required:
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
+      responses:
+        '200':
+          description: OK
+        '5XX':
+          description: Error del servidor.
+  /editar:
+    put:
+      summary: Modifica el valor de una medición
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                IDMedicion:
+                  type: integer
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
+                  type: integer
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
+                  type: integer
+              required:
+                - IDMedicion
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /borrar/{id_medicion}:
+    delete:
+      summary: Elimina una medición
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id_medicion
+          schema:
+            type: integer
+          required: true
+          description: Id numérico de la medición
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /ruta/{sensor_id}:
+    get:
+      summary: Obtiene todas las mediciones de un sensor específico para análisis interno (con latitud y longitud)
+      tags:
+        - Interno
+      parameters:
+        - in: path
+          name: sensor_id
+          schema:
+            type: integer
+          required: true
+          description: ID del sensor
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Medicion'
+        '404':
+          description: Sensor no encontrado.
+        '5XX':
+          description: Error del servidor.
+components:
+  schemas:
+    Medicion:
+      type: object
+      properties:
+        IDMedicion:
+          type: integer
+          description: ID de la medición
+        Valor:
+          type: number
+          format: float
+          description: Valor de la medición
+        Lon:
+          type: string
+          description: Longitud
+        Lat:
+          type: string
+          description: Latitud
+        Fecha:
+          type: string
+          format: date
+          description: Fecha de la medición
+        Hora:
+          type: string
+          format: time
+          description: Hora de la medición
+        TIPOGAS_TipoID:
+          type: integer
+          description: ID del tipo de gas
+        SENSOR_ID_Sensor:
+          type: integer
+          description: ID del sensor
+        UMBRAL_ID:
+          type: integer
+          description: ID del umbral
+    MedicionSinLocalizacion:
+      type: object
+      properties:
+        IDMedicion:
+          type: integer
+          description: ID de la medición
+        Valor:
+          type: number
+          format: float
+          description: Valor de la medición
+        Fecha:
+          type: string
+          format: date
+          description: Fecha de la medición
+        Hora:
+          type: string
+          format: time
+          description: Hora de la medición
+        TIPOGAS_TipoID:
+          type: integer
+          description: ID del tipo de gas
+        SENSOR_ID_Sensor:
+          type: integer
+          description: ID del sensor
+        UMBRAL_ID:
+          type: integer
+          description: ID del umbral

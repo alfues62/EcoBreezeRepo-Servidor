@@ -1,0 +1,167 @@
+openapi: 3.0.3
+info:
+  title: API USUARIO
+  description: API para lectura, escritura, eliminación y edición de datos de usuarios.
+  version: 1.0.0
+servers:
+  - url: http://localhost/ECOBREEZE/usuarios
+    description: 'Servidor de desarrollo'
+paths:
+  /leer:
+    get:
+      summary: Obtiene los datos de usuarios filtrados por diferentes criterios
+      tags:
+        - Usuarios
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          required: false
+          description: ID numérico del usuario (opcional)
+        - in: query
+          name: nombre
+          schema:
+            type: string
+          required: false
+          description: Nombre del usuario (opcional)
+        - in: query
+          name: apellidos
+          schema:
+            type: string
+          required: false
+          description: Apellidos del usuario (opcional)
+        - in: query
+          name: email
+          schema:
+            type: string
+          required: false
+          description: Correo electrónico del usuario (opcional)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Usuario'
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
+  /insertar:
+    post:
+      summary: Crea un nuevo usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                apellidos:
+                  type: string
+                email:
+                  type: string
+                contrasenaHash:
+                  type: string
+                tfa_secret:
+                  type: string
+                rol_rolid:
+                  type: integer
+              required:
+                - nombre
+                - apellidos
+                - email
+                - contrasenaHash
+                - rol_rolid
+      responses:
+        '200':
+          description: OK
+        '5XX':
+          description: Error del servidor.
+  /editar:
+    put:
+      summary: Modifica los datos de un usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                nombre:
+                  type: string
+                apellidos:
+                  type: string
+                email:
+                  type: string
+                contrasenaHash:
+                  type: string
+                tfa_secret:
+                  type: string
+                rol_rolid:
+                  type: integer
+              required:
+                - id
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
+  /borrar/{id}:
+    delete:
+      summary: Elimina un usuario
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID numérico del usuario
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID del usuario
+        nombre:
+          type: string
+          description: Nombre del usuario
+        apellidos:
+          type: string
+          description: Apellidos del usuario
+        email:
+          type: string
+          description: Correo electrónico del usuario
+        contrasenaHash:
+          type: string
+          description: Contraseña del usuario (almacenada como hash)
+        tfa_secret:
+          type: string
+          description: Secreto para la autenticación de dos factores
+        rol_rolid:
+          type: integer
+          description: ID del rol del usuario en el sistema
