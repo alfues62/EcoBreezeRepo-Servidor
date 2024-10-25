@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 require_once(__DIR__ . '/../../db/conexion.php');
 
 class UsuariosCRUD {
@@ -92,5 +91,40 @@ class UsuariosCRUD {
             return ['error' => 'Error al eliminar usuario: ' . $e->getMessage()];
         }
     }
+
+    // Método para verificar las credenciales de inicio de sesión
+public function verificarCredenciales($email, $contrasena) {
+    try {
+        // Preparar la consulta para verificar las credenciales
+        $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID, ContrasenaHash, TFA_Secret FROM USUARIO WHERE Email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificar la contraseña
+        if ($usuario && password_verify($contrasena, $usuario['ContrasenaHash'])) {
+            // Asegúrate de que el rol esté en el resultado
+            return [
+                'ID' => $usuario['ID'],
+                'Nombre' => $usuario['Nombre'],
+                'Rol' => $usuario['ROL_RolID'] // Incluye el rol aquí
+            ]; // Devuelve los datos del usuario si las credenciales son correctas
+        }
+
+        return null; // Devuelve null si no coincide
+    } catch (PDOException $e) {
+        error_log("Error al verificar credenciales: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return null; // Manejar errores durante la verificación
+    }
+}
+public function verificarUsuarioPorEmail($email) {
+    // Consulta a la base de datos para verificar si el email está registrado
+    $stmt = $this->conn->prepare("SELECT * FROM USUARIO WHERE Email = :email");
+    $stmt->bindParam(':email', $email);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC); // Retorna el usuario si existe, o null si no
+}
+    
 }
 ?>

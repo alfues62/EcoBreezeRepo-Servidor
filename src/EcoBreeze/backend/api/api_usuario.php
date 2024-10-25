@@ -1,94 +1,120 @@
-<?php
-// Incluye el controlador de usuarios
+<?php 
 require_once(__DIR__ . '/../../db/conexion.php');
 require_once(__DIR__ . '/../controllers/usuario_CRUD.php');
 
-$logFile = '/var/www/html/logs/app.log';
+header('Content-Type: application/json');
 
-// Crea una instancia de la clase Conexion y obtiene la conexión
-$conn = (new Conexion())->getConnection();
+// Configurar la zona horaria
+date_default_timezone_set('Europe/Madrid');
 
-// Crea una instancia de la clase UsuariosCRUD
-$usuariosCRUD = new UsuariosCRUD($conn); // Pasa la conexión al CRUD
+// Crear una instancia de la clase de conexión
+$conn = new Conexion();
+$connection = $conn->getConnection();
 
-// Obtiene el método HTTP de la solicitud
-$method = $_SERVER['REQUEST_METHOD'];
+// Crear una instancia de UsuariosCRUD
+$usuariosCRUD = new UsuariosCRUD($connection);
 
-switch ($method) {
-    case 'GET':
-        // Maneja la solicitud GET
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
-        $nombre = isset($_GET['nombre']) ? $_GET['nombre'] : null;
-        $apellidos = isset($_GET['apellidos']) ? $_GET['apellidos'] : null;
-        $email = isset($_GET['email']) ? $_GET['email'] : null;
+// Función para registrar logs
+function logMessage($message) {
+    $logFile = '/var/www/html/logs/app.log'; // Ruta del archivo log
+    file_put_contents($logFile, date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL, FILE_APPEND);
+}
+
+// Decodificar la solicitud JSON
+$requestData = json_decode(file_get_contents('php://input'), true);
+$action = $requestData['action'] ?? null;
+
+// Manejar las acciones según el valor de 'action'
+switch ($action) {
+    case 'registrar':
+        $nombre = $requestData['nombre'] ?? null;
+        $apellidos = $requestData['apellidos'] ?? null;
+        $email = $requestData['email'] ?? null;
+        $contrasena = $requestData['contrasena'] ?? null;
+        $rol_rolid = $requestData['rol_rolid'] ?? 2; // Valor predeterminado para rol
+        $tfa_secret = $requestData['tfa_secret'] ?? null;
+
+        // Validar que todos los campos necesarios estén presentes
+        if ($nombre && $apellidos && $email && $contrasena) {
+            $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
+            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
+            echo json_encode(['success' => true, 'data' => $resultado]);
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
+        }
+        break;
+
+        case 'iniciar_sesion':
+            $email = $requestData['email'] ?? null;
+            $contrasena = $requestData['contrasena'] ?? null;
+        
+            if ($email && $contrasena) {
+                // Llamar a verificarCredencialesCompleto para verificar email y contraseña
+                $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
+        
+                // Manejar la respuesta según el resultado de la verificación
+                if (isset($usuario['error'])) {
+                    echo json_encode(['success' => false, 'error' => $usuario['error']]);
+                } else {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Inicio de sesión exitoso.',
+                        'usuario_id' => $usuario['ID'], 
+                        'usuario' => [
+                            'ID' => $usuario['ID'],
+                            'Nombre' => $usuario['Nombre'],
+                            'Rol' => $usuario['Rol']
+                        ]
+                    ]);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+            }
+            break;
+        
+
+    case 'leer':
+        $id = $requestData['id'] ?? null;
+        $nombre = $requestData['nombre'] ?? null;
+        $apellidos = $requestData['apellidos'] ?? null;
+        $email = $requestData['email'] ?? null;
 
         $usuarios = $usuariosCRUD->leer($id, $nombre, $apellidos, $email);
-        echo json_encode($usuarios);
+        echo json_encode(['success' => true, 'data' => $usuarios]);
         break;
 
-    case 'POST':
-        // Maneja la solicitud POST
-        $input = json_decode(file_get_contents('php://input'), true);
+    case 'editar':
+        $id = $requestData['id'] ?? null;
+        $nombre = $requestData['nombre'] ?? null;
+        $apellidos = $requestData['apellidos'] ?? null;
+        $email = $requestData['email'] ?? null;
+        $contrasena = $requestData['contrasena'] ?? null;
+        $rol_rolid = $requestData['rol_rolid'] ?? null;
+        $tfa_secret = $requestData['tfa_secret'] ?? null;
 
-        if (isset($input['Nombre'], $input['Apellidos'], $input['Email'], $input['ContrasenaHash'], $input['ROL_RolID'])) {
-            $nombre = $input['Nombre'];
-            $apellidos = $input['Apellidos'];
-            $email = $input['Email'];
-            $contrasenaHash = $input['ContrasenaHash'];
-            $rol_rolid = $input['ROL_RolID'];
-            $tfa_secret = isset($input['TFA_Secret']) ? $input['TFA_Secret'] : null;
-
-            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
-            echo json_encode($resultado);
-        } else {
-            // Registro de error en app.log
-            error_log("[" . date('Y-m-d H:i:s') . "] Datos incompletos para insertar el usuario: " . json_encode($input) . "\n", 3, $logFile);
-            echo json_encode(['error' => 'Datos incompletos para insertar el usuario.']);
-        }
-        break;
-
-    case 'PUT':
-        // Maneja la solicitud PUT
-        $input = json_decode(file_get_contents('php://input'), true);
-
-        if (isset($input['ID'], $input['Nombre'], $input['Apellidos'], $input['Email'], $input['ContrasenaHash'], $input['ROL_RolID'])) {
-            $id = $input['ID'];
-            $nombre = $input['Nombre'];
-            $apellidos = $input['Apellidos'];
-            $email = $input['Email'];
-            $contrasenaHash = $input['ContrasenaHash'];
-            $rol_rolid = $input['ROL_RolID'];
-            $tfa_secret = isset($input['TFA_Secret']) ? $input['TFA_Secret'] : null;
-
+        if ($id && $nombre && $apellidos && $email && $contrasena && $rol_rolid) {
+            $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
             $resultado = $usuariosCRUD->editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
-            echo json_encode($resultado);
+            echo json_encode(['success' => true, 'data' => $resultado]);
         } else {
-            // Registro de error en app.log
-            error_log("[" . date('Y-m-d H:i:s') . "] Datos incompletos para editar el usuario: " . json_encode($input) . "\n", 3, $logFile);
-            echo json_encode(['error' => 'Datos incompletos para editar el usuario.']);
+            echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
         }
         break;
 
-    case 'DELETE':
-        // Maneja la solicitud DELETE
-        $id = isset($_GET['id']) ? $_GET['id'] : null;
+    case 'borrar':
+        $id = $requestData['id'] ?? null;
 
         if ($id) {
             $resultado = $usuariosCRUD->borrar($id);
-            echo json_encode($resultado);
+            echo json_encode(['success' => true, 'data' => $resultado]);
         } else {
-            // Registro de error en app.log
-            error_log("[" . date('Y-m-d H:i:s') . "] ID del usuario no especificado para eliminar.\n", 3, $logFile);
-            echo json_encode(['error' => 'ID del usuario no especificado.']);
+            echo json_encode(['success' => false, 'error' => 'ID de usuario es obligatorio.']);
         }
         break;
 
     default:
-        // Maneja métodos no permitidos
-        http_response_code(405); // Método no permitido
-        // Registro de error en app.log
-        error_log("[" . date('Y-m-d H:i:s') . "] Método no permitido: $method\n", 3, $logFile);
-        echo json_encode(['error' => 'Método no permitido']);
+        logMessage("Error: Acción no válida: $action");
+        echo json_encode(['success' => false, 'error' => 'Acción no válida.']);
         break;
 }
 ?>

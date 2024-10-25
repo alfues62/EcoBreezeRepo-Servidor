@@ -17,7 +17,7 @@ if (!isset($_SESSION['usuario_id'])) {
 </head>
 <body>
     <h1>Bienvenido, <?php echo $_SESSION['nombre']; ?></h1>
-    <p>Rol: <?php echo $_SESSION['rol']; ?></p>
+
 
     <a href="logout.php">Cerrar Sesión</a>
 </body>

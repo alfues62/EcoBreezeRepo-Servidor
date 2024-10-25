@@ -1,53 +1,13 @@
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"asdasf","Apellidos":"asd","Email":"luisgara@gmail.com","ContrasenaHash":"$2y$10$perlULAvuBnwNtttqIQUPuPtm326NyXXl4cMyIuVmuJSWOykcqOSq","ROL_RolID":2}
-Intentando insertar usuario: Nombre: asdasf, Apellidos: asd, Email: luisgara@gmail.comDatos para insertar: Nombre: asdasf, Apellidos: asd, Email: luisgara@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"asdasf","Apellidos":"asd","Email":"luisgara@gmail.com","ContrasenaHash":"$2y$10$R1Hm2HhCFo0rh.0jXGFYB.9zOCuOMSwwmAGHN4\/VeC\/sHo7wg9Pem","ROL_RolID":2}
-Intentando insertar usuario: Nombre: asdasf, Apellidos: asd, Email: luisgara@gmail.comDatos para insertar: Nombre: asdasf, Apellidos: asd, Email: luisgara@gmail.comMétodo HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"luisgara@gmail.com","ContrasenaHash":"$2y$10$W949jnEfteoX9VY6iW.mhO29O9l7Cds3kbErRcZ7kAsTfIKQSAAEm","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: luisgara@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: luisgara@gmail.comMétodo HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"luisgara@gmail.com","ContrasenaHash":"$2y$10$J0.b9mc5qtWQLeetQLKmgOrfXcFQgg0nNPlAxguAFfZpWzOfPZZ86","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: luisgara@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: luisgara@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'luisgara@gmail.com' for key 'USUARIO.Email_UNIQUE'
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"asdasf","Apellidos":"asd","Email":"yaekitsune2207@gmail.com","ContrasenaHash":"$2y$10$P6jKwGOlqEs\/g3hNEIDTleuYWNBe5xe9dDdEs0fAEyu4LVfg7nk12","ROL_RolID":2}
-Intentando insertar usuario: Nombre: asdasf, Apellidos: asd, Email: yaekitsune2207@gmail.comDatos para insertar: Nombre: asdasf, Apellidos: asd, Email: yaekitsune2207@gmail.comMétodo HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"elgrancorredelspammaster+1@gmail.com","ContrasenaHash":"$2y$10$tswKQff3DU9y0ySI\/khK\/OUiRSDH9Eqywth.3ml.jDAIWEmF38fVe","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.com[2024-10-24 21:31:57] Error en la respuesta de la API: No especificado
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"elgrancorredelspammaster+1@gmail.com","ContrasenaHash":"$2y$10$EHrjtwMKwn4h.XeMS.elvOVBdnjYJ92yvBFy43TGQUo6y1mAS4tGC","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.com[2024-10-24 21:32:25] Error en la respuesta de la API: No especificado
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"elgrancorredelspammaster+1@gmail.com","ContrasenaHash":"$2y$10$0ogo4SJ2obNpx43I0gV3ZOOrx74YysIjiczZFZNJDQ9U.rjV91Ka.","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:35:14] Error en la respuesta de la API: No especificado
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"elgrancorredelspammaster+1@gmail.com","ContrasenaHash":"$2y$10$u44y4wsSom37F8YJUEbZaeWTjkPXk9RFdfiKmy6o4QsGG5VGUJzuy","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:35:15] Error en la respuesta de la API: No especificado
-Método HTTP recibido: POST
-Datos recibidos para POST: {"Nombre":"jaimito","Apellidos":"asd","Email":"elgrancorredelspammaster+1@gmail.com","ContrasenaHash":"$2y$10$jJ3nBuMlRgZZeH9SmMkLhu.9BprNnGKaJEtYxsRaqbTPn0fM51NIq","ROL_RolID":2}
-Intentando insertar usuario: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comDatos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:35:40] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:37:27] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:37:29] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:39:19] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:39:52] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:39:53] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:39:53] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:43:23] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:43:24] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: elgrancorredelspammaster+1@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'elgrancorredelspammaster+1@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:43:24] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: asd, Apellidos: asd, Email: luisgara@gmail.com[2024-10-24 21:43:54] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: jaimito, Apellidos: asd, Email: yaekitsune2207@gmail.com[2024-10-24 21:44:43] Error en la respuesta de la API: No especificado
-Datos para insertar: Nombre: asdasf, Apellidos: asd, Email: gs0gs1gs2@gmail.comDatos para insertar: Nombre: asdasf, Apellidos: asd, Email: gs0gs1gs2@gmail.comError en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'gs0gs1gs2@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:51:49] Error en la respuesta de la API: Error al insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'gs0gs1gs2@gmail.com' for key 'USUARIO.Email_UNIQUE'
-[2024-10-24 21:51:57] Error: Las contraseñas no coinciden.
+2024-10-25 22:51:53 - API Response: <br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>65</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":null}}
+2024-10-25 22:51:53 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 22:52:01 - API Response: <br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>65</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":null}}
+2024-10-25 22:52:01 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 22:58:54 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:01 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:08 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:14 - API Response: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+2024-10-25 22:59:22 - API Response: {"success":false,"error":"Correo no registrado"}
