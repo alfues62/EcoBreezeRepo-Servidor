@@ -11,3 +11,14 @@
 2024-10-25 22:59:08 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
 2024-10-25 22:59:14 - API Response: {"success":false,"error":"Contrase\u00f1a incorrecta"}
 2024-10-25 22:59:22 - API Response: {"success":false,"error":"Correo no registrado"}
+2024-10-25 23:09:36 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:12:36 - Error: Error al decodificar JSON: Syntax error
+Intento de inicio de sesión fallido: Correo no registrado - elgrancorredelspammaster@gmail.com
+2024-10-25 23:12:46 - Error: Error al decodificar JSON: Syntax error
+Inicio de sesión exitoso: ID: 1, Nombre: jaimito
+Intento de inicio de sesión fallido: Contraseña incorrecta para alfues62@gmail.com
+2024-10-25 23:12:58 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:14:31 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:18 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:51 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:56 - Error: Error al decodificar JSON: Syntax error
