@@ -32,46 +32,64 @@ switch ($action) {
         $email = $requestData['email'] ?? null;
         $contrasena = $requestData['contrasena'] ?? null;
         $rol_rolid = $requestData['rol_rolid'] ?? 2; // Valor predeterminado para rol
-        $tfa_secret = $requestData['tfa_secret'] ?? null;
 
         // Validar que todos los campos necesarios estén presentes
         if ($nombre && $apellidos && $email && $contrasena) {
-            $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
-            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
-            echo json_encode(['success' => true, 'data' => $resultado]);
+            // Validar formato de email
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                echo json_encode(['success' => false, 'error' => 'Formato de email inválido.']);
+                break;
+            }
+
+            // Verificar si el email ya está en uso
+            if ($usuariosCRUD->emailExistente($email)) {
+                echo json_encode(['success' => false, 'error' => 'El email ya está registrado.']);
+                break;
+            }
+
+            // Hash de la contraseña con BCRYPT
+            $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
+
+            // Llamar al método de inserción
+            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid);
+
+            if ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'Usuario registrado con éxito.']);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Error al registrar el usuario.']);
+            }
         } else {
             echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
         }
         break;
 
-        case 'iniciar_sesion':
-            $email = $requestData['email'] ?? null;
-            $contrasena = $requestData['contrasena'] ?? null;
-        
-            if ($email && $contrasena) {
-                // Llamar a verificarCredencialesCompleto para verificar email y contraseña
-                $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
-        
-                // Manejar la respuesta según el resultado de la verificación
-                if (isset($usuario['error'])) {
-                    echo json_encode(['success' => false, 'error' => $usuario['error']]);
-                } else {
-                    echo json_encode([
-                        'success' => true,
-                        'message' => 'Inicio de sesión exitoso.',
-                        'usuario_id' => $usuario['ID'], 
-                        'usuario' => [
-                            'ID' => $usuario['ID'],
-                            'Nombre' => $usuario['Nombre'],
-                            'Rol' => $usuario['Rol']
-                        ]
-                    ]);
-                }
+    case 'iniciar_sesion':
+        $email = $requestData['email'] ?? null;
+        $contrasena = $requestData['contrasena'] ?? null;
+
+        if ($email && $contrasena) {
+            // Llamar a verificarCredencialesCompleto para verificar email y contraseña
+            $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
+
+            // Manejar la respuesta según el resultado de la verificación
+            if (isset($usuario['error'])) {
+                echo json_encode(['success' => false, 'error' => $usuario['error']]);
             } else {
-                echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Inicio de sesión exitoso.',
+                    'usuario_id' => $usuario['ID'], 
+                    'usuario' => [
+                        'ID' => $usuario['ID'],
+                        'Nombre' => $usuario['Nombre'],
+                        'Rol' => $usuario['Rol']
+                    ]
+                ]);
             }
-            break;
-        
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+        }
+        break;
 
     case 'leer':
         $id = $requestData['id'] ?? null;
@@ -93,7 +111,7 @@ switch ($action) {
         $tfa_secret = $requestData['tfa_secret'] ?? null;
 
         if ($id && $nombre && $apellidos && $email && $contrasena && $rol_rolid) {
-            $contrasenaHash = password_hash($contrasena, PASSWORD_DEFAULT);
+            $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
             $resultado = $usuariosCRUD->editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
             echo json_encode(['success' => true, 'data' => $resultado]);
         } else {

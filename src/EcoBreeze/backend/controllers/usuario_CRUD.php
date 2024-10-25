@@ -122,6 +122,18 @@ class UsuariosCRUD {
         return ['error' => 'Error al verificar las credenciales'];
     }
 }
+// Método para verificar si el email ya está registrado
+public function emailExistente($email) {
+    try {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM USUARIO WHERE Email = ?");
+        $stmt->execute([$email]);
+        $count = $stmt->fetchColumn();
+        return $count > 0; // Devuelve true si el email ya está registrado
+    } catch (PDOException $e) {
+        error_log("Error al verificar si el email existe: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return false; // Manejar errores durante la verificación
+    }
+}
 
 }
 ?>

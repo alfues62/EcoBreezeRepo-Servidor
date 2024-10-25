@@ -22,3 +22,4 @@ Intento de inicio de sesión fallido: Contraseña incorrecta para alfues62@gmail
 2024-10-25 23:15:18 - Error: Error al decodificar JSON: Syntax error
 2024-10-25 23:15:51 - Error: Error al decodificar JSON: Syntax error
 2024-10-25 23:15:56 - Error: Error al decodificar JSON: Syntax error
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))

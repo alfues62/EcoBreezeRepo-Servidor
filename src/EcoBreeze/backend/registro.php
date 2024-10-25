@@ -1,158 +1,127 @@
 <?php
-// Inicializa la variable de mensaje
-$message = '';
-$show_modal = false; // Variable para controlar la ventana emergente
+session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Recoge los datos del formulario
-    $nombre = $_POST['nombre'];
-    $apellidos = $_POST['apellidos'];
-    $email = $_POST['email'];
-    $contrasena = $_POST['contrasena'];
-    $confirmar_contrasena = $_POST['confirmar_contrasena'];
+// Configura la zona horaria y el archivo de log
+date_default_timezone_set('Europe/Madrid');
+$logFile = '/var/www/html/logs/app.log';
 
-    // Ruta del archivo de log
-    $logFile = '/var/www/html/logs/app.log';
+$error_message = '';
+$success_message = '';
+
+// Verifica si se ha enviado el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php'; // Cambia aquí si es necesario
+
+    // Sanitiza y prepara los datos de entrada
+    $nombre = filter_var(trim($_POST['nombre'] ?? ''));
+    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''));
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+    $contrasena = trim($_POST['contrasena'] ?? '');
+    $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
 
     // Validar que las contraseñas coincidan
-    if ($contrasena !== $confirmar_contrasena) {
-        $message = "Las contraseñas no coinciden.";
-        error_log("[" . date('Y-m-d H:i:s') . "] Error: Las contraseñas no coinciden.\n", 3, $logFile);
-        $show_modal = true; // Activar el modal
+    if ($contrasena !== $contrasena_confirmar) {
+        $error_message = 'Las contraseñas no coinciden.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+        $error_message = 'El nombre solo puede contener letras y espacios.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
+        $error_message = 'Los apellidos solo pueden contener letras y espacios.';
     } else {
-        // Hash de la contraseña
-        $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
+        // Intenta realizar la solicitud
+        try {
+            $data = [
+                'action' => 'registrar',
+                'nombre' => $nombre,
+                'apellidos' => $apellidos,
+                'email' => $email,
+                'contrasena' => $contrasena,
+            ];
 
-        // Preparar los datos para enviar a la API
-        $data = [
-            'Nombre' => $nombre,
-            'Apellidos' => $apellidos,
-            'Email' => $email,
-            'ContrasenaHash' => $contrasenaHash,
-            'ROL_RolID' => 2
-        ];
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-        // Iniciar una solicitud cURL para enviar los datos a la API
-        $ch = curl_init('http://host.docker.internal:8080/api/api_usuario.php');
+            // Ejecuta la solicitud
+            $response = curl_exec($ch);
+            if (curl_errno($ch)) {
+                throw new Exception('CURL Error: ' . curl_error($ch));
+            }
+            curl_close($ch);
 
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json'
-        ));
+            // Decodificar la respuesta JSON
+            $result = json_decode($response, true);
 
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            // Verificar errores de decodificación JSON
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
+            }
 
-        // Obtener la respuesta de la API
-        $response = curl_exec($ch);
-        $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $curl_error = curl_error($ch);
-        curl_close($ch);
+            // Maneja la respuesta de la API
+            if (isset($result['success']) && $result['success']) {
+                $success_message = htmlspecialchars($result['message'] ?? 'Usuario registrado con éxito.');
+            } else {
+                $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
+            }
 
-        // Decodificar la respuesta
-        $resultado = json_decode($response, true);
-
-        // Registro en el log de errores o respuestas inesperadas
-        if ($httpcode !== 200 || isset($curl_error) && $curl_error) {
-            error_log("[" . date('Y-m-d H:i:s') . "] Error en la solicitud cURL. Código HTTP: $httpcode. Error cURL: $curl_error\n", 3, $logFile);
-        }
-
-        if ($httpcode === 200 && isset($resultado['success'])) {
-            $message = "Usuario registrado exitosamente.";
-        } else {
-            $message = "Error al registrar usuario.";
-            error_log("[" . date('Y-m-d H:i:s') . "] Error en la respuesta de la API: " . ($resultado['error'] ?? 'No especificado') . "\n", 3, $logFile);
+        } catch (Exception $e) {
+            $timestamp = date('Y-m-d H:i:s');
+            file_put_contents($logFile, "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
+            $error_message = 'Ocurrió un error en el servidor. Inténtalo más tarde.';
         }
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
-    <style>
-        body { font-family: Arial, sans-serif; }
-        form { max-width: 300px; margin: 20px auto; }
-        label { display: block; margin: 5px 0; }
-        input { width: 100%; padding: 8px; margin: 5px 0; }
-        button { padding: 10px; background-color: #007BFF; color: white; border: none; }
-        button:hover { background-color: #0056b3; }
-
-        /* Estilo para el modal */
-        .modal {
-            display: none; /* Oculto por defecto */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .modal-content {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .close-btn {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
-
 <body>
-    <h1>Registro de Usuario</h1>
+    <div class="container">
+        <h1>Registro de Usuario</h1>
 
-    <form action="" method="POST">
-        <label for="nombre">Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required>
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="nombre">Nombre:</label>
+                <input type="text" name="nombre" id="nombre" class="form-control" required>
+            </div>
 
-        <label for="apellidos">Apellidos:</label>
-        <input type="text" id="apellidos" name="apellidos" required>
+            <div class="form-group">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" name="apellidos" id="apellidos" class="form-control" required>
+            </div>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" name="contrasena" id="contrasena" class="form-control" required>
+            </div>
 
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" id="contrasena" name="contrasena" required>
+            <div class="form-group">
+                <label for="contrasena_confirmar">Confirmar Contraseña:</label>
+                <input type="password" name="contrasena_confirmar" id="contrasena_confirmar" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Registrar</button>
+        </form>
 
-        <label for="confirmar_contrasena">Confirmar Contraseña:</label>
-        <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required>
-
-        <button type="submit">Registrar</button>
-    </form>
-
-    <!-- Modal -->
-    <div id="errorModal" class="modal">
-        <div class="modal-content">
-            <p><?php echo $message; ?></p>
-            <button class="close-btn" onclick="closeModal()">Aceptar</button>
-        </div>
-    </div>
-
-    <script>
-        // Mostrar el modal si la variable $show_modal es verdadera
-        <?php if ($show_modal): ?>
-            document.getElementById('errorModal').style.display = 'flex';
+        <?php if ($success_message): ?>
+            <div class="alert alert-success mt-3"><?php echo $success_message; ?></div>
         <?php endif; ?>
 
-        // Función para cerrar el modal
-        function closeModal() {
-            document.getElementById('errorModal').style.display = 'none';
-            window.history.back(); // Vuelve al formulario para rellenar de nuevo
-        }
-    </script>
+        <?php if ($error_message): ?>
+            <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
+        <?php endif; ?>
+    </div>
 </body>
 </html>
