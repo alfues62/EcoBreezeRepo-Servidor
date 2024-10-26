@@ -135,5 +135,21 @@ public function emailExistente($email) {
     }
 }
 
+public function insertarSensor($data) {
+    try {
+        $stmt = $this->conn->prepare("INSERT INTO sensores (MAC, USUARIO_ID) VALUES (:MAC, :USUARIO_ID)");
+        $stmt->bindParam(':MAC', $data['MAC']);
+        $stmt->bindParam(':USUARIO_ID', $data['USUARIO_ID']);
+        if ($stmt->execute()) {
+            return ['success' => true];
+        } else {
+            return ['error' => 'Error al insertar el sensor en la base de datos.'];
+        }
+    } catch (PDOException $e) {
+        return ['error' => 'Error en la base de datos: ' . $e->getMessage()];
+    }
+}
+
+
 }
 ?>

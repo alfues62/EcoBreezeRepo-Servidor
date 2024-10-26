@@ -130,6 +130,66 @@ switch ($action) {
         }
         break;
 
+        
+
+
+    case 'insertar_sensor':
+        // Obtener los datos del cuerpo de la solicitud
+        $requestData = json_decode(file_get_contents('php://input'), true);
+        
+        // Registrar en el log los datos recibidos para verificar
+        //logMessage("Datos recibidos en insertar_sensor: " . json_encode($requestData));
+        
+        // Extraer los valores de MAC y usuario_id del cuerpo de la solicitud
+        $mac = $requestData['MAC'] ?? null;
+        $usuario_id = $requestData['usuario_id'] ?? null;
+        
+        // Validar que ambos campos requeridos estén presentes
+        if ($mac && $usuario_id) {
+            // Crear el array de datos para insertar
+            $data = [
+                'MAC' => $mac,
+                'USUARIO_ID' => $usuario_id
+            ];
+        
+            // Registrar en el log los datos que se van a insertar
+            logMessage("Datos a insertar : " . json_encode($data, true));
+        
+            // Instanciar la clase DatosCRUD
+            $usuariosCRUD = new UsuariosCRUD();
+        
+            // Intentar insertar el sensor y capturar el resultado
+            $resultado = $usuariosCRUD->insertarSensor($data);
+        
+            // Verificar el resultado de la inserción y manejar los errores
+            logMessage("Datos antes if: " . json_encode($resultado));
+            if ($resultado && !isset($resultado['error'])) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Sensor añadido exitosamente.',
+                    'sensor' => [
+                        'MAC' => $mac,
+                        'usuario_id' => $usuario_id
+                    ]
+                ]);
+                //error_log("Sensor añadido exitosamente: " . print_r($data, true));
+                logMessage("Datos a insertar : " . json_encode($data, true));
+
+            } else {
+                $errorMsg = $resultado['error'] ?? 'Error desconocido en la inserción del sensor.';
+                echo json_encode(['success' => false, 'error' => $errorMsg]);
+                error_log("Error en la inserción del sensor: " . $errorMsg);
+                logMessage("del else: " . json_encode($errorMsg));
+            }
+        } else {
+            // Responder con error si los datos son incompletos
+            echo json_encode(['success' => false, 'error' => 'Datos incompletos para insertar el sensor.']);
+            error_log("Error: Datos incompletos recibidos para insertar_sensor. Datos: " . json_encode($data));
+        }
+        break;
+        
+        
+
     default:
         logMessage("Error: Acción no válida: $action");
         echo json_encode(['success' => false, 'error' => 'Acción no válida.']);

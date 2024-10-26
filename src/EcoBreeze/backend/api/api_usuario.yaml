@@ -139,6 +139,50 @@ paths:
           description: No se encontró el usuario.
         '5XX':
           description: Error del servidor.
+  /insertar_sensor:
+    post:
+      summary: Inserta un nuevo sensor
+      tags:
+        - Sensores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                MAC:
+                  type: string
+                  description: Dirección MAC del sensor
+                usuario_id:
+                  type: integer
+                  description: ID del usuario asociado al sensor
+              required:
+                - MAC
+                - usuario_id
+      responses:
+        '200':
+          description: Sensor añadido exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  sensor:
+                    type: object
+                    properties:
+                      MAC:
+                        type: string
+                      usuario_id:
+                        type: integer
+        '400':
+          description: Datos incompletos para insertar el sensor.
+        '5XX':
+          description: Error del servidor.
 components:
   schemas:
     Usuario:
