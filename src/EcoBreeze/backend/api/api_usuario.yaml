@@ -183,6 +183,45 @@ paths:
           description: Datos incompletos para insertar el sensor.
         '5XX':
           description: Error del servidor.
+  /actualizar_contrasena:
+    post:
+      summary: Actualiza la contraseña de un usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_id:
+                  type: integer
+                  description: ID del usuario cuya contraseña se va a actualizar
+                nueva_contrasena:
+                  type: string
+                  description: Nueva contraseña para el usuario
+              required:
+                - usuario_id
+                - nueva_contrasena
+      responses:
+        '200':
+          description: Contraseña actualizada con éxito
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '400':
+          description: ID de usuario y nueva contraseña son obligatorios.
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
 components:
   schemas:
     Usuario:

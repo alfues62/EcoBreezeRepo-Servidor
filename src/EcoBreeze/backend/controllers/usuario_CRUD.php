@@ -135,6 +135,25 @@ public function emailExistente($email) {
     }
 }
 
+public function actualizarContrasena($usuario_id, $nueva_contrasena) {
+    try {
+        $query = "UPDATE USUARIO SET ContrasenaHash = :nueva_contrasena WHERE ID = :usuario_id";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bindParam(':nueva_contrasena', $nueva_contrasena);
+        $stmt->bindParam(':usuario_id', $usuario_id);
+        
+        if ($stmt->execute()) {
+            return ['success' => true];
+        } else {
+            // Retorna un mensaje de error si no se pudo ejecutar la consulta
+            return ['success' => false, 'error' => 'No se pudo ejecutar la consulta.'];
+        }
+    } catch (PDOException $e) {
+        // Captura excepciones y retorna un mensaje de error
+        return ['success' => false, 'error' => 'Error en la base de datos: ' . $e->getMessage()];
+    }
+}
+
 public function insertarSensor($data) {
     try {
         $stmt = $this->conn->prepare("INSERT INTO sensores (MAC, USUARIO_ID) VALUES (:MAC, :USUARIO_ID)");
