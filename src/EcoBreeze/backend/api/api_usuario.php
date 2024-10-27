@@ -136,31 +136,6 @@ switch ($action) {
             // Verifica si usuarioID y mac son proporcionados
             if ($usuarioID && $mac) {
                 $resultado = $usuariosCRUD->insertarSensor($usuarioID, $mac);
-    case 'actualizar_contrasena':
-        $usuario_id = $requestData['usuario_id'] ?? null;
-        $nueva_contrasena = $requestData['nueva_contrasena'] ?? null;
-
-        if ($usuario_id && $nueva_contrasena) {
-            // Hashear la nueva contraseña
-            $nueva_contrasena_hash = password_hash($nueva_contrasena, PASSWORD_BCRYPT);
-            
-            // Llamar al método de actualizar contraseña
-            $resultado = $usuariosCRUD->actualizarContrasena($usuario_id, $nueva_contrasena_hash);
-            
-            if ($resultado['success']) {
-                echo json_encode(['success' => true, 'message' => 'Contraseña actualizada con éxito.']);
-            } else {
-                echo json_encode(['success' => false, 'error' => $resultado['error']]);
-            }
-        } else {
-            echo json_encode(['success' => false, 'error' => 'ID de usuario y nueva contraseña son obligatorios.']);
-        }
-        break;
-   
-
-    case 'insertar_sensor':
-        // Obtener los datos del cuerpo de la solicitud
-        $requestData = json_decode(file_get_contents('php://input'), true);
         
                 // Maneja el resultado de la inserción
                 if (isset($resultado['success'])) {

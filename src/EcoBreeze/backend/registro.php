@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Intenta realizar la solicitud
         try {
             $data = [
-                'action' => 'insertar_sensor',
+                'action' => 'registrar',
                 'nombre' => $nombre,
                 'apellidos' => $apellidos,
                 'email' => $email,
