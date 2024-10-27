@@ -148,6 +148,4 @@ public function insertarSensor($usuarioID, $mac) {
         return ['error' => 'Error al insertar el sensor'];
     }
 }
-
-}
 ?>
