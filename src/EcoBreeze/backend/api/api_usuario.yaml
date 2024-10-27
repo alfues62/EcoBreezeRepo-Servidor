@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: API USUARIO
-  description: API para lectura, escritura, eliminación y edición de datos de usuarios.
+  description: API para lectura, escritura, eliminación y edición de datos de usuarios y sensores.
   version: 1.0.0
 servers:
   - url: http://localhost/ECOBREEZE/usuarios
@@ -50,9 +50,10 @@ paths:
           description: No se encontró el usuario.
         '5XX':
           description: Error del servidor.
-  /insertar:
+
+  /registrar:
     post:
-      summary: Crea un nuevo usuario
+      summary: Registra un nuevo usuario
       tags:
         - Usuarios
       requestBody:
@@ -68,9 +69,7 @@ paths:
                   type: string
                 email:
                   type: string
-                contrasenaHash:
-                  type: string
-                tfa_secret:
+                contrasena:
                   type: string
                 rol_rolid:
                   type: integer
@@ -78,13 +77,62 @@ paths:
                 - nombre
                 - apellidos
                 - email
-                - contrasenaHash
-                - rol_rolid
+                - contrasena
       responses:
         '200':
-          description: OK
+          description: Usuario registrado con éxito.
+        '400':
+          description: Error de validación, campos obligatorios no proporcionados o email en uso.
         '5XX':
           description: Error del servidor.
+
+  /iniciar_sesion:
+    post:
+      summary: Inicia sesión de un usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                contrasena:
+                  type: string
+              required:
+                - email
+                - contrasena
+      responses:
+        '200':
+          description: Inicio de sesión exitoso.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  usuario_id:
+                    type: integer
+                  usuario:
+                    type: object
+                    properties:
+                      ID:
+                        type: integer
+                      Nombre:
+                        type: string
+                      Rol:
+                        type: string
+        '401':
+          description: Credenciales inválidas.
+        '5XX':
+          description: Error del servidor.
+
   /editar:
     put:
       summary: Modifica los datos de un usuario
@@ -120,6 +168,7 @@ paths:
           description: No se encontró el usuario.
         '5XX':
           description: Error del servidor.
+
   /borrar/{id}:
     delete:
       summary: Elimina un usuario
@@ -139,6 +188,111 @@ paths:
           description: No se encontró el usuario.
         '5XX':
           description: Error del servidor.
+
+  /insertar_sensor:
+    post:
+      summary: Inserta un nuevo sensor
+      tags:
+        - Sensores
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_id:
+                  type: integer
+                mac:
+                  type: string
+              required:
+                - usuario_id
+                - mac
+      responses:
+        '200':
+          description: Sensor insertado con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+        '400':
+          description: Usuario ID y MAC son obligatorios.
+        '5XX':
+          description: Error del servidor.
+
+  /cambiar_contrasena:
+    put:
+      summary: Cambia la contraseña de un usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: ID del usuario que desea cambiar la contraseña
+                contrasena_actual:
+                  type: string
+                  description: Contraseña actual del usuario para verificación
+                nueva_contrasena:
+                  type: string
+                  description: Nueva contraseña que se desea establecer
+              required:
+                - id
+                - contrasena_actual
+                - nueva_contrasena
+      responses:
+        '200':
+          description: Contraseña cambiada con éxito.
+        '400':
+          description: ID de usuario, contraseña actual y nueva contraseña son obligatorios.
+        '401':
+          description: Contraseña actual incorrecta.
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
+
+  /obtener_datos_usuario:
+    get:
+      summary: Obtiene los datos básicos de un usuario por ID
+      tags:
+        - Usuarios
+      parameters:
+        - in: query
+          name: id
+          schema:
+            type: integer
+          required: true
+          description: ID del usuario
+      responses:
+        '200':
+          description: Datos del usuario obtenidos con éxito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  usuario:
+                    $ref: '#/components/schemas/Usuario'
+        '404':
+          description: No se encontró el usuario.
+        '400':
+          description: ID de usuario es obligatorio.
+        '5XX':
+          description: Error del servidor.
+
 components:
   schemas:
     Usuario:
