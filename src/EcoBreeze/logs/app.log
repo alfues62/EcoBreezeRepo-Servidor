@@ -49,3 +49,85 @@ Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 2024-10-27 21:32:27 - Error: Acción no válida: 
 2024-10-27 21:43:35 - Error: Acción no válida: 
 2024-10-27 21:44:09 - Error: Acción no válida: 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
+
+    // Sanitiza y prepara los datos de entrada
+    $nombre = filter_var(trim($_POST['nombre'] ?? ''));
+    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''));
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+    $contrasena = trim($_POST['contrasena'] ?? '');
+    $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
+
+    // Validar que las contraseñas coincidan
+    if ($contrasena !== $contrasena_confirmar) {
+        $error_message = 'Las contraseñas no coinciden.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+        $error_message = 'El nombre solo puede contener letras y espacios.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
+        $error_message = 'Los apellidos solo pueden contener letras y espacios.';
+    } else {
+        // Intenta realizar la solicitud
+        try {
+            $data = [
+                'action' => 'registrar',
+                'nombre' => $nombre,
+                'apellidos' => $apellidos,
+                'email' => $email,
+                'contrasena' => $contrasena,
+            ]; Modifica para que en lugar de estar en data este en la url2024-10-27 23:09:31 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:15 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:18 - {"action":"obtener_datos_usuario","email":"yaekitsune2207@gmail.com"}
+2024-10-27 23:15:18 - Error al obtener datos del usuario: {"success":false,"error":"No se encontr\u00f3 el usuario."}
+2024-10-27 23:15:21 - {"action":"obtener_datos_usuario","email":"yaekitsune2207@gmail.com"}
+2024-10-27 23:15:21 - Error al obtener datos del usuario: {"success":false,"error":"No se encontr\u00f3 el usuario."}
+2024-10-27 23:15:23 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:35 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:41 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","nueva_contrasena":"123456"}
+2024-10-27 23:16:17 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","nueva_contrasena":"1234"}
+2024-10-27 23:27:13 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","contrasena_actual":"123456","nueva_contrasena":"12345"}
+2024-10-27 23:27:13 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-27 23:27:23 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-27 23:43:57 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:45:09 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:45:10 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:57:30 - Error: Error al decodificar JSON: Syntax error
+2024-10-27 23:59:03 - Error: Error al decodificar JSON: Syntax error
+2024-10-27 23:59:11 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <br />
+<b>Warning</b>:  Undefined array key "ID" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>82</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "Nombre" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>83</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>84</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":null,"Nombre":null,"Rol":null}}
+2024-10-28 00:00:35 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+Respuesta de la API: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":3,"Nombre":"jaimito","Rol":2}}
+2024-10-28 00:02:29 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"123456"}
+2024-10-28 00:02:37 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"123456"}
+Respuesta de la API: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+Respuesta de la API: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":3,"Nombre":"jaimito","Rol":2}}
+2024-10-28 00:09:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:09:24 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-28 00:09:24 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:10:31 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:14:39 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:14:54 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-28 00:14:54 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:15:02 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"as","nueva_contrasena":"asd"}
+2024-10-28 00:15:02 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-28 00:15:02 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:15:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:16:27 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:24 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:26 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:33 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:19:07 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:19:12 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"asd","nueva_contrasena":"asd"}
+2024-10-28 00:19:12 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-28 00:19:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:32:18 - {"action":"obtener_datos_usuario","id":7}
+2024-10-28 00:32:21 - {"action":"obtener_datos_usuario","id":7}

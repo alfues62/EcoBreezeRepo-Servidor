@@ -5,38 +5,33 @@ session_start();
 date_default_timezone_set('Europe/Madrid');
 $logFile = '/var/www/html/logs/app.log';
 
+// Redirige al usuario si ya está autenticado
+if (isset($_SESSION['usuario_id'])) {
+    header("Location: dashboard.php");
+    exit;
+}
+
+// Variables para los mensajes de error
 $error_message = '';
-$success_message = '';
 
 // Verifica si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = 'http://host.docker.internal:8080/api/api_usuario.php';
 
-    // Sanitiza y prepara los datos de entrada
-    $nombre = filter_var(trim($_POST['nombre'] ?? ''));
-    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''));
+    // Sanitiza y valida el email
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-    $contrasena = trim($_POST['contrasena'] ?? '');
-    $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
-
-    // Validar que las contraseñas coincidan
-    if ($contrasena !== $contrasena_confirmar) {
-        $error_message = 'Las contraseñas no coinciden.';
-    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
-        $error_message = 'El nombre solo puede contener letras y espacios.';
-    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
-        $error_message = 'Los apellidos solo pueden contener letras y espacios.';
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $error_message = 'Correo electrónico no válido.';
     } else {
+        $contrasena = trim($_POST['contrasena'] ?? '');
+        $data = [
+            'action' => 'iniciar_sesion',
+            'email' => $email,
+            'contrasena' => $contrasena
+        ];
+
         // Intenta realizar la solicitud
         try {
-            $data = [
-                'action' => 'registrar',
-                'nombre' => $nombre,
-                'apellidos' => $apellidos,
-                'email' => $email,
-                'contrasena' => $contrasena,
-            ];
-
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
@@ -52,22 +47,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Decodificar la respuesta JSON
             $result = json_decode($response, true);
-
-            // Verificar errores de decodificación JSON
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
             }
 
             // Maneja la respuesta de la API
             if (isset($result['success']) && $result['success']) {
-                $success_message = htmlspecialchars($result['message'] ?? 'Usuario registrado con éxito.');
+                $_SESSION['usuario_id'] = $result['usuario']['ID']; // Asegúrate de que la API devuelve 'ID'
+                $_SESSION['nombre'] = $result['usuario']['Nombre'];
+                $_SESSION['rol'] = $result['usuario']['Rol'];
+
+                // Redirige a dashboard
+                header('Location: dashboard.php');
+                exit();
             } else {
+                // Establece el mensaje de error según la respuesta de la API
                 $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
             }
 
         } catch (Exception $e) {
+            // Registra el error en el archivo de log
             $timestamp = date('Y-m-d H:i:s');
             file_put_contents($logFile, "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
+
+            // Establece un mensaje de error genérico para el usuario
             $error_message = 'Ocurrió un error en el servidor. Inténtalo más tarde.';
         }
     }
@@ -79,78 +82,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
+    <title>Inicio de Sesión</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Registro de Usuario</h1>
+    <div class="container mt-5">
+        <h1>Iniciar Sesión</h1>
 
         <form action="" method="POST">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" name="apellidos" id="apellidos" class="form-control" required>
-            </div>
-
             <div class="form-group">
                 <label for="email">Correo electrónico:</label>
                 <input type="email" name="email" id="email" class="form-control" required>
             </div>
-            
             <div class="form-group">
                 <label for="contrasena">Contraseña:</label>
                 <input type="password" name="contrasena" id="contrasena" class="form-control" required>
             </div>
-
-            <div class="form-group">
-                <label for="contrasena_confirmar">Confirmar Contraseña:</label>
-                <input type="password" name="contrasena_confirmar" id="contrasena_confirmar" class="form-control" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Registrar</button>
-            <a href="index.php" class="btn btn-secondary">Ir a Inicio</a> <!-- Botón agregado aquí -->
+            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         </form>
 
-        <?php if ($error_message): ?>
-            <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-
-        <!-- Modal para registro exitoso -->
-        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <!-- Modal para mostrar errores -->
+        <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
+                        <h5 class="modal-title" id="errorModalLabel">Error</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php echo $success_message; ?>
+                        <?php if ($error_message): ?>
+                            <p><?php echo $error_message; ?></p>
+                        <?php endif; ?>
                     </div>
                     <div class="modal-footer">
-                        <a href="login.php" class="btn btn-secondary">Ir a Login</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Scripts de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Mostrar el modal si hay un mensaje de error -->
     <script>
-        $(document).ready(function() {
-            <?php if ($success_message): ?>
-                $('#successModal').modal('show');
-            <?php endif; ?>
-        });
+        <?php if ($error_message): ?>
+            $(document).ready(function() {
+                $('#errorModal').modal('show');
+            });
+        <?php endif; ?>
     </script>
 </body>
 </html>

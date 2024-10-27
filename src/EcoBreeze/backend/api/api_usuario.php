@@ -63,32 +63,34 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
         }
         break;
-
-    case 'iniciar_sesion':
-        $email = $requestData['email'] ?? null;
-        $contrasena = $requestData['contrasena'] ?? null;
-
-        if ($email && $contrasena) {
-            $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
-
-            if (isset($usuario['error'])) {
-                echo json_encode(['success' => false, 'error' => $usuario['error']]);
+        case 'iniciar_sesion':
+            $email = $requestData['email'] ?? null;
+            $contrasena = $requestData['contrasena'] ?? null;
+        
+            if ($email && $contrasena) {
+                $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
+        
+                if (isset($usuario['error'])) {
+                    echo json_encode(['success' => false, 'error' => $usuario['error']]);
+                } elseif ($usuario['success']) {
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Inicio de sesión exitoso.',
+                        'usuario' => [
+                            'ID' => $usuario['data']['ID'],
+                            'Nombre' => $usuario['data']['Nombre'],
+                            'Rol' => $usuario['data']['Rol']
+                        ]
+                    ]);
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
+                }
             } else {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Inicio de sesión exitoso.',
-                    'usuario_id' => $usuario['ID'], 
-                    'usuario' => [
-                        'ID' => $usuario['ID'],
-                        'Nombre' => $usuario['Nombre'],
-                        'Rol' => $usuario['Rol']
-                    ]
-                ]);
+                echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
             }
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
-        }
-        break;
+            break;
+        
+        
 
     case 'leer':
         $id = $requestData['id'] ?? null;
@@ -132,6 +134,8 @@ switch ($action) {
         case 'insertar_sensor':
             $usuarioID = $requestData['usuario_id'] ?? null; // Obtener usuario ID del request
             $mac = $requestData['mac'] ?? null; // Obtener MAC del request
+
+            logMessage(json_encode($requestData));
         
             // Verifica si usuarioID y mac son proporcionados
             if ($usuarioID && $mac) {
@@ -148,6 +152,54 @@ switch ($action) {
                 echo json_encode(['success' => false, 'error' => 'Usuario ID y MAC son obligatorios.']);
             }
             break;
+
+            case 'obtener_datos_usuario':
+                $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
+            
+                logMessage(json_encode($requestData));
+            
+                // Verifica si se proporciona el ID del usuario
+                if ($id) {
+                    $resultado = $usuariosCRUD->obtenerDatosUsuarioPorID($id);
+            
+                    // Maneja el resultado de la obtención de datos
+                    if (isset($resultado['success']) && $resultado['success']) {
+                        echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
+                    } else {
+                        logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
+                        echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
+                    }
+                } else {
+                    echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
+                }
+                break;
+            
+
+                case 'cambiar_contrasena':
+                    $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
+                    $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
+                    $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
+                
+                    logMessage(json_encode($requestData));
+                
+                    // Verifica si se proporciona el ID del usuario, la contraseña actual y la nueva contraseña
+                    if ($id && $contrasenaActual && $nuevaContrasena) {
+                        $resultado = $usuariosCRUD->cambiarContrasenaPorID($id, $contrasenaActual, $nuevaContrasena);
+                
+                        // Maneja el resultado de la actualización de la contraseña
+                        if (isset($resultado['success']) && $resultado['success']) {
+                            echo json_encode(['success' => true, 'message' => $resultado['message']]);
+                        } else {
+                            logMessage("Error al cambiar contraseña: " . json_encode($resultado));
+                            echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar la contraseña.']);
+                        }
+                    } else {
+                        echo json_encode(['success' => false, 'error' => 'El ID del usuario, la contraseña actual y la nueva contraseña son obligatorios.']);
+                    }
+                    break;
+                
+
+                
         
 
     default:
