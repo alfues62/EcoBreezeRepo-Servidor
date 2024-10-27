@@ -1,15 +1,52 @@
 openapi: 3.0.3
 info:
-  title: API USUARIO
-  description: API para lectura, escritura, eliminación y edición de datos de usuarios.
+  title: API ECOBREEZE
+  description: API para lectura, escritura, eliminación y edición de datos.
   version: 1.0.0
 servers:
-  - url: http://localhost/ECOBREEZE/usuarios
+  - url: http://localhost/ECOBREEZE
     description: 'Servidor de desarrollo'
 paths:
+  /asignar_sensor:
+    post:
+      summary: Asigna un nuevo sensor a un usuario
+      tags:
+        - Sensores
+      parameters:
+        - in: query
+          name: action
+          schema:
+            type: string
+          required: true
+          description: Acción a realizar, debe ser "insertar"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                MAC:
+                  type: string
+                  description: Dirección MAC única del sensor
+                USUARIO_ID:
+                  type: integer
+                  description: ID del usuario al que se asigna el sensor
+              required:
+                - MAC
+                - USUARIO_ID
+      responses:
+        '200':
+          description: Sensor registrado con éxito
+        '400':
+          description: Error en los datos proporcionados o el sensor ya existe
+        '404':
+          description: Usuario no encontrado
+        '5XX':
+          description: Error del servidor
   /leer:
     get:
-      summary: Obtiene los datos de usuarios filtrados por diferentes criterios
+      summary: Obtiene las mediciones filtradas por diferentes criterios (sin latitud ni longitud)
       tags:
         - Usuarios
       parameters:
@@ -18,25 +55,183 @@ paths:
           schema:
             type: integer
           required: false
-          description: ID numérico del usuario (opcional)
+          description: Id numérico de la medición (opcional)
         - in: query
-          name: nombre
+          name: fecha
+          schema:
+            type: string
+            format: date
+          required: false
+          description: Fecha de la medición (opcional)
+        - in: query
+          name: hora
+          schema:
+            type: string
+            format: time
+          required: false
+          description: Hora de la medición (opcional)
+        - in: query
+          name: tipogas_tipoid
+          schema:
+            type: integer
+          required: false
+          description: ID del tipo de gas (opcional)
+        - in: query
+          name: valor
+          schema:
+            type: number
+            format: float
+          required: false
+          description: Valor de la medición (opcional)
+        - in: query
+          name: sensor_id
+          schema:
+            type: integer
+          required: false
+          description: ID del sensor (opcional)
+        - in: query
+          name: categoria_umbral
           schema:
             type: string
           required: false
-          description: Nombre del usuario (opcional)
-        - in: query
-          name: apellidos
+          description: Categoría del umbral (opcional)
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MedicionSinLocalizacion'
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /insertar:
+    post:
+      summary: Crea una nueva medición
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
+                  type: integer
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
+                  type: integer
+              required:
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
+      responses:
+        '200':
+          description: OK
+        '5XX':
+          description: Error del servidor.
+  /editar:
+    put:
+      summary: Modifica el valor de una medición
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                IDMedicion:
+                  type: integer
+                Valor:
+                  type: number
+                  format: float
+                Lon:
+                  type: string
+                Lat:
+                  type: string
+                Fecha:
+                  type: string
+                  format: date
+                Hora:
+                  type: string
+                  format: time
+                TIPOGAS_TipoID:
+                  type: integer
+                SENSOR_ID_Sensor:
+                  type: integer
+                UMBRAL_ID:
+                  type: integer
+              required:
+                - IDMedicion
+                - Valor
+                - Lon
+                - Lat
+                - Fecha
+                - Hora
+                - TIPOGAS_TipoID
+                - SENSOR_ID_Sensor
+                - UMBRAL_ID
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /borrar/{id_medicion}:
+    delete:
+      summary: Elimina una medición
+      tags:
+        - Usuarios
+      parameters:
+        - in: path
+          name: id_medicion
           schema:
-            type: string
-          required: false
-          description: Apellidos del usuario (opcional)
-        - in: query
-          name: email
+            type: integer
+          required: true
+          description: Id numérico de la medición
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: No se encontró la medición.
+        '5XX':
+          description: Error del servidor.
+  /ruta/{sensor_id}:
+    get:
+      summary: Obtiene todas las mediciones de un sensor específico para análisis interno (con latitud y longitud)
+      tags:
+        - Interno
+      parameters:
+        - in: path
+          name: sensor_id
           schema:
-            type: string
-          required: false
-          description: Correo electrónico del usuario (opcional)
+            type: integer
+          required: true
+          description: ID del sensor
       responses:
         '200':
           description: OK
@@ -45,123 +240,70 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Usuario'
+                  $ref: '#/components/schemas/Medicion'
         '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-  /insertar:
-    post:
-      summary: Crea un nuevo usuario
-      tags:
-        - Usuarios
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                nombre:
-                  type: string
-                apellidos:
-                  type: string
-                email:
-                  type: string
-                contrasenaHash:
-                  type: string
-                tfa_secret:
-                  type: string
-                rol_rolid:
-                  type: integer
-              required:
-                - nombre
-                - apellidos
-                - email
-                - contrasenaHash
-                - rol_rolid
-      responses:
-        '200':
-          description: OK
-        '5XX':
-          description: Error del servidor.
-  /editar:
-    put:
-      summary: Modifica los datos de un usuario
-      tags:
-        - Usuarios
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                id:
-                  type: integer
-                nombre:
-                  type: string
-                apellidos:
-                  type: string
-                email:
-                  type: string
-                contrasenaHash:
-                  type: string
-                tfa_secret:
-                  type: string
-                rol_rolid:
-                  type: integer
-              required:
-                - id
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-  /borrar/{id}:
-    delete:
-      summary: Elimina un usuario
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-          description: ID numérico del usuario
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: No se encontró el usuario.
+          description: Sensor no encontrado.
         '5XX':
           description: Error del servidor.
 components:
   schemas:
-    Usuario:
+    Medicion:
       type: object
       properties:
-        id:
+        IDMedicion:
           type: integer
-          description: ID del usuario
-        nombre:
+          description: ID de la medición
+        Valor:
+          type: number
+          format: float
+          description: Valor de la medición
+        Lon:
           type: string
-          description: Nombre del usuario
-        apellidos:
+          description: Longitud
+        Lat:
           type: string
-          description: Apellidos del usuario
-        email:
+          description: Latitud
+        Fecha:
           type: string
-          description: Correo electrónico del usuario
-        contrasenaHash:
+          format: date
+          description: Fecha de la medición
+        Hora:
           type: string
-          description: Contraseña del usuario (almacenada como hash)
-        tfa_secret:
-          type: string
-          description: Secreto para la autenticación de dos factores
-        rol_rolid:
+          format: time
+          description: Hora de la medición
+        TIPOGAS_TipoID:
           type: integer
-          description: ID del rol del usuario en el sistema
+          description: ID del tipo de gas
+        SENSOR_ID_Sensor:
+          type: integer
+          description: ID del sensor
+        UMBRAL_ID:
+          type: integer
+          description: ID del umbral
+    MedicionSinLocalizacion:
+      type: object
+      properties:
+        IDMedicion:
+          type: integer
+          description: ID de la medición
+        Valor:
+          type: number
+          format: float
+          description: Valor de la medición
+        Fecha:
+          type: string
+          format: date
+          description: Fecha de la medición
+        Hora:
+          type: string
+          format: time
+          description: Hora de la medición
+        TIPOGAS_TipoID:
+          type: integer
+          description: ID del tipo de gas
+        SENSOR_ID_Sensor:
+          type: integer
+          description: ID del sensor
+        UMBRAL_ID:
+          type: integer
+          description: ID del umbral

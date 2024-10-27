@@ -135,5 +135,19 @@ public function emailExistente($email) {
     }
 }
 
+// Método para insertar un nuevo sensor
+public function insertarSensor($usuarioID, $mac) {
+    try {
+        $query = "INSERT INTO SENSOR (USUARIO_ID, MAC) VALUES (?, ?)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$usuarioID, $mac]);
+
+        return ['success' => 'Sensor insertado con éxito.'];
+    } catch (PDOException $e) {
+        error_log("Error en insertar sensor: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['error' => 'Error al insertar el sensor'];
+    }
+}
+
 }
 ?>

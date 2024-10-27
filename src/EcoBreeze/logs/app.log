@@ -23,3 +23,83 @@ Intento de inicio de sesión fallido: Contraseña incorrecta para alfues62@gmail
 2024-10-25 23:15:51 - Error: Error al decodificar JSON: Syntax error
 2024-10-25 23:15:56 - Error: Error al decodificar JSON: Syntax error
 Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+2024-10-26 02:15:42 - Error: Acción no válida: 
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:28:05 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:30:35 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:31:19 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:31:23 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-27 21:36:17 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:37:53 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:37:59 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:38:26 - Error: Error al decodificar JSON: Syntax error
+
+
+123412Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:38:41 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:38:58 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:40:04 - Error: Error al decodificar JSON: Syntax error

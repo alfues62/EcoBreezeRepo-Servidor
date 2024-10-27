@@ -5,12 +5,6 @@ session_start();
 date_default_timezone_set('Europe/Madrid');
 $logFile = '/var/www/html/logs/app.log';
 
-// Redirige al usuario si ya está autenticado
-if (isset($_SESSION['usuario_id'])) {
-    header("Location: dashboard.php");
-    exit;
-}
-
 // Variables para los mensajes de error
 $error_message = '';
 
@@ -18,13 +12,15 @@ $error_message = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $url = 'http://host.docker.internal:8080/api/api_usuario.php';
 
-    // Sanitiza y prepara los datos de entrada
-    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
-    $contrasena = trim($_POST['contrasena'] ?? '');
+    // Obtiene los datos del formulario
+    $usuario_id = $_POST['usuario_id'] ?? '';
+    $mac = $_POST['mac'] ?? '';
+
+    // Prepara los datos para la API
     $data = [
-        'action' => 'iniciar_sesion',
-        'email' => $email,
-        'contrasena' => $contrasena
+        'action' => 'insertar_sensor',
+        'usuario_id' => $usuario_id,
+        'mac' => $mac
     ];
 
     // Intenta realizar la solicitud
@@ -34,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    
+
         // Ejecuta la solicitud
         $response = curl_exec($ch);
         if (curl_errno($ch)) {
@@ -44,36 +40,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Decodificar la respuesta JSON
         $result = json_decode($response, true);
-    
+
         // Verificar errores de decodificación JSON
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
         }
-    
+
         // Maneja la respuesta de la API
         if (isset($result['success']) && $result['success']) {
-            // Guarda la información del usuario en la sesión
-            $_SESSION['usuario_id'] = $result['usuario']['ID'];
-            $_SESSION['nombre'] = $result['usuario']['Nombre'];
-            $_SESSION['rol'] = $result['usuario']['Rol'];
-    
-            header('Location: dashboard.php');
-            exit();
+            $success_message = htmlspecialchars($result['message']);
         } else {
             // Establece el mensaje de error según la respuesta de la API
             $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
         }
-    
+
     } catch (Exception $e) {
         // Registra el error en el archivo de log
         $timestamp = date('Y-m-d H:i:s');
         file_put_contents($logFile, "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
-    
+
         // Establece un mensaje de error genérico para el usuario
         $error_message = 'Ocurrió un error en el servidor. Inténtalo más tarde.';
     }
-    
-    
 }
 ?>
 
@@ -82,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio de Sesión</title>
+    <title>Insertar Sensor</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -114,52 +102,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </style>
 </head>
 <body>
-    <h1>Iniciar Sesión</h1>
+    <h1>Insertar Sensor</h1>
 
     <form action="" method="POST">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" name="email" id="email" class="form-control" required>
-        
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" name="contrasena" id="contrasena" class="form-control" required>
-        
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+        <div class="form-group">
+            <label for="usuario_id">ID de Usuario:</label>
+            <input type="number" name="usuario_id" id="usuario_id" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="mac">MAC:</label>
+            <input type="text" name="mac" id="mac" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Insertar Sensor</button>
     </form>
 
-    <!-- Modal para mostrar errores -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Error</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <?php if ($error_message): ?>
-                        <p><?php echo $error_message; ?></p>
-                    <?php endif; ?>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+    <?php if ($error_message): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo $error_message; ?>
         </div>
-    </div>
+    <?php endif; ?>
+
+    <?php if (isset($success_message)): ?>
+        <div class="alert alert-success" role="alert">
+            <?php echo $success_message; ?>
+        </div>
+    <?php endif; ?>
 
     <!-- Scripts de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <!-- Mostrar el modal si hay un mensaje de error -->
-    <script>
-        <?php if ($error_message): ?>
-            $(document).ready(function() {
-                $('#errorModal').modal('show');
-            });
-        <?php endif; ?>
-    </script>
 </body>
 </html>

@@ -56,6 +56,7 @@ switch ($action) {
             if ($resultado) {
                 echo json_encode(['success' => true, 'message' => 'Usuario registrado con éxito.']);
             } else {
+                logMessage("Error al registrar el usuario: " . json_encode($requestData));
                 echo json_encode(['success' => false, 'error' => 'Error al registrar el usuario.']);
             }
         } else {
@@ -68,10 +69,8 @@ switch ($action) {
         $contrasena = $requestData['contrasena'] ?? null;
 
         if ($email && $contrasena) {
-            // Llamar a verificarCredencialesCompleto para verificar email y contraseña
             $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
 
-            // Manejar la respuesta según el resultado de la verificación
             if (isset($usuario['error'])) {
                 echo json_encode(['success' => false, 'error' => $usuario['error']]);
             } else {
@@ -129,6 +128,27 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'ID de usuario es obligatorio.']);
         }
         break;
+
+        case 'insertar_sensor':
+            $usuarioID = $requestData['usuario_id'] ?? null; // Obtener usuario ID del request
+            $mac = $requestData['mac'] ?? null; // Obtener MAC del request
+        
+            // Verifica si usuarioID y mac son proporcionados
+            if ($usuarioID && $mac) {
+                $resultado = $usuariosCRUD->insertarSensor($usuarioID, $mac);
+        
+                // Maneja el resultado de la inserción
+                if (isset($resultado['success'])) {
+                    echo json_encode(['success' => true, 'message' => $resultado['success']]);
+                } else {
+                    logMessage("Error al insertar sensor: " . json_encode($resultado));
+                    echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al insertar el sensor.']);
+                }
+            } else {
+                echo json_encode(['success' => false, 'error' => 'Usuario ID y MAC son obligatorios.']);
+            }
+            break;
+        
 
     default:
         logMessage("Error: Acción no válida: $action");

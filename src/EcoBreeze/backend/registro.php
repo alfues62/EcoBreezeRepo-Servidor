@@ -10,7 +10,7 @@ $success_message = '';
 
 // Verifica si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $url = 'http://host.docker.internal:8080/api/api_usuario.php'; // Cambia aquí si es necesario
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
 
     // Sanitiza y prepara los datos de entrada
     $nombre = filter_var(trim($_POST['nombre'] ?? ''));
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Intenta realizar la solicitud
         try {
             $data = [
-                'action' => 'registrar',
+                'action' => 'insertar_sensor',
                 'nombre' => $nombre,
                 'apellidos' => $apellidos,
                 'email' => $email,
