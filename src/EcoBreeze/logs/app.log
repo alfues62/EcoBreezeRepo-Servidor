@@ -131,3 +131,41 @@ Respuesta de la API: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.",
 2024-10-28 00:19:12 - {"action":"obtener_datos_usuario","id":3}
 2024-10-28 00:32:18 - {"action":"obtener_datos_usuario","id":7}
 2024-10-28 00:32:21 - {"action":"obtener_datos_usuario","id":7}
+2024-10-28 12:32:36 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:44:18 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+2024-10-28 12:44:18 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:44:18 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 12:49:21 - {"action":"cambiar_contrasena","id":1,"contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-28 12:49:21 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:49:28 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:51:11 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 12:51:14 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 12:57:17 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:57:17 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 12:57:17 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:57:17 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:04:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:04:45 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:04:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:04:45 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:05:59 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:05:59 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:05:59 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:05:59 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:06:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:87","usuario_id":2}
+2024-10-28 13:07:22 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 13:08:34 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:45","usuario_id":3}
+2024-10-28 13:08:34 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:45","usuario_id":3}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:75:45' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:08:34 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:11:21 - {"action":"insertar_sensor","mac":"D1:05:CF:21:7A:86","usuario_id":4}
+2024-10-28 13:16:22 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 13:24:04 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 13:24:17 - {"action":"obtener_datos_usuario","id":1}
