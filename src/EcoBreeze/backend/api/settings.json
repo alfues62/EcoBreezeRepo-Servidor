@@ -9,9 +9,10 @@
             "server": "localhost",
             "port": 3306,
             "driver": "MySQL",
-            "name": "Docker",
-            "database": "DockerBBDD",
-            "username": "root"
+            "name": "ECOBREEZE",
+            "group": "ECOBREEZE",
+            "username": "root",
+            "database": "EcoBreeze"
         }
     ]
 }

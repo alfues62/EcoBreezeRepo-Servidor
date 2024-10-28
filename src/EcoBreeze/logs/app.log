@@ -1,0 +1,171 @@
+2024-10-25 22:51:53 - API Response: <br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>65</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":null}}
+2024-10-25 22:51:53 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 22:52:01 - API Response: <br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>65</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":null}}
+2024-10-25 22:52:01 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 22:58:54 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:01 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:08 - API Response: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario_id":1,"usuario":{"ID":1,"Nombre":"jaimito","Rol":2}}
+2024-10-25 22:59:14 - API Response: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+2024-10-25 22:59:22 - API Response: {"success":false,"error":"Correo no registrado"}
+2024-10-25 23:09:36 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:12:36 - Error: Error al decodificar JSON: Syntax error
+Intento de inicio de sesión fallido: Correo no registrado - elgrancorredelspammaster@gmail.com
+2024-10-25 23:12:46 - Error: Error al decodificar JSON: Syntax error
+Inicio de sesión exitoso: ID: 1, Nombre: jaimito
+Intento de inicio de sesión fallido: Contraseña incorrecta para alfues62@gmail.com
+2024-10-25 23:12:58 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:14:31 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:18 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:51 - Error: Error al decodificar JSON: Syntax error
+2024-10-25 23:15:56 - Error: Error al decodificar JSON: Syntax error
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+2024-10-26 02:15:42 - Error: Acción no válida: 
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:28:05 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:30:35 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:31:19 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+Error en insertar sensor: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ID' in 'field list'
+2024-10-27 21:31:23 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-27 21:36:17 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<hr>
+<address>Apache/2.4.62 (Debian) Server at host.docker.internal Port 8080</address>
+</body></html>
+
+2024-10-27 21:30:14 - Error: Acción no válida: 
+2024-10-27 21:32:27 - Error: Acción no válida: 
+2024-10-27 21:43:35 - Error: Acción no válida: 
+2024-10-27 21:44:09 - Error: Acción no válida: 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
+
+    // Sanitiza y prepara los datos de entrada
+    $nombre = filter_var(trim($_POST['nombre'] ?? ''));
+    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''));
+    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
+    $contrasena = trim($_POST['contrasena'] ?? '');
+    $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
+
+    // Validar que las contraseñas coincidan
+    if ($contrasena !== $contrasena_confirmar) {
+        $error_message = 'Las contraseñas no coinciden.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
+        $error_message = 'El nombre solo puede contener letras y espacios.';
+    } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
+        $error_message = 'Los apellidos solo pueden contener letras y espacios.';
+    } else {
+        // Intenta realizar la solicitud
+        try {
+            $data = [
+                'action' => 'registrar',
+                'nombre' => $nombre,
+                'apellidos' => $apellidos,
+                'email' => $email,
+                'contrasena' => $contrasena,
+            ]; Modifica para que en lugar de estar en data este en la url2024-10-27 23:09:31 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:15 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:18 - {"action":"obtener_datos_usuario","email":"yaekitsune2207@gmail.com"}
+2024-10-27 23:15:18 - Error al obtener datos del usuario: {"success":false,"error":"No se encontr\u00f3 el usuario."}
+2024-10-27 23:15:21 - {"action":"obtener_datos_usuario","email":"yaekitsune2207@gmail.com"}
+2024-10-27 23:15:21 - Error al obtener datos del usuario: {"success":false,"error":"No se encontr\u00f3 el usuario."}
+2024-10-27 23:15:23 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:35 - {"action":"obtener_datos_usuario","email":"alfues62@gmail.com"}
+2024-10-27 23:15:41 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","nueva_contrasena":"123456"}
+2024-10-27 23:16:17 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","nueva_contrasena":"1234"}
+2024-10-27 23:27:13 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","contrasena_actual":"123456","nueva_contrasena":"12345"}
+2024-10-27 23:27:13 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-27 23:27:23 - {"action":"cambiar_contrasena","email":"alfues62@gmail.com","contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-27 23:43:57 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:45:09 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:45:10 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-27 23:57:30 - Error: Error al decodificar JSON: Syntax error
+2024-10-27 23:59:03 - Error: Error al decodificar JSON: Syntax error
+2024-10-27 23:59:11 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: <br />
+<b>Warning</b>:  Undefined array key "ID" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>82</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "Nombre" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>83</b><br />
+<br />
+<b>Warning</b>:  Undefined array key "Rol" in <b>/var/www/html/backend/api/api_usuario.php</b> on line <b>84</b><br />
+{"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":null,"Nombre":null,"Rol":null}}
+2024-10-28 00:00:35 - Error: Error al decodificar JSON: Syntax error
+Respuesta de la API: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+Respuesta de la API: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":3,"Nombre":"jaimito","Rol":2}}
+2024-10-28 00:02:29 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"123456"}
+2024-10-28 00:02:37 - {"action":"cambiar_contrasena","id":null,"contrasena_actual":"123456","nueva_contrasena":"123456"}
+Respuesta de la API: {"success":false,"error":"Contrase\u00f1a incorrecta"}
+Respuesta de la API: {"success":true,"message":"Inicio de sesi\u00f3n exitoso.","usuario":{"ID":3,"Nombre":"jaimito","Rol":2}}
+2024-10-28 00:09:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:09:24 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"123456","nueva_contrasena":"1234"}
+2024-10-28 00:09:24 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:10:31 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:14:39 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:14:54 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-28 00:14:54 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:15:02 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"as","nueva_contrasena":"asd"}
+2024-10-28 00:15:02 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-28 00:15:02 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:15:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:16:27 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:24 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:26 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:17:33 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:19:07 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:19:12 - {"action":"cambiar_contrasena","id":3,"contrasena_actual":"asd","nueva_contrasena":"asd"}
+2024-10-28 00:19:12 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-10-28 00:19:12 - {"action":"obtener_datos_usuario","id":3}
+2024-10-28 00:32:18 - {"action":"obtener_datos_usuario","id":7}
+2024-10-28 00:32:21 - {"action":"obtener_datos_usuario","id":7}
+2024-10-28 12:32:36 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:44:18 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+2024-10-28 12:44:18 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:44:18 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 12:49:21 - {"action":"cambiar_contrasena","id":1,"contrasena_actual":"1234","nueva_contrasena":"123456"}
+2024-10-28 12:49:21 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:49:28 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 12:51:11 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 12:51:14 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 12:57:17 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:57:17 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 12:57:17 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":1}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 12:57:17 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:04:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:04:45 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:04:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:04:45 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:05:59 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:05:59 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:05:59 - {"action":"insertar_sensor","mac":"D1:04:CF:20:79:85","usuario_id":2}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:79:85' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:05:59 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:06:45 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:87","usuario_id":2}
+2024-10-28 13:07:22 - {"action":"obtener_datos_usuario","id":2}
+2024-10-28 13:08:34 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:45","usuario_id":3}
+2024-10-28 13:08:34 - {"action":"insertar_sensor","mac":"D1:04:CF:20:75:45","usuario_id":3}
+Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'D1:04:CF:20:75:45' for key 'SENSOR.MAC_UNIQUE'
+2024-10-28 13:08:34 - Error al insertar sensor: {"error":"Error al insertar el sensor"}
+2024-10-28 13:11:21 - {"action":"insertar_sensor","mac":"D1:05:CF:21:7A:86","usuario_id":4}
+2024-10-28 13:16:22 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 13:24:04 - {"action":"obtener_datos_usuario","id":1}
+2024-10-28 13:24:17 - {"action":"obtener_datos_usuario","id":1}
