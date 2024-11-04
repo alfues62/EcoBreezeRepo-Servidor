@@ -14,11 +14,7 @@ Para poder usar este repositorio deberás seguir estos pasos:
     
     Una vez ejecutados estos comandos se habrá creado y activado un container de docker llamado "biometria", y una vez activo podemos acceder a la página.
 
-    3. En cualquier visualizador de bases de datos SQL, por ejemplo MySQLWorkbench, crear una nueva conexion en la que se usen los siguientes parametros:
-        - Hostname: localhost
-        - Puerto: 3306
-        - Username: root
-        - Password: 123456
+    3. En cualquier visualizador de bases de datos SQL, por ejemplo MySQLWorkbench, crear una nueva conexion.
 
     4. Una vez hecha la conexion, ejecutar el codigo: 
 
@@ -56,3 +52,5 @@ MySQL
     );
 
     SELECT * FROM acciones;
+
+### Version Inicio Sprint 2
