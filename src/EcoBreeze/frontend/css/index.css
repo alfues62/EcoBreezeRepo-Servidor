@@ -1,0 +1,20 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa;
+}
+
+.landing-container {
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 30px
+}
+
+.btn {
+    margin: 10px;
+    width: 200px;
+}
