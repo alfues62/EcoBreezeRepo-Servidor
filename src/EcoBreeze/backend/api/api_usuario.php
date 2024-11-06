@@ -20,13 +20,16 @@ function logMessage($message) {
     file_put_contents($logFile, date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL, FILE_APPEND);
 }
 
-// Decodificar la solicitud JSON
+// Obtener el valor de 'action' desde la URL usando $_GET
+$action = $_GET['action'] ?? null;
+
+// Decodificar el cuerpo JSON para obtener otros parámetros
 $requestData = json_decode(file_get_contents('php://input'), true);
-$action = $requestData['action'] ?? null;
 
 // Manejar las acciones según el valor de 'action'
 switch ($action) {
     case 'registrar':
+        // Validar y procesar la acción de registro
         $nombre = $requestData['nombre'] ?? null;
         $apellidos = $requestData['apellidos'] ?? null;
         $email = $requestData['email'] ?? null;
@@ -63,34 +66,33 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
         }
         break;
-        case 'iniciar_sesion':
-            $email = $requestData['email'] ?? null;
-            $contrasena = $requestData['contrasena'] ?? null;
-        
-            if ($email && $contrasena) {
-                $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
-        
-                if (isset($usuario['error'])) {
-                    echo json_encode(['success' => false, 'error' => $usuario['error']]);
-                } elseif ($usuario['success']) {
-                    echo json_encode([
-                        'success' => true,
-                        'message' => 'Inicio de sesión exitoso.',
-                        'usuario' => [
-                            'ID' => $usuario['data']['ID'],
-                            'Nombre' => $usuario['data']['Nombre'],
-                            'Rol' => $usuario['data']['Rol']
-                        ]
-                    ]);
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
-                }
+
+    case 'iniciar_sesion':
+        $email = $requestData['email'] ?? null;
+        $contrasena = $requestData['contrasena'] ?? null;
+    
+        if ($email && $contrasena) {
+            $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
+    
+            if (isset($usuario['error'])) {
+                echo json_encode(['success' => false, 'error' => $usuario['error']]);
+            } elseif ($usuario['success']) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => 'Inicio de sesión exitoso.',
+                    'usuario' => [
+                        'ID' => $usuario['data']['ID'],
+                        'Nombre' => $usuario['data']['Nombre'],
+                        'Rol' => $usuario['data']['Rol']
+                    ]
+                ]);
             } else {
-                echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+                echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
             }
-            break;
-        
-        
+        } else {
+            echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+        }
+        break;
 
     case 'leer':
         $id = $requestData['id'] ?? null;

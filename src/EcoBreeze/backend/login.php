@@ -13,10 +13,10 @@ if (isset($_SESSION['usuario_id'])) {
 
 // Variables para los mensajes de error
 $error_message = '';
-
 // Verifica si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
+    // Mantén el parámetro 'action' en la URL
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=iniciar_sesion';  
 
     // Sanitiza y valida el email
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
@@ -24,19 +24,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = 'Correo electrónico no válido.';
     } else {
         $contrasena = trim($_POST['contrasena'] ?? '');
-        $data = [
-            'action' => 'iniciar_sesion',
+
+        // Datos a enviar en formato JSON
+        $data = json_encode([
             'email' => $email,
             'contrasena' => $contrasena
-        ];
+        ]);
 
-        // Intenta realizar la solicitud
+        // Realiza la solicitud POST
         try {
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_POST, true);  // Usar POST en lugar de GET
+
+            // Configura los encabezados para enviar los datos como JSON
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',  // Indica que se está enviando JSON
+                'Content-Length: ' . strlen($data)
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);  // Enviar los datos en formato JSON
 
             // Ejecuta la solicitud
             $response = curl_exec($ch);
@@ -76,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
