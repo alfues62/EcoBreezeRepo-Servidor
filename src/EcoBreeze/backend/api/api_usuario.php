@@ -155,26 +155,31 @@ switch ($action) {
             }
             break;
 
-            case 'obtener_datos_usuario':
-                $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
+                case 'obtener_datos_usuario':
+                    $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
             
-                logMessage(json_encode($requestData));
+                    // Registra en el log
+                    logMessage(json_encode($requestData));
             
-                // Verifica si se proporciona el ID del usuario
-                if ($id) {
-                    $resultado = $usuariosCRUD->obtenerDatosUsuarioPorID($id);
+                    // Verifica si se proporciona el ID del usuario
+                    if ($id) {
+                        // Llama al CRUD para obtener los datos del usuario
+                        $resultado = $usuariosCRUD->obtenerDatosUsuarioPorID($id);
             
-                    // Maneja el resultado de la obtención de datos
-                    if (isset($resultado['success']) && $resultado['success']) {
-                        echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
+                        // Maneja el resultado de la obtención de datos
+                        if (isset($resultado['success']) && $resultado['success']) {
+                            // Si la consulta fue exitosa, devuelve los datos del usuario
+                            echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
+                        } else {
+                            // Si hay algún error, lo registra y devuelve un mensaje de error
+                            logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
+                            echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
+                        }
                     } else {
-                        logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
-                        echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
+                        // Si no se proporciona el ID, devuelve un error
+                        echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
                     }
-                } else {
-                    echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
-                }
-                break;
+                    break;
             
 
                 case 'cambiar_contrasena':

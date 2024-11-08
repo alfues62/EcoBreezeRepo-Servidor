@@ -176,3 +176,5 @@ Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 
 2024-11-06 22:48:52 - Error: Acción no válida: 
 2024-11-06 22:49:25 - Error: Acción no válida: 
 2024-11-07 00:28:15 - Error: Acción no válida: 
+2024-11-07 00:42:08 - {"id":"1"}
+2024-11-07 00:42:32 - {"id":"1"}

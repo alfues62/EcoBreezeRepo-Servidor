@@ -76,30 +76,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error_message = 'Las nuevas contraseñas no coinciden.';
     }
 }
-
-// Obtiene los datos del usuario al cargar la página
+// Asegúrate de que el usuario esté autenticado
 if (isset($_SESSION['usuario_id'])) {
-    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
-    $id = $_SESSION['usuario_id']; // Asegúrate de que el ID del usuario se obtiene de la sesión
+    // Obtener el ID del usuario desde la sesión
+    $id = $_SESSION['usuario_id']; 
 
-    // Preparar la solicitud para obtener los datos del usuario
+    // Preparar la URL para la API, incluyendo el parámetro 'action' en la URL
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=obtener_datos_usuario';
+
+    // Preparar los datos a enviar (el ID será enviado en el cuerpo de la solicitud)
     $data = [
-        'action' => 'obtener_datos_usuario',
         'id' => $id
     ];
 
     try {
+        // Inicializar cURL
         $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
 
-        // Ejecuta la solicitud
+        // Configurar opciones de cURL para POST
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_POST, true); // Usar método POST
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data)); // Enviar los datos como JSON en el cuerpo
+
+        // Ejecutar la solicitud
         $response = curl_exec($ch);
+
+        // Verificar si hubo un error en la ejecución de cURL
         if (curl_errno($ch)) {
             throw new Exception('CURL Error: ' . curl_error($ch));
         }
+
+        // Cerrar la sesión cURL
         curl_close($ch);
 
         // Decodificar la respuesta JSON
@@ -110,20 +118,20 @@ if (isset($_SESSION['usuario_id'])) {
             throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
         }
 
-        // Maneja la respuesta de la API
+        // Manejar la respuesta de la API
         if (isset($result['success']) && $result['success']) {
-            $usuario = $result['usuario'];
+            $usuario = $result['usuario'];  // Obtener los datos del usuario
         } else {
-            // Establece el mensaje de error según la respuesta de la API
+            // Establecer el mensaje de error en caso de que la API falle
             $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
         }
 
     } catch (Exception $e) {
-        // Registra el error en el archivo de log
+        // Registrar el error en un archivo de log
         $timestamp = date('Y-m-d H:i:s');
-        file_put_contents($logFile, "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
+        file_put_contents('/var/www/html/logs/app.log', "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
 
-        // Establece un mensaje de error genérico para el usuario
+        // Establecer un mensaje de error genérico para el usuario
         $error_message = 'Ocurrió un error en el servidor. Inténtalo más tarde.';
     }
 } else {
