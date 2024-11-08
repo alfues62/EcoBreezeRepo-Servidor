@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['rol'] = $result['usuario']['Rol'];
 
                 // Redirige a dashboard
-                header('Location: dashboard.php');
+                header('Location: pagina_usuario.php');
                 exit();
             } else {
                 // Establece el mensaje de error según la respuesta de la API
