@@ -19,7 +19,7 @@
         <input type="password" name="contrasena" id="contrasena" class="form-control" required>
         
         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='index.php'">Volver al Inicio</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='../index.php'">Volver al Inicio</button>
     </form>
 
     <!-- Modal para mostrar errores -->

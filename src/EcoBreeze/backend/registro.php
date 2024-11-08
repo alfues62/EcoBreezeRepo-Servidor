@@ -1,64 +1,73 @@
 <?php
-session_start();
-
-// Configura la zona horaria y el archivo de log
 date_default_timezone_set('Europe/Madrid');
-$logFile = '/var/www/html/logs/app.log';
+$logFile = '/var/www/html/logs/app.log';  // Archivo para registrar los errores
 
-$error_message = '';
+// Inicializamos las variables para los mensajes de éxito y error
 $success_message = '';
+$error_message = '';
 
-// Verifica si se ha enviado el formulario
+// Comprobamos si el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $url = 'http://host.docker.internal:8080/api/api_usuario.php';
-
-    // Sanitiza y prepara los datos de entrada
-    $nombre = filter_var(trim($_POST['nombre'] ?? ''));
-    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''));
+    // Recibimos los datos del formulario
+    $nombre = filter_var(trim($_POST['nombre'] ?? ''), FILTER_SANITIZE_STRING);
+    $apellidos = filter_var(trim($_POST['apellidos'] ?? ''), FILTER_SANITIZE_STRING);
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $contrasena = trim($_POST['contrasena'] ?? '');
     $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
 
-    // Validar que las contraseñas coincidan
+    // Validaciones
     if ($contrasena !== $contrasena_confirmar) {
         $error_message = 'Las contraseñas no coinciden.';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
         $error_message = 'El nombre solo puede contener letras y espacios.';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
         $error_message = 'Los apellidos solo pueden contener letras y espacios.';
-    } else {
-        // Intenta realizar la solicitud
+    } 
+
+    //Descomentar par contraseña compleja
+    /*elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $contrasena)) {
+        // Verificación de contraseña compleja
+        $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
+    }*/ 
+    
+    
+    else {
+        // Si las validaciones son correctas, enviamos los datos a la API
         try {
-            $data = [
-                'action' => 'registrar',
+            $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=registrar';
+
+            // Preparamos los datos para la solicitud
+            $data = json_encode([
                 'nombre' => $nombre,
                 'apellidos' => $apellidos,
                 'email' => $email,
                 'contrasena' => $contrasena,
-            ];
+            ]);
 
+            // Inicializamos la conexión cURL
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data),
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
 
-            // Ejecuta la solicitud
+            // Ejecutamos la solicitud cURL
             $response = curl_exec($ch);
             if (curl_errno($ch)) {
-                throw new Exception('CURL Error: ' . curl_error($ch));
+                throw new Exception('Error en cURL: ' . curl_error($ch));
             }
             curl_close($ch);
 
-            // Decodificar la respuesta JSON
+            // Decodificamos la respuesta JSON
             $result = json_decode($response, true);
-
-            // Verificar errores de decodificación JSON
             if (json_last_error() !== JSON_ERROR_NONE) {
                 throw new Exception('Error al decodificar JSON: ' . json_last_error_msg());
             }
 
-            // Maneja la respuesta de la API
+            // Procesamos la respuesta de la API
             if (isset($result['success']) && $result['success']) {
                 $success_message = htmlspecialchars($result['message'] ?? 'Usuario registrado con éxito.');
             } else {
@@ -66,91 +75,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
 
         } catch (Exception $e) {
+            // En caso de error, lo registramos y mostramos un mensaje genérico
             $timestamp = date('Y-m-d H:i:s');
             file_put_contents($logFile, "{$timestamp} - Error: " . $e->getMessage() . PHP_EOL, FILE_APPEND);
             $error_message = 'Ocurrió un error en el servidor. Inténtalo más tarde.';
         }
     }
 }
+
+include '../frontend/php/registro.vista.php';
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Usuario</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container">
-        <h1>Registro de Usuario</h1>
-
-        <form action="" method="POST">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="apellidos">Apellidos:</label>
-                <input type="text" name="apellidos" id="apellidos" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="email">Correo electrónico:</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="contrasena">Contraseña:</label>
-                <input type="password" name="contrasena" id="contrasena" class="form-control" required>
-            </div>
-
-            <div class="form-group">
-                <label for="contrasena_confirmar">Confirmar Contraseña:</label>
-                <input type="password" name="contrasena_confirmar" id="contrasena_confirmar" class="form-control" required>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Registrar</button>
-            <a href="index.php" class="btn btn-secondary">Ir a Inicio</a> <!-- Botón agregado aquí -->
-        </form>
-
-        <?php if ($error_message): ?>
-            <div class="alert alert-danger mt-3"><?php echo $error_message; ?></div>
-        <?php endif; ?>
-
-        <!-- Modal para registro exitoso -->
-        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <?php echo $success_message; ?>
-                    </div>
-                    <div class="modal-footer">
-                        <a href="login.php" class="btn btn-secondary">Ir a Login</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            <?php if ($success_message): ?>
-                $('#successModal').modal('show');
-            <?php endif; ?>
-        });
-    </script>
-</body>
-</html>

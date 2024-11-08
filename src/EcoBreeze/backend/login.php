@@ -7,12 +7,14 @@ $logFile = '/var/www/html/logs/app.log';
 
 // Redirige al usuario si ya está autenticado
 if (isset($_SESSION['usuario_id'])) {
-    header("Location: dashboard.php");
+    header("Location: pagina_usuario.php");
     exit;
 }
 
 // Variables para los mensajes de error
 $error_message = '';
+
+
 // Verifica si se ha enviado el formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mantén el parámetro 'action' en la URL
@@ -81,4 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+include '../frontend/php/login.vista.php';
+
 ?>

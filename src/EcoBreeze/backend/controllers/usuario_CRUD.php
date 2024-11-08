@@ -130,7 +130,7 @@ class UsuariosCRUD {
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {
     try {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM USUARIO WHERE Email = ?");
+        $stmt = $this->conn->prepare("SELECT 1 FROM USUARIO WHERE Email = ?");
         $stmt->execute([$email]);
         $count = $stmt->fetchColumn();
         return $count > 0; // Devuelve true si el email ya está registrado

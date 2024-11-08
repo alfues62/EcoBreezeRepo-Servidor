@@ -1,30 +1,38 @@
+/* login.css */
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f7f9fc;
+}
+
+.container {
+    max-width: 600px; /* Personalizado para la página de login */
 }
 
 h1 {
-    color: #333;
+    color: #007bff;
+    margin-bottom: 30px;
 }
 
 form {
-    background: white;
     padding: 20px;
+    background-color: white;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-button {
-    padding: 10px 15px;
-    background-color: #5cb85c;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
+.form-group label {
+    font-weight: bold;
 }
 
-button:hover {
-    background-color: #4cae4c;
+.btn-primary {
+    width: 100%; /* Personalizado para que el botón ocupe el ancho completo */
+    margin-top: 20px;
+}
+
+.alert {
+    margin-top: 15px;
+}
+
+.modal-footer a {
+    width: 100%;
 }
