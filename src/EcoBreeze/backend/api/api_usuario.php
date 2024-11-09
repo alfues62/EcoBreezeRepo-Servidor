@@ -96,29 +96,25 @@ switch ($action) {
 
     /*case 'iniciar_sesion_huella':
         $token_huella = $requestData['token_huella'] ?? null;
-    
+
         if ($token_huella) {
-            $usuario = $usuariosCRUD->verificarCredencialesCompleto($email, $contrasena);
-    
+            // Verifica el token de huella en la base de datos
+            $usuario = $usuariosCRUD->verificarConHuella($token_huella);
+
             if (isset($usuario['error'])) {
                 echo json_encode(['success' => false, 'error' => $usuario['error']]);
             } elseif ($usuario['success']) {
                 echo json_encode([
                     'success' => true,
-                    'message' => 'Inicio de sesión exitoso.',
-                    'usuario' => [
-                        'ID' => $usuario['data']['ID'],
-                        'Nombre' => $usuario['data']['Nombre'],
-                        'Rol' => $usuario['data']['Rol']
-                    ]
+                    'message' => 'Inicio de sesión exitoso con huella.'
                 ]);
             } else {
                 echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
             }
         } else {
-            echo json_encode(['success' => false, 'error' => 'Email y contraseña son obligatorios.']);
+            echo json_encode(['success' => false, 'error' => 'Token de huella es obligatorio.']);
         }
-        break;*/
+        break;*/ // Acordarme de borrar esto pero en el yaml
 
     case 'borrar':
         $id = $requestData['id'] ?? null;

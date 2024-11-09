@@ -125,34 +125,32 @@ class UsuariosCRUD {
         }
     }
     
-    // PEDIR A VER SI ESTA BIEN
     /*public function verificarConHuella($token_huella) {
         try {
-            // Verificar si el email está registrado
-            $stmt = $this->conn->prepare("SELECT 1 FROM USUARIO WHERE token_huella = :token_huella");
+            // Verificar si el token de huella existe en la base de datos
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE token_huella = :token_huella");
             $stmt->bindParam(':token_huella', $token_huella);
             $stmt->execute();
     
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Si el usuario no existe, devolver error específico
+            // Si el token de huella no coincide
             if (!$usuario) {
-                return ['success' => false, 'error' => 'Correo no registrado'];
-                
-            }else{
-                return [
-                    'success' => true,
-                    'data' => [
-                        'ID' => $usuario['ID'],
-                        'Nombre' => $usuario['Nombre'],
-                        'Rol' => $usuario['ROL_RolID'] // Asegúrate de que esto sea lo que necesitas
-                    ]
-                ];
+                return ['success' => false, 'error' => 'Token de huella inválido'];
             }
-            
+    
+            // Si el token es válido, devuelve los datos del usuario
+            return [
+                'success' => true,
+                'data' => [
+                    'ID' => $usuario['ID'],
+                    'Nombre' => $usuario['Nombre'],
+                    'Rol' => $usuario['ROL_RolID']
+                ]
+            ];
         } catch (PDOException $e) {
-            error_log("Error al verificar credenciales: " . $e->getMessage() . "\n", 3, $this->logFile);
-            return ['success' => false, 'error' => 'Error al verificar las credenciales'];
+            error_log("Error al verificar token de huella: " . $e->getMessage(), 3, $this->logFile);
+            return ['success' => false, 'error' => 'Error al verificar token de huella'];
         }
     }*/
     
