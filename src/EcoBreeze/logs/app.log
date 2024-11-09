@@ -558,3 +558,30 @@ Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 
 2024-11-09 04:53:59 - {"id":"3"}
 2024-11-09 04:53:59 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b132@gmail.com"}
 2024-11-09 04:54:00 - {"id":"3"}
+2024-11-09 16:00:05 - Error: Correo no registrado
+2024-11-09 16:00:09 - Error: Contraseña incorrecta
+2024-11-09 16:00:13 - Error: Correo no registrado
+2024-11-09 16:00:23 - Error: El email ya está registrado.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-09 16:00:34 - Error: Correo no registrado
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-09 16:19:20 - Error: Correo no registrado
+2024-11-09 16:23:45 - {"id":"17"}
+2024-11-09 16:23:46 - {"id":"17"}
+2024-11-09 18:07:42 - Error: 
+2024-11-09 19:12:04 - Error: El email ya está registrado.
+2024-11-09 19:12:31 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:13:10 - Error: Email y token son obligatorios.
+2024-11-09 19:14:44 - Error: Email y token son obligatorios.
+2024-11-09 19:15:03 - Error: Error al enviar el correo de verificación: 
+2024-11-09 19:17:30 - Error: Error al enviar el correo de verificación: 
+2024-11-09 19:18:53 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:19:28 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:20:28 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:21:11 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:22:47 - Error: Error al enviar el correo de verificación. No se pudo obtener detalles del error.
+2024-11-09 21:21:52 - Error: Credenciales de Gmail no configuradas.
+2024-11-09 21:22:39 - Error: Credenciales de Gmail no configuradas.
+2024-11-09 21:23:55 - Error: Error al enviar el correo de verificación.
+2024-11-09 21:25:47 - Error: Error al enviar el correo de verificación.
+2024-11-09 21:27:08 - Error: Error al enviar el correo de verificación.

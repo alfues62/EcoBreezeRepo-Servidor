@@ -34,7 +34,7 @@ switch ($action) {
         $apellidos = $requestData['apellidos'] ?? null;
         $email = $requestData['email'] ?? null;
         $contrasena = $requestData['contrasena'] ?? null;
-        $rol_rolid = $requestData['rol_rolid'] ?? 2; // Valor predeterminado para rol
+        $token_verficicacion = $requestData['token_verficicacion'] ?? null;
 
         // Validar que todos los campos necesarios estén presentes
         if ($nombre && $apellidos && $email && $contrasena) {
@@ -54,7 +54,7 @@ switch ($action) {
             $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
 
             // Llamar al método de inserción
-            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $rol_rolid);
+            $resultado = $usuariosCRUD->insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verficicacion);
 
             if ($resultado) {
                 echo json_encode(['success' => true, 'message' => 'Usuario registrado con éxito.']);
@@ -205,6 +205,32 @@ switch ($action) {
                             echo json_encode(['success' => false, 'error' => 'La contraseña actual y el nuevo correo son obligatorios.']);
                         }
                         break;
+                        
+                        case 'verificar_correo':
+                            $email = $requestData['email'] ?? null;
+                            $token = $requestData['token'] ?? null;
+                        
+                            if ($email && $token) {
+                                // Llamamos al método para verificar el correo con el token
+                                $resultado = $usuariosCRUD->verificar_correo($email, $token);
+                        
+                                // Comprobamos si hay error en el proceso de verificación
+                                if (isset($resultado['error'])) {
+                                    echo json_encode(['success' => false, 'error' => $resultado['error']]);
+                                } elseif (isset($resultado['success'])) {
+                                    echo json_encode([
+                                        'success' => true,
+                                        'message' => $resultado['success']
+                                    ]);
+                                } else {
+                                    echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
+                                }
+                            } else {
+                                echo json_encode(['success' => false, 'error' => 'Email y token son obligatorios.']);
+                            }
+                            break;
+                        
+                        
                     
                     
                     

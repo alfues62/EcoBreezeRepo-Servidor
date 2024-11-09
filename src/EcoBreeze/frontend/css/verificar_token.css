@@ -1,0 +1,102 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Estilos para los mensajes */
+.message {
+    font-size: 18px;
+    margin: 20px;
+}
+
+/* Mensaje de éxito */
+.success {
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Mensaje de error */
+.error {
+    color: red;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Mensaje de redirección */
+.redirect-message {
+    margin-top: 20px;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Enlace de redirección */
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #5cb85c;
+}
+
+.btn-primary:hover {
+    background-color: #4cae4c;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Modal (if applicable for all modals) */
+.modal-footer a {
+    width: 100%;
+}
+
+/* Alignment */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}

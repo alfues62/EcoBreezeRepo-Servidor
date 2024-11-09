@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $contrasena = trim($_POST['contrasena'] ?? '');
     $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
-
+    
+    
     if ($contrasena !== $contrasena_confirmar) {
         $error_message = 'Las contraseñas no coinciden.';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {

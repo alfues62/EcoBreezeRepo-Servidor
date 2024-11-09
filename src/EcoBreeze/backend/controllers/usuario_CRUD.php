@@ -47,22 +47,33 @@ class UsuariosCRUD {
     }
 
     // Método para insertar un nuevo usuario
-    public function insertar($nombre, $apellidos, $email, $contrasenaHash, $tfa_secret = null) {
-        try {
-            $rol_rolid = 2; // Establecer el rol como 2
-            $token = bin2hex(random_bytes(16)); // Generar un token único
+public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verficicacion, $tfa_secret = null) {
+    try {
+        // Establecer el rol como 2 (puedes cambiarlo según tus necesidades)
+        $rol_rolid = 2;
+        
+        // Calcular la fecha de expiración del token (24 horas desde ahora)
+        $fechaActual = new DateTime();
+        $fechaActual->add(new DateInterval('PT24H')); // Sumar 24 horas
+        $expiracion_token = $fechaActual->format('Y-m-d H:i:s'); // Formato compatible con MySQL
+        
+        // Query para insertar el usuario con los nuevos campos
+        $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, TFA_Secret, Verificado, TokenVerificacion, expiracion_token, ROL_RolID) 
+                  VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)";
+        
+        // Preparar y ejecutar la consulta
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $token_verficicacion, $expiracion_token, $rol_rolid]);
 
-            $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, TFA_Secret, Verificado, TokenVerificacion, ROL_RolID) 
-                      VALUES (?, ?, ?, ?, ?, 0, ?, ?)";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $token, $rol_rolid]);
-
-            return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
-        } catch (PDOException $e) {
-            error_log("Error en insertar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
-            return ['error' => 'Error al insertar un usuario']; 
-        }
+        // Retornar el éxito
+        return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
+    } catch (PDOException $e) {
+        // Registrar el error
+        error_log("Error en insertar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['error' => 'Error al insertar un usuario']; 
     }
+}
+
 
     // Método para editar un usuario existente
     public function editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret = null) {
@@ -125,8 +136,6 @@ class UsuariosCRUD {
         }
     }
     
-    
-    
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {
     try {
@@ -153,6 +162,8 @@ public function insertarSensor($usuarioID, $mac) {
         return ['error' => 'Error al insertar el sensor'];
     }
 }
+
+
 // Método para obtener los datos de un usuario por ID
 public function obtenerDatosUsuarioPorID($id) {
     try {
@@ -253,9 +264,54 @@ public function cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo) {
         return ['success' => false, 'error' => 'Error al cambiar el correo electrónico.'];
     }
 }
+public function verificar_correo($email, $token) {
+    try {
+        // Consultamos al usuario utilizando el correo y el token de verificación
+        $query = "SELECT ID, TokenVerificacion, Verificado, ExpiracionToken FROM USUARIO WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$email]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Verificamos si el usuario existe
+        if (!$usuario) {
+            return ['error' => 'Correo no encontrado.'];
+        }
 
+        // Comprobamos si el token es válido
+        if ($usuario['TokenVerificacion'] !== $token) {
+            return ['error' => 'Token no válido.'];
+        }
 
+        // Comprobamos si el usuario ya está verificado
+        if ($usuario['Verificado'] == 1) {
+            return ['success' => 'El correo ya ha sido verificado.'];
+        }
+
+        // Verificamos si el token ha expirado
+        $fecha_actual = new DateTime();  // Fecha y hora actual
+        $expiracion_token = new DateTime($usuario['ExpiracionToken']);  // Fecha de expiración del token en la base de datos
+
+        if ($fecha_actual > $expiracion_token) {
+            return ['error' => 'El token ha expirado. Por favor, solicite uno nuevo.'];
+        }
+
+        // Si el token es válido y no ha expirado, verificamos al usuario
+        $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = NULL, ExpiracionToken = NULL WHERE Email = ?";
+        $stmtUpdate = $this->conn->prepare($queryUpdate);
+        $stmtUpdate->execute([$email]);
+
+        // Verificamos si la actualización se realizó correctamente
+        if ($stmtUpdate->rowCount() > 0) {
+            return ['success' => 'Correo verificado con éxito. Ahora puede iniciar sesión.'];
+        } else {
+            return ['error' => 'No se pudo actualizar el estado del correo.'];
+        }
+    } catch (PDOException $e) {
+        // Registrar el error en el log
+        error_log("Error en verificar correo: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['error' => 'Hubo un error al verificar el correo.'];
+    }
+}
 
 
 

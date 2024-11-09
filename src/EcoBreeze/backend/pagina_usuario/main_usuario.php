@@ -7,7 +7,6 @@ include 'ver_datos.php';
 include 'cambiar_contrasena.php';
 include 'cambiar_correo.php';
 
-
 // Variables para los mensajes de error y éxito
 $error_message = '';
 $success_message = '';
@@ -51,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // } 
         else {
             // Cambiar la contraseña y obtener el resultado
-            $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena, $confirmarContrasena);
+            $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
 
             // Comprobar si la respuesta es de éxito
             if (isset($result['success'])) {
