@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Usuario</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/registro.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+    <link rel="stylesheet" href="/frontend/css/registro.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Registro de Usuario</h1>
 
-        <form action="/backend/registro.php" method="POST">
+        <form action="/backend/registrar/main_registro.php" method="POST">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" name="nombre" id="nombre" class="form-control" required>
@@ -39,7 +39,7 @@
             </div>
             
             <button type="submit" class="btn btn-primary">Registrar</button>
-            <a href="../index.php" class="btn btn-secondary">Ir a Inicio</a>
+            <a href="/frontend/index.php" class="btn btn-secondary">Ir a Inicio</a>
         </form>
 
         <!-- Mensajes de éxito y error -->
@@ -61,10 +61,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php echo $success_message; ?>
+                        <p id="successMessageContent"></p>
                     </div>
                     <div class="modal-footer">
-                        <a href="/backend/login.php" class="btn btn-secondary">Ir a Login</a>
+                        <a href="/backend/login/main_login.php" class="btn btn-secondary">Ir a Login</a>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <?php echo $error_message; ?>
+                        <p id="errorMessageContent"></p>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -90,13 +90,11 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    <script src="../js/registro.js"></script>
+    <script src="/frontend/js/registro.js"></script>
 </body>
 </html>

@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de Sesión</title>
-    <link rel="stylesheet" href="../css/main.css">
-    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+    <link rel="stylesheet" href="/frontend/css/login.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <h1>Iniciar Sesión</h1>
 
-    <form action="/backend/login.php" method="POST">
+    <form action="main_login.php" method="POST">
         <label for="email">Correo electrónico:</label>
         <input type="email" name="email" id="email" class="form-control" required>
         
@@ -19,7 +19,10 @@
         <input type="password" name="contrasena" id="contrasena" class="form-control" required>
         
         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='../index.php'">Volver al Inicio</button>
+        <button type="button" class="btn btn-secondary" onclick="window.location.href='/frontend/index.php'">Volver al Inicio</button>
+        
+        <!-- Campo hidden para el mensaje de error -->
+        <input type="hidden" id="errorMessage" value="<?php echo htmlspecialchars($error_message ?? ''); ?>">
     </form>
 
     <!-- Modal para mostrar errores -->
@@ -33,9 +36,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <?php if ($error_message): ?>
-                        <p><?php echo $error_message; ?></p>
-                    <?php endif; ?>
+                    <p id="errorMessageContent"></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -49,13 +50,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <!-- Mostrar el modal si hay un mensaje de error -->
-    <script>
-        <?php if ($error_message): ?>
-            $(document).ready(function() {
-                $('#errorModal').modal('show');
-            });
-        <?php endif; ?>
-    </script>
+    <!-- Incluyendo login.js después de jQuery y Bootstrap -->
+    <script src="/frontend/js/login.js"></script>
 </body>
 </html>

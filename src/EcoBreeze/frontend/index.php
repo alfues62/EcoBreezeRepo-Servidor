@@ -11,8 +11,8 @@
     <div class="landing-container">
         <h1>Bienvenido a EcoBreeze</h1>
         <p>Seleccione una opción para continuar:</p>
-        <a href="/backend/registro.php" class="btn btn-primary">Registro</a>
-        <a href="/backend/login.php" class="btn btn-secondary">Login</a>
+        <a href="/backend/registrar/main_registro.php" class="btn btn-primary">Registro</a>
+        <a href="/backend/login/main_login.php" class="btn btn-secondary">Login</a>
     </div>
 
     <!-- Scripts de Bootstrap -->

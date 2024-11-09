@@ -94,34 +94,6 @@ switch ($action) {
         }
         break;
 
-    case 'leer':
-        $id = $requestData['id'] ?? null;
-        $nombre = $requestData['nombre'] ?? null;
-        $apellidos = $requestData['apellidos'] ?? null;
-        $email = $requestData['email'] ?? null;
-
-        $usuarios = $usuariosCRUD->leer($id, $nombre, $apellidos, $email);
-        echo json_encode(['success' => true, 'data' => $usuarios]);
-        break;
-
-    case 'editar':
-        $id = $requestData['id'] ?? null;
-        $nombre = $requestData['nombre'] ?? null;
-        $apellidos = $requestData['apellidos'] ?? null;
-        $email = $requestData['email'] ?? null;
-        $contrasena = $requestData['contrasena'] ?? null;
-        $rol_rolid = $requestData['rol_rolid'] ?? null;
-        $tfa_secret = $requestData['tfa_secret'] ?? null;
-
-        if ($id && $nombre && $apellidos && $email && $contrasena && $rol_rolid) {
-            $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
-            $resultado = $usuariosCRUD->editar($id, $nombre, $apellidos, $email, $contrasenaHash, $rol_rolid, $tfa_secret);
-            echo json_encode(['success' => true, 'data' => $resultado]);
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Todos los campos son obligatorios.']);
-        }
-        break;
-
     case 'borrar':
         $id = $requestData['id'] ?? null;
 
@@ -201,14 +173,41 @@ switch ($action) {
                             echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar la contraseña.']);
                         }
                     } else {
-                        echo json_encode(['success' => false, 'error' => 'El ID del usuario, la contraseña actual y la nueva contraseña son obligatorios.']);
+                        echo json_encode(['success' => false, 'error' => 'La contraseña actual y la nueva contraseña son obligatorios.']);
                     }
                     break;
-                
 
-                
-        
-
+                    case 'cambiar_correo':
+                        $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
+                        $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
+                        $nuevoCorreo = $requestData['nuevo_correo'] ?? null; // Obtener el nuevo correo del request
+                    
+                        logMessage(json_encode($requestData)); // Revisa el contenido de $requestData
+                    
+                        // Verifica si se proporciona el ID del usuario, la contraseña actual y el nuevo correo
+                        if ($id && $contrasenaActual && $nuevoCorreo) {
+                            // Verifica si el nuevo correo ya está en uso
+                            if ($usuariosCRUD->emailExistente($nuevoCorreo)) {
+                                echo json_encode(['success' => false, 'error' => 'El email ya está registrado.']);
+                                break;
+                            }
+                    
+                            $resultado = $usuariosCRUD->cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo);
+                    
+                            // Maneja el resultado de la actualización del correo
+                            if (isset($resultado['success']) && $resultado['success']) {
+                                echo json_encode(['success' => true, 'message' => $resultado['message']]);
+                            } else {
+                                logMessage("Error al cambiar correo: " . json_encode($resultado));
+                                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar el correo.']);
+                            }
+                        } else {
+                            echo json_encode(['success' => false, 'error' => 'La contraseña actual y el nuevo correo son obligatorios.']);
+                        }
+                        break;
+                    
+                    
+                    
     default:
         logMessage("Error: Acción no válida: $action");
         echo json_encode(['success' => false, 'error' => 'Acción no válida.']);

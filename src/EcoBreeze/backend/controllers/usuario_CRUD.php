@@ -217,6 +217,44 @@ public function cambiarContrasenaPorID($id, $contrasenaActual, $nuevaContrasena)
     }
 }
 
+public function cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo) {
+    try {
+        // Preparamos la consulta para obtener el hash de la contraseña actual
+        $query = "SELECT ContrasenaHash FROM USUARIO WHERE ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+
+        // Obtenemos el resultado
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificamos si se encontró el usuario
+        if ($usuario) {
+            // Comparamos la contraseña actual ingresada con el hash almacenado
+            if (password_verify($contrasenaActual, $usuario['ContrasenaHash'])) {
+                // Preparamos la consulta para actualizar el correo del usuario
+                $updateQuery = "UPDATE USUARIO SET Email = ? WHERE ID = ?";
+                $updateStmt = $this->conn->prepare($updateQuery);
+                $updateStmt->execute([$nuevoCorreo, $id]);
+
+                // Verificamos si se actualizó el correo
+                if ($updateStmt->rowCount() > 0) {
+                    return ['success' => true, 'message' => 'Correo electrónico actualizado con éxito.'];
+                } else {
+                    return ['success' => false, 'error' => 'El correo electrónico ya es el mismo o no se realizaron cambios.'];
+                }
+            } else {
+                return ['success' => false, 'error' => 'La contraseña actual es incorrecta.'];
+            }
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario.'];
+        }
+    } catch (PDOException $e) {
+        error_log("Error en cambiar correo: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['success' => false, 'error' => 'Error al cambiar el correo electrónico.'];
+    }
+}
+
+
 
 
 
