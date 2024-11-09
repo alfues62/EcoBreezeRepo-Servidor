@@ -1,0 +1,54 @@
+# Usa una imagen base de PHP con Apache
+FROM php:8.0-apache
+
+# Instala las extensiones necesarias
+RUN docker-php-ext-install pdo pdo_mysql
+
+# Habilita los módulos necesarios de Apache
+RUN a2enmod rewrite
+
+RUN echo '<VirtualHost *:80>\n\
+    ServerAdmin webmaster@localhost\n\
+    DocumentRoot /var/www/html/frontend\n\
+    ServerName localhost\n\
+    Alias /api /var/www/html/backend/api\n\ 
+    Alias /backend /var/www/html/backend\n\ 
+    Alias /frontend /var/www/html/frontend\n\
+    <Directory /var/www/html/frontend>\n\   
+        Options Indexes FollowSymLinks\n\
+        AllowOverride All\n\
+        Require all granted\n\
+    </Directory>\n\
+    <Directory /var/www/html/backend>\n\
+        Options Indexes FollowSymLinks\n\
+        AllowOverride None\n\
+        Require all granted\n\
+    </Directory>\n\
+    ErrorLog ${APACHE_LOG_DIR}/error.log\n\
+    CustomLog ${APACHE_LOG_DIR}/access.log combined\n\
+</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
+
+
+# Configura permisos y propietario para todo el frontend, backend y logs
+RUN if [ -d "/var/www/html/frontend" ]; then \
+        chmod -R 755 /var/www/html/frontend && \
+        chown -R www-data:www-data /var/www/html/frontend; \
+    fi && \
+    if [ -d "/var/www/html/backend" ]; then \
+        chmod -R 755 /var/www/html/backend && \
+        chown -R www-data:www-data /var/www/html/backend; \
+    fi && \
+    if [ -d "/var/www/html/logs" ]; then \
+        chmod -R 755 /var/www/html/logs && \
+        chown -R www-data:www-data /var/www/html/logs; \
+    fi
+    
+
+# Verifica la configuración de Apache
+RUN apachectl configtest && echo "Configuración de Apache válida." || (echo "Error en la configuración de Apache." && exit 1)
+
+# Expone el puerto 80
+EXPOSE 80
+
+# Comando para iniciar Apache en primer plano
+CMD ["apache2-foreground"]

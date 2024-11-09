@@ -125,12 +125,41 @@ class UsuariosCRUD {
         }
     }
     
+    // PEDIR A VER SI ESTA BIEN
+    /*public function verificarConHuella($token_huella) {
+        try {
+            // Verificar si el email está registrado
+            $stmt = $this->conn->prepare("SELECT 1 FROM USUARIO WHERE token_huella = :token_huella");
+            $stmt->bindParam(':token_huella', $token_huella);
+            $stmt->execute();
     
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Si el usuario no existe, devolver error específico
+            if (!$usuario) {
+                return ['success' => false, 'error' => 'Correo no registrado'];
+                
+            }else{
+                return [
+                    'success' => true,
+                    'data' => [
+                        'ID' => $usuario['ID'],
+                        'Nombre' => $usuario['Nombre'],
+                        'Rol' => $usuario['ROL_RolID'] // Asegúrate de que esto sea lo que necesitas
+                    ]
+                ];
+            }
+            
+        } catch (PDOException $e) {
+            error_log("Error al verificar credenciales: " . $e->getMessage() . "\n", 3, $this->logFile);
+            return ['success' => false, 'error' => 'Error al verificar las credenciales'];
+        }
+    }*/
     
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {
     try {
-        $stmt = $this->conn->prepare("SELECT COUNT(*) FROM USUARIO WHERE Email = ?");
+        $stmt = $this->conn->prepare("SELECT 1 FROM USUARIO WHERE Email = ?");
         $stmt->execute([$email]);
         $count = $stmt->fetchColumn();
         return $count > 0; // Devuelve true si el email ya está registrado
@@ -153,6 +182,7 @@ public function insertarSensor($usuarioID, $mac) {
         return ['error' => 'Error al insertar el sensor'];
     }
 }
+
 // Método para obtener los datos de un usuario por ID
 public function obtenerDatosUsuarioPorID($id) {
     try {
@@ -217,9 +247,71 @@ public function cambiarContrasenaPorID($id, $contrasenaActual, $nuevaContrasena)
     }
 }
 
+public function cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo) {
+    try {
+        // Preparamos la consulta para obtener el hash de la contraseña actual
+        $query = "SELECT ContrasenaHash FROM USUARIO WHERE ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
 
+        // Obtenemos el resultado
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Verificamos si se encontró el usuario
+        if ($usuario) {
+            // Comparamos la contraseña actual ingresada con el hash almacenado
+            if (password_verify($contrasenaActual, $usuario['ContrasenaHash'])) {
+                // Preparamos la consulta para actualizar el correo del usuario
+                $updateQuery = "UPDATE USUARIO SET Email = ? WHERE ID = ?";
+                $updateStmt = $this->conn->prepare($updateQuery);
+                $updateStmt->execute([$nuevoCorreo, $id]);
 
+                // Verificamos si se actualizó el correo
+                if ($updateStmt->rowCount() > 0) {
+                    return ['success' => true, 'message' => 'Correo electrónico actualizado con éxito.'];
+                } else {
+                    return ['success' => false, 'error' => 'El correo electrónico ya es el mismo o no se realizaron cambios.'];
+                }
+            } else {
+                return ['success' => false, 'error' => 'La contraseña actual es incorrecta.'];
+            }
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario.'];
+        }
+    } catch (PDOException $e) {
+        error_log("Error en cambiar correo: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['success' => false, 'error' => 'Error al cambiar el correo electrónico.'];
+    }
+}
+
+public function subirTokenHuella($id, $tokenHuella) {
+    try {
+        // Preparamos la consulta para verificar si el usuario existe
+        $query = "SELECT ID FROM USUARIO WHERE ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+
+        // Verificamos si se encontró el usuario
+        if ($stmt->rowCount() > 0) {
+            // Preparamos la consulta para actualizar el token de la huella
+            $updateQuery = "UPDATE USUARIO SET token_huella = ? WHERE ID = ?";
+            $updateStmt = $this->conn->prepare($updateQuery);
+            $updateStmt->execute([$tokenHuella, $id]);
+
+            // Verificamos si se actualizó el token de la huella
+            if ($updateStmt->rowCount() > 0) {
+                return ['success' => true, 'message' => 'Token de huella actualizado con éxito.'];
+            } else {
+                return ['success' => false, 'error' => 'No se realizaron cambios o el token es el mismo.'];
+            }
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario con el ID proporcionado.'];
+        }
+    } catch (PDOException $e) {
+        error_log("Error en subir token de huella: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
+    }
+}
 
 }
 ?>

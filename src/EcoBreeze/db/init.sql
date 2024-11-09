@@ -72,6 +72,7 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`USUARIO` (
   `Verificado` TINYINT NOT NULL DEFAULT 0,
   `TokenVerificacion` VARCHAR(255) NULL,
   `token_recuperacion` VARCHAR(255) NULL,
+  `token_huella` VARCHAR(255) NOT NULL DEFAULT 0,
   `expiracion_token` VARCHAR(255) NULL,
   `ROL_RolID` INT NOT NULL,
   PRIMARY KEY (`ID`, `ROL_RolID`),

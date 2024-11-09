@@ -261,6 +261,39 @@ paths:
           description: No se encontró el usuario.
         '5XX':
           description: Error del servidor.
+  
+  /insertar_huella:
+  put:
+    summary: Asocia un token de huella a un usuario
+    tags:
+      - Usuarios
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: ID del usuario al que se le asociará el token de huella
+              token_huella:
+                type: string
+                description: El nuevo token de huella que se desea asociar al usuario
+            required:
+              - id
+              - token_huella
+    responses:
+      '200':
+        description: Token de huella asociado con éxito al usuario.
+      '400':
+        description: ID de usuario y token de huella son obligatorios.
+      '409':
+        description: Este token de huella ya está registrado para otro usuario.
+      '404':
+        description: No se encontró el usuario.
+      '5XX':
+        description: Error del servidor.
 
   /obtener_datos_usuario:
     get:
