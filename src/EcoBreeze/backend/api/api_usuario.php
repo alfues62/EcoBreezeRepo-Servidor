@@ -94,27 +94,40 @@ switch ($action) {
         }
         break;
 
-    /*case 'iniciar_sesion_huella':
-        $token_huella = $requestData['token_huella'] ?? null;
-
-        if ($token_huella) {
-            // Verifica el token de huella en la base de datos
-            $usuario = $usuariosCRUD->verificarConHuella($token_huella);
-
-            if (isset($usuario['error'])) {
-                echo json_encode(['success' => false, 'error' => $usuario['error']]);
-            } elseif ($usuario['success']) {
-                echo json_encode([
-                    'success' => true,
-                    'message' => 'Inicio de sesión exitoso con huella.'
-                ]);
+        case 'iniciar_sesion_huella':
+            $email = $requestData['email'] ?? null;
+            $token_huella = $requestData['token_huella'] ?? null;
+        
+            // Verificar que el email y el token de huella estén presentes
+            if ($email && $token_huella) {
+                // Llamar a la función para verificar las credenciales con email y token de huella
+                $usuario = $usuariosCRUD->verificarConHuellaYCorreo($email, $token_huella);
+        
+                // Verificar el resultado de la autenticación
+                if (isset($usuario['error'])) {
+                    // Si hay un error, devolverlo en la respuesta
+                    echo json_encode(['success' => false, 'error' => $usuario['error']]);
+                } elseif ($usuario['success']) {
+                    // Si la autenticación fue exitosa, devolver los datos del usuario
+                    echo json_encode([
+                        'success' => true,
+                        'message' => 'Inicio de sesión con huella y correo exitoso.',
+                        'usuario' => [
+                            'ID' => $usuario['data']['ID'],
+                            'Nombre' => $usuario['data']['Nombre'],
+                            'Rol' => $usuario['data']['Rol']
+                        ]
+                    ]);
+                } else {
+                    // En caso de un fallo inesperado
+                    echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
+                }
             } else {
-                echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
+                // Si faltan los datos requeridos, devolver un error
+                echo json_encode(['success' => false, 'error' => 'El correo electrónico y el token de huella son obligatorios.']);
             }
-        } else {
-            echo json_encode(['success' => false, 'error' => 'Token de huella es obligatorio.']);
-        }
-        break;*/ // Acordarme de borrar esto pero en el yaml
+            break;
+        
 
     case 'borrar':
         $id = $requestData['id'] ?? null;

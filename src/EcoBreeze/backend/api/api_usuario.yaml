@@ -135,7 +135,7 @@ paths:
 
   /iniciar_sesion_huella:
     post:
-      summary: Inicia sesión de un usuario usando solo la huella
+      summary: Inicia sesión de un usuario usando tanto el correo electrónico como la huella
       tags:
         - Usuarios
       requestBody:
@@ -145,14 +145,18 @@ paths:
             schema:
               type: object
               properties:
+                email:
+                  type: string
+                  description: Correo electrónico del usuario para autenticación
                 token_huella:
                   type: string
                   description: Token de huella único del usuario para autenticación
               required:
+                - email
                 - token_huella
       responses:
         '200':
-          description: Inicio de sesión exitoso con huella.
+          description: Inicio de sesión exitoso con huella y correo.
           content:
             application/json:
               schema:
@@ -175,7 +179,7 @@ paths:
                         type: string
                         description: Rol del usuario
         '401':
-          description: Token de huella inválido.
+          description: Credenciales inválidas, correo o token de huella incorrectos.
         '5XX':
           description: Error del servidor.
 

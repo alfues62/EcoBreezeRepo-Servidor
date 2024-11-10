@@ -125,21 +125,22 @@ class UsuariosCRUD {
         }
     }
     
-    /*public function verificarConHuella($token_huella) {
+    public function verificarConHuellaYCorreo($email, $token_huella) {
         try {
-            // Verificar si el token de huella existe en la base de datos
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE token_huella = :token_huella");
+            // Prepara la consulta para verificar el email y el token de huella
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
+            $stmt->bindParam(':email', $email);
             $stmt->bindParam(':token_huella', $token_huella);
             $stmt->execute();
     
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Si el token de huella no coincide
+            // Si no hay coincidencia para email y token de huella
             if (!$usuario) {
-                return ['success' => false, 'error' => 'Token de huella inválido'];
+                return ['success' => false, 'error' => 'Token de huella o correo electrónico inválido'];
             }
     
-            // Si el token es válido, devuelve los datos del usuario
+            // Si se verifica el token y el email, devuelve los datos del usuario
             return [
                 'success' => true,
                 'data' => [
@@ -149,10 +150,10 @@ class UsuariosCRUD {
                 ]
             ];
         } catch (PDOException $e) {
-            error_log("Error al verificar token de huella: " . $e->getMessage(), 3, $this->logFile);
-            return ['success' => false, 'error' => 'Error al verificar token de huella'];
+            error_log("Error al verificar email y token de huella: " . $e->getMessage(), 3, $this->logFile);
+            return ['success' => false, 'error' => 'Error al verificar email y token de huella'];
         }
-    }*/
+    }
     
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {

@@ -593,3 +593,12 @@ Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 
 2024-11-09 22:18:40 - {"id":"1"}
 2024-11-09 22:18:45 - {"id":"2"}
 2024-11-09 22:19:45 - {"token_huella":"ecd82c8e-1edb-46b7-826e-b33061fe6677","id":2}
+2024-11-10 19:40:52 - Error: Acción no válida: iniciar_sesion
+2024-11-10 19:40:52 - Error: Acción no válida.
+2024-11-10 19:40:57 - Error: Acción no válida: iniciar_sesion
+2024-11-10 19:40:57 - Error: Acción no válida.
+2024-11-10 19:41:21 - Error: Acción no válida: iniciar_sesion
+2024-11-10 19:42:55 - Error: Acción no válida: iniciar_sesion
+2024-11-10 19:42:55 - Error: Acción no válida.
+2024-11-10 19:43:54 - {"id":"1"}
+2024-11-10 19:44:11 - {"token_huella":"f84d084e-379e-4761-895c-7cd78016de78","id":1}
