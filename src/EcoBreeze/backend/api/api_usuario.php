@@ -127,7 +127,25 @@ switch ($action) {
                 echo json_encode(['success' => false, 'error' => 'El correo electrónico y el token de huella son obligatorios.']);
             }
             break;
-        
+    
+    case 'obtener_token_huella':
+        $email = $_GET['email'] ?? null;  // Usar $_GET en vez de $requestData
+
+        logMessage($email);
+
+        if ($email) {
+            // Consultar el token de huella asociado al email
+            $tokenHuella = $usuariosCRUD->obtenerTokenHuellaPorCorreo($email);
+
+            if ($tokenHuella) {
+                echo json_encode(['success' => true, 'token_huella' => $tokenHuella]);
+            } else {
+                echo json_encode(['success' => false, 'error' => 'No se encontró un token de huella para este correo']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'El correo electrónico es obligatorio']);
+        }
+        break;
 
     case 'borrar':
         $id = $requestData['id'] ?? null;

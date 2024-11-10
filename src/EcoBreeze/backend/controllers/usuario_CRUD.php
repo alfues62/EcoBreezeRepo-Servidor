@@ -154,6 +154,26 @@ class UsuariosCRUD {
             return ['success' => false, 'error' => 'Error al verificar email y token de huella'];
         }
     }
+
+    public function obtenerTokenHuellaPorCorreo($email) {
+        try {
+            // Consultar el token de huella asociado al correo electrónico
+            $stmt = $this->conn->prepare("SELECT token_huella FROM USUARIO WHERE Email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+        
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            if ($usuario) {
+                return $usuario['token_huella']; // Retornar el token de huella
+            } else {
+                return null; // Si no se encuentra el usuario
+            }
+        } catch (PDOException $e) {
+            error_log("Error al obtener el token de huella: " . $e->getMessage(), 3, $this->logFile);
+            return null;
+        }
+    }
     
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {

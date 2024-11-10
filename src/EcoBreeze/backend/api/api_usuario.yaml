@@ -132,6 +132,57 @@ paths:
           description: Credenciales inválidas.
         '5XX':
           description: Error del servidor.
+  /obtener_token_huella:
+    get:
+      summary: Obtener el token de huella asociado al correo electrónico
+      description: Recupera el token de huella almacenado en la base de datos para un correo electrónico.
+      parameters:
+        - name: email
+          in: query
+          description: El correo electrónico del usuario.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa, token de huella recuperado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token_huella:
+                    type: string
+                    example: "some-unique-token-here"
+        '400':
+          description: Correo electrónico no proporcionado o inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El correo electrónico es obligatorio"
+        '404':
+          description: El token de huella no se encontró para el correo electrónico
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "No se encontró un token de huella para este correo"
 
   /iniciar_sesion_huella:
     post:

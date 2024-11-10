@@ -602,3 +602,8 @@ Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 
 2024-11-10 19:42:55 - Error: Acción no válida.
 2024-11-10 19:43:54 - {"id":"1"}
 2024-11-10 19:44:11 - {"token_huella":"f84d084e-379e-4761-895c-7cd78016de78","id":1}
+2024-11-10 20:14:13 - {"id":3}
+2024-11-10 20:16:21 - {"id":3}
+2024-11-10 21:54:43 - 
+2024-11-10 21:57:30 - a@gmail.com
+2024-11-10 22:00:37 - a@gmail.com
