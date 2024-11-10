@@ -587,3 +587,81 @@ Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown colum
 2024-11-09 21:27:08 - Error: Error al enviar el correo de verificación.
 2024-11-10 16:14:07 - Error: El email ya está registrado.
 2024-11-10 16:14:17 - Error: Error al enviar el correo.
+2024-11-10 16:32:47 - Error: Error al enviar el correo.
+2024-11-10 16:33:45 - Error: Correo enviado con éxito!
+2024-11-10 16:38:41 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:38:41 - Error: Error al enviar el correo.
+2024-11-10 16:38:41 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:49:59 - Error: Error al enviar el correo.
+2024-11-10 16:49:59 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:49:59 - Error: Enviando correo a: alfuset62@gmail.com con token: 2d73d632c6fec21bc0603fcc2abfbc15
+2024-11-10 16:49:59 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:51:20 - Error: Error al enviar el correo.
+2024-11-10 16:51:20 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:51:20 - Error: Enviando correo a: b123@gmail.com con token: fcc9f9ee37241dab91a379c97cc215a7
+2024-11-10 16:51:20 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:52:19 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:52:19 - Error: Enviando correo a: yaekitsune2207@gmail.com con token: 1a44862760094fcfbf75a1ae51897c41
+2024-11-10 16:52:19 - Error: Error al enviar el correo.
+2024-11-10 16:55:58 - Error: Error en el registro de usuario: El email ya está registrado.
+2024-11-10 16:56:12 - Error: Error en el registro de usuario: El email ya está registrado.
+2024-11-10 16:56:30 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:56:30 - Error: Enviando correo a: alfuset62@gmail.com con token: 19e6da7b20a5b0384e89652eaf55e0c7
+2024-11-10 16:56:30 - Error: Intentando enviar correo a alfuset62@gmail.com...
+2024-11-10 16:56:30 - Error: Error al enviar el correo.
+2024-11-10 16:56:30 - Error: Error al enviar el correo de verificación: error
+2024-11-10 17:04:21 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:04:21 - Error: Enviando correo a: alfues62@gmail.com con token: b447a5e57976e2f579f5d27de4f661a4
+2024-11-10 17:04:21 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:04:21 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:05:22 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:05:22 - Error: Enviando correo a: alfuset12362@gmail.com con token: 4c2b8db940813adbe1d7231789a8ab26
+2024-11-10 17:05:22 - Error: Error al enviar el correo a alfues@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:05:22 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:06:04 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:08:41 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:08:41 - Error: Enviando correo a: alfues62@gmail.com con token: 3b03bfed4e16f2cb4bc25de1b29983bf
+2024-11-10 17:08:41 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:08:41 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:09:22 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:09:22 - Error: Enviando correo a: alfues62@gmail.com con token: 7f6c74d81b348988cd474caa86908e91
+2024-11-10 17:09:22 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:09:22 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:12:17 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:17:57 - Error: El email ya está registrado.
+2024-11-10 17:24:43 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: a066b80fc420db9476ab5b5ce81b8581
+2024-11-10 17:24:44 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:24:44 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:25:36 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:26:45 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:21 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 0c242b73b7ab75a29437d3b4b44438c7
+2024-11-10 17:33:21 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:36 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: e313b5752018fc15c7dfab8203c07e23
+2024-11-10 17:33:38 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:33:38 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:33:57 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 862a63c5e6ffabc2dfdc04e4ca673703
+2024-11-10 17:33:57 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:57 - Error: Resultado del envío de correo de prueba: error: Error desconocido al enviar el correo.
+2024-11-10 17:36:46 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 18ada474d2cdbf35de66fbd4ab237ae9
+2024-11-10 17:36:47 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:36:47 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:36:48 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 81d7c7d94ebbe34e4124c98758201c13
+2024-11-10 17:36:49 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:36:49 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:37:07 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 8e504ad54adb37d016fc36d960774a68
+2024-11-10 17:37:09 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:37:09 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:37:25 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: eb81b083bb9d726d0f6b4036c0bab064
+2024-11-10 17:37:27 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:38:18 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:38:55 - Error: Correo enviado con éxito a fues62@gmail.com.
+2024-11-10 17:40:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 17:41:23 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 17:41:39 - Error: Hubo un error al verificar el correo.
+2024-11-10 17:42:12 - Error: El email ya está registrado.
+2024-11-10 17:47:39 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:50:59 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:51:05 - Error: El email ya está registrado.
+2024-11-10 17:52:05 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:52:09 - Error: El email ya está registrado.

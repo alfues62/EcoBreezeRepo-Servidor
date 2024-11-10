@@ -19,7 +19,8 @@ RUN echo "defaults" > /etc/msmtprc && \
     echo "password blhu dlpg zxhw piss" >> /etc/msmtprc && \
     echo "from EcoBreeze" >> /etc/msmtprc && \
     echo "logfile /var/log/msmtp.log" >> /etc/msmtprc && \
-    chmod 600 /etc/msmtprc
+    chmod 600 /etc/msmtprc && \
+    chown www-data:www-data /etc/msmtprc
 
 # Habilita los módulos necesarios de Apache
 RUN a2enmod rewrite
