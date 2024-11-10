@@ -585,3 +585,5 @@ Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown colum
 2024-11-09 21:23:55 - Error: Error al enviar el correo de verificación.
 2024-11-09 21:25:47 - Error: Error al enviar el correo de verificación.
 2024-11-09 21:27:08 - Error: Error al enviar el correo de verificación.
+2024-11-10 16:14:07 - Error: El email ya está registrado.
+2024-11-10 16:14:17 - Error: Error al enviar el correo.

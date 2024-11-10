@@ -12,9 +12,12 @@ function enviarCorreoVerificacion($email, $token) {
     $headers = 'From: Ecobreeze <gtiproyecto@gmail.com>';
 
 
-    if(mail($to, $subject, $message, $headers)) {
-        echo 'Correo enviado con éxito!';
+    if (mail($to, $subject, $message, $headers)) {
+        registrarError('Correo enviado con éxito!');
+        return "success";
     } else {
-        echo 'Error al enviar el correo.';
+        registrarError('Error al enviar el correo.');
+        return "error";
     }
+    
 }
