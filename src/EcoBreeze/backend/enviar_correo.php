@@ -9,7 +9,7 @@ function enviarCorreoVerificacion($email, $token) {
 
     $message = 'Haz clic en el siguiente enlace para verificar tu correo: http://localhost:8080/backend/registrar/verificar_correo.php?email=' . urlencode($email) . '&token=' . urlencode($token);
 
-    $headers = 'From: Ecobreeze <gs0gs1gs2@gmail.com>';
+    $headers = 'From: Ecobreeze <gtiproyecto@gmail.com>';
 
 
     if(mail($to, $subject, $message, $headers)) {

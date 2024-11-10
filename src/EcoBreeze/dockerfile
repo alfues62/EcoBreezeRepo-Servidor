@@ -15,8 +15,8 @@ RUN echo "defaults" > /etc/msmtprc && \
     echo "account default" >> /etc/msmtprc && \
     echo "host smtp.gmail.com" >> /etc/msmtprc && \
     echo "port 587" >> /etc/msmtprc && \
-    echo "user gs0gs1gs2@gmail.com" >> /etc/msmtprc && \
-    echo "password gtps kril derb preg" >> /etc/msmtprc && \
+    echo "user gtiproyecto@gmail.com" >> /etc/msmtprc && \
+    echo "password blhu dlpg zxhw piss" >> /etc/msmtprc && \
     echo "from EcoBreeze" >> /etc/msmtprc && \
     echo "logfile /var/log/msmtp.log" >> /etc/msmtprc && \
     chmod 600 /etc/msmtprc
