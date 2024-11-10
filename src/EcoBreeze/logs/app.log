@@ -581,7 +581,6 @@ Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown colum
 2024-11-09 19:21:11 - Error: Error al enviar el correo de verificación.
 2024-11-09 19:22:47 - Error: Error al enviar el correo de verificación. No se pudo obtener detalles del error.
 2024-11-09 21:21:52 - Error: Credenciales de Gmail no configuradas.
-2024-11-09 21:22:39 - Error: Credenciales de Gmail no configuradas.
 2024-11-09 21:23:55 - Error: Error al enviar el correo de verificación.
 2024-11-09 21:25:47 - Error: Error al enviar el correo de verificación.
 2024-11-09 21:27:08 - Error: Error al enviar el correo de verificación.
@@ -665,3 +664,46 @@ Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown colum
 2024-11-10 17:51:05 - Error: El email ya está registrado.
 2024-11-10 17:52:05 - Error: Correo enviado con éxito a alfues62@gmail.com.
 2024-11-10 17:52:09 - Error: El email ya está registrado.
+2024-11-10 17:53:52 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 17:54:03 - Error: Hubo un error al verificar el correo.
+2024-11-10 17:55:09 - {"id":"2"}
+2024-11-10 17:55:10 - {"id":"2"}
+2024-11-10 17:55:15 - {"id":"2"}
+2024-11-10 17:55:15 - {"id":"2","contrasena_actual":"a","nueva_contrasena":"12"}
+2024-11-10 17:55:16 - {"id":"2"}
+2024-11-10 17:55:17 - {"id":"2"}
+2024-11-10 17:55:18 - {"id":"2"}
+2024-11-10 18:17:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 18:17:38 - Error: Hubo un error al verificar el correo.
+2024-11-10 18:19:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 18:19:31 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:54:25 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 18:54:35 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:07 - Error: Respuesta cruda recibida de la API: {"success":true,"message":"Usuario registrado con \u00e9xito."}
+2024-11-10 18:56:09 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 18:56:34 - Error: Respuesta cruda recibida de la API: <br />
+<b>Warning</b>:  Undefined array key "ExpiracionToken" in <b>/var/www/html/backend/controllers/usuario_CRUD.php</b> on line <b>297</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught Error: Call to undefined function registrarError() in /var/www/html/backend/controllers/usuario_CRUD.php:323
+Stack trace:
+#0 /var/www/html/backend/api/api_usuario.php(215): UsuariosCRUD-&gt;verificar_correo('gs0gs1gs2@gmail...', 'bfdc38849cee23d...')
+#1 {main}
+  thrown in <b>/var/www/html/backend/controllers/usuario_CRUD.php</b> on line <b>323</b><br />
+
+2024-11-10 18:56:34 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:34 - Error: Excepción en hacerSolicitudCurl: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:34 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:11:25 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:14:07 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:18:13 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:18:17 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:18:19 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:28:22 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:31:40 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:33:00 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:33:58 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:35:59 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:36:13 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:40:11 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.

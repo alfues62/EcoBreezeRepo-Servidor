@@ -264,21 +264,28 @@ public function cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo) {
         return ['success' => false, 'error' => 'Error al cambiar el correo electrónico.'];
     }
 }
+
+
 public function verificar_correo($email, $token) {
     try {
+        // Iniciar transacción
+        $this->conn->beginTransaction();
+
         // Consultamos al usuario utilizando el correo y el token de verificación
-        $query = "SELECT ID, TokenVerificacion, Verificado, ExpiracionToken FROM USUARIO WHERE Email = ?";
+        $query = "SELECT ID, TokenVerificacion, Verificado, expiracion_token FROM USUARIO WHERE Email = ?";
         $stmt = $this->conn->prepare($query);
         $stmt->execute([$email]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Verificamos si el usuario existe
         if (!$usuario) {
+            registrarError("Correo no encontrado: $email");
             return ['error' => 'Correo no encontrado.'];
         }
 
         // Comprobamos si el token es válido
         if ($usuario['TokenVerificacion'] !== $token) {
+            registrarError("Token no válido para email: $email");
             return ['error' => 'Token no válido.'];
         }
 
@@ -288,30 +295,38 @@ public function verificar_correo($email, $token) {
         }
 
         // Verificamos si el token ha expirado
-        $fecha_actual = new DateTime();  // Fecha y hora actual
-        $expiracion_token = new DateTime($usuario['ExpiracionToken']);  // Fecha de expiración del token en la base de datos
+        $fecha_actual = new DateTime();
+        $expiracion_token = new DateTime($usuario['expiracion_token']);
 
         if ($fecha_actual > $expiracion_token) {
+            registrarError("El token ha expirado para email: $email");
             return ['error' => 'El token ha expirado. Por favor, solicite uno nuevo.'];
         }
 
         // Si el token es válido y no ha expirado, verificamos al usuario
-        $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = NULL, ExpiracionToken = NULL WHERE Email = ?";
+        $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = NULL, expiracion_token = NULL WHERE Email = ?";
         $stmtUpdate = $this->conn->prepare($queryUpdate);
         $stmtUpdate->execute([$email]);
 
         // Verificamos si la actualización se realizó correctamente
         if ($stmtUpdate->rowCount() > 0) {
-            return ['success' => 'Correo verificado con éxito. Ahora puede iniciar sesión.'];
+            // Confirmar transacción
+            $this->conn->commit();
+            return ['success' => 'Correo verificado con éxito.'];
         } else {
+            registrarError("No se pudo actualizar el estado del correo para email: $email");
+            $this->conn->rollBack();
             return ['error' => 'No se pudo actualizar el estado del correo.'];
         }
     } catch (PDOException $e) {
+        // Revertir transacción en caso de error
+        $this->conn->rollBack();
         // Registrar el error en el log
-        error_log("Error en verificar correo: " . $e->getMessage() . "\n", 3, $this->logFile);
+        registrarError("Error en verificar correo: " . $e->getMessage());
         return ['error' => 'Hubo un error al verificar el correo.'];
     }
 }
+
 
 
 

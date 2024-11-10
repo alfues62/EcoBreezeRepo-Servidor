@@ -5,12 +5,16 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 /* Container */
 .container {
     max-width: 600px;
-    margin: 50px auto;
+    margin: 20px;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -21,13 +25,14 @@ body {
 h1, h2, h3 {
     color: #333;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 /* Estilos para los mensajes */
 .message {
     font-size: 18px;
     margin: 20px;
+    text-align: center; /* Asegura que el texto del mensaje esté centrado */
 }
 
 /* Mensaje de éxito */
@@ -55,6 +60,7 @@ h1, h2, h3 {
 a {
     text-decoration: none;
     color: #007BFF;
+    text-align: center; /* Asegura que los enlaces estén centrados */
 }
 
 a:hover {
@@ -69,6 +75,7 @@ a:hover {
     cursor: pointer;
     color: white;
     transition: background-color 0.3s ease;
+    text-align: center; /* Asegura que el texto del botón esté centrado */
 }
 
 .btn-primary {
@@ -95,8 +102,4 @@ a:hover {
 /* Alignment */
 .text-center {
     text-align: center;
-}
-
-.text-left {
-    text-align: left;
 }

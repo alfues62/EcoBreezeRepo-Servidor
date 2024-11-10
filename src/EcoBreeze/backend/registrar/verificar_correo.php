@@ -16,17 +16,18 @@ $data = json_encode([
 // Realizar la solicitud HTTP
 $result = hacerSolicitudCurl($url, $data);
 
-// Determinar el mensaje de éxito o error
+// Determinar el mensaje de éxito o error directamente desde la API
 $message = '';
 $error = '';
 
 if (isset($result['success']) && $result['success']) {
-    $message = '¡Correo verificado con éxito!';
+    // Mostrar solo el mensaje de éxito devuelto por la API
+    $message = htmlspecialchars($result['message']);
 } else {
-    $error = htmlspecialchars($result['error'] ?? 'Error desconocido.');
+    // Mostrar solo el mensaje de error devuelto por la API
+    $error = htmlspecialchars($result['error']);
     registrarError($error);
 }
 
-// Incluir la vista para mostrar el resultado
-include '../../frontend/php/verificar_token.vista.php';
+include '../../frontend/php/verificar_token.vista.php'
 ?>
