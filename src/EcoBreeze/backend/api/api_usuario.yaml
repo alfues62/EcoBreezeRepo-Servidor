@@ -3,9 +3,11 @@ info:
   title: API USUARIO
   description: API para lectura, escritura, eliminación y edición de datos de usuarios y sensores.
   version: 1.0.0
+
 servers:
   - url: http://localhost/ECOBREEZE/usuarios
     description: 'Servidor de desarrollo'
+
 paths:
   /leer:
     get:
@@ -293,6 +295,48 @@ paths:
         '5XX':
           description: Error del servidor.
 
+  /verificar_correo:
+    post:
+      summary: Verifica el correo de un usuario mediante correo electrónico y token
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Correo electrónico del usuario
+                token_verificacion:
+                  type: string
+                  description: Token de verificación enviado al correo del usuario
+              required:
+                - email
+                - token_verificacion
+      responses:
+        '200':
+          description: Verificación exitosa.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    description: Indica si la verificación fue exitosa
+                  message:
+                    type: string
+                    description: Mensaje de confirmación
+        '400':
+          description: Token de verificación inválido, expirado o correo incorrecto.
+        '404':
+          description: Usuario no encontrado.
+        '5XX':
+          description: Error del servidor.
+
 components:
   schemas:
     Usuario:
@@ -319,3 +363,13 @@ components:
         rol_rolid:
           type: integer
           description: ID del rol del usuario en el sistema
+        verificado:
+          type: boolean
+          description: Indica si el correo del usuario ha sido verificado
+        tokenVerificacion:
+          type: string
+          description: Token de verificación para el correo
+        expiracion_token:
+          type: string
+          format: date-time
+          description: Fecha y hora de expiración del token de verificación

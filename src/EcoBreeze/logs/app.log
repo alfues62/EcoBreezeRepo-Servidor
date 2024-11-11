@@ -169,3 +169,553 @@ Error en insertar sensor: SQLSTATE[23000]: Integrity constraint violation: 1062 
 2024-10-28 13:16:22 - {"action":"obtener_datos_usuario","id":1}
 2024-10-28 13:24:04 - {"action":"obtener_datos_usuario","id":1}
 2024-10-28 13:24:17 - {"action":"obtener_datos_usuario","id":1}
+2024-11-06 21:50:28 - {"action":"obtener_datos_usuario","id":"1"}
+2024-11-06 21:55:36 - Error: Acción no válida: 
+2024-11-06 22:00:36 - Error: Acción no válida: 
+2024-11-06 22:47:53 - Error: Acción no válida: 
+2024-11-06 22:48:52 - Error: Acción no válida: 
+2024-11-06 22:49:25 - Error: Acción no válida: 
+2024-11-07 00:28:15 - Error: Acción no válida: 
+2024-11-07 00:42:08 - {"id":"1"}
+2024-11-07 00:42:32 - {"id":"1"}
+2024-11-08 22:23:19 - {"id":"2"}
+2024-11-08 22:24:19 - {"id":"2"}
+2024-11-08 22:24:21 - {"id":"2"}
+2024-11-08 22:25:11 - {"id":"2"}
+2024-11-08 22:25:13 - {"id":"2"}
+2024-11-08 22:33:53 - {"id":"2"}
+2024-11-08 22:34:01 - {"id":"2"}
+2024-11-08 22:34:07 - {"id":"2"}
+2024-11-08 22:34:15 - {"id":"3"}
+2024-11-08 22:38:07 - {"id":"3"}
+2024-11-08 22:38:09 - {"id":"3"}
+2024-11-08 22:38:36 - {"id":"3"}
+2024-11-08 22:39:00 - {"id":"3"}
+2024-11-08 22:39:05 - {"id":"3"}
+2024-11-08 22:39:13 - {"id":"3"}
+2024-11-08 22:39:55 - {"id":"3"}
+2024-11-08 22:39:57 - {"id":"3"}
+2024-11-08 23:51:38 - {"id":"3"}
+2024-11-08 23:51:43 - {"id":"3"}
+2024-11-08 23:58:28 - {"id":"3"}
+2024-11-08 23:58:32 - {"usuario_id":"3","nueva_contrasena":"12"}
+2024-11-08 23:59:06 - {"id":"3"}
+2024-11-08 23:59:07 - {"id":"3"}
+2024-11-08 23:59:13 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"a"}
+2024-11-08 23:59:13 - {"id":"3"}
+2024-11-08 23:59:18 - {"id":"3"}
+2024-11-09 00:01:07 - {"id":"3"}
+2024-11-09 00:01:10 - {"id":"3"}
+2024-11-09 00:02:26 - {"id":"3"}
+2024-11-09 00:02:29 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"12"}
+2024-11-09 00:02:29 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 00:02:29 - {"id":"3"}
+2024-11-09 00:02:33 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"12"}
+2024-11-09 00:02:33 - {"id":"3"}
+2024-11-09 00:02:41 - {"id":"3"}
+2024-11-09 00:02:47 - {"id":"3"}
+2024-11-09 00:02:49 - {"id":"3"}
+2024-11-09 00:02:50 - {"id":"3"}
+2024-11-09 00:02:57 - {"id":"3"}
+2024-11-09 00:08:18 - {"id":"3"}
+2024-11-09 00:08:23 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"12"}
+2024-11-09 00:08:23 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 00:08:23 - {"id":"3"}
+2024-11-09 00:08:26 - {"id":"3","contrasena_actual":"12","nueva_contrasena":"a"}
+2024-11-09 00:08:26 - {"id":"3"}
+2024-11-09 00:08:28 - {"id":"3"}
+2024-11-09 00:08:46 - {"id":"3"}
+2024-11-09 00:12:32 - {"id":"3"}
+2024-11-09 00:12:34 - {"id":"3"}
+2024-11-09 00:15:01 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"as"}
+2024-11-09 00:15:01 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 00:15:01 - {"id":"3"}
+2024-11-09 00:15:11 - {"id":"6"}
+2024-11-09 00:15:14 - {"id":"6","contrasena_actual":"a","nueva_contrasena":"12"}
+2024-11-09 00:15:14 - {"id":"6"}
+2024-11-09 00:15:16 - {"id":"6"}
+2024-11-09 00:15:18 - {"id":"6"}
+2024-11-09 00:51:45 - {"id":"3"}
+2024-11-09 00:51:48 - {"id":"3"}
+2024-11-09 00:59:39 - {"id":"3"}
+2024-11-09 01:27:11 - {"id":"3"}
+2024-11-09 01:27:45 - Error: Contraseña incorrecta
+2024-11-09 01:30:06 - {"id":"3"}
+2024-11-09 01:30:08 - Error: Contraseña incorrecta
+2024-11-09 01:31:35 - Error: Contraseña incorrecta
+2024-11-09 01:32:52 - Error: Contraseña incorrecta
+2024-11-09 01:32:57 - Error: Contraseña incorrecta
+2024-11-09 01:33:58 - {"id":"3"}
+2024-11-09 01:34:02 - Error: Contraseña incorrecta
+2024-11-09 01:35:37 - Error: Contraseña incorrecta
+2024-11-09 01:36:41 - Error: Contraseña incorrecta
+2024-11-09 01:38:31 - Error: Contraseña incorrecta
+2024-11-09 01:39:13 - Error: Contraseña incorrecta
+2024-11-09 01:39:16 - Error: Contraseña incorrecta
+2024-11-09 01:42:30 - Error: Contraseña incorrecta
+2024-11-09 02:02:29 - Error: Contraseña incorrecta
+2024-11-09 02:02:34 - Error: Contraseña incorrecta
+2024-11-09 02:16:29 - Error: El email ya está registrado.
+2024-11-09 02:16:35 - Error: El email ya está registrado.
+2024-11-09 02:18:34 - Error: El email ya está registrado.
+2024-11-09 02:33:33 - Error: Contraseña incorrecta
+2024-11-09 02:40:49 - {"id":"3"}
+2024-11-09 02:40:57 - Error: Contraseña incorrecta
+2024-11-09 02:41:00 - {"id":"3"}
+2024-11-09 02:41:15 - {"id":"3"}
+2024-11-09 02:41:24 - {"id":"3"}
+2024-11-09 02:41:30 - {"id":"3"}
+2024-11-09 02:41:52 - {"id":"3"}
+2024-11-09 02:41:56 - {"id":"3"}
+2024-11-09 02:42:02 - {"id":"3"}
+2024-11-09 02:43:07 - {"id":"3"}
+2024-11-09 02:43:07 - {"id":"3"}
+2024-11-09 02:43:36 - Error: Contraseña incorrecta
+2024-11-09 02:43:39 - {"id":"3"}
+2024-11-09 02:44:49 - {"id":"3"}
+2024-11-09 02:45:05 - {"id":"3"}
+2024-11-09 02:45:09 - {"id":"3"}
+2024-11-09 02:45:14 - {"id":"3"}
+2024-11-09 02:45:22 - {"id":"3"}
+2024-11-09 02:45:28 - {"id":"3"}
+2024-11-09 02:45:31 - {"id":"3"}
+2024-11-09 02:46:28 - {"id":"3"}
+2024-11-09 02:46:35 - {"id":"3"}
+2024-11-09 02:46:43 - {"id":"3"}
+2024-11-09 02:47:00 - {"id":"3"}
+2024-11-09 02:47:56 - {"id":"3"}
+2024-11-09 02:47:58 - {"id":"3"}
+2024-11-09 02:54:51 - {"id":"3"}
+2024-11-09 02:54:56 - {"id":"3"}
+2024-11-09 02:54:58 - {"id":"3"}
+2024-11-09 02:54:59 - {"id":"3"}
+2024-11-09 02:55:02 - {"id":"3"}
+2024-11-09 02:55:03 - {"id":"3"}
+2024-11-09 02:56:36 - {"id":"3"}
+2024-11-09 02:56:37 - {"id":"3"}
+2024-11-09 02:56:38 - {"id":"3"}
+2024-11-09 02:56:42 - {"id":"3"}
+2024-11-09 02:58:06 - {"id":"3"}
+2024-11-09 02:59:56 - {"id":"3"}
+2024-11-09 03:03:44 - {"id":"3"}
+2024-11-09 03:04:06 - {"id":"3"}
+2024-11-09 03:04:08 - {"id":"3"}
+2024-11-09 03:04:10 - {"id":"3"}
+2024-11-09 03:06:22 - {"id":"3"}
+2024-11-09 03:12:45 - {"id":"3"}
+2024-11-09 03:13:03 - {"id":"3"}
+2024-11-09 03:21:03 - {"id":"3"}
+2024-11-09 03:21:10 - {"id":"3"}
+2024-11-09 03:21:57 - {"id":"3"}
+2024-11-09 03:22:02 - {"id":"3"}
+2024-11-09 03:22:02 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"123"}
+2024-11-09 03:22:08 - {"id":"3"}
+2024-11-09 03:22:16 - {"id":"3"}
+2024-11-09 03:22:16 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"123"}
+2024-11-09 03:22:22 - {"id":"3"}
+2024-11-09 03:22:22 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"12"}
+2024-11-09 03:22:27 - {"id":"3"}
+2024-11-09 03:22:27 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"123"}
+2024-11-09 03:22:27 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:22:36 - {"id":"3"}
+2024-11-09 03:22:41 - {"id":"3"}
+2024-11-09 03:22:41 - {"id":"3","contrasena_actual":"12","nueva_contrasena":"123"}
+2024-11-09 03:22:44 - {"id":"3"}
+2024-11-09 03:22:50 - {"id":"3"}
+2024-11-09 03:22:50 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"1234"}
+2024-11-09 03:22:51 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:22:56 - Error: Contraseña incorrecta
+2024-11-09 03:24:21 - {"id":"3"}
+2024-11-09 03:24:29 - {"id":"3"}
+2024-11-09 03:24:29 - {"id":"3","contrasena_actual":"","nueva_contrasena":""}
+2024-11-09 03:24:32 - {"id":"3"}
+2024-11-09 03:24:42 - {"id":"3"}
+2024-11-09 03:24:42 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:24:46 - {"id":"3"}
+2024-11-09 03:24:55 - {"id":"3"}
+2024-11-09 03:24:55 - {"id":"3","contrasena_actual":"","nueva_contrasena":""}
+2024-11-09 03:25:03 - {"id":"3"}
+2024-11-09 03:28:43 - {"id":"3"}
+2024-11-09 03:28:43 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:28:43 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:28:43 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:29:03 - {"id":"3"}
+2024-11-09 03:29:09 - {"id":"3"}
+2024-11-09 03:29:09 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:29:09 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:29:09 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:30:25 - {"id":"3"}
+2024-11-09 03:30:29 - {"id":"3"}
+2024-11-09 03:30:29 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"123"}
+2024-11-09 03:30:29 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:30:29 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:36:16 - {"id":"3"}
+2024-11-09 03:36:16 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:36:16 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:36:16 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:39:03 - Error: Contraseña incorrecta
+2024-11-09 03:39:07 - {"id":"3"}
+2024-11-09 03:39:16 - {"id":"3"}
+2024-11-09 03:39:16 - {"id":"3","contrasena_actual":"1234","nueva_contrasena":"123"}
+2024-11-09 03:39:20 - {"id":"3"}
+2024-11-09 03:41:30 - {"id":"3"}
+2024-11-09 03:41:36 - {"id":"3"}
+2024-11-09 03:41:36 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:46:56 - Error: Contraseña incorrecta
+2024-11-09 03:47:01 - {"id":"3"}
+2024-11-09 03:47:09 - {"id":"3"}
+2024-11-09 03:47:09 - {"id":"3","contrasena_actual":"1234","nueva_contrasena":"123"}
+2024-11-09 03:47:16 - {"id":"3"}
+2024-11-09 03:49:34 - {"id":"3"}
+2024-11-09 03:49:39 - {"id":"3"}
+2024-11-09 03:49:39 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:50:31 - Error: Contraseña incorrecta
+2024-11-09 03:50:34 - Error: Contraseña incorrecta
+2024-11-09 03:50:39 - {"id":"3"}
+2024-11-09 03:50:45 - {"id":"3"}
+2024-11-09 03:50:45 - {"id":"3","contrasena_actual":"1234","nueva_contrasena":"1"}
+2024-11-09 03:50:49 - {"id":"3"}
+2024-11-09 03:54:24 - {"id":"3"}
+2024-11-09 03:54:28 - {"id":"3"}
+2024-11-09 03:54:28 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"123"}
+2024-11-09 03:54:28 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:54:28 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:54:39 - {"id":"3"}
+2024-11-09 03:54:39 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-09 03:54:39 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 03:54:39 - Error: La contraseña actual es incorrecta.
+2024-11-09 03:54:43 - Error: Contraseña incorrecta
+2024-11-09 03:54:47 - Error: Contraseña incorrecta
+2024-11-09 03:54:49 - Error: Contraseña incorrecta
+2024-11-09 03:54:52 - {"id":"2"}
+2024-11-09 03:54:58 - {"id":"2"}
+2024-11-09 03:54:58 - {"id":"2","contrasena_actual":"1","nueva_contrasena":"123"}
+2024-11-09 04:14:00 - {"id":"2"}
+2024-11-09 04:14:04 - {"id":"3"}
+2024-11-09 04:14:09 - {"id":"3"}
+2024-11-09 04:14:13 - {"id":"3"}
+2024-11-09 04:14:22 - Error: Contraseña incorrecta
+2024-11-09 04:14:25 - {"id":"3"}
+2024-11-09 04:14:53 - {"id":"3"}
+2024-11-09 04:14:58 - {"id":"3"}
+2024-11-09 04:15:01 - Error: Contraseña incorrecta
+2024-11-09 04:15:05 - {"id":"3"}
+2024-11-09 04:16:35 - {"id":"3"}
+2024-11-09 04:16:39 - {"id":"3"}
+2024-11-09 04:16:42 - {"id":"3"}
+2024-11-09 04:19:54 - {"id":"3"}
+2024-11-09 04:19:58 - {"id":"3"}
+2024-11-09 04:19:58 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"123"}
+2024-11-09 04:20:04 - {"id":"3"}
+2024-11-09 04:20:12 - {"id":"3"}
+2024-11-09 04:20:12 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"1"}
+2024-11-09 04:20:17 - {"id":"3"}
+2024-11-09 04:20:17 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"a"}
+2024-11-09 04:20:21 - {"id":"3"}
+2024-11-09 04:20:21 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"1"}
+2024-11-09 04:20:26 - {"id":"3"}
+2024-11-09 04:20:26 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"a"}
+2024-11-09 04:20:26 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 04:20:26 - Error: La contraseña actual es incorrecta.
+2024-11-09 04:20:31 - {"id":"3"}
+2024-11-09 04:20:31 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"a"}
+2024-11-09 04:20:36 - {"id":"3"}
+2024-11-09 04:20:44 - {"id":"3"}
+2024-11-09 04:20:44 - {"id":"3","contrasena_actual":"we","nueva_contrasena":"as"}
+2024-11-09 04:20:44 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 04:20:44 - Error: La contraseña actual es incorrecta.
+2024-11-09 04:21:53 - {"id":"3"}
+2024-11-09 04:21:57 - {"id":"3"}
+2024-11-09 04:21:57 - {"id":"3","contrasena_actual":"123","nueva_contrasena":"as"}
+2024-11-09 04:21:57 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 04:21:57 - Error: La contraseña actual es incorrecta.
+2024-11-09 04:22:00 - {"id":"3"}
+2024-11-09 04:22:05 - {"id":"3"}
+2024-11-09 04:22:05 - {"id":"3","contrasena_actual":"as","nueva_contrasena":"1"}
+2024-11-09 04:22:05 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 04:22:05 - Error: La contraseña actual es incorrecta.
+2024-11-09 04:22:10 - {"id":"3"}
+2024-11-09 04:22:10 - {"id":"3","contrasena_actual":"a","nueva_contrasena":"1"}
+2024-11-09 04:22:15 - {"id":"3"}
+2024-11-09 04:22:15 - {"id":"3","contrasena_actual":"12","nueva_contrasena":"1"}
+2024-11-09 04:22:15 - Error al cambiar contraseña: {"success":false,"error":"La contrase\u00f1a actual es incorrecta."}
+2024-11-09 04:22:15 - Error: La contraseña actual es incorrecta.
+2024-11-09 04:22:20 - {"id":"3"}
+2024-11-09 04:22:20 - {"id":"3","contrasena_actual":"1","nueva_contrasena":"as"}
+2024-11-09 04:22:27 - {"id":"3"}
+2024-11-09 04:22:27 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b2@gmail.com"}
+2024-11-09 04:22:27 - Error: Error al decodificar JSON: Syntax error
+2024-11-09 04:22:47 - {"id":"3"}
+2024-11-09 04:22:47 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b2@gmail.com"}
+2024-11-09 04:22:47 - Error: Error al decodificar JSON: Syntax error
+2024-11-09 04:26:51 - {"id":"3"}
+2024-11-09 04:26:51 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b3@gmail.com"}
+2024-11-09 04:26:51 - Error: Error al decodificar JSON: Syntax error
+2024-11-09 04:28:58 - {"id":"3"}
+2024-11-09 04:28:58 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b2@gmail.com"}
+2024-11-09 04:29:40 - {"id":"3"}
+2024-11-09 04:29:40 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b2@gmail.com"}
+2024-11-09 04:29:40 - Error: El email ya está registrado.
+2024-11-09 04:29:46 - {"id":"3"}
+2024-11-09 04:29:46 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b2@gmail.com"}
+2024-11-09 04:29:46 - Error: El email ya está registrado.
+2024-11-09 04:29:52 - {"id":"3"}
+2024-11-09 04:29:52 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b32@gmail.com"}
+2024-11-09 04:29:58 - {"id":"3"}
+2024-11-09 04:29:58 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b32@gmail.com"}
+2024-11-09 04:29:58 - Error: El email ya está registrado.
+2024-11-09 04:30:43 - Error: Correo no registrado
+2024-11-09 04:30:49 - {"id":"3"}
+2024-11-09 04:30:54 - {"id":"3"}
+2024-11-09 04:30:54 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b322@gmail.com"}
+2024-11-09 04:32:53 - {"id":"3"}
+2024-11-09 04:32:53 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b323@gmail.com"}
+2024-11-09 04:32:56 - {"id":"3"}
+2024-11-09 04:32:57 - {"id":"3"}
+2024-11-09 04:33:02 - {"id":"3"}
+2024-11-09 04:33:02 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b3233@gmail.com"}
+2024-11-09 04:33:04 - {"id":"3"}
+2024-11-09 04:34:15 - {"id":"3"}
+2024-11-09 04:34:27 - {"id":"3"}
+2024-11-09 04:34:27 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b3233@gmail.com"}
+2024-11-09 04:34:27 - Error: El email ya está registrado.
+2024-11-09 04:36:26 - {"id":"3"}
+2024-11-09 04:36:30 - {"id":"3"}
+2024-11-09 04:36:30 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b32333@gmail.com"}
+2024-11-09 04:36:34 - {"id":"3"}
+2024-11-09 04:36:51 - {"id":"3"}
+2024-11-09 04:36:51 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b323323@gmail.com"}
+2024-11-09 04:37:33 - {"id":"3"}
+2024-11-09 04:37:38 - {"id":"3"}
+2024-11-09 04:37:38 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b32332123@gmail.com"}
+2024-11-09 04:39:51 - {"id":"3"}
+2024-11-09 04:39:58 - {"id":"3"}
+2024-11-09 04:39:58 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:40:04 - {"id":"3"}
+2024-11-09 04:40:04 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:40:04 - Error: El email ya está registrado.
+2024-11-09 04:41:03 - {"id":"3"}
+2024-11-09 04:41:08 - {"id":"3"}
+2024-11-09 04:41:08 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b1@gmail.com"}
+2024-11-09 04:41:09 - {"id":"3"}
+2024-11-09 04:41:09 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b1@gmail.com"}
+2024-11-09 04:41:09 - Error: El email ya está registrado.
+2024-11-09 04:41:16 - {"id":"3"}
+2024-11-09 04:41:16 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b21@gmail.com"}
+2024-11-09 04:41:17 - {"id":"3"}
+2024-11-09 04:41:17 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b21@gmail.com"}
+2024-11-09 04:41:17 - Error: El email ya está registrado.
+2024-11-09 04:45:27 - {"id":"3"}
+2024-11-09 04:45:31 - {"id":"3"}
+2024-11-09 04:45:31 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b212@gmail.com"}
+2024-11-09 04:45:39 - {"id":"3"}
+2024-11-09 04:45:39 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:45:43 - {"id":"3"}
+2024-11-09 04:45:43 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:45:43 - Error: El email ya está registrado.
+2024-11-09 04:45:46 - {"id":"3"}
+2024-11-09 04:45:46 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:45:46 - Error: El email ya está registrado.
+2024-11-09 04:45:53 - {"id":"3"}
+2024-11-09 04:45:53 - {"id":"3","contrasena_actual":"as","nuevo_correo":"ba@gmail.com"}
+2024-11-09 04:45:58 - {"id":"3"}
+2024-11-09 04:46:03 - {"id":"3"}
+2024-11-09 04:46:07 - {"id":"3"}
+2024-11-09 04:46:07 - {"id":"3","contrasena_actual":"asd","nuevo_correo":"ba@gmail.com"}
+2024-11-09 04:46:07 - Error: El email ya está registrado.
+2024-11-09 04:46:29 - {"id":"3"}
+2024-11-09 04:46:34 - {"id":"3"}
+2024-11-09 04:46:34 - {"id":"3","contrasena_actual":"as","nuevo_correo":"bas@gmail.com"}
+2024-11-09 04:46:35 - {"id":"3"}
+2024-11-09 04:46:35 - {"id":"3","contrasena_actual":"as","nuevo_correo":"bas@gmail.com"}
+2024-11-09 04:46:35 - Error: El email ya está registrado.
+2024-11-09 04:46:44 - {"id":"3"}
+2024-11-09 04:46:44 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:46:46 - {"id":"3"}
+2024-11-09 04:46:46 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:46:46 - Error: El email ya está registrado.
+2024-11-09 04:47:40 - {"id":"3"}
+2024-11-09 04:47:40 - {"id":"3","contrasena_actual":"as","nuevo_correo":"ba@gmail.com"}
+2024-11-09 04:47:57 - {"id":"3"}
+2024-11-09 04:47:57 - {"id":"3","contrasena_actual":"as","nuevo_correo":"ba@gmail.com"}
+2024-11-09 04:47:57 - Error: El email ya está registrado.
+2024-11-09 04:49:20 - {"id":"3"}
+2024-11-09 04:49:20 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:49:21 - {"id":"3"}
+2024-11-09 04:49:21 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:49:21 - Error: El email ya está registrado.
+2024-11-09 04:51:27 - {"id":"3"}
+2024-11-09 04:51:27 - {"id":"3","contrasena_actual":"as","nuevo_correo":"ba@gmail.com"}
+2024-11-09 04:51:31 - {"id":"3"}
+2024-11-09 04:51:38 - {"id":"3"}
+2024-11-09 04:51:38 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b@gmail.com"}
+2024-11-09 04:51:43 - {"id":"3"}
+2024-11-09 04:53:15 - {"id":"3"}
+2024-11-09 04:53:15 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b12@gmail.com"}
+2024-11-09 04:53:16 - {"id":"3"}
+2024-11-09 04:53:16 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b12@gmail.com"}
+2024-11-09 04:53:16 - Error: El email ya está registrado.
+2024-11-09 04:53:59 - {"id":"3"}
+2024-11-09 04:53:59 - {"id":"3","contrasena_actual":"as","nuevo_correo":"b132@gmail.com"}
+2024-11-09 04:54:00 - {"id":"3"}
+2024-11-09 16:00:05 - Error: Correo no registrado
+2024-11-09 16:00:09 - Error: Contraseña incorrecta
+2024-11-09 16:00:13 - Error: Correo no registrado
+2024-11-09 16:00:23 - Error: El email ya está registrado.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-09 16:00:34 - Error: Correo no registrado
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-09 16:19:20 - Error: Correo no registrado
+2024-11-09 16:23:45 - {"id":"17"}
+2024-11-09 16:23:46 - {"id":"17"}
+2024-11-09 18:07:42 - Error: 
+2024-11-09 19:12:04 - Error: El email ya está registrado.
+2024-11-09 19:12:31 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:13:10 - Error: Email y token son obligatorios.
+2024-11-09 19:14:44 - Error: Email y token son obligatorios.
+2024-11-09 19:15:03 - Error: Error al enviar el correo de verificación: 
+2024-11-09 19:17:30 - Error: Error al enviar el correo de verificación: 
+2024-11-09 19:18:53 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:19:28 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:20:28 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:21:11 - Error: Error al enviar el correo de verificación.
+2024-11-09 19:22:47 - Error: Error al enviar el correo de verificación. No se pudo obtener detalles del error.
+2024-11-09 21:21:52 - Error: Credenciales de Gmail no configuradas.
+2024-11-09 21:23:55 - Error: Error al enviar el correo de verificación.
+2024-11-09 21:25:47 - Error: Error al enviar el correo de verificación.
+2024-11-09 21:27:08 - Error: Error al enviar el correo de verificación.
+2024-11-10 16:14:07 - Error: El email ya está registrado.
+2024-11-10 16:14:17 - Error: Error al enviar el correo.
+2024-11-10 16:32:47 - Error: Error al enviar el correo.
+2024-11-10 16:33:45 - Error: Correo enviado con éxito!
+2024-11-10 16:38:41 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:38:41 - Error: Error al enviar el correo.
+2024-11-10 16:38:41 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:49:59 - Error: Error al enviar el correo.
+2024-11-10 16:49:59 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:49:59 - Error: Enviando correo a: alfuset62@gmail.com con token: 2d73d632c6fec21bc0603fcc2abfbc15
+2024-11-10 16:49:59 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:51:20 - Error: Error al enviar el correo.
+2024-11-10 16:51:20 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:51:20 - Error: Enviando correo a: b123@gmail.com con token: fcc9f9ee37241dab91a379c97cc215a7
+2024-11-10 16:51:20 - Error: Error al enviar el correo de verificación: error
+2024-11-10 16:52:19 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:52:19 - Error: Enviando correo a: yaekitsune2207@gmail.com con token: 1a44862760094fcfbf75a1ae51897c41
+2024-11-10 16:52:19 - Error: Error al enviar el correo.
+2024-11-10 16:55:58 - Error: Error en el registro de usuario: El email ya está registrado.
+2024-11-10 16:56:12 - Error: Error en el registro de usuario: El email ya está registrado.
+2024-11-10 16:56:30 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 16:56:30 - Error: Enviando correo a: alfuset62@gmail.com con token: 19e6da7b20a5b0384e89652eaf55e0c7
+2024-11-10 16:56:30 - Error: Intentando enviar correo a alfuset62@gmail.com...
+2024-11-10 16:56:30 - Error: Error al enviar el correo.
+2024-11-10 16:56:30 - Error: Error al enviar el correo de verificación: error
+2024-11-10 17:04:21 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:04:21 - Error: Enviando correo a: alfues62@gmail.com con token: b447a5e57976e2f579f5d27de4f661a4
+2024-11-10 17:04:21 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:04:21 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:05:22 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:05:22 - Error: Enviando correo a: alfuset12362@gmail.com con token: 4c2b8db940813adbe1d7231789a8ab26
+2024-11-10 17:05:22 - Error: Error al enviar el correo a alfues@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:05:22 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:06:04 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:08:41 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:08:41 - Error: Enviando correo a: alfues62@gmail.com con token: 3b03bfed4e16f2cb4bc25de1b29983bf
+2024-11-10 17:08:41 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:08:41 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:09:22 - Error: Registro exitoso. Procediendo a enviar el correo de verificación.
+2024-11-10 17:09:22 - Error: Enviando correo a: alfues62@gmail.com con token: 7f6c74d81b348988cd474caa86908e91
+2024-11-10 17:09:22 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:09:22 - Error: Error al enviar el correo de verificación: error: Error desconocido al enviar el correo.
+2024-11-10 17:12:17 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:17:57 - Error: El email ya está registrado.
+2024-11-10 17:24:43 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: a066b80fc420db9476ab5b5ce81b8581
+2024-11-10 17:24:44 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:24:44 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:25:36 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:26:45 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:21 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 0c242b73b7ab75a29437d3b4b44438c7
+2024-11-10 17:33:21 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:36 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: e313b5752018fc15c7dfab8203c07e23
+2024-11-10 17:33:38 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:33:38 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:33:57 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 862a63c5e6ffabc2dfdc04e4ca673703
+2024-11-10 17:33:57 - Error: Error al enviar el correo a alfues62@gmail.com: Error desconocido al enviar el correo.
+2024-11-10 17:33:57 - Error: Resultado del envío de correo de prueba: error: Error desconocido al enviar el correo.
+2024-11-10 17:36:46 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 18ada474d2cdbf35de66fbd4ab237ae9
+2024-11-10 17:36:47 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:36:47 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:36:48 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 81d7c7d94ebbe34e4124c98758201c13
+2024-11-10 17:36:49 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:36:49 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:37:07 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: 8e504ad54adb37d016fc36d960774a68
+2024-11-10 17:37:09 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:37:09 - Error: Resultado del envío de correo de prueba: success
+2024-11-10 17:37:25 - Error: Iniciando envío de correo a: alfues62@gmail.com con token: eb81b083bb9d726d0f6b4036c0bab064
+2024-11-10 17:37:27 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:38:18 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:38:55 - Error: Correo enviado con éxito a fues62@gmail.com.
+2024-11-10 17:40:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 17:41:23 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 17:41:39 - Error: Hubo un error al verificar el correo.
+2024-11-10 17:42:12 - Error: El email ya está registrado.
+2024-11-10 17:47:39 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:50:59 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:51:05 - Error: El email ya está registrado.
+2024-11-10 17:52:05 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-10 17:52:09 - Error: El email ya está registrado.
+2024-11-10 17:53:52 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 17:54:03 - Error: Hubo un error al verificar el correo.
+2024-11-10 17:55:09 - {"id":"2"}
+2024-11-10 17:55:10 - {"id":"2"}
+2024-11-10 17:55:15 - {"id":"2"}
+2024-11-10 17:55:15 - {"id":"2","contrasena_actual":"a","nueva_contrasena":"12"}
+2024-11-10 17:55:16 - {"id":"2"}
+2024-11-10 17:55:17 - {"id":"2"}
+2024-11-10 17:55:18 - {"id":"2"}
+2024-11-10 18:17:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'ExpiracionToken' in 'field list'
+2024-11-10 18:17:38 - Error: Hubo un error al verificar el correo.
+2024-11-10 18:19:24 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 18:19:31 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:54:25 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 18:54:35 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:07 - Error: Respuesta cruda recibida de la API: {"success":true,"message":"Usuario registrado con \u00e9xito."}
+2024-11-10 18:56:09 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 18:56:34 - Error: Respuesta cruda recibida de la API: <br />
+<b>Warning</b>:  Undefined array key "ExpiracionToken" in <b>/var/www/html/backend/controllers/usuario_CRUD.php</b> on line <b>297</b><br />
+<br />
+<b>Fatal error</b>:  Uncaught Error: Call to undefined function registrarError() in /var/www/html/backend/controllers/usuario_CRUD.php:323
+Stack trace:
+#0 /var/www/html/backend/api/api_usuario.php(215): UsuariosCRUD-&gt;verificar_correo('gs0gs1gs2@gmail...', 'bfdc38849cee23d...')
+#1 {main}
+  thrown in <b>/var/www/html/backend/controllers/usuario_CRUD.php</b> on line <b>323</b><br />
+
+2024-11-10 18:56:34 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:34 - Error: Excepción en hacerSolicitudCurl: Error al decodificar JSON: Syntax error
+2024-11-10 18:56:34 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:11:25 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:14:07 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:18:13 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:18:17 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:18:19 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:28:22 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:31:40 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:33:00 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:33:58 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:35:59 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:36:13 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:40:11 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:46:28 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-10 19:46:47 - Error: Error al decodificar JSON: Syntax error
+2024-11-10 19:50:26 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-10 19:50:34 - Error: Error al decodificar JSON: Syntax error
+2024-11-11 13:36:31 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-11 13:36:37 - Error: El correo no ha sido verificado. Por favor, revisa tu correo.
+2024-11-11 13:38:05 - Error: Token no válido.
+2024-11-11 13:38:07 - Error: Token no válido.
+2024-11-11 13:40:28 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-11 13:40:48 - Error: Error al decodificar JSON: Syntax error
+2024-11-11 13:41:48 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-11 13:42:03 - Error: Token no válido.
