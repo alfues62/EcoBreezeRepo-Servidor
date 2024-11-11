@@ -5,7 +5,14 @@ include 'autentificar.php';
 
 // Verificamos si el usuario está logueado, de lo contrario lo redirigimos al login
 if (isset($_SESSION['usuario_id'])) {
-    header('Location: ../pagina_usuario/main_usuario.php');
+    // Verificamos el rol del usuario para redirigirlo
+    if ($_SESSION['rol'] == 1) {
+        // Rol de administrador
+        header('Location: /pagina_admin/main_admin.php');
+    } else {
+        // Rol de usuario normal
+        header('Location: ../pagina_usuario/main_usuario.php');
+    }
     exit();
 }
 
@@ -25,12 +32,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (isset($result['error'])) {
             $error_message = htmlspecialchars($result['error']);
         } else {
-            // Inicia sesión y redirige al usuario
+            // Inicia sesión y guarda los datos en la sesión
             $_SESSION['usuario_id'] = $result['ID'];
             $_SESSION['nombre'] = $result['Nombre'];
             $_SESSION['rol'] = $result['Rol'];
 
-            header('Location: /backend/pagina_usuario/main_usuario.php');
+            // Verificamos el rol del usuario para redirigirlo
+            if ($_SESSION['rol'] == 1) {
+                // Rol de administrador
+                header('Location: /pagina_admin/main_admin.php');
+            } else {
+                // Rol de usuario normal
+                header('Location: ../pagina_usuario/main_usuario.php');
+            }
             exit();
         }
     }

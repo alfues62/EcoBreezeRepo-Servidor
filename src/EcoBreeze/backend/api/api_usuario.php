@@ -130,9 +130,6 @@ switch ($action) {
                 case 'obtener_datos_usuario':
                     $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
             
-                    // Registra en el log
-                    logMessage(json_encode($requestData));
-            
                     // Verifica si se proporciona el ID del usuario
                     if ($id) {
                         // Llama al CRUD para obtener los datos del usuario

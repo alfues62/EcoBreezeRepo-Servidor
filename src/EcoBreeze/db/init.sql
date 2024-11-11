@@ -117,6 +117,7 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
   `Hora` TIME NULL,
   `TIPOGAS_TipoID` INT NOT NULL,
   `UMBRAL_ID` INT NOT NULL,
+  `Categoria` VARCHAR(45) NOT NULL DEFAULT 'Null',
   `SENSOR_ID_Sensor` INT NOT NULL,
   PRIMARY KEY (`IDMedicion`, `TIPOGAS_TipoID`, `UMBRAL_ID`, `SENSOR_ID_Sensor`),
   INDEX `fk_MEDICION_TIPOGAS1_idx` (`TIPOGAS_TipoID` ASC) VISIBLE,
@@ -140,12 +141,35 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+DELIMITER //
+
+CREATE TRIGGER asignar_categoria 
+BEFORE INSERT ON MEDICION
+FOR EACH ROW
+BEGIN
+    DECLARE categoria VARCHAR(45);
+
+    -- Asignar la categoría basada en el tipo de gas y el valor de la medición
+    SELECT Categoria INTO categoria
+    FROM UMBRAL
+    WHERE TIPOGAS_TipoID = NEW.TIPOGAS_TipoID
+      AND NEW.Valor <= ValorUmbral
+    ORDER BY ValorUmbral DESC
+    LIMIT 1;
+
+    -- Asignar la categoría encontrada a la nueva medición
+    SET NEW.Categoria = categoria;
+END//
+
+DELIMITER ;
+
 -- 1. Insertar rol user
 INSERT INTO ROL (RolID, Rol) 
 VALUES (2, 'User');
 -- 1. Insertar rol admin
 INSERT INTO ROL (RolID, Rol) 
 VALUES (1, 'Admin');
+
 INSERT INTO TIPOGAS (TipoGas) 
 VALUES ('Ozono');
 

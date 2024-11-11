@@ -46,33 +46,58 @@ class UsuariosCRUD {
         }
     }
 
-    // Método para insertar un nuevo usuario
-public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verficicacion, $tfa_secret = null) {
+// Método para insertar un nuevo usuario
+public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verificacion, $tfa_secret = null) {
     try {
-        // Establecer el rol como 2 (puedes cambiarlo según tus necesidades)
+        // Establecer el rol como 2
         $rol_rolid = 2;
-        
-        // Calcular la fecha de expiración del token (24 horas desde ahora)
+
+        // Obtener la hora actual
         $fechaActual = new DateTime();
-        $fechaActual->add(new DateInterval('PT24H')); // Sumar 24 horas
-        $expiracion_token = $fechaActual->format('Y-m-d H:i:s'); // Formato compatible con MySQL
-        
+
+        // Verificar si ya existe un usuario con el mismo correo
+        $queryCheck = "SELECT ID, expiracion_token, Verificado FROM USUARIO WHERE Email = ?";
+        $stmtCheck = $this->conn->prepare($queryCheck);
+        $stmtCheck->execute([$email]);
+        $usuarioExistente = $stmtCheck->fetch(PDO::FETCH_ASSOC);
+
+        // Si el usuario ya existe
+        if ($usuarioExistente) {
+            $expiracionToken = new DateTime($usuarioExistente['expiracion_token']);
+
+            // Comparar si la hora actual es posterior a la de expiracion_token
+            if ($fechaActual > $expiracionToken) {
+                // Eliminar el usuario si el token ha expirado
+                $deleteQuery = "DELETE FROM USUARIO WHERE ID = ?";
+                $deleteStmt = $this->conn->prepare($deleteQuery);
+                $deleteStmt->execute([$usuarioExistente['ID']]);
+            } else {
+                // Si el token no ha expirado, verificar si ya está verificado
+                if ($usuarioExistente['Verificado'] == 1) {
+                    return ['error' => 'Este correo ya está verificado y registrado.'];
+                } else {
+                    return ['error' => 'Este correo ya está registrado y pendiente de verificación. Por favor, revisa tu correo.'];
+                }
+            }
+        }
+
         // Query para insertar el usuario con los nuevos campos
         $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, TFA_Secret, Verificado, TokenVerificacion, expiracion_token, ROL_RolID) 
                   VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)";
-        
+
         // Preparar y ejecutar la consulta
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $token_verficicacion, $expiracion_token, $rol_rolid]);
+        $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $token_verificacion, $usuarioExistente ? $usuarioExistente['expiracion_token'] : null, $rol_rolid]);
 
-        // Retornar el éxito
+        // Retornar éxito
         return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
     } catch (PDOException $e) {
         // Registrar el error
         error_log("Error en insertar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
-        return ['error' => 'Error al insertar un usuario']; 
+        return ['error' => 'Error al insertar un usuario'];
     }
 }
+
 
 
     // Método para editar un usuario existente
@@ -106,7 +131,7 @@ public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_ve
     public function verificarCredencialesCompleto($email, $contrasena) {
         try {
             // Verificar si el email está registrado
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID, ContrasenaHash FROM USUARIO WHERE Email = :email");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID, ContrasenaHash, Verificado, expiracion_token FROM USUARIO WHERE Email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
     
@@ -117,14 +142,33 @@ public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_ve
                 return ['success' => false, 'error' => 'Correo no registrado'];
             }
     
-            // Si el usuario existe, verificar la contraseña
+            // Comprobar si el usuario está verificado
+            if ($usuario['Verificado'] != 1) {
+                // Si no está verificado, comprobamos si el token ha caducado
+                $fechaActual = new DateTime();
+                $expiracionToken = new DateTime($usuario['expiracion_token']);
+    
+                // Comparar si la hora actual es posterior a la de expiracion_token
+                if ($fechaActual > $expiracionToken) {
+                    // Eliminar el usuario si el token ha expirado
+                    $deleteQuery = "DELETE FROM USUARIO WHERE ID = ?";
+                    $deleteStmt = $this->conn->prepare($deleteQuery);
+                    $deleteStmt->execute([$usuario['ID']]);
+    
+                    return ['success' => false, 'error' => 'No se ha verificado el correo y el token ha expirado. El usuario ha sido eliminado.'];
+                } else {
+                    return ['success' => false, 'error' => 'El correo no ha sido verificado. Por favor, revisa tu correo.'];
+                }
+            }
+    
+            // Si el usuario existe y está verificado, verificar la contraseña
             if (password_verify($contrasena, $usuario['ContrasenaHash'])) {
                 return [
                     'success' => true,
                     'data' => [
                         'ID' => $usuario['ID'],
                         'Nombre' => $usuario['Nombre'],
-                        'Rol' => $usuario['ROL_RolID'] // Asegúrate de que esto sea lo que necesitas
+                        'Rol' => $usuario['ROL_RolID'] // Aquí se obtiene el rol del usuario
                     ]
                 ]; // Devuelve los datos del usuario si las credenciales son correctas
             } else {
@@ -135,6 +179,7 @@ public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_ve
             return ['success' => false, 'error' => 'Error al verificar las credenciales'];
         }
     }
+    
     
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {
@@ -279,19 +324,13 @@ public function verificar_correo($email, $token) {
 
         // Verificamos si el usuario existe
         if (!$usuario) {
-            registrarError("Correo no encontrado: $email");
             return ['error' => 'Correo no encontrado.'];
-        }
-
-        // Comprobamos si el token es válido
-        if ($usuario['TokenVerificacion'] !== $token) {
-            registrarError("Token no válido para email: $email");
-            return ['error' => 'Token no válido.'];
         }
 
         // Comprobamos si el usuario ya está verificado
         if ($usuario['Verificado'] == 1) {
-            return ['success' => 'El correo ya ha sido verificado.'];
+            // Si el usuario ya está verificado, devolver mensaje de éxito
+            return ['success' => 'El correo ya estaba verificado.'];
         }
 
         // Verificamos si el token ha expirado
@@ -299,12 +338,23 @@ public function verificar_correo($email, $token) {
         $expiracion_token = new DateTime($usuario['expiracion_token']);
 
         if ($fecha_actual > $expiracion_token) {
-            registrarError("El token ha expirado para email: $email");
-            return ['error' => 'El token ha expirado. Por favor, solicite uno nuevo.'];
+            // Eliminar al usuario si el token ha expirado
+            $deleteQuery = "DELETE FROM USUARIO WHERE ID = ?";
+            $deleteStmt = $this->conn->prepare($deleteQuery);
+            $deleteStmt->execute([$usuario['ID']]);
+
+            // Confirmar transacción y retornar mensaje de error
+            $this->conn->commit();
+            return ['error' => 'El token ha expirado. El usuario ha sido eliminado. Por favor, solicite uno nuevo.'];
+        }
+
+        // Comprobamos si el token es válido
+        if ($usuario['TokenVerificacion'] !== $token) {
+            return ['error' => 'Token no válido.'];
         }
 
         // Si el token es válido y no ha expirado, verificamos al usuario
-        $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = NULL, expiracion_token = NULL WHERE Email = ?";
+        $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = 0, expiracion_token = null WHERE Email = ?";
         $stmtUpdate = $this->conn->prepare($queryUpdate);
         $stmtUpdate->execute([$email]);
 

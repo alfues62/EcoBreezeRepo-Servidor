@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function redirectTo(url) {
         setTimeout(function() {
             window.location.href = url;
-        }, 5000); // Redirige después de 5 segundos (5000 ms)
+        }, 3000); // Redirige después de 5 segundos (5000 ms)
     }
 
     // Si hay un mensaje de éxito, mostrarlo y añadir el aviso de redirección
