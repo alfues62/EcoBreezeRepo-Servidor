@@ -378,6 +378,68 @@ public function verificar_correo($email, $token) {
 }
 
 
+public function recuperar_contrasena($email, $token, $nueva_contrasena) {
+    try {
+        // Iniciar transacción
+        $this->conn->beginTransaction();
+
+        // Consultamos al usuario utilizando el correo y el token de recuperación
+        $query = "SELECT ID, token_recuperacion, expiracion_token FROM USUARIO WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$email]);
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificamos si el usuario existe
+        if (!$usuario) {
+            return ['error' => 'Correo no encontrado.'];
+        }
+
+        // Verificamos si el token ha expirado
+        $fecha_actual = new DateTime();
+        $expiracion_token = new DateTime($usuario['expiracion_token']);
+
+        if ($fecha_actual > $expiracion_token) {
+            // Eliminar el token expirado
+            $clearTokenQuery = "UPDATE USUARIO SET token_recuperacion = NULL, expiracion_token = NULL WHERE ID = ?";
+            $clearTokenStmt = $this->conn->prepare($clearTokenQuery);
+            $clearTokenStmt->execute([$usuario['ID']]);
+
+            // Confirmar transacción y retornar mensaje de error
+            $this->conn->commit();
+            return ['error' => 'El token ha expirado. Por favor, solicite uno nuevo.'];
+        }
+
+        // Comprobamos si el token es válido
+        if ($usuario['token_recuperacion'] !== $token) {
+            return ['error' => 'Token no válido.'];
+        }
+
+        // Hasheamos la nueva contraseña
+        $hashed_password = password_hash($nueva_contrasena, PASSWORD_BCRYPT);
+
+        // Actualizamos la contraseña y limpiamos el token de recuperación
+        $queryUpdate = "UPDATE USUARIO SET ContrasenaHash = ?, token_recuperacion = NULL, expiracion_token = NULL WHERE Email = ?";
+        $stmtUpdate = $this->conn->prepare($queryUpdate);
+        $stmtUpdate->execute([$hashed_password, $email]);
+
+        // Verificamos si la actualización se realizó correctamente
+        if ($stmtUpdate->rowCount() > 0) {
+            // Confirmar transacción
+            $this->conn->commit();
+            return ['success' => 'Contraseña actualizada con éxito.'];
+        } else {
+            registrarError("No se pudo actualizar la contraseña para email: $email");
+            $this->conn->rollBack();
+            return ['error' => 'No se pudo actualizar la contraseña.'];
+        }
+    } catch (PDOException $e) {
+        // Revertir transacción en caso de error
+        $this->conn->rollBack();
+        // Registrar el error en el log
+        registrarError("Error en recuperación de contraseña: " . $e->getMessage());
+        return ['error' => 'Hubo un error al recuperar la contraseña.'];
+    }
+}
 
 
 }
