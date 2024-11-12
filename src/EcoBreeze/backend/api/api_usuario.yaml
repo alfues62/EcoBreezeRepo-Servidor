@@ -134,6 +134,107 @@ paths:
           description: Credenciales inválidas.
         '5XX':
           description: Error del servidor.
+  /obtener_token_huella:
+    get:
+      summary: Obtener el token de huella asociado al correo electrónico
+      description: Recupera el token de huella almacenado en la base de datos para un correo electrónico.
+      parameters:
+        - name: email
+          in: query
+          description: El correo electrónico del usuario.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Respuesta exitosa, token de huella recuperado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token_huella:
+                    type: string
+                    example: "some-unique-token-here"
+        '400':
+          description: Correo electrónico no proporcionado o inválido
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El correo electrónico es obligatorio"
+        '404':
+          description: El token de huella no se encontró para el correo electrónico
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "No se encontró un token de huella para este correo"
+
+  /iniciar_sesion_huella:
+    post:
+      summary: Inicia sesión de un usuario usando tanto el correo electrónico como la huella
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Correo electrónico del usuario para autenticación
+                token_huella:
+                  type: string
+                  description: Token de huella único del usuario para autenticación
+              required:
+                - email
+                - token_huella
+      responses:
+        '200':
+          description: Inicio de sesión exitoso con huella y correo.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string
+                  usuario:
+                    type: object
+                    properties:
+                      ID:
+                        type: integer
+                        description: ID del usuario
+                      Nombre:
+                        type: string
+                        description: Nombre del usuario
+                      Rol:
+                        type: string
+                        description: Rol del usuario
+        '401':
+          description: Credenciales inválidas, correo o token de huella incorrectos.
+        '5XX':
+          description: Error del servidor.
 
   /editar:
     put:
@@ -259,6 +360,39 @@ paths:
           description: ID de usuario, contraseña actual y nueva contraseña son obligatorios.
         '401':
           description: Contraseña actual incorrecta.
+        '404':
+          description: No se encontró el usuario.
+        '5XX':
+          description: Error del servidor.
+  
+  /insertar_huella:
+    put:
+      summary: Asocia un token de huella a un usuario
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: ID del usuario al que se le asociará el token de huella
+                token_huella:
+                  type: string
+                  description: El nuevo token de huella que se desea asociar al usuario
+              required:
+                - id
+                - token_huella
+      responses:
+        '200':
+          description: Token de huella asociado con éxito al usuario.
+        '400':
+          description: ID de usuario y token de huella son obligatorios.
+        '409':
+          description: Este token de huella ya está registrado para otro usuario.
         '404':
           description: No se encontró el usuario.
         '5XX':

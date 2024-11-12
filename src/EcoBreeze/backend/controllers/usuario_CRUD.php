@@ -180,6 +180,55 @@ public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_ve
         }
     }
     
+    public function verificarConHuellaYCorreo($email, $token_huella) {
+        try {
+            // Prepara la consulta para verificar el email y el token de huella
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
+            $stmt->bindParam(':email', $email);
+            $stmt->bindParam(':token_huella', $token_huella);
+            $stmt->execute();
+    
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+            // Si no hay coincidencia para email y token de huella
+            if (!$usuario) {
+                return ['success' => false, 'error' => 'Token de huella o correo electrónico inválido'];
+            }
+    
+            // Si se verifica el token y el email, devuelve los datos del usuario
+            return [
+                'success' => true,
+                'data' => [
+                    'ID' => $usuario['ID'],
+                    'Nombre' => $usuario['Nombre'],
+                    'Rol' => $usuario['ROL_RolID']
+                ]
+            ];
+        } catch (PDOException $e) {
+            error_log("Error al verificar email y token de huella: " . $e->getMessage(), 3, $this->logFile);
+            return ['success' => false, 'error' => 'Error al verificar email y token de huella'];
+        }
+    }
+
+    public function obtenerTokenHuellaPorCorreo($email) {
+        try {
+            // Consultar el token de huella asociado al correo electrónico
+            $stmt = $this->conn->prepare("SELECT token_huella FROM USUARIO WHERE Email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+        
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+            if ($usuario) {
+                return $usuario['token_huella']; // Retornar el token de huella
+            } else {
+                return null; // Si no se encuentra el usuario
+            }
+        } catch (PDOException $e) {
+            error_log("Error al obtener el token de huella: " . $e->getMessage(), 3, $this->logFile);
+            return null;
+        }
+    }
     
 // Método para verificar si el email ya está registrado
 public function emailExistente($email) {
@@ -207,7 +256,6 @@ public function insertarSensor($usuarioID, $mac) {
         return ['error' => 'Error al insertar el sensor'];
     }
 }
-
 
 // Método para obtener los datos de un usuario por ID
 public function obtenerDatosUsuarioPorID($id) {
@@ -374,6 +422,33 @@ public function verificar_correo($email, $token) {
         // Registrar el error en el log
         registrarError("Error en verificar correo: " . $e->getMessage());
         return ['error' => 'Hubo un error al verificar el correo.'];
+    }
+public function subirTokenHuella($id, $tokenHuella) {
+    try {
+        // Preparamos la consulta para verificar si el usuario existe
+        $query = "SELECT ID FROM USUARIO WHERE ID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$id]);
+
+        // Verificamos si se encontró el usuario
+        if ($stmt->rowCount() > 0) {
+            // Preparamos la consulta para actualizar el token de la huella
+            $updateQuery = "UPDATE USUARIO SET token_huella = ? WHERE ID = ?";
+            $updateStmt = $this->conn->prepare($updateQuery);
+            $updateStmt->execute([$tokenHuella, $id]);
+
+            // Verificamos si se actualizó el token de la huella
+            if ($updateStmt->rowCount() > 0) {
+                return ['success' => true, 'message' => 'Token de huella actualizado con éxito.'];
+            } else {
+                return ['success' => false, 'error' => 'No se realizaron cambios o el token es el mismo.'];
+            }
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario con el ID proporcionado.'];
+        }
+    } catch (PDOException $e) {
+        error_log("Error en subir token de huella: " . $e->getMessage() . "\n", 3, $this->logFile);
+        return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
     }
 }
 
