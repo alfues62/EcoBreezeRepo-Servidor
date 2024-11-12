@@ -47,7 +47,7 @@ class UsuariosCRUD {
     }
 
 // Método para insertar un nuevo usuario
-public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verificacion, $tfa_secret = null) {
+public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_verificacion) {
     try {
         // Establecer el rol como 2
         $rol_rolid = 2;
@@ -82,12 +82,12 @@ public function insertar($nombre, $apellidos, $email, $contrasenaHash, $token_ve
         }
 
         // Query para insertar el usuario con los nuevos campos
-        $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, TFA_Secret, Verificado, TokenVerificacion, expiracion_token, ROL_RolID) 
-                  VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?)";
+        $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, Verificado, TokenVerificacion, expiracion_token, ROL_RolID) 
+                  VALUES (?, ?, ?, ?, 0, ?, ?, ?)";
 
         // Preparar y ejecutar la consulta
         $stmt = $this->conn->prepare($query);
-        $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $tfa_secret, $token_verificacion, $usuarioExistente ? $usuarioExistente['expiracion_token'] : null, $rol_rolid]);
+        $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $token_verificacion, $usuarioExistente ? $usuarioExistente['expiracion_token'] : null, $rol_rolid]);
 
         // Retornar éxito
         return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
@@ -423,6 +423,8 @@ public function verificar_correo($email, $token) {
         registrarError("Error en verificar correo: " . $e->getMessage());
         return ['error' => 'Hubo un error al verificar el correo.'];
     }
+}
+
 public function subirTokenHuella($id, $tokenHuella) {
     try {
         // Preparamos la consulta para verificar si el usuario existe
@@ -451,7 +453,6 @@ public function subirTokenHuella($id, $tokenHuella) {
         return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
     }
 }
-
 
 public function recuperar_contrasena($email, $token, $nueva_contrasena) {
     try {
@@ -515,7 +516,6 @@ public function recuperar_contrasena($email, $token, $nueva_contrasena) {
         return ['error' => 'Hubo un error al recuperar la contraseña.'];
     }
 }
-
 
 }
 ?>

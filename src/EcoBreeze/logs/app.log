@@ -723,3 +723,25 @@ Stack trace:
 2024-11-11 14:35:01 - Error: Correo enviado con éxito a a@gmail.com.
 2024-11-11 14:36:00 - Error: Correo enviado con éxito a ab@gmail.com.
 2024-11-11 14:36:19 - Error: Correo enviado con éxito a b@gmail.com.
+2024-11-12 12:59:45 - Error: Error al decodificar JSON: Syntax error
+2024-11-12 13:00:01 - Error: Error al decodificar JSON: Syntax error
+2024-11-12 13:06:28 - Error: Error al decodificar JSON: Syntax error
+2024-11-12 13:06:48 - Error: Error al decodificar JSON: Syntax error
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-12 13:38:44 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-12 13:38:57 - Error: Correo no encontrado.
+2024-11-12 13:39:11 - Error: Correo no registrado
+2024-11-12 13:39:27 - Error: Correo no encontrado.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-12 13:39:46 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-12 13:40:01 - Error: Correo no encontrado.
+Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`USUARIO`, CONSTRAINT `fk_USUARIO_ROL1` FOREIGN KEY (`ROL_RolID`) REFERENCES `ROL` (`RolID`))
+2024-11-12 13:42:36 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-12 13:42:43 - Error: Correo no encontrado.
+2024-11-12 13:44:14 - Error: Correo enviado con éxito a alfues62@gmail.com.
+2024-11-12 13:44:43 - {"id":"9","contrasena_actual":"123","nueva_contrasena":"1234"}
+2024-11-12 13:45:49 - Error: Correo enviado con éxito a a@gmail.com.
+2024-11-12 13:45:55 - Error: El correo no ha sido verificado. Por favor, revisa tu correo.
+2024-11-12 13:48:18 - {"token_huella":"48e00ce6-0e86-4658-a7b4-1d9eec7e3d2f","id":9}
+2024-11-12 13:48:38 - alfues62@gmail.com
+2024-11-12 13:48:46 - alfues62@gmail.com
