@@ -17,6 +17,11 @@
         
         <label for="contrasena">Contraseña:</label>
         <input type="password" name="contrasena" id="contrasena" class="form-control" required>
+
+        <!-- Enlace para abrir el modal de recuperación de contraseña -->
+        <div class="text-center mb-3">
+            <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Has olvidado tu contraseña?</a>
+        </div>
         
         <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
         <button type="button" class="btn btn-secondary" onclick="window.location.href='/frontend/index.php'">Volver al Inicio</button>
@@ -24,6 +29,30 @@
         <!-- Campo hidden para el mensaje de error -->
         <input type="hidden" id="errorMessage" value="<?php echo htmlspecialchars($error_message ?? ''); ?>">
     </form>
+
+    <!-- Modal para la recuperación de contraseña -->
+    <div class="modal fade" id="recoveryModal" tabindex="-1" role="dialog" aria-labelledby="recoveryModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="recoveryModalLabel">Recuperación de Contraseña</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="main_recuperar.php" method="POST">
+                        <label for="recoveryEmail">Ingresa tu correo electrónico:</label>
+                        <input type="email" name="email" id="recoveryEmail" class="form-control" required>
+                    <button type="submit" class="btn btn-primary mt-3">Recuperar Contraseña</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Modal para mostrar errores -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">

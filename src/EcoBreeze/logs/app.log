@@ -723,3 +723,41 @@ Stack trace:
 2024-11-11 14:35:01 - Error: Correo enviado con éxito a a@gmail.com.
 2024-11-11 14:36:00 - Error: Correo enviado con éxito a ab@gmail.com.
 2024-11-11 14:36:19 - Error: Correo enviado con éxito a b@gmail.com.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-15 00:47:16 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-15 00:48:48 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 00:49:33 - Error: Correo no encontrado.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-15 00:50:44 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 00:51:05 - Error: Correo no encontrado.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-15 00:52:22 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TFA_Secret' in 'field list'
+2024-11-15 00:53:29 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 00:55:13 - Error: Error al decodificar JSON: Syntax error
+2024-11-15 00:56:02 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 00:56:13 - Error: Token no válido.
+2024-11-15 00:56:18 - Error: Token no válido.
+2024-11-15 00:58:35 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 01:02:29 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 01:04:09 - Error: El email ya está registrado.
+2024-11-15 01:04:17 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 01:04:53 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 01:11:20 - Error: El email ya está registrado.
+2024-11-15 01:11:29 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 01:13:10 - Error: Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 01:15:36 - Error: Correo enviado con éxito a yaekitsune2207@gmail.com.
+2024-11-15 01:39:48 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:40:31 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:41:25 - Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 01:42:17 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:42:34 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:45:16 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:46:39 - Error al enviar el correo a : Error desconocido al enviar el correo.
+2024-11-15 01:50:44 - Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 02:27:47 - Correo enviado con éxito a gs0gs1gs2@gmail.com.
+2024-11-15 02:33:12 - El correo del usuario es obligatorio.
+2024-11-15 02:33:41 - El correo del usuario es obligatorio
+2024-11-15 02:34:58 - Error al decodificar JSON: Syntax error
+2024-11-15 02:36:02 - Correo enviado con éxito a gs0gs1gs2@gmail.com.

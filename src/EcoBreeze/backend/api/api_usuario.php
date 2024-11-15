@@ -127,7 +127,7 @@ switch ($action) {
             }
             break;
 
-                case 'obtener_datos_usuario':
+                case 'obtener_datos_usuario_id':
                     $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
             
                     // Verifica si se proporciona el ID del usuario
@@ -149,6 +149,29 @@ switch ($action) {
                         echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
                     }
                     break;
+
+                    case 'obtener_datos_usuario_correo':
+                        $email = $requestData['email'] ?? null; // Obtener el correo del usuario del request
+                    
+                        // Verifica si se proporciona el correo del usuario
+                        if ($email) {
+                            // Llama al CRUD para obtener los datos del usuario por correo
+                            $resultado = $usuariosCRUD->obtenerDatosUsuarioPorEmail($email); // Se cambió la función aquí
+                    
+                            // Maneja el resultado de la obtención de datos
+                            if (isset($resultado['success']) && $resultado['success']) {
+                                // Si la consulta fue exitosa, devuelve los datos del usuario
+                                echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
+                            } else {
+                                // Si hay algún error, lo registra y devuelve un mensaje de error
+                                logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
+                                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
+                            }
+                        } else {
+                            // Si no se proporciona el correo, devuelve un error
+                            echo json_encode(['success' => false, 'error' => 'El correo del usuario es obligatorio.']);
+                        }
+                        break;
             
 
                 case 'cambiar_contrasena':
