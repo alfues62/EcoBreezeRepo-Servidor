@@ -42,11 +42,10 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`USUARIO` (
   `Apellidos` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `ContrasenaHash` VARCHAR(255) NOT NULL,
-  `Verificado` TINYINT NOT NULL DEFAULT '0',
-  `TokenVerificacion` VARCHAR(255) NULL,
-  `token_huella` VARCHAR(255) NOT NULL DEFAULT 0,
-  `expiracion_token` VARCHAR(255) NULL,
-  `token_recuperacion` VARCHAR(255) NULL DEFAULT NULL,
+  `Verificado` TINYINT NOT NULL DEFAULT 0,
+  `TokenVerificacion` VARCHAR(255) DEFAULT 0,
+  `expiracion_token` VARCHAR(255) DEFAULT 0,
+  `token_recuperacion` VARCHAR(255) NULL DEFAULT 0,
   `expiracion_recuperacion` VARCHAR(255) NULL DEFAULT 0,
   `ROL_RolID` INT NOT NULL,
   PRIMARY KEY (`ID`, `ROL_RolID`),
@@ -99,7 +98,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `EcoBreeze`.`UMBRAL`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EcoBreeze`.`UMBRAL` (
-  `ID` INT NOT NULL,
+  `ID` INT NOT NULL AUTO_INCREMENT,
   `ValorUmbral` FLOAT NOT NULL,
   `Categoria` VARCHAR(45) NOT NULL,
   `TIPOGAS_TipoID` INT NOT NULL,
@@ -125,23 +124,18 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
   `Fecha` DATE NULL DEFAULT NULL,
   `Hora` TIME NULL DEFAULT NULL,
   `TIPOGAS_TipoID` INT NOT NULL,
-  `UMBRAL_ID` INT NOT NULL,
-  `Categoria` VARCHAR(45) NOT NULL DEFAULT 'Null',
+  `Categoria` VARCHAR(45) DEFAULT 'Null',
   `SENSOR_ID_Sensor` INT NOT NULL,
-  PRIMARY KEY (`IDMedicion`, `TIPOGAS_TipoID`, `UMBRAL_ID`, `SENSOR_ID_Sensor`),
-  UNIQUE INDEX `SENSOR_ID_Sensor_UNIQUE` (`SENSOR_ID_Sensor` ASC) VISIBLE,
+  PRIMARY KEY (`IDMedicion`, `TIPOGAS_TipoID`, `SENSOR_ID_Sensor`),
+  INDEX `SENSOR_ID_Sensor_UNIQUE` (`SENSOR_ID_Sensor` ASC) VISIBLE,
   INDEX `fk_MEDICION_TIPOGAS1_idx` (`TIPOGAS_TipoID` ASC) VISIBLE,
-  INDEX `fk_MEDICION_UMBRAL1_idx` (`UMBRAL_ID` ASC) VISIBLE,
   INDEX `fk_MEDICION_SENSOR1_idx` (`SENSOR_ID_Sensor` ASC) VISIBLE,
   CONSTRAINT `fk_MEDICION_SENSOR1`
     FOREIGN KEY (`SENSOR_ID_Sensor`)
     REFERENCES `EcoBreeze`.`SENSOR` (`SensorID`),
   CONSTRAINT `fk_MEDICION_TIPOGAS1`
     FOREIGN KEY (`TIPOGAS_TipoID`)
-    REFERENCES `EcoBreeze`.`TIPOGAS` (`TipoID`),
-  CONSTRAINT `fk_MEDICION_UMBRAL1`
-    FOREIGN KEY (`UMBRAL_ID`)
-    REFERENCES `EcoBreeze`.`UMBRAL` (`ID`))
+    REFERENCES `EcoBreeze`.`TIPOGAS` (`TipoID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;

@@ -745,3 +745,11 @@ Error en insertar usuario: SQLSTATE[23000]: Integrity constraint violation: 1452
 2024-11-12 13:48:18 - {"token_huella":"48e00ce6-0e86-4658-a7b4-1d9eec7e3d2f","id":9}
 2024-11-12 13:48:38 - alfues62@gmail.com
 2024-11-12 13:48:46 - alfues62@gmail.com
+2024-11-14 10:49:06 - Error: Contraseña incorrecta
+2024-11-14 11:35:40 - {"id":1,"contrasena_actual":"1234","nueva_contrasena":"12345"}
+2024-11-14 11:35:40 - Error al cambiar contraseña: {"success":false,"error":"No se encontr\u00f3 el usuario."}
+2024-11-14 11:38:40 - {"id":9,"contrasena_actual":"1234","nueva_contrasena":"12345"}
+2024-11-14 11:50:27 - {"id":9,"contrasena_actual":"12345","nuevo_correo":"fuset62@gmail.com"}
+2024-11-14 11:51:01 - {"id":9,"contrasena_actual":"12345","nuevo_correo":"fuset62@gmail.com"}
+2024-11-14 11:56:19 - {"id":9,"contrasena_actual":"12345","nuevo_correo":"alfues62@gmail.com"}
+2024-11-14 11:58:57 - {"id":9,"contrasena_actual":"12345","nueva_contrasena":"1234"}
