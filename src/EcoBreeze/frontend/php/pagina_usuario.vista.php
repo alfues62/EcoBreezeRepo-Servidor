@@ -49,7 +49,15 @@
                 </tr>
             </tbody>
         </table>
+
+        <div class="container mt-5">
+            <h2>Gráfica de Mediciones</h2>
+            <canvas id="graficaMediciones" width="400" height="200"></canvas>
+            <div id="error-message" style="color: red; font-weight: bold;"></div>
+        </div>
     <?php endif; ?>
+
+    
 
     <!-- Modal para modificar el perfil -->
     <div class="modal fade" id="modificarPerfilModal" tabindex="-1" role="dialog" aria-labelledby="modificarPerfilModalLabel" aria-hidden="true">
@@ -180,9 +188,12 @@
 <!-- Scripts de Bootstrap y jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Enlazar el archivo JavaScript personalizado -->
 <script src="/frontend/js/pagina_usuario.js"></script>
+<script>
+  window.mediciones = <?php echo $mediciones_json; ?>;
 </script>
+<script src="/frontend/js/tabla_datos.js"></script>
 </body>
 </html>

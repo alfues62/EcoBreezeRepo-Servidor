@@ -1,17 +1,62 @@
 <?php
-// Incluye el controlador de usuarios
 require_once(__DIR__ . '/../../db/conexion.php');
-require_once(__DIR__ . '/../controllers/usuario_CRUD.php');
+require_once(__DIR__ . '/../controllers/datos_CRUD.php');
 
-
-
-// Establece el encabezado para la respuesta en formato JSON
 header('Content-Type: application/json');
 
-// Obtiene el método HTTP de la solicitud
-$method = $_SERVER['REQUEST_METHOD'];
+// Configurar la zona horaria
+date_default_timezone_set('Europe/Madrid');
 
-switch ($method) {
+// Crear una instancia de la clase de conexión
+$conn = new Conexion();
+$connection = $conn->getConnection();
+
+// Crear una instancia de UsuariosCRUD
+$datosCRUD = new DatosCRUD($connection);
+
+// Función para registrar logs
+function logMessage($message) {
+    $logFile = '/var/www/html/logs/app.log'; // Ruta del archivo log
+    file_put_contents($logFile, date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL, FILE_APPEND);
+}
+
+// Obtener el valor de 'action' desde la URL usando $_GET
+$action = $_GET['action'] ?? null;
+
+// Decodificar el cuerpo JSON para obtener otros parámetros
+$requestData = json_decode(file_get_contents('php://input'), true);
+
+switch ($action) {
+
+    case 'obtener_mediciones_usuario':
+    // Obtener el ID del usuario desde la solicitud
+    $usuario_id = $requestData['usuario_id'] ?? null;
+
+    logMessage("ID del usuario: " . $usuario_id);  // Registra el ID del usuario
+
+    // Verifica si se proporciona el ID del usuario
+    if ($usuario_id) {
+        // Llama a la función para obtener las mediciones
+        $resultado = $datosCRUD->obtenerMedicionesUsuario($usuario_id);  // Llama a la función de mediciones
+        logMessage("Resultado de obtener mediciones: " . print_r($resultado, true)); // Registra el resultado completo
+
+        // Verifica si el resultado es un array y está bien formateado
+        if (is_array($resultado)) {
+            logMessage("Respuesta correcta. Enviando mediciones.");
+            // Si la respuesta está bien formateada, devolverla como JSON directamente
+            echo json_encode($resultado);  // Enviar respuesta JSON directamente (sin <pre> ni formateo adicional)
+        } else {
+            // Si la respuesta no es un array, loguear el error
+            error_log("Error: La respuesta no es un array. Resultado: " . print_r($resultado, true));  // Para depuración
+            echo json_encode(['success' => false, 'error' => 'Error al procesar los datos recibidos.']);
+        }
+    } else {
+        // Si no se proporciona el ID del usuario, devolver un error
+        echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
+    }
+    break;
+
+    
     case 'GET':
         // Maneja la solicitud GET
         $id = isset($_GET['id']) ? $_GET['id'] : null;
