@@ -52,8 +52,12 @@
 
         <div class="container mt-5">
             <h2>Gráfica de Mediciones</h2>
-            <canvas id="graficaMediciones" width="400" height="200"></canvas>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+                <canvas id="graficaMediciones" width="400" height="200"></canvas>
+            </div>
+            
             <div id="error-message" style="color: red; font-weight: bold;"></div>
+            <div id="mediciones-container"></div>  <!-- Contenedor para mostrar las mediciones recibidas -->
         </div>
     <?php endif; ?>
 
@@ -190,10 +194,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Enlazar el archivo JavaScript personalizado -->
-<script src="/frontend/js/pagina_usuario.js"></script>
 <script>
-  window.mediciones = <?php echo $mediciones_json; ?>;
+    // Pasa las mediciones de PHP a JavaScript
+    window.mediciones = <?php echo $mediciones_json; ?>;
 </script>
-<script src="/frontend/js/tabla_datos.js"></script>
+<script src="/frontend/js/pagina_usuario.js"></script>
 </body>
 </html>

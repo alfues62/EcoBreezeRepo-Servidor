@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // Asegúrate de que las mediciones están correctamente asignadas desde el backend
     const mediciones = Array.isArray(window.mediciones) ? window.mediciones : [];
     console.log(mediciones); // Depurar: ver las mediciones originales
 
