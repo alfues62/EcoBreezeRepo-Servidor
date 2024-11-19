@@ -32,7 +32,7 @@
                 <label for="contrasena">Contraseña:</label>
                 <input type="password" name="contrasena" id="contrasena" class="form-control" required>
             </div>
-
+            
             <div class="form-group">
                 <label for="contrasena_confirmar">Confirmar Contraseña:</label>
                 <input type="password" name="contrasena_confirmar" id="contrasena_confirmar" class="form-control" required>

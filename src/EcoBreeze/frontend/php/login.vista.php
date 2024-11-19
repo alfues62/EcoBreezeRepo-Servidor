@@ -12,22 +12,25 @@
     <h1>Iniciar Sesión</h1>
 
     <form action="main_login.php" method="POST">
-        <label for="email">Correo electrónico:</label>
-        <input type="email" name="email" id="email" class="form-control" required>
-        
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" name="contrasena" id="contrasena" class="form-control" required>
+    <label for="email">Correo electrónico:</label>
+    <input type="email" name="email" id="email" class="form-control" required>
+    
+    <label for="contrasena">Contraseña:</label>
+    <input type="password" name="contrasena" id="contrasena" class="form-control" required>
 
-        <!-- Enlace para abrir el modal de recuperación de contraseña -->
-        <div class="text-center mb-3">
-            <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Has olvidado tu contraseña?</a>
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/frontend/index.php'">Volver al Inicio</button>
-        
-        <!-- Campo hidden para el mensaje de error -->
-        <input type="hidden" id="errorMessage" value="<?php echo htmlspecialchars($error_message ?? ''); ?>">
+    <!-- Enlace para abrir el modal de recuperación de contraseña -->
+    <div class="text-center mb-3">
+        <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Has olvidado tu contraseña?</a>
+    </div>
+    
+    <!-- Campo hidden para la acción de login -->
+    <input type="hidden" name="action" value="login">
+
+    <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+    <button type="button" class="btn btn-secondary" onclick="window.location.href='/frontend/index.php'">Volver al Inicio</button>
+    
+    <!-- Campo hidden para el mensaje de error -->
+    <input type="hidden" id="errorMessage" value="<?php echo htmlspecialchars($error_message ?? ''); ?>">
     </form>
 
     <!-- Modal para la recuperación de contraseña -->
@@ -41,10 +44,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="main_recuperar.php" method="POST">
+                    <form action="main_login.php" method="POST">
                         <label for="recoveryEmail">Ingresa tu correo electrónico:</label>
-                        <input type="email" name="email" id="recoveryEmail" class="form-control" required>
-                    <button type="submit" class="btn btn-primary mt-3">Recuperar Contraseña</button>
+                        <input type="email" name="email" id="recuperar" class="form-control" required>
+                        
+                        <!-- Campo hidden para la acción de recuperación de contraseña -->
+                        <input type="hidden" name="action" value="recuperar_contrasena">
+
+                        <button type="submit" class="btn btn-primary mt-3">Recuperar Contraseña</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -53,6 +60,8 @@
             </div>
         </div>
     </div>
+
+
 
     <!-- Modal para mostrar errores -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">

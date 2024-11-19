@@ -1,0 +1,66 @@
+/* Aseguramos que el formulario y mensajes se adapten al diseño global */
+
+/* Formulario de recuperación */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Espaciado entre los elementos del formulario */
+    align-items: center;
+}
+
+/* Campos del formulario */
+input[type="password"] {
+    padding: 10px;
+    width: 80%; /* Hacemos los campos de formulario más anchos */
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+/* Botón de envío */
+input[type="submit"] {
+    padding: 12px 20px;
+    background-color: #2E8B57;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+input[type="submit"]:hover {
+    background-color: #3CB371;
+}
+
+/* Estilos para los mensajes de éxito y error (aprovechando clases ya existentes) */
+.message {
+    font-size: 18px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+.success {
+    background-color: #e8f7e1;
+    color: #4CAF50;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #f44336;
+}
+
+/* Estructura de la página */
+h1 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Modal footer (si se usa para modales generales) */
+.modal-footer a {
+    width: 100%;
+}

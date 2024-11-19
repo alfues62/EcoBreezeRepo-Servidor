@@ -35,6 +35,4 @@ function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
         return ['error' => $error_message];
     }
 }
-
-
 ?>

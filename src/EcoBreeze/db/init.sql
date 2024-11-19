@@ -42,10 +42,10 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`USUARIO` (
   `Apellidos` VARCHAR(45) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `ContrasenaHash` VARCHAR(255) NOT NULL,
-  `Verificado` TINYINT NOT NULL DEFAULT '0',
-  `TokenVerificacion` VARCHAR(255) NULL,
-  `expiracion_token` VARCHAR(255) NULL,
-  `token_recuperacion` VARCHAR(255) NULL DEFAULT NULL,
+  `Verificado` TINYINT NOT NULL DEFAULT 0,
+  `TokenVerificacion` VARCHAR(255) DEFAULT 0,
+  `expiracion_token` VARCHAR(255) DEFAULT 0,
+  `token_recuperacion` VARCHAR(255) NULL DEFAULT 0,
   `expiracion_recuperacion` VARCHAR(255) NULL DEFAULT 0,
   `ROL_RolID` INT NOT NULL,
   PRIMARY KEY (`ID`, `ROL_RolID`),
@@ -124,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
   `Fecha` DATE NULL DEFAULT NULL,
   `Hora` TIME NULL DEFAULT NULL,
   `TIPOGAS_TipoID` INT NOT NULL,
-  `UMBRAL_ID` INT NOT NULL,
   `Categoria` VARCHAR(45) NOT NULL DEFAULT 'Null',
   `SENSOR_ID_Sensor` INT NOT NULL,
   PRIMARY KEY (`IDMedicion`, `TIPOGAS_TipoID`, `UMBRAL_ID`, `SENSOR_ID_Sensor`),
@@ -138,13 +137,19 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
   CONSTRAINT `fk_MEDICION_TIPOGAS1`
     FOREIGN KEY (`TIPOGAS_TipoID`)
     REFERENCES `EcoBreeze`.`TIPOGAS` (`TipoID`),
-  CONSTRAINT `fk_MEDICION_UMBRAL1`
-    FOREIGN KEY (`UMBRAL_ID`)
-    REFERENCES `EcoBreeze`.`UMBRAL` (`ID`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
+
+-- 1. Insertar un rol
+INSERT INTO ROL (RolID, Rol) 
+VALUES (2, 'User');
+-- 1. Insertar un rol
+INSERT INTO ROL (RolID, Rol) 
+VALUES (1, 'Admin');
+INSERT INTO TIPOGAS (TipoGas) 
+VALUES ('Ozono');
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
