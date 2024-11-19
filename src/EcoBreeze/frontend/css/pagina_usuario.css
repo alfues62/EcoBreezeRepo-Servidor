@@ -32,3 +32,10 @@ table {
 .btn-info {
     margin-right: 10px;
 }
+
+#graficaMediciones {
+    width: 100%; /* Asegura que el canvas ocupe todo el ancho disponible */
+    height: 400px; /* Ajusta la altura según el diseño de tu página */
+    max-width: 800px; /* Limita el ancho máximo para que no sea demasiado grande */
+    margin: 0 auto; /* Centra el canvas en su contenedor si es necesario */
+}
