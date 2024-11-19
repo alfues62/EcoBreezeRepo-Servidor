@@ -42,14 +42,30 @@ document.addEventListener('DOMContentLoaded', function () {
     const graficaCanvas = document.getElementById('graficaMediciones');
     let grafica; // Variable para guardar la instancia del gráfico
 
+    // Mapa de colores por tipo de gas
+    const coloresPorGas = {
+        4: 'rgba(75, 192, 192, 0.5)', // O3 - verde agua
+        5: 'rgba(255, 99, 132, 0.5)', // CO - rojo
+        6: 'rgba(54, 162, 235, 0.5)', // NO2 - azul
+        7: 'rgba(255, 206, 86, 0.5)'  // SO4 - amarillo
+    };
+
+    // Mapa de colores para bordes (opacos)
+    const bordesPorGas = {
+        4: 'rgba(75, 192, 192, 1)', // O3
+        5: 'rgba(255, 99, 132, 1)', // CO
+        6: 'rgba(54, 162, 235, 1)', // NO2
+        7: 'rgba(255, 206, 86, 1)'  // SO4
+    };
+
     // Función para actualizar la gráfica
-    const actualizarGrafica = (fechaSeleccionada) => {
-        console.log('Filtrando mediciones para la fecha:', fechaSeleccionada);
+    const actualizarGrafica = (fechaSeleccionada, tipoGasSeleccionado) => {
+        console.log('Filtrando mediciones para la fecha:', fechaSeleccionada, 'y tipo de gas:', tipoGasSeleccionado);
 
         const medicionesFiltradas = mediciones.filter(m => {
             const medicionFecha = m.Fecha; // Fecha en formato "YYYY-MM-DD"
             const isSameDay = medicionFecha === fechaSeleccionada; // Comparar con la fecha seleccionada
-            return m.TIPOGAS_TipoID === "2" && isSameDay;
+            return m.TIPOGAS_TipoID === tipoGasSeleccionado && isSameDay;
         });
 
         console.log('Mediciones filtradas antes de ordenar:', medicionesFiltradas);
@@ -64,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log('Mediciones filtradas después de ordenar:', medicionesFiltradas);
 
         if (medicionesFiltradas.length === 0) {
-            document.getElementById('error-message').innerText = `No hay mediciones de Ozono para la fecha seleccionada: ${fechaSeleccionada}.`;
+            document.getElementById('error-message').innerText = `No hay mediciones para el tipo de gas seleccionado (${tipoGasSeleccionado}) en la fecha: ${fechaSeleccionada}.`;
             if (grafica) grafica.destroy(); // Destruye la gráfica actual si no hay datos
             return;
         }
@@ -81,15 +97,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const ctx = graficaCanvas.getContext('2d');
         grafica = new Chart(ctx, {
-            type: 'line', // Tipo de gráfico
+            type: 'bar', // Tipo de gráfico
             data: {
                 labels: labels, // Etiquetas de las mediciones (Fecha y Hora)
                 datasets: [{
-                    label: `Mediciones de Ozono (${fechaSeleccionada})`, // Título de la serie de datos
+                    label: `Mediciones (${tipoGasSeleccionado}) - ${fechaSeleccionada}`, // Título de la serie de datos
                     data: dataValues, // Los valores de las mediciones
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)', // Color de fondo de la línea
-                    borderColor: 'rgba(75, 192, 192, 1)', // Color de la línea
-                    borderWidth: 2 // Grosor de la línea
+                    backgroundColor: coloresPorGas[tipoGasSeleccionado], // Color asociado al gas
+                    borderColor: bordesPorGas[tipoGasSeleccionado], // Color del borde asociado al gas
+                    borderWidth: 2 // Grosor del borde
                 }]
             },
             options: {
@@ -110,30 +126,44 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('error-message').innerText = ''; // Limpiar errores si los hubo
     };
 
-    // Añadir un selector de fecha y un botón para aplicar el filtro
+    // Añadir un selector de fecha
     const fechaSelector = document.createElement('input');
     fechaSelector.type = 'date';
     fechaSelector.id = 'fechaSelector';
+
+    // Añadir un selector de tipo de gas
+    const tipoGasSelector = document.createElement('select');
+    tipoGasSelector.id = 'tipoGasSelector';
+    tipoGasSelector.innerHTML = `
+        <option value="4">O3</option>
+        <option value="5">CO</option>
+        <option value="6">NO2</option>
+        <option value="7">SO4</option>
+    `;
 
     const filtrarFechaBtn = document.createElement('button');
     filtrarFechaBtn.id = 'filtrarFechaBtn';
     filtrarFechaBtn.textContent = 'Filtrar';
 
+    medicionesContainer.insertAdjacentElement('beforebegin', tipoGasSelector);
     medicionesContainer.insertAdjacentElement('beforebegin', fechaSelector);
     medicionesContainer.insertAdjacentElement('beforebegin', filtrarFechaBtn);
 
     // Manejar el evento de clic en el botón de filtro
     filtrarFechaBtn.addEventListener('click', () => {
         const fechaSeleccionada = fechaSelector.value;
+        const tipoGasSeleccionado = tipoGasSelector.value;
+
         if (!fechaSeleccionada) {
             document.getElementById('error-message').innerText = 'Por favor, selecciona una fecha.';
             return;
         }
-        actualizarGrafica(fechaSeleccionada);
+
+        actualizarGrafica(fechaSeleccionada, tipoGasSeleccionado);
     });
 
-    // Inicializar con la fecha de hoy
+    // Inicializar con la fecha de hoy y el primer tipo de gas
     const today = new Date().toISOString().split('T')[0];
     fechaSelector.value = today; // Preseleccionar la fecha de hoy en el input
-    actualizarGrafica(today); // Mostrar las mediciones de hoy al cargar la página
+    actualizarGrafica(today, '4'); // Mostrar las mediciones de hoy para O3 al cargar la página
 });
