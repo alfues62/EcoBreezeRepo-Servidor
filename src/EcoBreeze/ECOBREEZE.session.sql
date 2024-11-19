@@ -1,5 +1,7 @@
 -- IMPORTANTE INIT
 
+SET GLOBAL TIMEZONE = 'Europe/Madrid';
+
 -- 1. Insertar un rol
 INSERT INTO ROL (RolID, Rol) 
 VALUES (2, 'User');

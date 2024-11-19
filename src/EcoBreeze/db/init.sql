@@ -17,6 +17,8 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema EcoBreeze
 -- -----------------------------------------------------
+SET GLOBAL TIMEZONE = 'Europe/Madrid';
+
 CREATE SCHEMA IF NOT EXISTS `EcoBreeze` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `EcoBreeze` ;
 
@@ -43,10 +45,9 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`USUARIO` (
   `Email` VARCHAR(45) NOT NULL,
   `ContrasenaHash` VARCHAR(255) NOT NULL,
   `Verificado` TINYINT NOT NULL DEFAULT 0,
-  `TokenVerificacion` VARCHAR(255) DEFAULT 0,
-  `expiracion_token` VARCHAR(255) DEFAULT 0,
-  `token_recuperacion` VARCHAR(255) NULL DEFAULT 0,
-  `expiracion_recuperacion` VARCHAR(255) NULL DEFAULT 0,
+  `token` VARCHAR(255) DEFAULT 0,  -- TokenVerificacion
+  `expiracion_token` VARCHAR(255) DEFAULT 0, -- token_recuperacion
+  `token_huella` VARCHAR(255) NOT NULL DEFAULT 0,
   `ROL_RolID` INT NOT NULL,
   PRIMARY KEY (`ID`, `ROL_RolID`),
   UNIQUE INDEX `ID_UNIQUE` (`ID` ASC) VISIBLE,
@@ -144,11 +145,62 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- 1. Insertar un rol
 INSERT INTO ROL (RolID, Rol) 
 VALUES (2, 'User');
--- 1. Insertar un rol
 INSERT INTO ROL (RolID, Rol) 
 VALUES (1, 'Admin');
+-- 2. Insertar Tipos Gas
 INSERT INTO TIPOGAS (TipoGas) 
-VALUES ('Ozono');
+VALUES ('O3');
+INSERT INTO TIPOGAS (TipoGas) 
+VALUES ('CO');
+INSERT INTO TIPOGAS (TipoGas) 
+VALUES ('NO2');
+INSERT INTO TIPOGAS (TipoGas) 
+VALUES ('S04');
+-- 3. Insertar Umbrales
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(1, 0, "Bajo", 4),
+(2, 0.05, "Normal", 4),
+(3, 0.1, "Alto", 4);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(4, 0, "Bajo", 5),
+(5, 4.4, "Medio", 5),
+(6, 9.4, "Alto", 5);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(7, 0, "Bajo", 6),
+(8, 0.02, "Medio", 6),
+(9, 0.05, "Alto", 6);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(10, 0, "Bajo", 7),
+(11, 0.02, "Medio", 7),
+(12, 0.075, "Alto", 7);
+
+DELIMITER //
+
+CREATE TRIGGER asignar_categoria 
+BEFORE INSERT ON MEDICION
+FOR EACH ROW
+BEGIN
+    -- Variable para almacenar la categoría encontrada
+    DECLARE CategoriaEncontrada VARCHAR(45);
+
+    -- Buscar la categoría correspondiente en la tabla UMBRAL
+    SELECT Categoria
+    INTO CategoriaEncontrada
+    FROM UMBRAL
+    WHERE TIPOGAS_TipoID = NEW.TIPOGAS_TipoID
+      AND NEW.Valor >= ValorUmbral
+    ORDER BY ValorUmbral DESC
+    LIMIT 1;
+
+    -- Asignar el resultado a la columna 'Categoria' de la nueva fila
+    SET NEW.Categoria = COALESCE(CategoriaEncontrada, 'Peligro');
+END//
+
+DELIMITER ;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
