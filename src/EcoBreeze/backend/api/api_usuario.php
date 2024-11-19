@@ -213,7 +213,7 @@ case 'insertar_huella':
             }
             break;
 
-                case 'obtener_datos_usuario':
+                case 'obtener_datos_usuario_id':
                     $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
             
                     // Verifica si se proporciona el ID del usuario
@@ -235,7 +235,29 @@ case 'insertar_huella':
                         echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
                     }
                     break;
-            
+
+                    case 'obtener_datos_usuario_correo':
+                        $email = $requestData['email'] ?? null; // Obtener el correo del usuario del request
+                    
+                        // Verifica si se proporciona el correo del usuario
+                        if ($email) {
+                            // Llama al CRUD para obtener los datos del usuario por correo
+                            $resultado = $usuariosCRUD->obtenerDatosUsuarioPorEmail($email); // Se cambió la función aquí
+                    
+                            // Maneja el resultado de la obtención de datos
+                            if (isset($resultado['success']) && $resultado['success']) {
+                                // Si la consulta fue exitosa, devuelve los datos del usuario
+                                echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
+                            } else {
+                                // Si hay algún error, lo registra y devuelve un mensaje de error
+                                logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
+                                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
+                            }
+                        } else {
+                            // Si no se proporciona el correo, devuelve un error
+                            echo json_encode(['success' => false, 'error' => 'El correo del usuario es obligatorio.']);
+                        }
+                        break;  
 
                 case 'cambiar_contrasena':
                     $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
@@ -312,11 +334,65 @@ case 'insertar_huella':
                                 echo json_encode(['success' => false, 'error' => 'Email y token son obligatorios.']);
                             }
                             break;
-                        
-                        
-                    
-                    
-                    
+
+                            case 'actualizar_token_recuperacion':
+                                $email = $requestData['email'] ?? null;
+                                $token = $requestData['token'] ?? null;
+                            
+                                registrarError("Datos recibidos: " . json_encode($requestData));
+                            
+                                if ($email && $token) {
+                                    // Llamamos al método para actualizar el token de recuperación
+                                    $resultado = $usuariosCRUD->actualizarTokenRecuperacion($email, $token);
+                            
+                                    registrarError("Resultado del método actualizarTokenRecuperacion: " . json_encode($resultado));
+                            
+                                    if (isset($resultado['error'])) {
+                                        echo json_encode(['success' => false, 'error' => $resultado['error']]);
+                                    } elseif (isset($resultado['success'])) {
+                                        echo json_encode([
+                                            'success' => true,
+                                            'message' => $resultado['success'],
+                                            'usuario' => [
+                                                'nombre' => $resultado['nombre'] ?? null,
+                                                'apellidos' => $resultado['apellidos'] ?? null,
+                                                'email' => $resultado['email'] ?? null
+                                            ]
+                                        ]);
+                                    } else {
+                                        echo json_encode(['success' => false, 'error' => 'Error inesperado.']);
+                                    }
+                                } else {
+                                    echo json_encode(['success' => false, 'error' => 'Email y nuevo token son obligatorios.']);
+                                }
+                                break;
+
+                                case 'recuperar_contrasena':
+                                    $email = $requestData['email'] ?? null; // Obtener el correo electrónico del request
+                                    $token = $requestData['token'] ?? null; // Obtener el token de recuperación del request
+                                    $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
+                                
+                                    logMessage(json_encode($requestData));
+                                
+                                    // Verifica si se proporciona el email, el token y la nueva contraseña
+                                    if ($email && $token && $nuevaContrasena) {
+                                        $resultado = $usuariosCRUD->recuperarContrasena($email, $token, $nuevaContrasena);
+                                
+                                        // Maneja el resultado de la recuperación de la contraseña
+                                        if (isset($resultado['success']) && $resultado['success']) {
+                                            echo json_encode(['success' => true, 'message' => $resultado['success']]);
+                                        } else {
+                                            logMessage("Error al recuperar contraseña: " . json_encode($resultado));
+                                            echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al recuperar la contraseña.']);
+                                        }
+                                    } else {
+                                        echo json_encode(['success' => false, 'error' => 'El correo electrónico, token y la nueva contraseña son obligatorios.']);
+                                    }
+                                    break;
+                                
+                            
+                            
+
     default:
         logMessage("Error: Acción no válida: $action");
         echo json_encode(['success' => false, 'error' => 'Acción no válida.']);

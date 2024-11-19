@@ -398,7 +398,7 @@ paths:
         '5XX':
           description: Error del servidor.
 
-  /obtener_datos_usuario:
+  /obtener_datos_usuario_id:
     get:
       summary: Obtiene los datos básicos de un usuario por ID
       tags:
@@ -471,6 +471,31 @@ paths:
         '5XX':
           description: Error del servidor.
 
+  /recuperar_contrasena:
+    post:
+      summary: Recupera la contraseña de un usuario mediante correo electrónico
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Correo electrónico del usuario para enviar el token de recuperación
+              required:
+                - email
+      responses:
+        '200':
+          description: Se ha enviado un token de recuperación al correo electrónico.
+        '400':
+          description: Correo electrónico no encontrado o inválido.
+        '5XX':
+          description: Error del servidor.
+
 components:
   schemas:
     Usuario:
@@ -496,14 +521,11 @@ components:
           description: Secreto para la autenticación de dos factores
         rol_rolid:
           type: integer
-          description: ID del rol del usuario en el sistema
+          description: ID del rol del usuario
         verificado:
           type: boolean
-          description: Indica si el correo del usuario ha sido verificado
-        tokenVerificacion:
-          type: string
-          description: Token de verificación para el correo
-        expiracion_token:
-          type: string
-          format: date-time
-          description: Fecha y hora de expiración del token de verificación
+          description: Estado de verificación del correo
+      required:
+        - id
+        - nombre
+        - email

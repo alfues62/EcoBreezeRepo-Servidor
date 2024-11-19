@@ -4,7 +4,7 @@ require_once '../SolicitudCurl.php';
 
 function obtenerDatosUsuario($id) {
 
-    $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=obtener_datos_usuario';
+    $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=obtener_datos_usuario_id';
     $data = json_encode(['id' => $id]);
 
     $result = hacerSolicitudCurl($url, $data);
