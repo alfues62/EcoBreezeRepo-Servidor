@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../config.php';
+require '../log.php';
 require '../SolicitudCurl.php';
 include 'autentificar.php';
 include 'registrar_recuperar.php';

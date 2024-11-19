@@ -1,5 +1,5 @@
 <?php
-require_once '../log.php';
+
 require_once '../recuperar_contrasena/correo_recuperar.php';
 
 function registrarRecuperacion($email) {
@@ -49,4 +49,3 @@ if (isset($result['success']) && $result['success']) {
     
 }
 ?>
-

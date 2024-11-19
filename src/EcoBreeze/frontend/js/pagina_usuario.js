@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const ctx = graficaCanvas.getContext('2d');
         grafica = new Chart(ctx, {
-            type: 'bar', // Tipo de gráfico
+            type: 'line', // Tipo de gráfico
             data: {
                 labels: labels, // Etiquetas de las mediciones (Fecha y Hora)
                 datasets: [{

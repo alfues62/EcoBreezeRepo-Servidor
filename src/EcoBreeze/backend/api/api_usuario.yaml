@@ -1,61 +1,17 @@
 openapi: 3.0.3
 info:
-  title: API USUARIO
-  description: API para lectura, escritura, eliminación y edición de datos de usuarios y sensores.
+  title: API de Usuarios
+  description: API para registrar y gestionar usuarios.
   version: 1.0.0
-
 servers:
-  - url: http://localhost/ECOBREEZE/usuarios
+  - url: http://localhost/api/api_datos.php
     description: 'Servidor de desarrollo'
 
 paths:
-  /leer:
-    get:
-      summary: Obtiene los datos de usuarios filtrados por diferentes criterios
-      tags:
-        - Usuarios
-      parameters:
-        - in: query
-          name: id
-          schema:
-            type: integer
-          required: false
-          description: ID numérico del usuario (opcional)
-        - in: query
-          name: nombre
-          schema:
-            type: string
-          required: false
-          description: Nombre del usuario (opcional)
-        - in: query
-          name: apellidos
-          schema:
-            type: string
-          required: false
-          description: Apellidos del usuario (opcional)
-        - in: query
-          name: email
-          schema:
-            type: string
-          required: false
-          description: Correo electrónico del usuario (opcional)
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Usuario'
-        '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-
-  /registrar:
+  /regsitrar:
     post:
-      summary: Registra un nuevo usuario
+      summary: "Registrar un nuevo usuario"
+      description: "Este endpoint permite registrar un usuario con nombre, apellidos, correo y contraseña."
       tags:
         - Usuarios
       requestBody:
@@ -71,10 +27,11 @@ paths:
                   type: string
                 email:
                   type: string
+                  format: email
                 contrasena:
                   type: string
-                rol_rolid:
-                  type: integer
+                token_verficicacion:
+                  type: string
               required:
                 - nombre
                 - apellidos
@@ -82,15 +39,74 @@ paths:
                 - contrasena
       responses:
         '200':
-          description: Usuario registrado con éxito.
+          description: "Usuario registrado exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Usuario registrado con éxito."
         '400':
-          description: Error de validación, campos obligatorios no proporcionados o email en uso.
-        '5XX':
-          description: Error del servidor.
-
-  /iniciar_sesion:
-    post:
-      summary: Inicia sesión de un usuario
+          description: "Solicitud inválida"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Todos los campos son obligatorios."
+        '409':
+          description: "Email ya registrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El email ya está registrado."
+        '422':
+          description: "Formato de email inválido"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Formato de email inválido."
+        '500':
+          description: "Error interno al registrar el usuario"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error al registrar el usuario."
+  /verificar_correo:
+    put:
+      summary: "Verificar el correo electrónico con un token"
+      description: "Este endpoint permite verificar un correo electrónico mediante el token de verificación enviado al usuario."
       tags:
         - Usuarios
       requestBody:
@@ -102,52 +118,15 @@ paths:
               properties:
                 email:
                   type: string
-                contrasena:
+                  format: email
+                token:
                   type: string
               required:
                 - email
-                - contrasena
+                - token
       responses:
         '200':
-          description: Inicio de sesión exitoso.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                  message:
-                    type: string
-                  usuario_id:
-                    type: integer
-                  usuario:
-                    type: object
-                    properties:
-                      ID:
-                        type: integer
-                      Nombre:
-                        type: string
-                      Rol:
-                        type: string
-        '401':
-          description: Credenciales inválidas.
-        '5XX':
-          description: Error del servidor.
-  /obtener_token_huella:
-    get:
-      summary: Obtener el token de huella asociado al correo electrónico
-      description: Recupera el token de huella almacenado en la base de datos para un correo electrónico.
-      parameters:
-        - name: email
-          in: query
-          description: El correo electrónico del usuario.
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: Respuesta exitosa, token de huella recuperado
+          description: "Correo verificado exitosamente"
           content:
             application/json:
               schema:
@@ -156,11 +135,11 @@ paths:
                   success:
                     type: boolean
                     example: true
-                  token_huella:
+                  message:
                     type: string
-                    example: "some-unique-token-here"
+                    example: "Correo verificado con éxito."
         '400':
-          description: Correo electrónico no proporcionado o inválido
+          description: "Solicitud inválida, faltan campos"
           content:
             application/json:
               schema:
@@ -171,9 +150,249 @@ paths:
                     example: false
                   error:
                     type: string
-                    example: "El correo electrónico es obligatorio"
+                    example: "Email y token son obligatorios."
+        '422':
+          description: "Error en la verificación del token o el correo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Token de verificación inválido o expirado."
+        '500':
+          description: "Error interno al verificar el correo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error inesperado durante la verificación del correo."
+  /iniciar_sesion:
+    post:
+      summary: "Iniciar sesión con correo electrónico y contraseña"
+      description: "Este endpoint permite a los usuarios iniciar sesión utilizando su correo electrónico y contraseña."
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                contrasena:
+                  type: string
+              required:
+                - email
+                - contrasena
+      responses:
+        '200':
+          description: "Inicio de sesión exitoso"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Inicio de sesión exitoso."
+                  usuario:
+                    type: object
+                    properties:
+                      ID:
+                        type: integer
+                        example: 1
+                      Nombre:
+                        type: string
+                        example: "Juan Pérez"
+                      Rol:
+                        type: string
+                        example: "Usuario"
+        '400':
+          description: "Solicitud inválida, faltan campos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Email y contraseña son obligatorios."
+        '401':
+          description: "Credenciales inválidas"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Email o contraseña incorrectos."
+        '500':
+          description: "Error interno en el servidor"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error inesperado durante el inicio de sesión."
+
+  /iniciar_sesion_huella:
+    post:
+      summary: "Iniciar sesión con correo electrónico y token de huella"
+      description: "Este endpoint permite a los usuarios iniciar sesión utilizando su correo electrónico y un token de huella."
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                token_huella:
+                  type: string
+              required:
+                - email
+                - token_huella
+      responses:
+        '200':
+          description: "Inicio de sesión con huella exitoso"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Inicio de sesión con huella y correo exitoso."
+                  usuario:
+                    type: object
+                    properties:
+                      ID:
+                        type: integer
+                        example: 1
+                      Nombre:
+                        type: string
+                        example: "Juan Pérez"
+                      Rol:
+                        type: string
+                        example: "Usuario"
+        '400':
+          description: "Solicitud inválida, faltan campos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El correo electrónico y el token de huella son obligatorios."
+        '401':
+          description: "Credenciales inválidas"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Email o token de huella incorrectos."
+        '500':
+          description: "Error interno en el servidor"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error inesperado durante el inicio de sesión con huella."
+  /obtener_token:
+    get:
+      summary: "Obtener el token de huella asociado a un correo electrónico"
+      description: "Este endpoint permite obtener el token de huella registrado para un usuario a través de su correo electrónico."
+      tags:
+        - Huellas
+      parameters:
+        - name: email
+          in: query
+          description: "El correo electrónico del usuario para el que se quiere obtener el token de huella."
+          required: true
+          schema:
+            type: string
+            format: email
+      responses:
+        '200':
+          description: "Token de huella encontrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  token_huella:
+                    type: string
+                    example: "token_de_huella_123456"
+        '400':
+          description: "El correo electrónico es obligatorio"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El correo electrónico es obligatorio."
         '404':
-          description: El token de huella no se encontró para el correo electrónico
+          description: "No se encontró un token de huella para el correo proporcionado"
           content:
             application/json:
               schema:
@@ -185,31 +404,8 @@ paths:
                   error:
                     type: string
                     example: "No se encontró un token de huella para este correo"
-
-  /iniciar_sesion_huella:
-    post:
-      summary: Inicia sesión de un usuario usando tanto el correo electrónico como la huella
-      tags:
-        - Usuarios
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: Correo electrónico del usuario para autenticación
-                token_huella:
-                  type: string
-                  description: Token de huella único del usuario para autenticación
-              required:
-                - email
-                - token_huella
-      responses:
-        '200':
-          description: Inicio de sesión exitoso con huella y correo.
+        '500':
+          description: "Error interno en el servidor"
           content:
             application/json:
               schema:
@@ -217,30 +413,17 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  message:
+                    example: false
+                  error:
                     type: string
-                  usuario:
-                    type: object
-                    properties:
-                      ID:
-                        type: integer
-                        description: ID del usuario
-                      Nombre:
-                        type: string
-                        description: Nombre del usuario
-                      Rol:
-                        type: string
-                        description: Rol del usuario
-        '401':
-          description: Credenciales inválidas, correo o token de huella incorrectos.
-        '5XX':
-          description: Error del servidor.
+                    example: "Error inesperado al obtener el token de huella."
 
-  /editar:
-    put:
-      summary: Modifica los datos de un usuario
+  /insertar_token:
+    post:
+      summary: "Insertar o actualizar el token de huella para un usuario"
+      description: "Este endpoint permite insertar o actualizar el token de huella para un usuario registrado."
       tags:
-        - Usuarios
+        - Huellas
       requestBody:
         required: true
         content:
@@ -250,51 +433,70 @@ paths:
               properties:
                 id:
                   type: integer
-                nombre:
+                  description: "ID del usuario al que se le asignará el token de huella."
+                token_huella:
                   type: string
-                apellidos:
-                  type: string
-                email:
-                  type: string
-                contrasenaHash:
-                  type: string
-                tfa_secret:
-                  type: string
-                rol_rolid:
-                  type: integer
+                  description: "El token de huella que se asociará al usuario."
               required:
                 - id
+                - token_huella
       responses:
         '200':
-          description: OK
+          description: "Token de huella guardado correctamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Token de huella guardado correctamente."
+        '400':
+          description: "Faltan parámetros requeridos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El ID del usuario y el token de huella son obligatorios."
         '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-
-  /borrar/{id}:
-    delete:
-      summary: Elimina un usuario
-      tags:
-        - Usuarios
-      parameters:
-        - in: path
-          name: id
-          schema:
-            type: integer
-          required: true
-          description: ID numérico del usuario
-      responses:
-        '200':
-          description: OK
-        '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-
+          description: "Usuario no encontrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Usuario no encontrado."
+        '500':
+          description: "Error interno en el servidor"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Hubo un error al procesar la solicitud."
   /insertar_sensor:
     post:
-      summary: Inserta un nuevo sensor
+      summary: "Insertar un sensor para un usuario"
+      description: "Este endpoint permite insertar un sensor para un usuario, asociando el sensor a un ID de usuario y a una dirección MAC proporcionada."
       tags:
         - Sensores
       requestBody:
@@ -306,14 +508,16 @@ paths:
               properties:
                 usuario_id:
                   type: integer
+                  description: "ID del usuario que está asociando el sensor."
                 mac:
                   type: string
+                  description: "Dirección MAC del sensor a registrar."
               required:
                 - usuario_id
                 - mac
       responses:
         '200':
-          description: Sensor insertado con éxito.
+          description: "Sensor insertado correctamente"
           content:
             application/json:
               schema:
@@ -321,16 +525,41 @@ paths:
                 properties:
                   success:
                     type: boolean
+                    example: true
                   message:
                     type: string
+                    example: "Sensor insertado correctamente."
         '400':
-          description: Usuario ID y MAC son obligatorios.
-        '5XX':
-          description: Error del servidor.
-
+          description: "Faltan parámetros requeridos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Usuario ID y MAC son obligatorios."
+        '500':
+          description: "Error interno en el servidor"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error inesperado al insertar el sensor."
+  paths:
   /cambiar_contrasena:
     put:
-      summary: Cambia la contraseña de un usuario
+      summary: "Cambiar la contraseña del usuario"
+      description: "Este endpoint permite a un usuario cambiar su contraseña proporcionando la contraseña actual y la nueva contraseña."
       tags:
         - Usuarios
       requestBody:
@@ -342,32 +571,62 @@ paths:
               properties:
                 id:
                   type: integer
-                  description: ID del usuario que desea cambiar la contraseña
+                  description: "ID del usuario."
                 contrasena_actual:
                   type: string
-                  description: Contraseña actual del usuario para verificación
+                  description: "Contraseña actual del usuario."
                 nueva_contrasena:
                   type: string
-                  description: Nueva contraseña que se desea establecer
+                  description: "Nueva contraseña para el usuario."
               required:
                 - id
                 - contrasena_actual
                 - nueva_contrasena
       responses:
         '200':
-          description: Contraseña cambiada con éxito.
+          description: "Contraseña cambiada correctamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Contraseña cambiada correctamente."
         '400':
-          description: ID de usuario, contraseña actual y nueva contraseña son obligatorios.
-        '401':
-          description: Contraseña actual incorrecta.
-        '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-  
-  /insertar_huella:
+          description: "Faltan parámetros requeridos o error en la contraseña actual"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "La contraseña actual y la nueva contraseña son obligatorios."
+        '500':
+          description: "Error interno al cambiar la contraseña"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error desconocido al cambiar la contraseña."
+
+  /cambiar_correo:
     put:
-      summary: Asocia un token de huella a un usuario
+      summary: "Cambiar el correo del usuario"
+      description: "Este endpoint permite a un usuario cambiar su correo proporcionando la contraseña actual y el nuevo correo."
       tags:
         - Usuarios
       requestBody:
@@ -379,40 +638,20 @@ paths:
               properties:
                 id:
                   type: integer
-                  description: ID del usuario al que se le asociará el token de huella
-                token_huella:
+                  description: "ID del usuario."
+                contrasena_actual:
                   type: string
-                  description: El nuevo token de huella que se desea asociar al usuario
+                  description: "Contraseña actual del usuario."
+                nuevo_correo:
+                  type: string
+                  description: "Nuevo correo del usuario."
               required:
                 - id
-                - token_huella
+                - contrasena_actual
+                - nuevo_correo
       responses:
         '200':
-          description: Token de huella asociado con éxito al usuario.
-        '400':
-          description: ID de usuario y token de huella son obligatorios.
-        '409':
-          description: Este token de huella ya está registrado para otro usuario.
-        '404':
-          description: No se encontró el usuario.
-        '5XX':
-          description: Error del servidor.
-
-  /obtener_datos_usuario_id:
-    get:
-      summary: Obtiene los datos básicos de un usuario por ID
-      tags:
-        - Usuarios
-      parameters:
-        - in: query
-          name: id
-          schema:
-            type: integer
-          required: true
-          description: ID del usuario
-      responses:
-        '200':
-          description: Datos del usuario obtenidos con éxito.
+          description: "Correo cambiado correctamente"
           content:
             application/json:
               schema:
@@ -420,60 +659,54 @@ paths:
                 properties:
                   success:
                     type: boolean
-                  usuario:
-                    $ref: '#/components/schemas/Usuario'
-        '404':
-          description: No se encontró el usuario.
-        '400':
-          description: ID de usuario es obligatorio.
-        '5XX':
-          description: Error del servidor.
-
-  /verificar_correo:
-    post:
-      summary: Verifica el correo de un usuario mediante correo electrónico y token
-      tags:
-        - Usuarios
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: Correo electrónico del usuario
-                token_verificacion:
-                  type: string
-                  description: Token de verificación enviado al correo del usuario
-              required:
-                - email
-                - token_verificacion
-      responses:
-        '200':
-          description: Verificación exitosa.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    description: Indica si la verificación fue exitosa
+                    example: true
                   message:
                     type: string
-                    description: Mensaje de confirmación
+                    example: "Correo cambiado correctamente."
         '400':
-          description: Token de verificación inválido, expirado o correo incorrecto.
-        '404':
-          description: Usuario no encontrado.
-        '5XX':
-          description: Error del servidor.
+          description: "Faltan parámetros requeridos o error con el correo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "La contraseña actual y el nuevo correo son obligatorios."
+        '409':
+          description: "El correo ya está registrado"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El email ya está registrado."
+        '500':
+          description: "Error interno al cambiar el correo"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error desconocido al cambiar el correo."
 
   /recuperar_contrasena:
-    post:
-      summary: Recupera la contraseña de un usuario mediante correo electrónico
+    put:
+      summary: "Recuperar la contraseña de un usuario"
+      description: "Este endpoint permite a un usuario recuperar su contraseña proporcionando el correo, token de recuperación y nueva contraseña."
       tags:
         - Usuarios
       requestBody:
@@ -485,47 +718,366 @@ paths:
               properties:
                 email:
                   type: string
-                  description: Correo electrónico del usuario para enviar el token de recuperación
+                  description: "Correo electrónico del usuario."
+                token:
+                  type: string
+                  description: "Token de recuperación de contraseña."
+                nueva_contrasena:
+                  type: string
+                  description: "Nueva contraseña para el usuario."
               required:
                 - email
+                - token
+                - nueva_contrasena
       responses:
         '200':
-          description: Se ha enviado un token de recuperación al correo electrónico.
+          description: "Contraseña recuperada correctamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Contraseña recuperada correctamente."
         '400':
-          description: Correo electrónico no encontrado o inválido.
-        '5XX':
-          description: Error del servidor.
+          description: "Faltan parámetros requeridos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El correo electrónico, token y la nueva contraseña son obligatorios."
+        '404':
+          description: "El correo o token no son válidos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Correo electrónico o token inválidos."
+        '500':
+          description: "Error interno al recuperar la contraseña"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error desconocido al recuperar la contraseña."
+  /actualizar_token_recuperacion:
+    put:
+      summary: "Actualizar el token de recuperación del usuario"
+      description: "Este endpoint permite actualizar el token de recuperación de un usuario mediante su correo electrónico y el nuevo token."
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: "Correo electrónico del usuario."
+                token:
+                  type: string
+                  description: "Nuevo token de recuperación del usuario."
+              required:
+                - email
+                - token
+      responses:
+        '200':
+          description: "Token de recuperación actualizado correctamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  message:
+                    type: string
+                    example: "Token de recuperación actualizado correctamente."
+                  usuario:
+                    type: object
+                    properties:
+                      nombre:
+                        type: string
+                        example: "Juan"
+                      apellidos:
+                        type: string
+                        example: "Pérez"
+                      email:
+                        type: string
+                        example: "juan.perez@example.com"
+        '400':
+          description: "Faltan parámetros requeridos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Email y nuevo token son obligatorios."
+        '500':
+          description: "Error interno al actualizar el token"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error inesperado."
 
+  /obtener_datos_usuario:
+    post:
+      summary: "Obtener los datos de un usuario"
+      description: "Este endpoint permite obtener los datos de un usuario proporcionando su ID."
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  description: "ID del usuario."
+              required:
+                - id
+      responses:
+        '200':
+          description: "Datos del usuario obtenidos correctamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  usuario:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nombre:
+                        type: string
+                        example: "Juan"
+                      apellidos:
+                        type: string
+                        example: "Pérez"
+                      email:
+                        type: string
+                        example: "juan.perez@example.com"
+        '400':
+          description: "Faltan parámetros requeridos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El ID del usuario es obligatorio."
+        '500':
+          description: "Error interno al obtener los datos"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error desconocido al obtener los datos del usuario."
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: false
+        error:
+          type: string
+          example: "Error inesperado."
+
+    SuccessResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        message:
+          type: string
+          example: "Operación realizada con éxito."
+
     Usuario:
       type: object
       properties:
         id:
           type: integer
-          description: ID del usuario
+          description: "ID único del usuario."
+          example: 1
         nombre:
           type: string
-          description: Nombre del usuario
+          description: "Nombre del usuario."
+          example: "Juan"
         apellidos:
           type: string
-          description: Apellidos del usuario
+          description: "Apellidos del usuario."
+          example: "Pérez"
         email:
           type: string
-          description: Correo electrónico del usuario
-        contrasenaHash:
+          description: "Correo electrónico del usuario."
+          example: "juan.perez@example.com"
+        rol:
           type: string
-          description: Contraseña del usuario (almacenada como hash)
-        tfa_secret:
+          description: "Rol del usuario (por ejemplo, 'admin' o 'usuario')."
+          example: "admin"
+
+    TokenHuella:
+      type: object
+      properties:
+        token_huella:
           type: string
-          description: Secreto para la autenticación de dos factores
-        rol_rolid:
+          description: "Token único asociado a la huella dactilar del usuario."
+          example: "123456789abcdef"
+
+    Huella:
+      type: object
+      properties:
+        id:
           type: integer
-          description: ID del rol del usuario
-        verificado:
-          type: boolean
-          description: Estado de verificación del correo
-      required:
-        - id
-        - nombre
-        - email
+          description: "ID de la huella."
+          example: 1
+        token_huella:
+          type: string
+          description: "Token de la huella."
+          example: "abcdef12345"
+
+    Sensor:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "ID único del sensor."
+          example: 1
+        usuario_id:
+          type: integer
+          description: "ID del usuario asociado al sensor."
+          example: 1
+        mac:
+          type: string
+          description: "Dirección MAC del sensor."
+          example: "00:14:22:01:23:45"
+        fecha_instalacion:
+          type: string
+          format: date
+          description: "Fecha de instalación del sensor."
+          example: "2024-11-19"
+
+    CambioContrasena:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "ID del usuario."
+          example: 1
+        contrasena_actual:
+          type: string
+          description: "Contraseña actual del usuario."
+          example: "contrasena123"
+        nueva_contrasena:
+          type: string
+          description: "Nueva contraseña que el usuario desea establecer."
+          example: "nuevacontrasena456"
+
+    CambioCorreo:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "ID del usuario."
+          example: 1
+        contrasena_actual:
+          type: string
+          description: "Contraseña actual del usuario."
+          example: "contrasena123"
+        nuevo_correo:
+          type: string
+          description: "Nuevo correo electrónico que el usuario desea usar."
+          example: "juan.nuevo@example.com"
+
+    RecuperarContrasena:
+      type: object
+      properties:
+        email:
+          type: string
+          description: "Correo electrónico del usuario."
+          example: "juan.perez@example.com"
+        token:
+          type: string
+          description: "Token de recuperación de la contraseña."
+          example: "123456abcdef"
+        nueva_contrasena:
+          type: string
+          description: "Nueva contraseña que el usuario desea establecer."
+          example: "nuevaContrasena123"
+        
+    ActualizarTokenRecuperacion:
+      type: object
+      properties:
+        email:
+          type: string
+          description: "Correo electrónico del usuario."
+          example: "juan.perez@example.com"
+        token:
+          type: string
+          description: "Nuevo token de recuperación."
+          example: "abcdef123456"
+
+    ObtenerDatosUsuario:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: "ID único del usuario."
+          example: 1

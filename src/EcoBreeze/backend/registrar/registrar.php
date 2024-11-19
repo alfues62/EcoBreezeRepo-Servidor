@@ -1,6 +1,5 @@
 <?php
-require_once '../log.php';
-require '../SolicitudCurl.php';
+
 require 'enviar_correo.php'; // Asegúrate de tener la función enviarCorreoVerificacion en este archivo
 
 

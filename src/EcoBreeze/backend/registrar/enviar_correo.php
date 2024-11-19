@@ -1,5 +1,4 @@
 <?php
-require_once '../log.php';
 
 function enviarCorreoVerificacion($email, $token, $nombre, $apellido) {
     $to = $email;

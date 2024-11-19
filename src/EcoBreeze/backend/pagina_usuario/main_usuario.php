@@ -2,11 +2,13 @@
 session_start();
 ob_start(); // Inicia el buffer de salida
 
-include '../config.php';
-include 'ver_datos.php';
-include 'cambiar_contrasena.php';
-include 'cambiar_correo.php';
-include 'obtener_mediciones.php'; // Incluye la función para obtener mediciones
+require_once '../SolicitudCurl.php';
+require_once '../log.php';
+require_once 'obtener_datos.php';
+require_once 'cambiar_contrasena.php';
+require_once 'cambiar_correo.php';
+require_once 'obtener_mediciones.php'; // Incluye la función para obtener mediciones
+
 
 // Variables para los mensajes de error y éxito
 $error_message = '';
