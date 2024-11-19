@@ -17,24 +17,24 @@ VALUES ('S04');
 -- 3. Insertar Umbrales
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 1),
-(2, 1, "Medio", 1),
-(3, 2, "Alto", 1);
-INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
-VALUES 
-(1, 0, "Bajo", 2),
-(2, 3, "Medio", 2),
-(3, 6, "Alto", 2);
-INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
-VALUES 
-(1, 0, "Bajo", 3),
-(2, 2, "Medio", 3),
-(3, 4, "Alto", 3);
-INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
-VALUES 
 (1, 0, "Bajo", 4),
-(2, 3, "Medio", 4),
-(3, 5, "Alto", 4);
+(2, 1, "Normal", 4),
+(3, 2, "Alto", 4);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(1, 0, "Bajo", 5),
+(2, 3, "Medio", 5),
+(3, 6, "Alto", 5);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(1, 0, "Bajo", 6),
+(2, 2, "Medio", 6),
+(3, 4, "Alto", 6);
+INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
+VALUES 
+(1, 0, "Bajo", 7),
+(2, 3, "Medio", 7),
+(3, 5, "Alto", 7);
 
 -- 3. Insertar un usuario
 INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, ROL_RolID) 
