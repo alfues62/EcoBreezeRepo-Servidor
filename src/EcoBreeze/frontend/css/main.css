@@ -1,83 +1,127 @@
-/* main.css */
-
-/* General */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    padding-top: 70px; /* Ajusta este valor según la altura de tu barra */
+    
+}
+/* ----------------------------------------------------------------------- */
+/* BARRA DE NAVEGACION */
+.navbar {
+    position: fixed; /* Asegura que la barra esté fija */
+    top: 0; /* Ancla al borde superior */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    z-index: 1030; /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #545454;
+    font: 700 33px "Poppins", sans-serif;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Agrega una sombra para que destaque */
+
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
+    font: 400 12px "Montserrat", serif;
 }
 
-/* Container */
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.logo {
+    height: 40px;
+    margin-right: 10px;
 }
+/* FIN BARRA DE NAVEGACION */
+/* ----------------------------------------------------------------------- */
 
-/* Headings */
-h1, h2, h3 {
-    color: #333;
+
+
+/* ----------------------------------------------------------------------- */
+/* MASTHEAD */
+.masthead {
+    position: relative;
+    height: 70vh;
+    background: url("../img/bg-masthead.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin-bottom: 30px;
+    padding-top: 90px; /* Igual a la altura de la barra */
+    margin-top: -90px; /* Contrarresta el desplazamiento */
+}
+/* FIN MASTHEAD */
+/* ----------------------------------------------------------------------- */
+
+
+
+/* ----------------------------------------------------------------------- */
+/* NUESTRO PRODUCTO */
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Buttons */
+.section-title {
+    text-align: center;
+    font: 900 35px "Poppins", sans-serif;
+    color: #000;
+}
+
 .btn {
-    padding: 10px 15px;
+
+    background-color: #4ca5aa;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    padding: 12px 24px;
+    border-radius: 20px;
     cursor: pointer;
-    color: white;
-    transition: background-color 0.3s ease;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    transition: background-color 0.3s;
+
 }
 
-.btn-primary {
-    background-color: #5cb85c;
+.btn:hover {
+    background-color: #545454;;
+}
+/* FIN NUESTRO PRODUCTO */
+/* ----------------------------------------------------------------------- */
+
+
+/* ----------------------------------------------------------------------- */
+/* TEXTOS */
+
+
+/* Estilos generales para h1, h2 y h3 */
+h1, h2, h3 {
+    font-style: normal;
+    color: #545454; /* Color común para los encabezados */
+    margin-bottom: 20px; /* Margen inferior común */
 }
 
-.btn-primary:hover {
-    background-color: #4cae4c;
+/* Específicos para h1 */
+h1 {
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-size: 35px;
 }
 
-.btn-secondary {
-    background-color: #6c757d;
+/* Específicos para h2 */
+h2 {
+    font-family: "Montserrat", serif;
+    font-weight: 400;
+    font-size: 40px;
 }
 
-.btn-secondary:hover {
-    background-color: #5a6268;
-}
-
-/* Form */
-form {
-    padding: 20px;
-    background: white;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form-group label {
-    font-weight: bold;
-}
-
-.alert {
-    margin-top: 15px;
-}
-
-/* Modal (if applicable for all modals) */
-.modal-footer a {
-    width: 100%;
-}
-
-/* Alignment */
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
+/* Específicos para h3 */
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
 }
