@@ -1,4 +1,5 @@
 <?php 
+require_once '../log.php';
 require_once(__DIR__ . '/../../db/conexion.php');
 require_once(__DIR__ . '/../controllers/usuario_acciones_CRUD.php');
 require_once(__DIR__ . '/../controllers/usuario_consultas_CRUD.php');
@@ -16,12 +17,6 @@ $connection = $conn->getConnection();
 $usuariosAccionesCRUD = new UsuariosAccionesCRUD($connection);
 $usuariosConsultasCRUD = new UsuariosConsultasCRUD($connection);
 
-// Función para registrar logs
-function logMessage($message) {
-    $logFile = '/var/www/html/logs/app.log'; // Ruta del archivo log
-    file_put_contents($logFile, date('Y-m-d H:i:s') . ' - ' . $message . PHP_EOL, FILE_APPEND);
-}
-
 // Obtener el valor de 'action' desde la URL usando $_GET
 $action = $_GET['action'] ?? null;
 
@@ -37,7 +32,7 @@ switch ($action) {
         $apellidos = $requestData['apellidos'] ?? null;
         $email = $requestData['email'] ?? null;
         $contrasena = $requestData['contrasena'] ?? null;
-        $token_verficicacion = $requestData['token_verficicacion'] ?? null;
+        $token = $requestData['token'] ?? null;
 
         // Validar que todos los campos necesarios estén presentes
         if ($nombre && $apellidos && $email && $contrasena) {
@@ -57,12 +52,12 @@ switch ($action) {
             $contrasenaHash = password_hash($contrasena, PASSWORD_BCRYPT);
 
             // Llamar al método de inserción
-            $resultado = $usuariosAccionesCRUD->registrar($nombre, $apellidos, $email, $contrasenaHash, $token_verficicacion);
+            $resultado = $usuariosAccionesCRUD->registrar($nombre, $apellidos, $email, $contrasenaHash, $token);
 
             if ($resultado) {
                 echo json_encode(['success' => true, 'message' => 'Usuario registrado con éxito.']);
             } else {
-                logMessage("Error al registrar el usuario: " . json_encode($requestData));
+                registrarError("Error al registrar el usuario: " . json_encode($requestData));
                 echo json_encode(['success' => false, 'error' => 'Error al registrar el usuario.']);
             }
         } else {
@@ -159,9 +154,6 @@ switch ($action) {
     // CASOS PARA HUELLAS
     case 'obtener_token_huella':
         $email = $_GET['email'] ?? null;  // Usar $_GET en vez de $requestData
-
-        logMessage($email);
-
         if ($email) {
             // Consultar el token de huella asociado al email
             $tokenHuella = $usuariosConsultasCRUD->obtenerHuella($email);
@@ -181,9 +173,6 @@ switch ($action) {
         // Obtener los parámetros del request
         $id = $requestData['id'] ?? null; // ID del usuario
         $tokenHuella = $requestData['token_huella'] ?? null; // Token de huella
-
-        logMessage(json_encode($requestData)); // Log para revisar el contenido de la solicitud
-
         // Verifica si se proporcionan ambos parámetros
         if ($id && $tokenHuella) {
 
@@ -196,12 +185,12 @@ switch ($action) {
                 if (isset($resultado['success']) && $resultado['success']) {
                     echo json_encode(['success' => true, 'message' => 'Token de huella guardado correctamente.']);
                 } else {
-                    logMessage("Error al actualizar el token de huella: " . json_encode($resultado));
+                    registrarError("Error al actualizar el token de huella: " . json_encode($resultado));
                     echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al actualizar el token de huella.']);
                 }
             } catch (Exception $e) {
                 // Captura cualquier error inesperado
-                logMessage("Excepción al insertar token de huella: " . $e->getMessage());
+                registrarError("Excepción al insertar token de huella: " . $e->getMessage());
                 echo json_encode(['success' => false, 'error' => 'Hubo un error al procesar la solicitud.']);
             }
         } else {
@@ -215,7 +204,7 @@ switch ($action) {
         $usuarioID = $requestData['usuario_id'] ?? null; // Obtener usuario ID del request
         $mac = $requestData['mac'] ?? null; // Obtener MAC del request
 
-        logMessage(json_encode($requestData));
+        registrarError(json_encode($requestData));
     
         // Verifica si usuarioID y mac son proporcionados
         if ($usuarioID && $mac) {
@@ -225,7 +214,7 @@ switch ($action) {
             if (isset($resultado['success'])) {
                 echo json_encode(['success' => true, 'message' => $resultado['success']]);
             } else {
-                logMessage("Error al insertar sensor: " . json_encode($resultado));
+                registrarError("Error al insertar sensor: " . json_encode($resultado));
                 echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al insertar el sensor.']);
             }
         } else {
@@ -240,7 +229,7 @@ switch ($action) {
         $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
         $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
     
-        logMessage(json_encode($requestData));
+        registrarError(json_encode($requestData));
     
         // Verifica si se proporciona el ID del usuario, la contraseña actual y la nueva contraseña
         if ($id && $contrasenaActual && $nuevaContrasena) {
@@ -250,7 +239,7 @@ switch ($action) {
             if (isset($resultado['success']) && $resultado['success']) {
                 echo json_encode(['success' => true, 'message' => $resultado['message']]);
             } else {
-                logMessage("Error al cambiar contraseña: " . json_encode($resultado));
+                registrarError("Error al cambiar contraseña: " . json_encode($resultado));
                 echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar la contraseña.']);
             }
         } else {
@@ -263,7 +252,7 @@ switch ($action) {
         $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
         $nuevoCorreo = $requestData['nuevo_correo'] ?? null; // Obtener el nuevo correo del request
     
-        logMessage(json_encode($requestData)); // Revisa el contenido de $requestData
+        registrarError(json_encode($requestData)); // Revisa el contenido de $requestData
     
         // Verifica si se proporciona el ID del usuario, la contraseña actual y el nuevo correo
         if ($id && $contrasenaActual && $nuevoCorreo) {
@@ -279,7 +268,7 @@ switch ($action) {
             if (isset($resultado['success']) && $resultado['success']) {
                 echo json_encode(['success' => true, 'message' => $resultado['message']]);
             } else {
-                logMessage("Error al cambiar correo: " . json_encode($resultado));
+                registrarError("Error al cambiar correo: " . json_encode($resultado));
                 echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar el correo.']);
             }
         } else {
@@ -292,7 +281,7 @@ switch ($action) {
         $token = $requestData['token'] ?? null; // Obtener el token de recuperación del request
         $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
     
-        logMessage(json_encode($requestData));
+        registrarError(json_encode($requestData));
     
         // Verifica si se proporciona el email, el token y la nueva contraseña
         if ($email && $token && $nuevaContrasena) {
@@ -302,7 +291,7 @@ switch ($action) {
             if (isset($resultado['success']) && $resultado['success']) {
                 echo json_encode(['success' => true, 'message' => $resultado['success']]);
             } else {
-                logMessage("Error al recuperar contraseña: " . json_encode($resultado));
+                registrarError("Error al recuperar contraseña: " . json_encode($resultado));
                 echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al recuperar la contraseña.']);
             }
         } else {
@@ -358,7 +347,7 @@ switch ($action) {
                 echo json_encode(['success' => true, 'usuario' => $resultado['usuario']]);
             } else {
                 // Si hay algún error, lo registra y devuelve un mensaje de error
-                logMessage("Error al obtener datos del usuario: " . json_encode($resultado));
+                registrarError("Error al obtener datos del usuario: " . json_encode($resultado));
                 echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener los datos del usuario.']);
             }
         } else {
@@ -366,10 +355,33 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
         }
     break;
+
+    case 'verificar_token':
+        $email = $requestData['email'] ?? null;
+        $token = $requestData['token'] ?? null;
+    
+        if ($email && $token) {
+            // Llamar a la función verificarTokenValido del CRUD
+            $resultado = $usuariosConsultasCRUD->verificarTokenValido($email, $token);
+    
+            // Devolver la respuesta basada en el resultado del CRUD
+            if ($resultado['success']) {
+                echo json_encode([
+                    'success' => true,
+                    'message' => $resultado['message']
+                ]);
+            } else {
+                echo json_encode(['success' => false, 'error' => $resultado['error']]);
+            }
+        } else {
+            echo json_encode(['success' => false,'error' => 'Url no valido']);
+        }
+        break;
+    
     // FIN CASOS UNIVERSALES
 
     default:
-        logMessage("Error: Acción no válida: $action");
+    registrarError("Error: Acción no válida: $action");
         echo json_encode(['success' => false, 'error' => 'Acción no válida.']);
         break;
 }

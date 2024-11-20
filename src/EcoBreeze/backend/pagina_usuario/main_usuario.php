@@ -7,7 +7,7 @@ require_once '../log.php';
 require_once 'obtener_datos.php';
 require_once 'cambiar_contrasena.php';
 require_once 'cambiar_correo.php';
-require_once 'obtener_mediciones.php'; // Incluye la función para obtener mediciones
+require_once 'obtener_mediciones.php';
 
 
 // Variables para los mensajes de error y éxito

@@ -3,13 +3,10 @@ require_once(__DIR__ . '/../../db/conexion.php');
 
 class UsuariosConsultasCRUD {
     private $conn;
-    private $logFile; 
-
     // Modificación del constructor para aceptar la conexión existente y definir el archivo de log
     public function __construct($conn) {
         $this->conn = $conn; // Usar la conexión pasada como argumento
         date_default_timezone_set('Europe/Madrid'); // Establecer la zona horaria
-        $this->logFile = '/var/www/html/logs/app.log'; // Establecer la ruta del archivo de log
     }
 
     /* ------------------------------------------------------------------------------------------
@@ -63,7 +60,7 @@ class UsuariosConsultasCRUD {
                 return ['success' => false, 'error' => 'Contraseña incorrecta'];
             }
         } catch (PDOException $e) {
-            error_log("Error al verificar credenciales: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error al verificar credenciales: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al verificar las credenciales'];
         }
     }
@@ -92,10 +89,11 @@ class UsuariosConsultasCRUD {
                 ]
             ];
         } catch (PDOException $e) {
-            error_log("Error al verificar email y token de huella: " . $e->getMessage(), 3, $this->logFile);
+            registrarError("Error al verificar email y token de huella: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al verificar email y token de huella'];
         }
     }
+
     // Ayuda a hacer el login con la huella.
     public function obtenerHuella($email) {
         try {
@@ -112,7 +110,7 @@ class UsuariosConsultasCRUD {
                 return null; // Si no se encuentra el usuario
             }
         } catch (PDOException $e) {
-            error_log("Error al obtener el token de huella: " . $e->getMessage(), 3, $this->logFile);
+            registrarError("Error al obtener el token de huella: " . $e->getMessage(). "\n");
             return null;
         }
     }
@@ -124,15 +122,16 @@ class UsuariosConsultasCRUD {
     // Método para verificar si el email ya está registrado
     public function emailExistente($email) {
         try {
-            $stmt = $this->conn->prepare("SELECT 1 FROM USUARIO WHERE Email = ?");
+            $stmt = $this->conn->prepare("SELECT COUNT(1) FROM USUARIO WHERE Email = ?");
             $stmt->execute([$email]);
             $count = $stmt->fetchColumn();
             return $count > 0; // Devuelve true si el email ya está registrado
         } catch (PDOException $e) {
-            error_log("Error al verificar si el email existe: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error al verificar si el email existe: " . $e->getMessage() . "\n");
             return false; // Manejar errores durante la verificación
         }
     }
+
     // Método para obtener los datos de un usuario por ID
     public function obtenerDatosUsuarioPorID($id) {
         try {
@@ -150,30 +149,23 @@ class UsuariosConsultasCRUD {
                 return ['success' => false, 'error' => 'No se encontró el usuario.'];
             }
         } catch (PDOException $e) {
-            error_log("Error en obtener datos usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en obtener datos usuario: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al obtener los datos del usuario.'];
         }
     }
+
     public function verificarTokenValido($email, $token) {
         try {
             // Consulta SQL para verificar el token y la fecha de expiración
-            $query = "SELECT token_recuperacion, expiracion_token 
+            $query = "SELECT token, expiracion_token 
                       FROM USUARIO 
                       WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Verificar si el usuario existe
-            if (!$usuario) {
-                return [
-                    'success' => false,
-                    'error' => 'Correo no encontrado.'
-                ];
-            }
-    
             // Verificar si el token es "0"
-            if ($usuario['token_recuperacion'] === '0') {
+            if ($usuario['token'] === '0') {
                 return [
                     'success' => false,
                     'error' => 'El token no es válido. Por favor, solicite uno nuevo.'
@@ -181,7 +173,7 @@ class UsuariosConsultasCRUD {
             }
     
             // Verificar si el token coincide
-            if ($usuario['token_recuperacion'] !== $token) {
+            if ($usuario['token'] !== $token) {
                 return [
                     'success' => false,
                     'error' => 'El token proporcionado no coincide.'
@@ -206,7 +198,7 @@ class UsuariosConsultasCRUD {
             ];
         } catch (PDOException $e) {
             // Registrar el error en el log
-            registrarError("Error al verificar el token: " . $e->getMessage());
+            registrarError("Error al verificar el token: " . $e->getMessage() . "\n");
     
             // Retornar un mensaje de error genérico
             return [

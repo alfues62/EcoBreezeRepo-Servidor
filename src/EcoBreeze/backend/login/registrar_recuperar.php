@@ -19,7 +19,7 @@ function registrarRecuperacion($email) {
 
     // Verifica si la respuesta contiene éxito
 if (isset($result['success']) && $result['success']) {
-    $usuario = $result['usuario'] ?? null; // Extraemos 'usuario'
+    $usuario = $result['usuario'] ?? null;
 
     if ($usuario && isset($usuario['nombre'], $usuario['apellidos'], $usuario['email'])) {
         // Llamamos a la función para enviar el correo de recuperación

@@ -46,7 +46,7 @@ switch ($action) {
             // Si no se proporciona el ID del usuario, devolver un error
             echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
         }
-        break;
+    break;
 
     default:
         // Maneja métodos no permitidos

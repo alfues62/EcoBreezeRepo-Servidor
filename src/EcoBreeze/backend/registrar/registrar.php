@@ -13,7 +13,7 @@ function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
         'apellidos' => $apellidos,
         'email' => $email,
         'contrasena' => $contrasena,
-        'token_verficicacion' => $token,
+        'token' => $token,
     ]);
 
     $result = hacerSolicitudCurl($url, $data);
