@@ -3,13 +3,11 @@ require_once(__DIR__ . '/../../db/conexion.php');
 
 class UsuariosAccionesCRUD {
     private $conn;
-    private $logFile; 
 
     // Modificación del constructor para aceptar la conexión existente y definir el archivo de log
     public function __construct($conn) {
         $this->conn = $conn; // Usar la conexión pasada como argumento
         date_default_timezone_set('Europe/Madrid'); // Establecer la zona horaria
-        $this->logFile = '/var/www/html/logs/app.log'; // Establecer la ruta del archivo de log
     }
 
     /* ------------------------------------------------------------------------------------------
@@ -18,7 +16,7 @@ class UsuariosAccionesCRUD {
      * 
      *///----------------------------------------------------------------------------------------
     // Método para insertar un nuevo usuario
-    public function registrar($nombre, $apellidos, $email, $contrasenaHash, $token_verificacion) {
+    public function registrar($nombre, $apellidos, $email, $contrasenaHash, $token) {
         try {
             // Establecer el rol como 2
             $rol_rolid = 2;
@@ -56,28 +54,29 @@ class UsuariosAccionesCRUD {
             }
 
             // Query para insertar el usuario con los nuevos campos
-            $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, Verificado, TokenVerificacion, expiracion_token, ROL_RolID) 
+            $query = "INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, Verificado, token, expiracion_token, ROL_RolID) 
                     VALUES (?, ?, ?, ?, 0, ?, ?, ?)";
 
             // Preparar y ejecutar la consulta
             $stmt = $this->conn->prepare($query);
-            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $token_verificacion, $fechaExpiracionToken->format('Y-m-d H:i:s'), $rol_rolid]);
+            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $token, $fechaExpiracionToken->format('Y-m-d H:i:s'), $rol_rolid]);
 
             // Retornar éxito
             return ['success' => 'Usuario insertado con éxito. Por favor verifica tu correo.'];
         } catch (PDOException $e) {
             // Registrar el error
-            error_log("Error en insertar usuario: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en insertar usuario: " . $e->getMessage() . "\n");
             return ['error' => 'Error al insertar un usuario'];
         }
     }
+
     public function verificarCorreo($email, $token) {
         try {
             // Iniciar transacción
             $this->conn->beginTransaction();
 
             // Consultamos al usuario utilizando el correo y el token de verificación
-            $query = "SELECT ID, TokenVerificacion, Verificado, expiracion_token FROM USUARIO WHERE Email = ?";
+            $query = "SELECT ID, token, Verificado, expiracion_token FROM USUARIO WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -109,12 +108,12 @@ class UsuariosAccionesCRUD {
             }
 
             // Comprobamos si el token es válido
-            if ($usuario['TokenVerificacion'] !== $token) {
+            if ($usuario['token'] !== $token) {
                 return ['error' => 'Token no válido.'];
             }
 
             // Si el token es válido y no ha expirado, verificamos al usuario
-            $queryUpdate = "UPDATE USUARIO SET Verificado = 1, TokenVerificacion = 0, expiracion_token = null WHERE Email = ?";
+            $queryUpdate = "UPDATE USUARIO SET Verificado = 1, token = 0, expiracion_token = 0 WHERE Email = ?";
             $stmtUpdate = $this->conn->prepare($queryUpdate);
             $stmtUpdate->execute([$email]);
 
@@ -150,8 +149,7 @@ class UsuariosAccionesCRUD {
 
             return ['success' => 'Sensor insertado con éxito.'];
         } catch (PDOException $e) {
-            registrarError("Error en insertar sensor: " . $e->getMessage());
-            //error_log("Error en insertar sensor: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en insertar sensor: " . $e->getMessage() . "/n");
             return ['error' => 'Error al insertar el sensor'];
         }
     }
@@ -191,7 +189,7 @@ class UsuariosAccionesCRUD {
                 return ['success' => false, 'error' => 'No se encontró el usuario.'];
             }
         } catch (PDOException $e) {
-            error_log("Error en cambiar contraseña: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en cambiar contraseña: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al cambiar la contraseña.'];
         }
     }
@@ -227,7 +225,7 @@ class UsuariosAccionesCRUD {
                 return ['success' => false, 'error' => 'No se encontró el usuario.'];
             }
         } catch (PDOException $e) {
-            error_log("Error en cambiar correo: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en cambiar correo: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al cambiar el correo electrónico.'];
         }
     }
@@ -242,7 +240,7 @@ class UsuariosAccionesCRUD {
             $this->conn->beginTransaction();
     
             // Consultamos al usuario utilizando el correo y el token de recuperación
-            $query = "SELECT ID, token_recuperacion, expiracion_token FROM USUARIO WHERE Email = ?";
+            $query = "SELECT ID, token, expiracion_token FROM USUARIO WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -258,7 +256,7 @@ class UsuariosAccionesCRUD {
     
             if ($fecha_actual > $expiracion_token) {
                 // Eliminar el token expirado (poner en 0 en lugar de NULL)
-                $clearTokenQuery = "UPDATE USUARIO SET token_recuperacion = 0, expiracion_token = 0 WHERE ID = ?";
+                $clearTokenQuery = "UPDATE USUARIO SET token = 0, expiracion_token = 0 WHERE ID = ?";
                 $clearTokenStmt = $this->conn->prepare($clearTokenQuery);
                 $clearTokenStmt->execute([$usuario['ID']]);
     
@@ -268,14 +266,14 @@ class UsuariosAccionesCRUD {
             }
     
             // Comprobamos si el token es válido
-            if ($usuario['token_recuperacion'] !== $token) {
+            if ($usuario['token'] !== $token) {
                 return ['error' => 'Token no válido.'];
             }
     
             $hashed_password = password_hash($nueva_contrasena, PASSWORD_BCRYPT);
     
             // Actualizamos la contraseña y limpiamos el token de recuperación
-            $queryUpdate = "UPDATE USUARIO SET ContrasenaHash = ?, token_recuperacion = 0, expiracion_token = 0 WHERE Email = ?";
+            $queryUpdate = "UPDATE USUARIO SET ContrasenaHash = ?, token = 0, expiracion_token = 0 WHERE Email = ?";
             $stmtUpdate = $this->conn->prepare($queryUpdate);
             $stmtUpdate->execute([$hashed_password, $email]);
     
@@ -297,12 +295,13 @@ class UsuariosAccionesCRUD {
             return ['error' => 'Hubo un error al recuperar la contraseña.'];
         }
     }
+
     public function actualizarTokenRecuperacion($email, $token) {
         try {
             registrarError("Iniciando la actualización del token de recuperación para el correo: $email");
     
             // Consultar al usuario por su correo electrónico
-            $query = "SELECT ID, Nombre, Apellidos, Email, Verificado FROM USUARIO WHERE Email = ?";
+            $query = "SELECT ID, Nombre, Apellidos, Email, Verificado, token FROM USUARIO WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -327,7 +326,7 @@ class UsuariosAccionesCRUD {
             registrarError("Nueva expiración calculada: $nuevaExpiracion");
     
             // Actualizar el token de recuperación y su expiración
-            $queryUpdate = "UPDATE USUARIO SET token_recuperacion = ?, expiracion_recuperacion = ? WHERE Email = ?";
+            $queryUpdate = "UPDATE USUARIO SET token = ?, expiracion_token = ? WHERE Email = ?";
             $stmtUpdate = $this->conn->prepare($queryUpdate);
             $stmtUpdate->execute([$token, $nuevaExpiracion, $email]);
     
@@ -335,6 +334,8 @@ class UsuariosAccionesCRUD {
             if ($stmtUpdate->rowCount() > 0) {
                 // Registrar éxito de la actualización
                 registrarError("Token de recuperación actualizado correctamente para el correo: $email");
+                registrarError("Token de recuperación actualizado correctamente para el correo: $token");
+
             } else {
                 // Si no se actualizó ninguna fila, registrar información sobre ello
                 registrarError("No se actualizó el token de recuperación para el correo: $email");
@@ -358,38 +359,7 @@ class UsuariosAccionesCRUD {
      * METODOS ACCION UNIVERSALES
      * 
      *///----------------------------------------------------------------------------------------
-    public function marcarTokenComoUtilizado($email) {
-        try {
-            // Consulta SQL para actualizar el token y la fecha de expiración
-            $query = "UPDATE USUARIO 
-                      SET token_recuperacion = '0', expiracion_token = '0' 
-                      WHERE Email = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$email]);
-    
-            // Verificar si se actualizó algún registro
-            if ($stmt->rowCount() > 0) {
-                return [
-                    'success' => true,
-                    'message' => 'El token ha sido marcado como utilizado.'
-                ];
-            } else {
-                return [
-                    'success' => false,
-                    'error' => 'No se encontró el usuario o el token ya fue utilizado.'
-                ];
-            }
-        } catch (PDOException $e) {
-            // Registrar el error en el log
-            registrarError("Error al marcar el token como utilizado: " . $e->getMessage());
-    
-            // Retornar un mensaje de error genérico
-            return [
-                'success' => false,
-                'error' => 'Hubo un error al marcar el token como utilizado.'
-            ];
-        }
-    }
+
     public function subirTokenHuella($id, $tokenHuella) {
         try {
             // Preparamos la consulta para verificar si el usuario existe
@@ -414,7 +384,7 @@ class UsuariosAccionesCRUD {
                 return ['success' => false, 'error' => 'No se encontró el usuario con el ID proporcionado.'];
             }
         } catch (PDOException $e) {
-            error_log("Error en subir token de huella: " . $e->getMessage() . "\n", 3, $this->logFile);
+            registrarError("Error en subir token de huella: " . $e->getMessage() . "\n");
             return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
         }
     }
