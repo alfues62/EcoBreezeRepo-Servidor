@@ -3,7 +3,7 @@
 require_once '../SolicitudCurl.php';
 require_once '../log.php';
 require_once 'registrar.php';
-require_once 'verificar_correo.php';
+//
 
 // Inicializamos las variables para los mensajes de éxito y error
 $success_message = '';
