@@ -17,7 +17,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema EcoBreeze
 -- -----------------------------------------------------
-SET GLOBAL TIMEZONE = 'Europe/Madrid';
+SET GLOBAL time_zone = 'Europe/Madrid';
 
 CREATE SCHEMA IF NOT EXISTS `EcoBreeze` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 USE `EcoBreeze` ;
@@ -159,24 +159,26 @@ VALUES ('S04');
 -- 3. Insertar Umbrales
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 4),
-(2, 0.05, "Normal", 4),
-(3, 0.1, "Alto", 4);
+(1, 0, "Bajo", 2),
+(2, 0.05, "Normal", 2),
+(3, 0.1, "Alto", 2);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(4, 0, "Bajo", 5),
-(5, 4.4, "Medio", 5),
-(6, 9.4, "Alto", 5);
+(4, 0, "Bajo", 3),
+(5, 4.4, "Medio", 3),
+(6, 9.4, "Alto", 3);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(7, 0, "Bajo", 6),
-(8, 0.02, "Medio", 6),
-(9, 0.05, "Alto", 6);
+(7, 0, "Bajo", 4),
+(8, 0.02, "Medio", 4),
+(9, 0.05, "Alto", 4);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(10, 0, "Bajo", 7),
-(11, 0.02, "Medio", 7),
-(12, 0.075, "Alto", 7);
+(10, 0, "Bajo", 5),
+(11, 0.02, "Medio", 5),
+(12, 0.075, "Alto", 5);
+
+SELECT * FROM UMBRAL;
 
 DELIMITER //
 
