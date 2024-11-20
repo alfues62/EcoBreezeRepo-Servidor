@@ -13,9 +13,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+    <link rel="stylesheet" href="/frontend/css/login.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +33,7 @@
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
         <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
