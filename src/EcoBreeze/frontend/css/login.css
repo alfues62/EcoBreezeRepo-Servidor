@@ -209,3 +209,20 @@ h2 {
 .login-container a:hover {
     text-decoration: underline;
 }
+
+.form-group label {
+    font-weight: bold;
+}
+
+.btn-primary {
+    width: 100%; /* Personalizado para que el botón ocupe el ancho completo */
+    margin-top: 20px;
+}
+
+.alert {
+    margin-top: 15px;
+}
+
+.modal-footer a {
+    width: 100%;
+}
