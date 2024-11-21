@@ -46,11 +46,13 @@
     <section class="login-container">
         <h1>Bienvenido a EcoBreeze</h1>
         <h2>INICIA SESIÓN</h2>
+
         <form action="main_login.php" method="POST" class="login-form">
             <!-- Correo electrónico -->
             <div class="input-container">
                 <input type="email" id="email" name="email" placeholder="Correo electrónico" required>
             </div>
+
             <!-- Contraseña -->
             <div class="input-container">
                 <div class="password-wrapper">
@@ -65,18 +67,24 @@
                 </div>
             </div>
             <div class="options">
-                <a href="#">¿Has olvidado tu contraseña?</a>
+                <a href="#" data-toggle="modal" data-target="#recoveryModal">¿Has olvidado tu contraseña?</a>
             </div>
+
+            <!-- Campo hidden para la acción de login -->
+            <input type="hidden" name="action" value="login">
             <button type="submit" class="btn btn-login">INICIAR SESIÓN</button>
 
     <!-- Campo hidden para el mensaje de error -->
     <input type="hidden" id="errorMessage" value="<?php echo htmlspecialchars($error_message ?? ''); ?>">
     </form>
+
     <div class="divider">
     <hr> <span>o</span> <hr>
         </div>
         <p>¿Todavia no tienes cuenta? <a href="/backend/registrar/main_registro.php">Regístrate</a></p>
-        <!-- Modal para mostrar errores -->
+
+
+    <!-- Modal para mostrar errores -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

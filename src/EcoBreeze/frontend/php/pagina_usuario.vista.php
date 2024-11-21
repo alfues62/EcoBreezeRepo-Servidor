@@ -22,6 +22,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/backend/logout.php">Cerrar Sesión</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../php/edicion_usuario.vista.php">Edicion usuario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../../php/inicio_usuario.vista.php">Inicio usuario</a>
+                </li>
             </ul>
         </div>
     </nav>

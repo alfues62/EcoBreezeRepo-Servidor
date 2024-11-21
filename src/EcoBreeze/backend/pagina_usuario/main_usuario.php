@@ -34,7 +34,7 @@ if (isset($_SESSION['usuario_id'])) {
             $mediciones_json = json_encode($mediciones);
         } else {
             // Si hay un error, lo mostramos
-            $error_message = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
+            $error_message2 = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
             $mediciones_json = '[]'; // Asegura que siempre sea un JSON válido
         }
     }

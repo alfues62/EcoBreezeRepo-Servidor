@@ -8,9 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Core theme CSS -->
-    <link href="css/index.css" rel="stylesheet" />    
-    <link href="css/main.css" rel="stylesheet" />
-    <link href="css/edicion_usuario.css" rel="stylesheet" />
+    <link href="/frontend/css/index.css" rel="stylesheet" />    
+    <link href="/frontend/css/main.css" rel="stylesheet" />
+    <link href="/frontend/css/edicion_usuario.css" rel="stylesheet" />
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -27,7 +27,7 @@
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
         <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
@@ -36,14 +36,14 @@
         <li><a href="#seccionProducto">GRÁFICA</a></li>
         <li><a href="#planes">CERRAR SESIÓN</a></li>
         <a href="#seccionInicio">
-            <img src="/src/EcoBreeze/frontend/img/perfil.png" alt="Logo" class="logo">
+            <img src="/frontend/img/perfil.png" alt="Logo" class="logo">
         </a>        
     </ul>
 </nav>
     <!-- Edicion Section -->
     <section class="edicion-container">
         <a href="#">
-            <img src="/src/EcoBreeze/frontend/img/perfil.png" alt="Perfil" id="fotoPerfil">
+            <img src="/frontend/img/perfil.png" alt="Perfil" id="fotoPerfil">
         </a> 
         <h3>Editar foto</h3>
         <!-- CAMBIARRRRRRRRRRRRRR -->

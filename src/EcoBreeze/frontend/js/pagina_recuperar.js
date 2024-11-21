@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", function () {
             error = "Las contraseñas no coinciden.";
         } 
         // Si deseas activar la validación de complejidad más adelante, descomenta la siguiente línea
-        // else if (!checkPasswordComplexity(password)) {
-        //     error = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.";
-        // }
+        else if (!checkPasswordComplexity(password)) {
+            error = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.";
+        }
 
         // Mostrar el error si existe
         if (error) {

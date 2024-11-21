@@ -8,9 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/inicio_usuario.css">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+    <link rel="stylesheet" href="/frontend/css/inicio_usuario.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,17 +29,17 @@
 <!-- Navigation -->
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
-        <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+        <a href="/frontend/index.php">
+            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
     <ul class="navbar-nav">
-        <li><a href="../backend/">INICIO</a></li>
+        <li><a href="/backend/pagina_usuario/main_usuario.php">INICIO</a></li>
         <li><a href="#seccionProducto">MAPA GLOBAL</a></li>
-        <li><a href="#equipo-ecobreeze">CERRAR SESIÓN</a></li>
+        <li><a href="/backend/logout.php">CERRAR SESIÓN</a></li>
         <a href="#seccionInicio">
-            <img src="../frontend/img/perfil.png" alt="Logo" class="logo">
+            <img src="/frontend/img/perfil.png" alt="Logo" class="logo">
         </a>
         
     </ul>
@@ -53,7 +53,7 @@
         <div class="inicio-container1">
             <div class="plan">
                 <h1 class="section-title">DISPOSITIVO ECOBREZZE</h1>
-                <img src="../frontend/img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
+                <img src="/frontend/img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
 
             </div>
         </div>
