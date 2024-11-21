@@ -9,6 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    flex-direction: column; /* Asegura que los elementos se apilen verticalmente */
 }
 
 /* Container */
@@ -22,16 +23,17 @@ body {
 }
 
 /* Headings */
-h1, h2, h3 {
+h1 {
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* Aumentamos el margen inferior para asegurarnos de que haya espacio */
 }
 
 /* Estilos para los mensajes */
 .message {
     font-size: 18px;
-    margin: 20px;
+    margin-top: 20px; /* Asegura que los mensajes estén alejados del encabezado */
+    margin-bottom: 20px; /* Asegura que haya espacio debajo del mensaje */
     text-align: center; /* Asegura que el texto del mensaje esté centrado */
 }
 

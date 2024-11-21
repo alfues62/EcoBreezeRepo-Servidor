@@ -1,6 +1,8 @@
 <?php
-require_once '../config.php';
-include 'registrar.php';
+
+require_once '../SolicitudCurl.php';
+require_once '../log.php';
+require_once 'registrar.php';
 
 // Inicializamos las variables para los mensajes de éxito y error
 $success_message = '';
@@ -14,8 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $contrasena = trim($_POST['contrasena'] ?? '');
     $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
-    
-    
+
+    // Convertimos la primera letra del nombre y del apellido a mayúscula
+    $nombre = ucfirst(strtolower($nombre));
+    $apellidos = ucfirst(strtolower($apellidos));
+
     if ($contrasena !== $contrasena_confirmar) {
         $error_message = 'Las contraseñas no coinciden.';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {
@@ -26,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Verificación de contraseña compleja (descomentar si es necesario)
     /* elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $contrasena)) {
         $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
-    } */ 
+    } */
     else {
         // Llamar a la función para registrar el usuario
         $result = registrarUsuario($nombre, $apellidos, $email, $contrasena);

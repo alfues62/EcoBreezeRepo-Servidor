@@ -52,6 +52,7 @@
                 <input type="text" name="email" id="email" placeholder="Correo electrónico">
             </div>
 
+<<<<<<< HEAD
             <div class="input-container">
                 <div class="password-wrapper">
                     <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" />
@@ -61,6 +62,56 @@
                             <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                             <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
                         </svg>
+=======
+            <div class="form-group">
+                <label for="apellidos">Apellidos:</label>
+                <input type="text" name="apellidos" id="apellidos" class="form-control" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo electrónico:</label>
+                <input type="email" name="email" id="email" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" name="contrasena" id="contrasena" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="contrasena_confirmar">Confirmar Contraseña:</label>
+                <input type="password" name="contrasena_confirmar" id="contrasena_confirmar" class="form-control" required>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Registrar</button>
+            <a href="/frontend/index.php" class="btn btn-secondary">Ir a Inicio</a>
+        </form>
+
+        <!-- Mensajes de éxito y error -->
+        <div id="successMessage" style="display:none;">
+            <?php echo isset($success_message) && $success_message != '' ? $success_message : ''; ?>
+        </div>
+        <div id="errorMessage" style="display:none;">
+            <?php echo isset($error_message) && $error_message != '' ? $error_message : ''; ?>
+        </div>
+
+        <!-- Modal para registro exitoso -->
+        <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="successMessageContent"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/backend/login/main_login.php" class="btn btn-secondary">Ir a Login</a>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+>>>>>>> origin/develop
                     </div>
                 </div>
             </div>
