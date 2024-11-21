@@ -12,8 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/index.css">
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -32,7 +32,7 @@
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
         <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+            <img src="/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
@@ -42,7 +42,7 @@
         <li><a href="#planes">PLAN</a></li>
         <li><a href="#equipo-ecobreeze">EQUIPO ECOBREZZE</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
-        <li><a href="../backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
+        <li><a href="/backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
 
     </ul>
 </nav>
@@ -78,15 +78,15 @@
     <div class="Features-container">
         <div class="features-icons-item">
             <h3>SENSOR CO2 O3 CH4</h3>
-            <img src="../frontend/img/sensor.png" alt="Sensor" class="feature-image">
+            <img src="img/sensor.png" alt="Sensor" class="feature-image">
         </div>
         <div class="features-icons-item">
             <h3>GEOPOSICIONAMIENTO</h3>
-            <img src="../frontend/img/geo.png" alt="Geoposicionamiento" class="feature-image">
+            <img src="img/geo.png" alt="Geoposicionamiento" class="feature-image">
         </div>
         <div class="features-icons-item">
             <h3>MONITORIZACIÓN</h3>
-            <img src="../frontend/img/moni.png" alt="Monitorización" class="feature-image">
+            <img src="img/moni.png" alt="Monitorización" class="feature-image">
         </div>
     </div>
 </section>
@@ -98,7 +98,7 @@
         <div class="product-content">
             <!-- Contenedor para la imagen y el botón -->
             <div class="product-image-button">
-                <img src="../frontend/img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
+                <img src="img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
                 <div class="button-container">
                     <button class="btn" id="comprarButton" aria-label="Comprar ahora el producto Eco Breeze">Comprar ahora</button>
                 </div>
@@ -151,7 +151,7 @@
                     <li>Actualizaciones limitadas</li>
                     <li><s>Acceso App Móvil</s></li>
                 </ul>
-                <a href="../backend/login/main_login.php" class="btn">REGÍSTRATE</a></li>
+                <a href="backend/login/main_login.php" class="btn">REGÍSTRATE</a></li>
             </div>
         </div>
 
@@ -189,7 +189,7 @@
                 <p>
                     En EcoBreeze nos dedicamos a concienciar a las comunidades sobre la contaminación y la calidad del aire que respiran, ya sea en sus hogares, trabajos o en sus entornos cotidianos. A través de la <strong>tecnología avanzada y el análisis de datos</strong>, ayudamos a organizaciones, ciudadanos y gobiernos a entender el impacto de la contaminación atmosférica y a actuar con base en esa información.
                 </p>
-                <img src="../frontend/img/equipo.png" alt="Equipo de EcoBreeze trabajando" class="img-fluid mt-3" />
+                <img src="img/equipo.png" alt="Equipo de EcoBreeze trabajando" class="img-fluid mt-3" />
             </div>
 
             <!-- Columna derecha: lista de departamentos -->

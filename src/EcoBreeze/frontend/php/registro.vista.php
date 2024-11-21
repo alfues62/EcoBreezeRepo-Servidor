@@ -8,9 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Core theme CSS -->
-    <link href="css/stylesLola.css" rel="stylesheet" />    
-    <link href="css/main.css" rel="stylesheet" />
-    <link href="css/registro.css" rel="stylesheet" />
+    <link href="/frontend/css/stylesLola.css" rel="stylesheet" />    
+    <link href="/frontend/css/main.css" rel="stylesheet" />
+    <link href="/frontend/css/registro.css" rel="stylesheet" />
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,12 +28,12 @@
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
         <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
     <ul class="navbar-nav">
-        <li><a href="index.html" class="btn btn-volver">VOLVER</a></li>
+        <li><a href="/frontend/index.php" class="btn btn-volver">VOLVER</a></li>
         
     </ul>
 </nav>

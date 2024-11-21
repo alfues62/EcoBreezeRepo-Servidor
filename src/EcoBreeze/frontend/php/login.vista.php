@@ -13,9 +13,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="/frontend/css/index.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
+    <link rel="stylesheet" href="/frontend/css/login.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,8 +32,8 @@
 <!-- Navigation -->
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
-        <a href="#seccionInicio">
-            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
+        <a href="/frontend/index.php">
+            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
@@ -76,7 +76,7 @@
         <div class="divider">
             <hr> <span>o</span> <hr>
         </div>
-        <p>¿Todavia no tienes cuenta? <a href="/src/EcoBreeze/backend/registrar/main_registro.php">Regístrate</a></p>
+        <p>¿Todavia no tienes cuenta? <a href="/backend/registrar/main_registro.php">Regístrate</a></p>
         <!-- Modal para mostrar errores -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
