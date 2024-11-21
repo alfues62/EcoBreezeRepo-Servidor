@@ -1,4 +1,6 @@
 <?php
+require_once '../log.php';
+require_once '../SolicitudCurl.php';  
 
 // Función para cambiar la contraseña
 function cambiarContrasena($id, $contrasenaActual, $nuevaContrasena) {

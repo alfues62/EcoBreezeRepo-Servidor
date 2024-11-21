@@ -2,13 +2,11 @@
 session_start();
 ob_start(); // Inicia el buffer de salida
 
-require_once '../SolicitudCurl.php';
-require_once '../log.php';
-require_once 'obtener_datos.php';
-require_once 'cambiar_contrasena.php';
-require_once 'cambiar_correo.php';
-require_once 'obtener_mediciones.php';
-
+include '../config.php';
+include 'ver_datos.php';
+include 'cambiar_contrasena.php';
+include 'cambiar_correo.php';
+include 'obtener_mediciones.php'; // Incluye la función para obtener mediciones
 
 // Variables para los mensajes de error y éxito
 $error_message = '';
@@ -49,55 +47,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtenemos el formulario
     $action = $_POST['action'] ?? '';
 
-    // Usamos un switch para manejar las acciones de los formularios
-    switch ($action) {
-        case 'cambiar_contrasena':
-            $id = $_SESSION['usuario_id'] ?? null;
-            $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
-            $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
-            $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
-        //     $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
-        // elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
+    // Comprobamos si el formulario es cambiar contraseña
+    if ($action === 'cambiar_contrasena') {
+        $id = $_SESSION['usuario_id'] ?? null;
+        $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
+        $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
+        $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
+        
+        // Verificar que las nuevas contraseñas coincidan
+        if ($nuevaContrasena !== $confirmarContrasena) {
+            $error_message = 'Las nuevas contraseñas no coinciden.';
+        } 
         // Verificación de contraseña compleja (descomentar si es necesario)
+        // elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
+        //     $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
+        // } 
+        else {
+            // Cambiar la contraseña y obtener el resultado
+            $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
 
-            // Verificar que las nuevas contraseñas coincidan
-            if ($nuevaContrasena !== $confirmarContrasena) {
-                $error_message = 'Las nuevas contraseñas no coinciden.';
+            // Comprobar si la respuesta es de éxito
+            if (isset($result['success'])) {
+                $success_message = $result['success'];  // Mensaje de éxito
             } else {
-                // Cambiar la contraseña y obtener el resultado
-                $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
-
-                // Comprobar si la respuesta es de éxito
-                if (isset($result['success'])) {
-                    $success_message = $result['success'];  // Mensaje de éxito
-                } else {
-                    $error_message = $result['error'];  // Mensaje de error
-                }
+                $error_message = $result['error'];  // Mensaje de error
             }
-            break;
+        }
+    }
+    // Comprobamos si el formulario es cambiar correo
+    elseif ($action === 'cambiar_correo') {
+        $id = $_SESSION['usuario_id'] ?? null;
+        $nuevoCorreo = trim($_POST['email'] ?? '');
+        $contrasenaActual = trim($_POST['contrasena_actual_correo'] ?? '');
 
-        case 'cambiar_correo':
-            $id = $_SESSION['usuario_id'] ?? null;
-            $nuevoCorreo = trim($_POST['email'] ?? '');
-            $contrasenaActual = trim($_POST['contrasena_actual_correo'] ?? '');
+        if ($id) {
+            // Cambiar el correo y obtener el resultado
+            $result = cambiarCorreo($id, $contrasenaActual, $nuevoCorreo);
 
-            if ($id) {
-                // Cambiar el correo y obtener el resultado
-                $result = cambiarCorreo($id, $contrasenaActual, $nuevoCorreo);
-
-                if (isset($result['success'])) {
-                    $success_message = $result['success'];
-                } else {
-                    $error_message = $result['error'];
-                }
+            if (isset($result['success'])) {
+                $success_message = $result['success'];
             } else {
-                $error_message = 'No estás autenticado. Por favor, inicia sesión.';
+                $error_message = $result['error'];
             }
-            break;
-
-        default:
-            $error_message = 'Acción no válida.';
-            break;
+        } else {
+            $error_message = 'No estás autenticado. Por favor, inicia sesión.';
+        }
     }
 }
 

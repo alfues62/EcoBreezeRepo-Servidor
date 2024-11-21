@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-/* General */
->>>>>>> origin/develop
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -32,15 +28,7 @@ body {
     align-items: center;
     margin: 0;
     padding: 0;
-<<<<<<< HEAD
     font: 400 12px "Montserrat", serif;
-=======
-    display: flex; /* Activamos flexbox */
-    flex-direction: column; /* Apilamos los elementos verticalmente */
-    align-items: center; /* Centramos los elementos horizontalmente */
-    justify-content: center; /* Centramos los elementos verticalmente */
-    min-height: 100vh; /* Asegura que los elementos ocupen toda la altura */
->>>>>>> origin/develop
 }
 
 .logo {
@@ -50,7 +38,6 @@ body {
 /* FIN BARRA DE NAVEGACION */
 /* ----------------------------------------------------------------------- */
 
-<<<<<<< HEAD
 
 
 /* ----------------------------------------------------------------------- */
@@ -138,47 +125,3 @@ h3 {
     font-weight: 400;
     font-size: 20px;
 }
-=======
-/* Headings */
-h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px; /* Aumentamos el margen inferior para asegurar espacio entre el título y el mensaje */
-}
-
-/* Estilos para los mensajes */
-.message {
-    font-size: 18px;
-    margin-top: 20px; /* Asegura que haya espacio entre el título y el mensaje */
-    margin-bottom: 20px; /* Añade espacio después del mensaje */
-    text-align: center; /* Asegura que el texto del mensaje esté centrado */
-}
-
-/* Mensaje de éxito */
-.success {
-    color: green;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-/* Mensaje de error */
-.error {
-    color: red;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Modal (if applicable for all modals) */
-.modal-footer a {
-    width: 100%;
-}
-
-/* Alignment */
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
-}
->>>>>>> origin/develop

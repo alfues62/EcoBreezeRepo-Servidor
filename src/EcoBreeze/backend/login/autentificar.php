@@ -1,4 +1,6 @@
 <?php
+require_once '../log.php';
+require_once '../SolicitudCurl.php';  
 
 function iniciarSesion($email, $contrasena) {
 
