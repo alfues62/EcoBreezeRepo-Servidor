@@ -17,7 +17,7 @@ class UsuariosConsultasCRUD {
     public function login($email, $contrasena) {
         try {
             // Verificar si el email está registrado
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID, ContrasenaHash, Verificado, expiracion_token FROM USUARIO WHERE Email = :email");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, Apellidos, ROL_RolID, ContrasenaHash, Verificado, expiracion_token FROM USUARIO WHERE Email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
     
@@ -53,6 +53,7 @@ class UsuariosConsultasCRUD {
                     'data' => [
                         'ID' => $usuario['ID'],
                         'Nombre' => $usuario['Nombre'],
+                        'Apellidos' => $usuario['Apellidos'],
                         'Rol' => $usuario['ROL_RolID'] // Aquí se obtiene el rol del usuario
                     ]
                 ]; // Devuelve los datos del usuario si las credenciales son correctas
@@ -67,7 +68,7 @@ class UsuariosConsultasCRUD {
     public function loginHuella($email, $token_huella) {
         try {
             // Prepara la consulta para verificar el email y el token de huella
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre,Apellido, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':token_huella', $token_huella);
             $stmt->execute();
@@ -116,6 +117,63 @@ class UsuariosConsultasCRUD {
     }
     /* ------------------------------------------------------------------------------------------
      *
+     * METODOS CONSULTAS PARA ADMIN
+     * 
+     *///----------------------------------------------------------------------------------------
+    // Método para obtener la última medición de todos los usuarios con rol 2
+public function obtenerUltimaMedicionDeUsuariosRol2() {
+    try {
+        // Preparamos la consulta para obtener la última medición de todos los usuarios con rol 2
+        $query = "SELECT 
+                    u.ID, 
+                    u.Nombre, 
+                    u.Apellidos, 
+                    u.Email, 
+                    IFNULL(MAX(m.Fecha), 'N/A') AS UltimaMedicion
+                  FROM 
+                    USUARIO u
+                  LEFT JOIN 
+                    SENSOR s ON u.ID = s.USUARIO_ID  -- Relacionamos USUARIO con SENSOR
+                  LEFT JOIN 
+                    MEDICION m ON s.SensorID = m.SENSOR_ID_Sensor  -- Relacionamos SENSOR con MEDICION
+                  WHERE 
+                    u.ROL_RolID = 2
+                  GROUP BY 
+                    u.ID, u.Nombre, u.Apellidos, u.Email
+                  ORDER BY 
+                    UltimaMedicion DESC"; // Ordenamos de las más recientes a las más antiguas
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        // Verificamos si se encontraron resultados
+        if ($stmt->rowCount() > 0) {
+            // Obtenemos todos los usuarios y su última medición
+            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Aseguramos que aquellos usuarios sin mediciones tengan 'N/A'
+            foreach ($usuarios as &$usuario) {
+                if ($usuario['UltimaMedicion'] === 'N/A') {
+                    $usuario['UltimaMedicion'] = 'N/A';  // Rellenamos explícitamente con 'N/A'
+                }
+            }
+
+            return ['success' => true, 'usuarios' => $usuarios];
+        } else {
+            // No se encontraron usuarios con mediciones
+            return ['success' => true, 'usuarios' => []];  // Devuelve un array vacío en lugar de un error
+        }
+    } catch (PDOException $e) {
+        // Registro de error detallado para depuración
+        registrarError("Error en obtener última medición de los usuarios: " . $e->getMessage() . "\n");
+        return ['success' => false, 'error' => 'Error al obtener la última medición de los usuarios.'];
+    }
+}
+
+
+
+    /* ------------------------------------------------------------------------------------------
+     *
      * METODOS CONSULTAS UNIVERSALES
      * 
      *///----------------------------------------------------------------------------------------
@@ -157,15 +215,23 @@ class UsuariosConsultasCRUD {
     public function verificarTokenValido($email, $token) {
         try {
             // Consulta SQL para verificar el token y la fecha de expiración
-            $query = "SELECT token, expiracion_token 
+            $query = "SELECT ID, token, expiracion_token 
                       FROM USUARIO 
                       WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Verificar si el token es "0"
-            if ($usuario['token'] === '0') {
+            // Verificar si se encontró un usuario
+            if (!$usuario) {
+                return [
+                    'success' => false,
+                    'error' => 'No se encontró un usuario con el correo proporcionado.'
+                ];
+            }
+    
+            // Verificar si el token es válido
+            if (empty($usuario['token']) || $usuario['token'] === '0') {
                 return [
                     'success' => false,
                     'error' => 'El token no es válido. Por favor, solicite uno nuevo.'
@@ -191,14 +257,14 @@ class UsuariosConsultasCRUD {
                 ];
             }
     
-            // Retornar éxito si todas las verificaciones pasan
+            // Retornar éxito con el ID del usuario si todas las verificaciones pasan
             return [
                 'success' => true,
-                'message' => 'El token es válido y no ha expirado.'
+                'message' => 'El token es válido y no ha expirado.',
             ];
         } catch (PDOException $e) {
             // Registrar el error en el log
-            registrarError("Error al verificar el token: " . $e->getMessage() . "\n");
+            registrarError("Error al verificar el token para el email $email: " . $e->getMessage());
     
             // Retornar un mensaje de error genérico
             return [
@@ -206,6 +272,7 @@ class UsuariosConsultasCRUD {
                 'error' => 'Hubo un error al verificar el token.'
             ];
         }
-    }
+    }    
+    
 }
 ?>

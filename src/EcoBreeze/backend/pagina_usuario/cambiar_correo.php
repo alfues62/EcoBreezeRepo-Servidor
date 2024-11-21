@@ -15,7 +15,7 @@ function cambiarCorreo($id, $contrasenaActual, $nuevoCorreo) {
     $result = hacerSolicitudCurl($url, $data);
 
     if (isset($result['success']) && $result['success']) {
-        return ['success' => 'Correo cambiada con éxito'];
+        return ['success' => 'Correo cambiado con éxito'];
     } else {
         $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
         registrarError($error_message);

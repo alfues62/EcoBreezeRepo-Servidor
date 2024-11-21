@@ -5,32 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/main.css">
     <link rel="stylesheet" href="/frontend/css/pagina_recuperar.css">
-    <title>Verificación de Correo</title>
+    <title>Recuperación de Contraseña</title>
 </head>
 <body>
-    <h1>Recuperar cuenta</h1>
+    <div class="container">
+        <h1>Recuperación de Contraseña</h1>
 
-    <!-- Si hay un mensaje de éxito, mostrarlo junto con el formulario -->
-    <?php if (!$error && $message): ?>
-        <div class="message success">
-            <p><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
-        </div>
+        <!-- Mostrar mensajes según el estado -->
+        <?php if (!empty($message)): ?>
+            <div class="message success">
+                <p><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></p>
+            </div>
+            
+            <!-- Formulario para cambiar la contraseña -->
+            <form id="change-password-form" action="/backend/recuperar_contrasena/pagina_verificar_contrasena.php" method="POST">
+                <input type="hidden" name="email" value="<?php echo htmlspecialchars($email, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES, 'UTF-8'); ?>">
 
-        <!-- Mostrar solo el formulario si el token es válido -->
-        <form id="cambiarContrasenaRecuperar" method="post" action="/backend/restablecer_contrasena.php">
-            <label for="nueva_contraseña">Nueva Contraseña:</label>
-            <input type="password" id="nueva_contraseña" name="nueva_contraseña" required>
+                
+                <div>
+                    <label for="new-password">Nueva Contraseña:</label>
+                    <input type="password" id="nuevaContrasena" name="nuevaContrasena" required>
+                </div>
+                <div>
+                    <label for="confirm-password">Confirmar Contraseña:</label>
+                    <input type="password" id="confirmarContrasena" name="confirmarContrasena" required>
+                </div>
+                
+                <!-- Mensaje de error de contraseñas -->
+                <div id="password-error" class="password-error" style="display:none; color: red; margin-top: 10px;"></div>
+                
+                <div>
+                    <button type="submit" id="submit-btn" disabled>Cambiar Contraseña</button>
+                </div>
+            </form>
+        
+        <?php elseif (!empty($error)): ?>
+            <div class="message error">
+                <p><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
+            </div>
+            <!-- Aviso de redirección -->
+            <div id="redirection-message" class="redirection-message">
+                <p>Serás redirigido a la página de inicio en 3 segundos...</p>
+            </div>
+        <?php endif; ?>
+    </div>
 
-            <label for="confirmar_contraseña">Confirmar Contraseña:</label>
-            <input type="password" id="confirmar_contraseña" name="confirmar_contraseña" required>
-
-            <button type="submit">Restablecer Contraseña</button>
-        </form>
-    <?php elseif ($error): ?>
-        <!-- Mostrar solo el mensaje de error si el token no es válido -->
-        <div class="message error">
-            <p><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
-        </div>
-    <?php endif; ?>
+    <!-- Referir al archivo JS externo -->
+    <script src="/frontend/js/pagina_recuperar.js"></script>
 </body>
 </html>

@@ -296,6 +296,44 @@ class UsuariosAccionesCRUD {
         }
     }
 
+    // Método para cambiar la contraseña de un usuario por correo electrónico
+public function cambiarContrasenaPorCorreo($email, $nuevaContrasena) {
+    try {
+        // Preparamos la consulta para obtener el ID y el hash de la contraseña actual del usuario
+        $query = "SELECT ID, ContrasenaHash FROM USUARIO WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$email]);
+
+        // Obtenemos el resultado
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Verificamos si se encontró el usuario
+        if ($usuario) {
+            // Hasheamos la nueva contraseña
+            $contrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+
+            // Preparamos la consulta para actualizar la contraseña del usuario, el token y la expiración del token
+            $updateQuery = "UPDATE USUARIO SET ContrasenaHash = ?, token = 0, expiracion_token = 0 WHERE Email = ?";
+            $updateStmt = $this->conn->prepare($updateQuery);
+            $updateStmt->execute([$contrasenaHash, $email]);
+
+            // Verificamos si se actualizó la contraseña
+            if ($updateStmt->rowCount() > 0) {
+                return ['success' => true, 'message' => 'Contraseña y token actualizados con éxito.'];
+            } else {
+                return ['success' => false, 'error' => 'La contraseña ya es la misma o no se realizaron cambios.'];
+            }
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario con ese correo electrónico.'];
+        }
+    } catch (PDOException $e) {
+        registrarError("Error en cambiar contraseña: " . $e->getMessage() . "\n");
+        return ['success' => false, 'error' => 'Error al cambiar la contraseña.'];
+    }
+}
+
+
+
     public function actualizarTokenRecuperacion($email, $token) {
         try {
             registrarError("Iniciando la actualización del token de recuperación para el correo: $email");
@@ -388,4 +426,27 @@ class UsuariosAccionesCRUD {
             return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
         }
     }
+
+    public function registrarAdmin($nombre, $apellidos, $email, $contrasenaHash) {
+        try {
+            $rol_rolid = 1;
+    
+            // Query para insertar el administrador con valores NULL donde sea posible
+            $query = "INSERT INTO USUARIO 
+                      (Nombre, Apellidos, Email, ContrasenaHash, Verificado, token, expiracion_token, token_huella, ROL_RolID) 
+                      VALUES (?, ?, ?, ?, 1, NULL, NULL, NULL, ?)";
+    
+            // Preparar y ejecutar la consulta
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $rol_rolid]);
+    
+            // Retornar éxito
+            return ['success' => 'Administrador añadido con éxito.'];
+        } catch (PDOException $e) {
+            // Registrar el error
+            registrarError("Error en insertar administrador: " . $e->getMessage() . "\n");
+            return ['error' => 'Error al insertar un administrador.'];
+        }
+    }
+    
 }
