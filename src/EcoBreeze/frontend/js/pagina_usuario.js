@@ -1,7 +1,3 @@
-function redirectToSamePage() {
-    window.location.href = window.location.href.split('?')[0]; // Redirigir a la misma página sin parámetros
-}
-
 document.addEventListener('DOMContentLoaded', function () {
     // Mostrar el modal de éxito si hay un mensaje de éxito
     const successMessage = document.getElementById('successMessage').innerText;
@@ -21,18 +17,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const mediciones = Array.isArray(window.mediciones) ? window.mediciones : [];
     console.log('Mediciones recibidas:', mediciones);
 
-    // Mostrar las mediciones por pantalla antes de graficar
-    const medicionesContainer = document.getElementById('mediciones-container');
-    if (mediciones.length > 0) {
-        medicionesContainer.innerHTML = `
-            <h3>Mediciones recibidas:</h3>
-            <pre>${JSON.stringify(mediciones, null, 2)}</pre>
-        `;
-    } else {
-        medicionesContainer.innerHTML = '<p>No se recibieron mediciones.</p>';
-    }
-
+    // Si no hay mediciones, mostrar el mensaje en la UI y salir de la función
     if (mediciones.length === 0) {
+        // No mostrar el modal de error, solo el mensaje en la página
         document.getElementById('error-message').innerText = 'No hay mediciones disponibles para graficar.';
         return;
     }
@@ -73,11 +60,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (!rangos) return 'Tipo de gas desconocido';
 
         if (promedio >= rangos.optimo[0] && promedio <= rangos.optimo[1]) {
-            return `Óptimo (Promedio: ${promedio.toFixed(3)} ppm)`;
+            return `¡Todo está bien! El nivel de gas es seguro y adecuado para el ambiente.`;
         } else if (promedio >= rangos.moderado[0] && promedio <= rangos.moderado[1]) {
-            return `Moderado (Promedio: ${promedio.toFixed(3)} ppm)`;
+            return `El nivel de gas está un poco elevado, pero aún es aceptable. Te sugerimos estar atento.`;
         } else if (promedio >= rangos.alto[0]) {
-            return `Alto (Promedio: ${promedio.toFixed(3)} ppm)`;
+            return `¡Cuidado! El nivel de gas está bastante alto, te recomendamos tomar precauciones.`;
         } else {
             return 'Nivel desconocido';
         }
@@ -86,6 +73,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const actualizarGrafica = (fechaSeleccionada, tipoGasSeleccionado) => {
         console.log('Filtrando mediciones para la fecha:', fechaSeleccionada, 'y tipo de gas:', tipoGasSeleccionado);
 
+        // Filtrar las mediciones basadas en la fecha y tipo de gas seleccionados
         const medicionesFiltradas = mediciones.filter(m => {
             const medicionFecha = m.Fecha;
             return m.TIPOGAS_TipoID === tipoGasSeleccionado && medicionFecha === fechaSeleccionada;
@@ -98,19 +86,23 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         if (medicionesFiltradas.length === 0) {
+            // No mostrar el modal de error, solo el mensaje en la UI
             document.getElementById('error-message').innerText = `No hay mediciones para el tipo de gas seleccionado (${tipoGasSeleccionado}) en la fecha: ${fechaSeleccionada}.`;
             if (grafica) grafica.destroy();
             return;
         }
 
+        // Determinar el nivel promedio y mostrarlo en el contenedor correspondiente
         const nivelPromedio = determinarNivelPromedio(medicionesFiltradas);
-        document.getElementById('nivelPromedio').innerText = `Nivel promedio del gas: ${nivelPromedio}`;
+        document.getElementById('nivelPromedio').innerText = nivelPromedio;
 
+        // Preparar las etiquetas (labels) y los valores de la gráfica
         const labels = medicionesFiltradas.map(m => `${m.Fecha} ${m.Hora}`);
         const dataValues = medicionesFiltradas.map(m => parseFloat(m.Valor));
 
         if (grafica) grafica.destroy();
 
+        // Crear la gráfica utilizando Chart.js
         const ctx = graficaCanvas.getContext('2d');
         grafica = new Chart(ctx, {
             type: 'bar',
@@ -139,16 +131,19 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
+        // Limpiar el mensaje de error cuando hay datos
         document.getElementById('error-message').innerText = '';
     };
 
+    // Añadir un selector de fecha
     const fechaSelector = document.createElement('input');
     fechaSelector.type = 'date';
     fechaSelector.id = 'fechaSelector';
 
+    // Añadir un selector de tipo de gas
     const tipoGasSelector = document.createElement('select');
     tipoGasSelector.id = 'tipoGasSelector';
-    tipoGasSelector.innerHTML = `
+    tipoGasSelector.innerHTML = `        
         <option value="2">O3</option>
         <option value="3">CO</option>
         <option value="4">NO2</option>
@@ -159,14 +154,18 @@ document.addEventListener('DOMContentLoaded', function () {
     filtrarFechaBtn.id = 'filtrarFechaBtn';
     filtrarFechaBtn.textContent = 'Filtrar';
 
+    // Insertar los elementos de selección en el DOM antes del contenedor de mediciones
+    const medicionesContainer = document.getElementById('mediciones-container');
     medicionesContainer.insertAdjacentElement('beforebegin', tipoGasSelector);
     medicionesContainer.insertAdjacentElement('beforebegin', fechaSelector);
     medicionesContainer.insertAdjacentElement('beforebegin', filtrarFechaBtn);
 
+    // Crear un contenedor para el mensaje del nivel promedio
     const nivelPromedioContainer = document.createElement('p');
     nivelPromedioContainer.id = 'nivelPromedio';
     medicionesContainer.insertAdjacentElement('beforebegin', nivelPromedioContainer);
 
+    // Cuando se haga click en el botón de filtrar, actualizar la gráfica
     filtrarFechaBtn.addEventListener('click', () => {
         const fechaSeleccionada = fechaSelector.value;
         const tipoGasSeleccionado = tipoGasSelector.value;
@@ -179,7 +178,10 @@ document.addEventListener('DOMContentLoaded', function () {
         actualizarGrafica(fechaSeleccionada, tipoGasSeleccionado);
     });
 
+    // Establecer la fecha actual como valor por defecto
     const today = new Date().toISOString().split('T')[0];
     fechaSelector.value = today;
+
+    // Cargar la gráfica por defecto para la fecha actual y el gas O3
     actualizarGrafica(today, '2');
 });
