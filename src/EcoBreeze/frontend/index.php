@@ -12,8 +12,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/index.css">
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,6 @@
         <li><a href="#equipo-ecobreeze">EQUIPO ECOBREZZE</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
         <li><a href="/backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
-
     </ul>
 </nav>
 

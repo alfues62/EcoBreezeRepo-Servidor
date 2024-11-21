@@ -1,23 +1,213 @@
-/* login.css */
-
+/* General Styles */
 body {
-    background-color: #f7f9fc;
-}
-
-.container {
-    max-width: 600px; /* Personalizado para la página de login */
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff;
+    background-color: #ffffff;
 }
 
 h1 {
-    color: #007bff;
-    margin-bottom: 30px;
+    font-size: 45.5px;    
+    margin-bottom: 10px;
 }
 
-form {
-    padding: 20px;
-    background-color: white;
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    color: #545454;
+    font: 700 20px "Poppins", sans-serif;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-nav li {
+    margin-left: 20px;
+}
+
+.navbar-nav a {
+    color: #545454;
+    text-decoration: none;
+}
+
+.navbar-nav a:hover {
+    color: #4ca5aa;
+}
+
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.btn-volver {
+    color: #ffffff!important;
+    text-decoration: none!important;
+    font-family: "Montserrat", serif !important;
+    font-size: 12px !important;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+/* Login Section */
+.login-container {
+    text-align: center;
+    margin-top: 120px; /* Ajusta según la altura de la barra de navegación */
+    padding: 2rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-container {
+    margin-bottom: 1rem;
+}
+
+.input-container input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #000000;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    background-color: #252525;
+    color: white;
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #6ebfbf;
+}
+
+.toggle-password {
+    position: relative;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+.options {
+    display: flex;
+    margin-bottom: 1.5rem;
+    font-size: 12px;
+    flex-direction: row-reverse;
+}
+
+.options label {
+    cursor: pointer;
+}
+
+.btn-login {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    width: 70%;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.toggle-button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.eye-icon {
+    width: 20px;
+    height: 20px;
+    fill: #888888;
+    transition: fill 0.3s;
+}
+
+.toggle-button.open .eye-icon {
+    fill: #888888; /* Cambiar color al activar */
+}
+
+/* Divider */
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0;
+    color: #888888;
+}
+
+.divider hr {
+    flex: 1;
+    border: none;
+    height: 1px;
+    background-color: #888888;
+    margin: 0 10px;
+}
+
+/* Social Login */
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.btn-social {
+    font-size: 20px;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-social.google {
+    background-color: #252525;
+    color: #888888;
+}
+
+.btn-social.email {
+    background-color: #252525;
+    color: #888888;
+}
+
+/* Register Link */
+.login-container p {
+    font-size: 15px;
+    color: #000 !important;
+}
+
+.login-container a {
+    color: #4ca5aa;
+    text-decoration: none;
+}
+
+.login-container a:hover {
+    text-decoration: underline;
 }
 
 .form-group label {
