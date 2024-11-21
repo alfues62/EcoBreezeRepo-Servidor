@@ -586,3 +586,52 @@
 2024-11-21 13:51:16 - 
 2024-11-21 15:24:55 - ID del usuario: 8
 2024-11-21 15:24:55 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"85","Valor":"0.03","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-11","Hora":"10:00:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"4","Valor":"25.6","Lon":"0.1234","Lat":"39.4567","Fecha":"2024-10-23","Hora":"14:30:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-11-21 15:58:40 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"0d6157d6da7b19b4a844c79d646578b615e121156919b5a634d30909f3182b86"}
+2024-11-21 15:58:40 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 15:58:40 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"5b0dfcc99bba405313268a950e12946aaf441d33cadb2972e437eac7c57667b5"}
+2024-11-21 15:58:40 - Nueva expiración calculada: 2024-11-21 17:58:40
+2024-11-21 15:58:40 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 15:58:40 - Token de recuperación actualizado correctamente para el correo: 0d6157d6da7b19b4a844c79d646578b615e121156919b5a634d30909f3182b86
+2024-11-21 16:00:21 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 16:00:21 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:01:32 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 16:01:32 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:02:46 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 16:03:26 - He llegado a verificar
+2024-11-21 16:03:34 - He llegado a verificargs0gs1gs2@gmail.comb
+2024-11-21 16:03:34 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:05:01 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:05:10 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:05:46 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:06:10 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:11:46 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"3a289e2a275b8aa732ea42fa96fe6ea6b73e21674771d413e1711bf66b63002c"}
+2024-11-21 16:11:46 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 16:11:46 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"0d6157d6da7b19b4a844c79d646578b615e121156919b5a634d30909f3182b86"}
+2024-11-21 16:11:46 - Nueva expiración calculada: 2024-11-21 18:11:46
+2024-11-21 16:11:46 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 16:11:46 - Token de recuperación actualizado correctamente para el correo: 3a289e2a275b8aa732ea42fa96fe6ea6b73e21674771d413e1711bf66b63002c
+2024-11-21 16:11:55 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:11:55 - Error en cambiar contraseña: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TokenVerificacion' in 'field list'
+
+2024-11-21 16:11:55 - Error al cambiar contraseña: {"success":false,"error":"Error al cambiar la contrase\u00f1a."}
+2024-11-21 16:11:55 - Error al cambiar la contraseña.
+2024-11-21 16:11:55 - Error al cambiar la contraseña.
+2024-11-21 16:12:05 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:12:05 - Error en cambiar contraseña: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TokenVerificacion' in 'field list'
+
+2024-11-21 16:12:05 - Error al cambiar contraseña: {"success":false,"error":"Error al cambiar la contrase\u00f1a."}
+2024-11-21 16:12:05 - Error al cambiar la contraseña.
+2024-11-21 16:12:05 - Error al cambiar la contraseña.
+2024-11-21 16:12:48 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:12:54 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 16:13:30 - ID del usuario: 8
+2024-11-21 16:13:30 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"85","Valor":"0.03","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-11","Hora":"10:00:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"4","Valor":"25.6","Lon":"0.1234","Lat":"39.4567","Fecha":"2024-10-23","Hora":"14:30:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-11-21 16:13:38 - ID del usuario: 8
+2024-11-21 16:13:38 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"85","Valor":"0.03","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-11","Hora":"10:00:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"4","Valor":"25.6","Lon":"0.1234","Lat":"39.4567","Fecha":"2024-10-23","Hora":"14:30:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-11-21 16:14:41 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"1d42b89d611de1c7ae001f4d9c9cda08b51d72927303d4b5286b8fd1d3f73b90"}
+2024-11-21 16:14:41 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 16:14:41 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"0"}
+2024-11-21 16:14:41 - Nueva expiración calculada: 2024-11-21 18:14:41
+2024-11-21 16:14:41 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 16:14:41 - Token de recuperación actualizado correctamente para el correo: 1d42b89d611de1c7ae001f4d9c9cda08b51d72927303d4b5286b8fd1d3f73b90
+2024-11-21 16:14:48 - Soy el api gs0gs1gs2@gmail.com

@@ -297,40 +297,41 @@ class UsuariosAccionesCRUD {
     }
 
     // Método para cambiar la contraseña de un usuario por correo electrónico
-    public function cambiarContrasenaPorCorreo($email, $nuevaContrasena) {
-        try {
-            // Preparamos la consulta para obtener el ID y el hash de la contraseña actual del usuario
-            $query = "SELECT ID, ContrasenaHash FROM USUARIO WHERE Email = ?";
-            $stmt = $this->conn->prepare($query);
-            $stmt->execute([$email]);
+public function cambiarContrasenaPorCorreo($email, $nuevaContrasena) {
+    try {
+        // Preparamos la consulta para obtener el ID y el hash de la contraseña actual del usuario
+        $query = "SELECT ID, ContrasenaHash FROM USUARIO WHERE Email = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute([$email]);
 
-            // Obtenemos el resultado
-            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+        // Obtenemos el resultado
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Verificamos si se encontró el usuario
-            if ($usuario) {
-                // Hasheamos la nueva contraseña
-                $contrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
+        // Verificamos si se encontró el usuario
+        if ($usuario) {
+            // Hasheamos la nueva contraseña
+            $contrasenaHash = password_hash($nuevaContrasena, PASSWORD_DEFAULT);
 
-                // Preparamos la consulta para actualizar la contraseña del usuario
-                $updateQuery = "UPDATE USUARIO SET ContrasenaHash = ? WHERE Email = ?";
-                $updateStmt = $this->conn->prepare($updateQuery);
-                $updateStmt->execute([$contrasenaHash, $email]);
+            // Preparamos la consulta para actualizar la contraseña del usuario, el token y la expiración del token
+            $updateQuery = "UPDATE USUARIO SET ContrasenaHash = ?, token = 0, expiracion_token = 0 WHERE Email = ?";
+            $updateStmt = $this->conn->prepare($updateQuery);
+            $updateStmt->execute([$contrasenaHash, $email]);
 
-                // Verificamos si se actualizó la contraseña
-                if ($updateStmt->rowCount() > 0) {
-                    return ['success' => true, 'message' => 'Contraseña actualizada con éxito.'];
-                } else {
-                    return ['success' => false, 'error' => 'La contraseña ya es la misma o no se realizaron cambios.'];
-                }
+            // Verificamos si se actualizó la contraseña
+            if ($updateStmt->rowCount() > 0) {
+                return ['success' => true, 'message' => 'Contraseña y token actualizados con éxito.'];
             } else {
-                return ['success' => false, 'error' => 'No se encontró el usuario con ese correo electrónico.'];
+                return ['success' => false, 'error' => 'La contraseña ya es la misma o no se realizaron cambios.'];
             }
-        } catch (PDOException $e) {
-            registrarError("Error en cambiar contraseña: " . $e->getMessage() . "\n");
-            return ['success' => false, 'error' => 'Error al cambiar la contraseña.'];
+        } else {
+            return ['success' => false, 'error' => 'No se encontró el usuario con ese correo electrónico.'];
         }
+    } catch (PDOException $e) {
+        registrarError("Error en cambiar contraseña: " . $e->getMessage() . "\n");
+        return ['success' => false, 'error' => 'Error al cambiar la contraseña.'];
     }
+}
+
 
 
     public function actualizarTokenRecuperacion($email, $token) {

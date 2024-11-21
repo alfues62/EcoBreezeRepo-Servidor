@@ -20,6 +20,8 @@
             <!-- Formulario para cambiar la contraseña -->
             <form id="change-password-form" action="/backend/recuperar_contrasena/pagina_verificar_contrasena.php" method="POST">
                 <input type="hidden" name="email" value="<?php echo htmlspecialchars($email, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="token" value="<?php echo htmlspecialchars($token, ENT_QUOTES, 'UTF-8'); ?>">
+
                 
                 <div>
                     <label for="new-password">Nueva Contraseña:</label>

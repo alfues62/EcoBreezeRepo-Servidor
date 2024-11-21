@@ -28,10 +28,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $apellidos)) {
         $error_message = 'Los apellidos solo pueden contener letras y espacios.';
     } 
-    // Verificación de contraseña compleja (descomentar si es necesario)
-    /* elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $contrasena)) {
+    elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $contrasena)) {
         $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
-    } */
+    } 
     else {
         // Llamar a la función para registrar el usuario
         $result = registrarUsuario($nombre, $apellidos, $email, $contrasena);
