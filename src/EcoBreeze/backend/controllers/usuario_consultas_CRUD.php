@@ -157,15 +157,23 @@ class UsuariosConsultasCRUD {
     public function verificarTokenValido($email, $token) {
         try {
             // Consulta SQL para verificar el token y la fecha de expiración
-            $query = "SELECT token, expiracion_token 
+            $query = "SELECT ID, token, expiracion_token 
                       FROM USUARIO 
                       WHERE Email = ?";
             $stmt = $this->conn->prepare($query);
             $stmt->execute([$email]);
             $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
     
-            // Verificar si el token es "0"
-            if ($usuario['token'] === '0') {
+            // Verificar si se encontró un usuario
+            if (!$usuario) {
+                return [
+                    'success' => false,
+                    'error' => 'No se encontró un usuario con el correo proporcionado.'
+                ];
+            }
+    
+            // Verificar si el token es válido
+            if (empty($usuario['token']) || $usuario['token'] === '0') {
                 return [
                     'success' => false,
                     'error' => 'El token no es válido. Por favor, solicite uno nuevo.'
@@ -191,14 +199,14 @@ class UsuariosConsultasCRUD {
                 ];
             }
     
-            // Retornar éxito si todas las verificaciones pasan
+            // Retornar éxito con el ID del usuario si todas las verificaciones pasan
             return [
                 'success' => true,
-                'message' => 'El token es válido y no ha expirado.'
+                'message' => 'El token es válido y no ha expirado.',
             ];
         } catch (PDOException $e) {
             // Registrar el error en el log
-            registrarError("Error al verificar el token: " . $e->getMessage() . "\n");
+            registrarError("Error al verificar el token para el email $email: " . $e->getMessage());
     
             // Retornar un mensaje de error genérico
             return [
@@ -206,6 +214,7 @@ class UsuariosConsultasCRUD {
                 'error' => 'Hubo un error al verificar el token.'
             ];
         }
-    }
+    }    
+    
 }
 ?>

@@ -298,6 +298,31 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'El correo electrónico, token y la nueva contraseña son obligatorios.']);
         }
     break;
+
+    case 'cambiar_contrasena_recuperar':
+        $email = $requestData['email'] ?? null; // Obtener el correo del usuario del request
+        $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
+
+        $mensaje = "Soy el api " .$email;
+        registrarError($mensaje);
+
+        // Verifica si se proporciona el correo y la nueva contraseña
+        if ($email && $nuevaContrasena) {
+            // Llamar al método para cambiar la contraseña por correo
+            $resultado = $usuariosAccionesCRUD->cambiarContrasenaPorCorreo($email, $nuevaContrasena);
+
+            // Maneja el resultado de la actualización de la contraseña
+            if (isset($resultado['success']) && $resultado['success']) {
+                echo json_encode(['success' => true, 'message' => $resultado['message']]);
+            } else {
+                registrarError("Error al cambiar contraseña: " . json_encode($resultado));
+                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar la contraseña.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'El correo electrónico y la nueva contraseña son obligatorios.']);
+        }
+        break;
+
     // FIN CASOS CAMBIO DATOS USUARIO
 
     // CASOS UNIVERSALES
@@ -357,6 +382,7 @@ switch ($action) {
     break;
 
     case 'verificar_token':
+        // Obtener datos del request
         $email = $requestData['email'] ?? null;
         $token = $requestData['token'] ?? null;
     
@@ -368,15 +394,23 @@ switch ($action) {
             if ($resultado['success']) {
                 echo json_encode([
                     'success' => true,
-                    'message' => $resultado['message']
+                    'message' => $resultado['message'],
                 ]);
             } else {
-                echo json_encode(['success' => false, 'error' => $resultado['error']]);
+                echo json_encode([
+                    'success' => false,
+                    'error' => $resultado['error']
+                ]);
             }
         } else {
-            echo json_encode(['success' => false,'error' => 'Url no valido']);
+            // Respuesta si faltan parámetros
+            echo json_encode([
+                'success' => false,
+                'error' => 'URL no válida. Asegúrese de incluir email y token.'
+            ]);
         }
         break;
+    
     
     // FIN CASOS UNIVERSALES
 

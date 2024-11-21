@@ -242,3 +242,277 @@
 2024-11-19 22:07:56 - Token de recuperación actualizado correctamente para el correo: 6758c934eb288ebbdc08540605066be08857feaf8c3041d995f49fe88bd89811
 2024-11-19 22:07:56 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
 2024-11-19 22:08:01 - hola que tal rec 6758c934eb288ebbdc08540605066be08857feaf8c3041d995f49fe88bd89811
+2024-11-20 10:42:47 - Error en insertar usuario: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+
+2024-11-20 10:43:07 - Correo no encontrado.
+2024-11-20 10:50:02 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"129a74d24487510446e974887b6ff0b2880141fe0c92f1f96723cd864a2e849e"}
+2024-11-20 10:50:02 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:50:02 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"6758c934eb288ebbdc08540605066be08857feaf8c3041d995f49fe88bd89811"}
+2024-11-20 10:50:02 - Nueva expiración calculada: 2024-11-20 12:50:02
+2024-11-20 10:50:02 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:50:02 - Token de recuperación actualizado correctamente para el correo: 129a74d24487510446e974887b6ff0b2880141fe0c92f1f96723cd864a2e849e
+2024-11-20 10:50:02 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 10:52:44 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"9379eb6bbee1243ab8ca8b44ce2b45cbc2af81aafa8bf886936ca5a2da3b51c4"}
+2024-11-20 10:52:44 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:52:44 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"129a74d24487510446e974887b6ff0b2880141fe0c92f1f96723cd864a2e849e"}
+2024-11-20 10:52:44 - Nueva expiración calculada: 2024-11-20 12:52:44
+2024-11-20 10:52:44 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:52:44 - Token de recuperación actualizado correctamente para el correo: 9379eb6bbee1243ab8ca8b44ce2b45cbc2af81aafa8bf886936ca5a2da3b51c4
+2024-11-20 10:52:44 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 10:56:10 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"538d4f708908fe7a930f3894d528b49cae2a59dba712871b0eb16490e7682493"}
+2024-11-20 10:56:10 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:56:10 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"9379eb6bbee1243ab8ca8b44ce2b45cbc2af81aafa8bf886936ca5a2da3b51c4"}
+2024-11-20 10:56:10 - Nueva expiración calculada: 2024-11-20 12:56:10
+2024-11-20 10:56:10 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:56:10 - Token de recuperación actualizado correctamente para el correo: 538d4f708908fe7a930f3894d528b49cae2a59dba712871b0eb16490e7682493
+2024-11-20 10:56:10 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 10:58:30 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"1919fd82eda2f614096759e8b77d7bbdd57a9da88c5a805ddcf164ffb98cc7f9"}
+2024-11-20 10:58:30 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:58:30 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"538d4f708908fe7a930f3894d528b49cae2a59dba712871b0eb16490e7682493"}
+2024-11-20 10:58:30 - Nueva expiración calculada: 2024-11-20 12:58:30
+2024-11-20 10:58:30 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 10:58:30 - Token de recuperación actualizado correctamente para el correo: 1919fd82eda2f614096759e8b77d7bbdd57a9da88c5a805ddcf164ffb98cc7f9
+2024-11-20 10:58:30 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:02:03 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"1d9f036b3c14161f9d6feb08dd49bd2677d40578bfceeaf51e1b2e32e43003de"}
+2024-11-20 11:02:03 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:02:03 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"1919fd82eda2f614096759e8b77d7bbdd57a9da88c5a805ddcf164ffb98cc7f9"}
+2024-11-20 11:02:03 - Nueva expiración calculada: 2024-11-20 13:02:03
+2024-11-20 11:02:03 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:02:03 - Token de recuperación actualizado correctamente para el correo: 1d9f036b3c14161f9d6feb08dd49bd2677d40578bfceeaf51e1b2e32e43003de
+2024-11-20 11:02:03 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:14:00 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"7f862d2e3476b6adc7149b5482c5f31157b6ee04a888de51c3307d74abd632ec"}
+2024-11-20 11:14:00 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:14:00 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"1d9f036b3c14161f9d6feb08dd49bd2677d40578bfceeaf51e1b2e32e43003de"}
+2024-11-20 11:14:00 - Nueva expiración calculada: 2024-11-20 13:14:00
+2024-11-20 11:14:00 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:14:00 - Token de recuperación actualizado correctamente para el correo: 7f862d2e3476b6adc7149b5482c5f31157b6ee04a888de51c3307d74abd632ec
+2024-11-20 11:14:00 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:26:21 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"d8d9fd2501ff6756ba932fdd5bb11cf1755c04b3cce0fa2ca2a58cbd5d67b21e"}
+2024-11-20 11:26:21 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:26:21 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"7f862d2e3476b6adc7149b5482c5f31157b6ee04a888de51c3307d74abd632ec"}
+2024-11-20 11:26:21 - Nueva expiración calculada: 2024-11-20 13:26:21
+2024-11-20 11:26:21 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:26:21 - Token de recuperación actualizado correctamente para el correo: d8d9fd2501ff6756ba932fdd5bb11cf1755c04b3cce0fa2ca2a58cbd5d67b21e
+2024-11-20 11:26:21 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:33:20 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"76bc88ebb99c77f6cb414445c34414ecb2ef73a2a60bcfe303dddbcd61e11485"}
+2024-11-20 11:33:20 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:33:20 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"d8d9fd2501ff6756ba932fdd5bb11cf1755c04b3cce0fa2ca2a58cbd5d67b21e"}
+2024-11-20 11:33:20 - Nueva expiración calculada: 2024-11-20 13:33:20
+2024-11-20 11:33:20 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:33:20 - Token de recuperación actualizado correctamente para el correo: 76bc88ebb99c77f6cb414445c34414ecb2ef73a2a60bcfe303dddbcd61e11485
+2024-11-20 11:33:20 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:38:44 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"38bd362fd586ad5f4d77f8cb97c5fd1de8fd666c5801d5157088ecd97166aeb2"}
+2024-11-20 11:38:44 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:38:44 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"76bc88ebb99c77f6cb414445c34414ecb2ef73a2a60bcfe303dddbcd61e11485"}
+2024-11-20 11:38:44 - Nueva expiración calculada: 2024-11-20 13:38:44
+2024-11-20 11:38:44 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:38:44 - Token de recuperación actualizado correctamente para el correo: 38bd362fd586ad5f4d77f8cb97c5fd1de8fd666c5801d5157088ecd97166aeb2
+2024-11-20 11:38:44 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:44:19 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"cc49a9b0903292680740e7742d34edc5b2ca33c84db82eee558b747c55ee1ba2"}
+2024-11-20 11:44:19 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:44:19 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"38bd362fd586ad5f4d77f8cb97c5fd1de8fd666c5801d5157088ecd97166aeb2"}
+2024-11-20 11:44:19 - Nueva expiración calculada: 2024-11-20 13:44:19
+2024-11-20 11:44:19 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:44:19 - Token de recuperación actualizado correctamente para el correo: cc49a9b0903292680740e7742d34edc5b2ca33c84db82eee558b747c55ee1ba2
+2024-11-20 11:44:19 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:45:11 - {"email":null,"nueva_contrasena":"Asd123@@"}
+2024-11-20 11:45:11 - El correo electrónico y la nueva contraseña son obligatorios.
+2024-11-20 11:46:30 - {"email":null,"nueva_contrasena":"Asd123@@"}
+2024-11-20 11:46:30 - El correo electrónico y la nueva contraseña son obligatorios.
+2024-11-20 11:51:15 - Contraseña incorrecta
+2024-11-20 11:52:51 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"93f9894be2226ecd622690aa651c69742548f6e12f0ebdbd4aef02d9c76b5c42"}
+2024-11-20 11:52:51 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:52:51 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"cc49a9b0903292680740e7742d34edc5b2ca33c84db82eee558b747c55ee1ba2"}
+2024-11-20 11:52:51 - Nueva expiración calculada: 2024-11-20 13:52:51
+2024-11-20 11:52:51 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:52:51 - Token de recuperación actualizado correctamente para el correo: 93f9894be2226ecd622690aa651c69742548f6e12f0ebdbd4aef02d9c76b5c42
+2024-11-20 11:52:51 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:53:14 - Contraseña incorrecta
+2024-11-20 11:54:21 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"c10ccf20d0b41fa911529fd88dece30af11ef8f037941d951bc5e7f13b5e21ec"}
+2024-11-20 11:54:21 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:54:21 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"93f9894be2226ecd622690aa651c69742548f6e12f0ebdbd4aef02d9c76b5c42"}
+2024-11-20 11:54:21 - Nueva expiración calculada: 2024-11-20 13:54:21
+2024-11-20 11:54:21 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 11:54:21 - Token de recuperación actualizado correctamente para el correo: c10ccf20d0b41fa911529fd88dece30af11ef8f037941d951bc5e7f13b5e21ec
+2024-11-20 11:54:21 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 11:55:11 - gs0gs1gs2@gmail.com
+2024-11-20 11:57:00 - gs0gs1gs2@gmail.com
+2024-11-20 11:57:10 - Contraseña incorrecta
+2024-11-20 11:58:52 - 
+2024-11-20 11:59:20 - 
+2024-11-20 12:01:09 - 
+2024-11-20 12:03:06 - Asd123@@
+2024-11-20 12:03:06 - {"email":"gs0gs1gs2@gmail.com","nueva_contrasena":"Asd123@@"}
+2024-11-20 12:03:06 - Contraseña restablecida con éxito. Ahora puede iniciar sesión.
+2024-11-20 12:03:21 - Contraseña incorrecta
+2024-11-20 12:03:31 - ID del usuario: 8
+2024-11-20 12:03:31 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-20 12:03:31 - No se encontraron mediciones para el usuario.
+2024-11-20 13:46:30 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"62d2cdf80459c2fe752ca3317f1d208af7ae8c73e5e2ec846176592dfb100719"}
+2024-11-20 13:46:30 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:46:30 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"c10ccf20d0b41fa911529fd88dece30af11ef8f037941d951bc5e7f13b5e21ec"}
+2024-11-20 13:46:30 - Nueva expiración calculada: 2024-11-20 15:46:30
+2024-11-20 13:46:30 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:46:30 - Token de recuperación actualizado correctamente para el correo: 62d2cdf80459c2fe752ca3317f1d208af7ae8c73e5e2ec846176592dfb100719
+2024-11-20 13:46:30 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 13:47:13 - Datos recibidos: {"email":"yaekitsune2207@gmail.com","token":"d3d910fd4e48cc24ec404e3809f5d224cd92a8d279d9a836618c370e4d1661d1"}
+2024-11-20 13:47:13 - Iniciando la actualización del token de recuperación para el correo: yaekitsune2207@gmail.com
+2024-11-20 13:47:13 - Usuario encontrado y verificado: {"ID":"9","Nombre":"As","Apellidos":"A","Email":"yaekitsune2207@gmail.com","Verificado":"1","token":"0"}
+2024-11-20 13:47:13 - Nueva expiración calculada: 2024-11-20 15:47:13
+2024-11-20 13:47:13 - Token de recuperación actualizado correctamente para el correo: yaekitsune2207@gmail.com
+2024-11-20 13:47:13 - Token de recuperación actualizado correctamente para el correo: d3d910fd4e48cc24ec404e3809f5d224cd92a8d279d9a836618c370e4d1661d1
+2024-11-20 13:47:13 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"As","apellidos":"A","email":"yaekitsune2207@gmail.com"}
+2024-11-20 13:50:48 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"ba815272462a515ca879c5d1c6d495d20b1cfa56ce69c60cca2a9b7e4347dbd3"}
+2024-11-20 13:50:48 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:50:48 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"62d2cdf80459c2fe752ca3317f1d208af7ae8c73e5e2ec846176592dfb100719"}
+2024-11-20 13:50:48 - Nueva expiración calculada: 2024-11-20 15:50:48
+2024-11-20 13:50:48 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:50:48 - Token de recuperación actualizado correctamente para el correo: ba815272462a515ca879c5d1c6d495d20b1cfa56ce69c60cca2a9b7e4347dbd3
+2024-11-20 13:50:48 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 13:50:49 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"3cbd83f5ebc034853e3d195aaea997f60502a568d51d2ab88313467a0fdae39e"}
+2024-11-20 13:50:49 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:50:49 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"ba815272462a515ca879c5d1c6d495d20b1cfa56ce69c60cca2a9b7e4347dbd3"}
+2024-11-20 13:50:49 - Nueva expiración calculada: 2024-11-20 15:50:49
+2024-11-20 13:50:49 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 13:50:49 - Token de recuperación actualizado correctamente para el correo: 3cbd83f5ebc034853e3d195aaea997f60502a568d51d2ab88313467a0fdae39e
+2024-11-20 13:50:49 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 13:51:17 - Contraseña incorrecta
+2024-11-20 13:51:34 - Contraseña incorrecta
+2024-11-20 13:51:41 - Contraseña incorrecta
+2024-11-20 14:00:21 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"6659ced99f8b55ae2eb9c7370ded75b52c21bba88af47d46f9a26a6241e95d9a"}
+2024-11-20 14:00:21 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:00:21 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"3cbd83f5ebc034853e3d195aaea997f60502a568d51d2ab88313467a0fdae39e"}
+2024-11-20 14:00:21 - Nueva expiración calculada: 2024-11-20 16:00:21
+2024-11-20 14:00:21 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:00:21 - Token de recuperación actualizado correctamente para el correo: 6659ced99f8b55ae2eb9c7370ded75b52c21bba88af47d46f9a26a6241e95d9a
+2024-11-20 14:00:21 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:02:02 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"3714a5aaf3b89c4cda2fb4346df5c15bf0426bcbfc14bde86bf6ba80c76019b2"}
+2024-11-20 14:02:02 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:02:02 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"6659ced99f8b55ae2eb9c7370ded75b52c21bba88af47d46f9a26a6241e95d9a"}
+2024-11-20 14:02:02 - Nueva expiración calculada: 2024-11-20 16:02:02
+2024-11-20 14:02:02 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:02:02 - Token de recuperación actualizado correctamente para el correo: 3714a5aaf3b89c4cda2fb4346df5c15bf0426bcbfc14bde86bf6ba80c76019b2
+2024-11-20 14:02:02 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:03:48 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"3524a6060522864b80ae2c8236bc1f2d523eb18615ce9912bb68c347409c6463"}
+2024-11-20 14:03:48 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:03:48 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"3714a5aaf3b89c4cda2fb4346df5c15bf0426bcbfc14bde86bf6ba80c76019b2"}
+2024-11-20 14:03:48 - Nueva expiración calculada: 2024-11-20 16:03:48
+2024-11-20 14:03:48 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:03:48 - Token de recuperación actualizado correctamente para el correo: 3524a6060522864b80ae2c8236bc1f2d523eb18615ce9912bb68c347409c6463
+2024-11-20 14:03:48 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:06:13 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"09a1ad086fc581a06868d024e1a66bd2113f5037f9cec1274dd8a0d12d243321"}
+2024-11-20 14:06:13 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:06:13 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"3524a6060522864b80ae2c8236bc1f2d523eb18615ce9912bb68c347409c6463"}
+2024-11-20 14:06:13 - Nueva expiración calculada: 2024-11-20 16:06:13
+2024-11-20 14:06:13 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:06:13 - Token de recuperación actualizado correctamente para el correo: 09a1ad086fc581a06868d024e1a66bd2113f5037f9cec1274dd8a0d12d243321
+2024-11-20 14:06:13 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:08:07 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"d69ec556f45dca15ab85acc76c4ed01e4f113694007491f220e6ddfbfdb92161"}
+2024-11-20 14:08:07 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:08:07 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"09a1ad086fc581a06868d024e1a66bd2113f5037f9cec1274dd8a0d12d243321"}
+2024-11-20 14:08:07 - Nueva expiración calculada: 2024-11-20 16:08:07
+2024-11-20 14:08:07 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:08:07 - Token de recuperación actualizado correctamente para el correo: d69ec556f45dca15ab85acc76c4ed01e4f113694007491f220e6ddfbfdb92161
+2024-11-20 14:08:07 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:08:23 - Hola: gs0gs1gs2@gmail.com
+2024-11-20 14:09:25 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"3be4ecf3fd8cb6b9f465ae6246df2240313c2298f9f154d287aaa9f0ee5da939"}
+2024-11-20 14:09:25 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:09:25 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"d69ec556f45dca15ab85acc76c4ed01e4f113694007491f220e6ddfbfdb92161"}
+2024-11-20 14:09:25 - Nueva expiración calculada: 2024-11-20 16:09:25
+2024-11-20 14:09:25 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:09:25 - Token de recuperación actualizado correctamente para el correo: 3be4ecf3fd8cb6b9f465ae6246df2240313c2298f9f154d287aaa9f0ee5da939
+2024-11-20 14:09:25 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:09:27 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"94a8ef8d582b3ef3ffcf9fbe08bae304fab4f8cb49b5dc1ce036bef5554ff0e7"}
+2024-11-20 14:09:27 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:09:27 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"3be4ecf3fd8cb6b9f465ae6246df2240313c2298f9f154d287aaa9f0ee5da939"}
+2024-11-20 14:09:27 - Nueva expiración calculada: 2024-11-20 16:09:27
+2024-11-20 14:09:27 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:09:27 - Token de recuperación actualizado correctamente para el correo: 94a8ef8d582b3ef3ffcf9fbe08bae304fab4f8cb49b5dc1ce036bef5554ff0e7
+2024-11-20 14:09:27 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:09:51 - Hola: a
+2024-11-20 14:11:34 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"c73c5622f8d2497c4e50e18fe8f770f914cf2fb2ad9cf3787dd757a07cf3055a"}
+2024-11-20 14:11:34 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:11:34 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"94a8ef8d582b3ef3ffcf9fbe08bae304fab4f8cb49b5dc1ce036bef5554ff0e7"}
+2024-11-20 14:11:34 - Nueva expiración calculada: 2024-11-20 16:11:34
+2024-11-20 14:11:34 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-20 14:11:34 - Token de recuperación actualizado correctamente para el correo: c73c5622f8d2497c4e50e18fe8f770f914cf2fb2ad9cf3787dd757a07cf3055a
+2024-11-20 14:11:34 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-20 14:11:46 - Hola: a
+2024-11-20 14:11:46 - Hola Contraseña mal: a
+2024-11-20 14:12:26 - Hola: a
+2024-11-20 14:12:26 - Hola Contraseña mal: a
+2024-11-20 14:12:58 - Hola: a
+2024-11-20 14:12:58 - Hola Contraseña mal: a2024-11-20 14:14:55 - Hola: a
+2024-11-20 14:14:55 - 
+2024-11-20 14:14:55 - Soy el api gs0gs1gs2@gmail.com
+2024-11-20 14:14:55 - soy el crud Array
+2024-11-20 14:14:56 - Soy la peticion Array
+2024-11-20 14:14:56 - Error al decodificar JSON: Syntax error
+2024-11-20 14:14:56 - Error al decodificar JSON: Syntax error
+2024-11-20 14:15:15 - Hola: a
+2024-11-20 14:15:15 - Soy la llamada como tal 
+2024-11-20 14:15:15 - Soy el api gs0gs1gs2@gmail.com
+2024-11-20 14:15:15 - soy el crud Array
+2024-11-20 14:15:15 - Soy la peticion Array
+2024-11-20 14:15:15 - Error al decodificar JSON: Syntax error
+2024-11-20 14:15:15 - Error al decodificar JSON: Syntax error
+2024-11-20 14:16:27 - Soy el api gs0gs1gs2@gmail.com
+2024-11-20 14:16:27 - soy el crud Array
+2024-11-20 14:16:27 - Soy la peticion Array
+2024-11-20 14:16:27 - Error al decodificar JSON: Syntax error
+2024-11-20 14:16:27 - Error al decodificar JSON: Syntax error
+2024-11-20 14:16:45 - ID del usuario: 8
+2024-11-20 14:16:45 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-20 14:16:45 - No se encontraron mediciones para el usuario.
+2024-11-21 02:12:47 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"fd054bd358fdca1ecdb5008f2e2aac89ce1d6778aac772b977a8cb87d50a5171"}
+2024-11-21 02:12:47 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 02:12:47 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"c73c5622f8d2497c4e50e18fe8f770f914cf2fb2ad9cf3787dd757a07cf3055a"}
+2024-11-21 02:12:47 - Nueva expiración calculada: 2024-11-21 04:12:47
+2024-11-21 02:12:47 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 02:12:47 - Token de recuperación actualizado correctamente para el correo: fd054bd358fdca1ecdb5008f2e2aac89ce1d6778aac772b977a8cb87d50a5171
+2024-11-21 02:12:47 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-21 02:16:40 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"6c83bd2dee673b4fe6dae2e999632ade8a01d09ace7f2eb083011cdf1a6ef7a8"}
+2024-11-21 02:16:40 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 02:16:40 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"fd054bd358fdca1ecdb5008f2e2aac89ce1d6778aac772b977a8cb87d50a5171"}
+2024-11-21 02:16:40 - Nueva expiración calculada: 2024-11-21 04:16:40
+2024-11-21 02:16:40 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 02:16:40 - Token de recuperación actualizado correctamente para el correo: 6c83bd2dee673b4fe6dae2e999632ade8a01d09ace7f2eb083011cdf1a6ef7a8
+2024-11-21 02:16:40 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-21 09:30:28 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"db2b63914e5a5eb816eb268cde2a45607f60ffab5530f05181c5e6c8d435ce6d"}
+2024-11-21 09:30:28 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 09:30:28 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"6c83bd2dee673b4fe6dae2e999632ade8a01d09ace7f2eb083011cdf1a6ef7a8"}
+2024-11-21 09:30:28 - Nueva expiración calculada: 2024-11-21 11:30:28
+2024-11-21 09:30:28 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 09:30:28 - Token de recuperación actualizado correctamente para el correo: db2b63914e5a5eb816eb268cde2a45607f60ffab5530f05181c5e6c8d435ce6d
+2024-11-21 09:30:28 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-21 10:19:14 - Contraseña incorrecta
+2024-11-21 10:21:14 - Contraseña incorrecta
+2024-11-21 10:22:13 - He llegado a verificar
+2024-11-21 10:23:40 - He llegado a verificargs0gs1gs2@gmail.com
+2024-11-21 10:24:24 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 10:24:56 - He llegado a verificar
+2024-11-21 10:25:24 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 10:25:24 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 10:25:24 - soy el crud Array
+2024-11-21 10:25:24 - Soy la peticion Array
+2024-11-21 10:25:24 - Error al decodificar JSON: Syntax error
+2024-11-21 10:25:24 - Error al decodificar JSON: Syntax error
+2024-11-21 10:25:57 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 10:25:57 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 10:25:57 - soy el crud Array
+2024-11-21 10:25:57 - Error al decodificar JSON: Syntax error
+2024-11-21 10:25:57 - Error al decodificar JSON: Syntax error
+2024-11-21 10:27:06 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 10:27:06 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 10:27:36 - He llegado a verificargs0gs1gs2@gmail.coma
+2024-11-21 10:27:36 - Soy el api gs0gs1gs2@gmail.com
+2024-11-21 10:27:52 - ID del usuario: 8
+2024-11-21 10:27:52 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 10:27:52 - No se encontraron mediciones para el usuario.
+2024-11-21 10:28:14 - Datos recibidos: {"email":"gs0gs1gs2@gmail.com","token":"5b0dfcc99bba405313268a950e12946aaf441d33cadb2972e437eac7c57667b5"}
+2024-11-21 10:28:14 - Iniciando la actualización del token de recuperación para el correo: gs0gs1gs2@gmail.com
+2024-11-21 10:28:14 - Usuario encontrado y verificado: {"ID":"8","Nombre":"Test","Apellidos":"Test","Email":"gs0gs1gs2@gmail.com","Verificado":"1","token":"db2b63914e5a5eb816eb268cde2a45607f60ffab5530f05181c5e6c8d435ce6d"}
+2024-11-21 10:28:14 - Nueva expiración calculada: 2024-11-21 12:28:14
+2024-11-21 10:28:14 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
+2024-11-21 10:28:14 - Token de recuperación actualizado correctamente para el correo: 5b0dfcc99bba405313268a950e12946aaf441d33cadb2972e437eac7c57667b5
+2024-11-21 10:28:14 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
