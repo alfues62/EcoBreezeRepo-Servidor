@@ -17,7 +17,7 @@ class UsuariosConsultasCRUD {
     public function login($email, $contrasena) {
         try {
             // Verificar si el email está registrado
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID, ContrasenaHash, Verificado, expiracion_token FROM USUARIO WHERE Email = :email");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, Apellidos, ROL_RolID, ContrasenaHash, Verificado, expiracion_token FROM USUARIO WHERE Email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
     
@@ -53,6 +53,7 @@ class UsuariosConsultasCRUD {
                     'data' => [
                         'ID' => $usuario['ID'],
                         'Nombre' => $usuario['Nombre'],
+                        'Apellidos' => $usuario['Apellidos'],
                         'Rol' => $usuario['ROL_RolID'] // Aquí se obtiene el rol del usuario
                     ]
                 ]; // Devuelve los datos del usuario si las credenciales son correctas
@@ -67,7 +68,7 @@ class UsuariosConsultasCRUD {
     public function loginHuella($email, $token_huella) {
         try {
             // Prepara la consulta para verificar el email y el token de huella
-            $stmt = $this->conn->prepare("SELECT ID, Nombre, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre,Apellido, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':token_huella', $token_huella);
             $stmt->execute();
@@ -114,6 +115,63 @@ class UsuariosConsultasCRUD {
             return null;
         }
     }
+    /* ------------------------------------------------------------------------------------------
+     *
+     * METODOS CONSULTAS PARA ADMIN
+     * 
+     *///----------------------------------------------------------------------------------------
+    // Método para obtener la última medición de todos los usuarios con rol 2
+public function obtenerUltimaMedicionDeUsuariosRol2() {
+    try {
+        // Preparamos la consulta para obtener la última medición de todos los usuarios con rol 2
+        $query = "SELECT 
+                    u.ID, 
+                    u.Nombre, 
+                    u.Apellidos, 
+                    u.Email, 
+                    IFNULL(MAX(m.Fecha), 'N/A') AS UltimaMedicion
+                  FROM 
+                    USUARIO u
+                  LEFT JOIN 
+                    SENSOR s ON u.ID = s.USUARIO_ID  -- Relacionamos USUARIO con SENSOR
+                  LEFT JOIN 
+                    MEDICION m ON s.SensorID = m.SENSOR_ID_Sensor  -- Relacionamos SENSOR con MEDICION
+                  WHERE 
+                    u.ROL_RolID = 2
+                  GROUP BY 
+                    u.ID, u.Nombre, u.Apellidos, u.Email
+                  ORDER BY 
+                    UltimaMedicion DESC"; // Ordenamos de las más recientes a las más antiguas
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        // Verificamos si se encontraron resultados
+        if ($stmt->rowCount() > 0) {
+            // Obtenemos todos los usuarios y su última medición
+            $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Aseguramos que aquellos usuarios sin mediciones tengan 'N/A'
+            foreach ($usuarios as &$usuario) {
+                if ($usuario['UltimaMedicion'] === 'N/A') {
+                    $usuario['UltimaMedicion'] = 'N/A';  // Rellenamos explícitamente con 'N/A'
+                }
+            }
+
+            return ['success' => true, 'usuarios' => $usuarios];
+        } else {
+            // No se encontraron usuarios con mediciones
+            return ['success' => true, 'usuarios' => []];  // Devuelve un array vacío en lugar de un error
+        }
+    } catch (PDOException $e) {
+        // Registro de error detallado para depuración
+        registrarError("Error en obtener última medición de los usuarios: " . $e->getMessage() . "\n");
+        return ['success' => false, 'error' => 'Error al obtener la última medición de los usuarios.'];
+    }
+}
+
+
+
     /* ------------------------------------------------------------------------------------------
      *
      * METODOS CONSULTAS UNIVERSALES

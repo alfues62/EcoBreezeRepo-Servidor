@@ -105,6 +105,7 @@ switch ($action) {
                     'usuario' => [
                         'ID' => $usuario['data']['ID'],
                         'Nombre' => $usuario['data']['Nombre'],
+                        'Apellidos' => $usuario['data']['Apellidos'],
                         'Rol' => $usuario['data']['Rol']
                     ]
                 ]);
@@ -251,9 +252,7 @@ switch ($action) {
         $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
         $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
         $nuevoCorreo = $requestData['nuevo_correo'] ?? null; // Obtener el nuevo correo del request
-    
-        registrarError(json_encode($requestData)); // Revisa el contenido de $requestData
-    
+        
         // Verifica si se proporciona el ID del usuario, la contraseña actual y el nuevo correo
         if ($id && $contrasenaActual && $nuevoCorreo) {
             // Verifica si el nuevo correo ya está en uso
@@ -280,9 +279,7 @@ switch ($action) {
         $email = $requestData['email'] ?? null; // Obtener el correo electrónico del request
         $token = $requestData['token'] ?? null; // Obtener el token de recuperación del request
         $nuevaContrasena = $requestData['nueva_contrasena'] ?? null; // Obtener la nueva contraseña del request
-    
-        registrarError(json_encode($requestData));
-    
+        
         // Verifica si se proporciona el email, el token y la nueva contraseña
         if ($email && $token && $nuevaContrasena) {
             $resultado = $usuariosAccionesCRUD->recuperarContrasena($email, $token, $nuevaContrasena);
@@ -325,6 +322,22 @@ switch ($action) {
 
     // FIN CASOS CAMBIO DATOS USUARIO
 
+    // CASOS ADMIN
+    case 'obtener_ultima_medicion':
+    // Consultar la última medición de los usuarios con rol 2
+    $result = $usuariosConsultasCRUD->obtenerUltimaMedicionDeUsuariosRol2();
+
+    if ($result['success']) {
+        // Si se encontraron usuarios con mediciones, se devuelve la lista
+        echo json_encode(['success' => true, 'usuarios' => $result['usuarios']]);
+    } else {
+        // Si no se encontraron usuarios o no tienen mediciones
+        echo json_encode(['success' => false, 'error' => $result['error']]);
+    }
+    break;
+
+    // FIN CASOS ADMIN
+
     // CASOS UNIVERSALES
     case 'actualizar_token_recuperacion':
         $email = $requestData['email'] ?? null;
@@ -335,9 +348,7 @@ switch ($action) {
         if ($email && $token) {
             // Llamamos al método para actualizar el token de recuperación
             $resultado = $usuariosAccionesCRUD->actualizarTokenRecuperacion($email, $token);
-    
-            registrarError("Resultado del método actualizarTokenRecuperacion: " . json_encode($resultado));
-    
+        
             if (isset($resultado['error'])) {
                 echo json_encode(['success' => false, 'error' => $resultado['error']]);
             } elseif (isset($resultado['success'])) {

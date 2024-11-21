@@ -16,7 +16,9 @@ function iniciarSesion($email, $contrasena) {
             return [
                 'ID' => $usuario['ID'], 
                 'Nombre' => $usuario['Nombre'], 
+                'Apellidos' => $usuario['Apellidos'],
                 'Rol' => $usuario['Rol']
+                
             ];
         } else {
             $error_message = 'Error en la estructura de respuesta de la API.';

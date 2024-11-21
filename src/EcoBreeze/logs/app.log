@@ -516,3 +516,73 @@
 2024-11-21 10:28:14 - Token de recuperación actualizado correctamente para el correo: gs0gs1gs2@gmail.com
 2024-11-21 10:28:14 - Token de recuperación actualizado correctamente para el correo: 5b0dfcc99bba405313268a950e12946aaf441d33cadb2972e437eac7c57667b5
 2024-11-21 10:28:14 - Resultado del método actualizarTokenRecuperacion: {"success":"Token de recuperaci\u00f3n registrado y actualizado con \u00e9xito.","nombre":"Test","apellidos":"Test","email":"gs0gs1gs2@gmail.com"}
+2024-11-21 10:32:48 - El email ya está registrado.
+2024-11-21 10:35:20 - ID del usuario: 8
+2024-11-21 10:35:20 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 10:35:20 - No se encontraron mediciones para el usuario.
+2024-11-21 10:35:24 - ID del usuario: 8
+2024-11-21 10:35:24 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 10:35:24 - No se encontraron mediciones para el usuario.
+2024-11-21 11:42:21 - ID del usuario: 8
+2024-11-21 11:42:21 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:42:21 - No se encontraron mediciones para el usuario.
+2024-11-21 11:42:23 - ID del usuario: 8
+2024-11-21 11:42:23 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:42:23 - No se encontraron mediciones para el usuario.
+2024-11-21 11:42:46 - ID del usuario: 1
+2024-11-21 11:42:46 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:42:46 - No se encontraron mediciones para el usuario.
+2024-11-21 11:43:01 - ID del usuario: 1
+2024-11-21 11:43:01 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:43:01 - No se encontraron mediciones para el usuario.
+2024-11-21 11:43:19 - ID del usuario: 1
+2024-11-21 11:43:19 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:43:19 - No se encontraron mediciones para el usuario.
+2024-11-21 11:43:33 - ID del usuario: 1
+2024-11-21 11:43:33 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:43:33 - No se encontraron mediciones para el usuario.
+2024-11-21 11:43:45 - ID del usuario: 1
+2024-11-21 11:43:45 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 11:43:45 - No se encontraron mediciones para el usuario.
+2024-11-21 11:50:37 - Error al decodificar JSON: Syntax error
+2024-11-21 11:50:42 - Error al decodificar JSON: Syntax error
+2024-11-21 11:54:01 - Error al verificar credenciales: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Apellido' in 'field list'
+
+2024-11-21 11:54:01 - Error al verificar las credenciales
+2024-11-21 11:54:25 - Error al verificar credenciales: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'Apellido' in 'field list'
+
+2024-11-21 11:54:25 - Error al verificar las credenciales
+2024-11-21 12:11:10 - ID del usuario: 8
+2024-11-21 12:11:10 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 12:11:10 - No se encontraron mediciones para el usuario.
+2024-11-21 12:11:16 - ID del usuario: 8
+2024-11-21 12:11:16 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 12:11:16 - No se encontraron mediciones para el usuario.
+2024-11-21 12:47:55 - Error en obtener última medición de los usuarios: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.USUARIO_ID' in 'on clause'
+
+2024-11-21 12:47:55 - Error al obtener la última medición de los usuarios.
+2024-11-21 12:48:54 - Error en obtener última medición de los usuarios: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.USUARIO_ID' in 'on clause'
+
+2024-11-21 12:48:54 - Error al obtener la última medición de los usuarios.
+2024-11-21 12:48:55 - Error en obtener última medición de los usuarios: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.USUARIO_ID' in 'on clause'
+
+2024-11-21 12:48:55 - Error al obtener la última medición de los usuarios.
+2024-11-21 12:48:56 - Error en obtener última medición de los usuarios: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.USUARIO_ID' in 'on clause'
+
+2024-11-21 12:48:56 - Error al obtener la última medición de los usuarios.
+2024-11-21 12:52:22 - Error en obtener última medición de los usuarios: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'm.USUARIO_ID' in 'on clause'
+
+2024-11-21 12:52:22 - Error al obtener la última medición de los usuarios.
+2024-11-21 13:12:36 - Array
+2024-11-21 13:12:36 - Error al decodificar JSON: Syntax error
+2024-11-21 13:16:40 - Array
+2024-11-21 13:20:10 - ID del usuario: 8
+2024-11-21 13:20:10 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-21 13:20:10 - No se encontraron mediciones para el usuario.
+2024-11-21 13:20:14 - Contraseña incorrecta
+2024-11-21 13:20:20 - Contraseña incorrecta
+2024-11-21 13:50:41 - Array
+2024-11-21 13:50:57 - 
+2024-11-21 13:51:16 - 
+2024-11-21 15:24:55 - ID del usuario: 8
+2024-11-21 15:24:55 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"85","Valor":"0.03","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-11","Hora":"10:00:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"4","Valor":"25.6","Lon":"0.1234","Lat":"39.4567","Fecha":"2024-10-23","Hora":"14:30:00","Categoria":"Peligro","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}

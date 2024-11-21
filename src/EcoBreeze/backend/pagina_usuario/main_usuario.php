@@ -1,6 +1,5 @@
 <?php
 session_start();
-ob_start(); // Inicia el buffer de salida
 
 require_once '../SolicitudCurl.php';
 require_once '../log.php';
@@ -104,5 +103,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Incluye la vista de la página de usuario
 include '../../frontend/php/pagina_usuario.vista.php';
 
-ob_end_flush(); // Envía el contenido del buffer de salida y desactiva el buffer
 ?>

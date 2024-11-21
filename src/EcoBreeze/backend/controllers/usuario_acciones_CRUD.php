@@ -425,4 +425,27 @@ class UsuariosAccionesCRUD {
             return ['success' => false, 'error' => 'Error al actualizar el token de huella.'];
         }
     }
+
+    public function registrarAdmin($nombre, $apellidos, $email, $contrasenaHash) {
+        try {
+            $rol_rolid = 1;
+    
+            // Query para insertar el administrador con valores NULL donde sea posible
+            $query = "INSERT INTO USUARIO 
+                      (Nombre, Apellidos, Email, ContrasenaHash, Verificado, token, expiracion_token, token_huella, ROL_RolID) 
+                      VALUES (?, ?, ?, ?, 1, NULL, NULL, NULL, ?)";
+    
+            // Preparar y ejecutar la consulta
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$nombre, $apellidos, $email, $contrasenaHash, $rol_rolid]);
+    
+            // Retornar éxito
+            return ['success' => 'Administrador añadido con éxito.'];
+        } catch (PDOException $e) {
+            // Registrar el error
+            registrarError("Error en insertar administrador: " . $e->getMessage() . "\n");
+            return ['error' => 'Error al insertar un administrador.'];
+        }
+    }
+    
 }

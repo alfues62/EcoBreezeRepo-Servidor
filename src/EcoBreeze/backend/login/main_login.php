@@ -10,7 +10,7 @@ if (isset($_SESSION['usuario_id'])) {
     // Verificamos el rol del usuario para redirigirlo
     if ($_SESSION['rol'] == 1) {
         // Rol de administrador
-        header('Location: /pagina_admin/main_admin.php');
+        header('Location: ../pagina_admin/main_admin.php');
     } else {
         // Rol de usuario normal
         header('Location: ../pagina_usuario/main_usuario.php');
@@ -42,12 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Inicia sesión y guarda los datos en la sesión
                     $_SESSION['usuario_id'] = $result['ID'];
                     $_SESSION['nombre'] = $result['Nombre'];
+                    $_SESSION['apellidos'] = $result['Apellidos'];
                     $_SESSION['rol'] = $result['Rol'];
 
                     // Verificamos el rol del usuario para redirigirlo
                     if ($_SESSION['rol'] == 1) {
                         // Rol de administrador
-                        header('Location: /pagina_admin/main_admin.php');
+                        header('Location: ../pagina_admin/main_admin.php');
                     } else {
                         // Rol de usuario normal
                         header('Location: ../pagina_usuario/main_usuario.php');
