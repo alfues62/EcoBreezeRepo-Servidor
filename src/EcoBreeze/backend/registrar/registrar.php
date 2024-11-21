@@ -2,7 +2,6 @@
 
 require 'enviar_correo.php'; // Asegúrate de tener la función enviarCorreoVerificacion en este archivo
 
-
 function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
     $token = bin2hex(random_bytes(16));
         

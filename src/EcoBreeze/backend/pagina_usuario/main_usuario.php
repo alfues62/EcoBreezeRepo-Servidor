@@ -34,7 +34,7 @@ if (isset($_SESSION['usuario_id'])) {
             $mediciones_json = json_encode($mediciones);
         } else {
             // Si hay un error, lo mostramos
-            $error_message = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
+            $error_message2 = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
             $mediciones_json = '[]'; // Asegura que siempre sea un JSON válido
         }
     }
@@ -55,13 +55,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
             $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
             $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
-        //     $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
-        // elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
-        // Verificación de contraseña compleja (descomentar si es necesario)
 
             // Verificar que las nuevas contraseñas coincidan
             if ($nuevaContrasena !== $confirmarContrasena) {
                 $error_message = 'Las nuevas contraseñas no coinciden.';
+            }elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
+                $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
             } else {
                 // Cambiar la contraseña y obtener el resultado
                 $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);

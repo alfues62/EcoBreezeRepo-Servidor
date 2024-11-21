@@ -1,7 +1,5 @@
 <?php
 
-require_once 'verificar_correo.php';
-
 function enviarCorreoVerificacion($email, $token, $nombre, $apellido) {
     $to = $email;
     $subject = 'Verificación de correo - EcoBreeze';

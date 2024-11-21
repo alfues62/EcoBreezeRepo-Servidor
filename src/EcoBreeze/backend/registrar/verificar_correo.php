@@ -2,8 +2,6 @@
 require_once '../SolicitudCurl.php';
 require_once '../log.php';
 
-require_once '../SolicitudCurl.php';
-
 // Obtener el correo y el token desde la URL
 $email = $_GET['email'] ?? '';
 $token = $_GET['token'] ?? '';
