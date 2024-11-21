@@ -1,6 +1,4 @@
 <?php
-require_once '../log.php';
-require_once '../SolicitudCurl.php';
 
 function obtenerMedicionesUsuario($usuario_id) {
     // URL de la API para obtener mediciones

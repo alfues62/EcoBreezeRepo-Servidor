@@ -1,7 +1,6 @@
 <?php
-require_once '../log.php';
-require '../SolicitudCurl.php';
-require '../enviar_correo.php'; // Asegúrate de tener la función enviarCorreoVerificacion en este archivo
+
+require 'enviar_correo.php'; // Asegúrate de tener la función enviarCorreoVerificacion en este archivo
 
 function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
     $token = bin2hex(random_bytes(16));
@@ -13,7 +12,7 @@ function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
         'apellidos' => $apellidos,
         'email' => $email,
         'contrasena' => $contrasena,
-        'token_verficicacion' => $token,
+        'token' => $token,
     ]);
 
     $result = hacerSolicitudCurl($url, $data);
@@ -21,7 +20,7 @@ function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
     if (isset($result['success']) && $result['success']) {
         
         // Enviar el correo de verificación
-        $correoResultado = enviarCorreoVerificacion($email, $token);
+        $correoResultado = enviarCorreoVerificacion($email, $token, $nombre, $apellidos);
 
         if (strpos($correoResultado, 'success') !== false) {
             return 'Usuario registrado con éxito y correo de verificación enviado.';
@@ -34,6 +33,4 @@ function registrarUsuario($nombre, $apellidos, $email, $contrasena) {
         return ['error' => $error_message];
     }
 }
-
-
 ?>

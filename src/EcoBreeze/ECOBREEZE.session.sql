@@ -5,42 +5,43 @@ VALUES (2, 'User');
 INSERT INTO ROL (RolID, Rol) 
 VALUES (1, 'Admin');
 INSERT INTO TIPOGAS (TipoGas) 
-VALUES ('03');
+VALUES ('O3');
 INSERT INTO TIPOGAS (TipoGas) 
 VALUES ('CO');
 INSERT INTO TIPOGAS (TipoGas) 
 VALUES ('NO2');
 INSERT INTO TIPOGAS (TipoGas) 
-VALUES ('S04');
+VALUES ('SO4');
 -- 3. Insertar Umbrales
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 4),
-(2, 1, "Normal", 4),
-(3, 2, "Alto", 4);
+(1, 0, "Bajo", 1),
+(2, 0.05, "Normal", 1),
+(3, 0.1, "Alto", 1);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 5),
-(2, 3, "Medio", 5),
-(3, 6, "Alto", 5);
+(4, 0, "Bajo", 2),
+(5, 4.4, "Medio", 2),
+(6, 9.4, "Alto", 2);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 6),
-(2, 2, "Medio", 6),
-(3, 4, "Alto", 6);
+(7, 0, "Bajo", 3),
+(8, 0.02, "Medio", 3),
+(9, 0.05, "Alto", 3);
 INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) 
 VALUES 
-(1, 0, "Bajo", 7),
-(2, 3, "Medio", 7),
-(3, 5, "Alto", 7);
+(10, 0, "Bajo", 4),
+(11, 0.02, "Medio", 4),
+(12, 0.075, "Alto", 4);
+
+-- 4. Insertar un sensor
+INSERT INTO SENSOR (MAC, USUARIO_ID) 
+VALUES ('00:1A:2B:3C:4D:5E', 8);  -- USUARIO_ID debe existir.
 
 -- 3. Insertar un usuario
 INSERT INTO USUARIO (Nombre, Apellidos, Email, ContrasenaHash, ROL_RolID) 
 VALUES ('prueba', 'prueba', 'prueba@example.com', 2234324, 2);  -- RolID debe existir.
 
--- 4. Insertar un sensor
-INSERT INTO SENSOR (MAC, USUARIO_ID) 
-VALUES ('00:1A:2B:3C:4D:5E', 1);  -- USUARIO_ID debe existir.
 
 
 INSERT INTO `EcoBreeze`.`MEDICION` (`Valor`, `Lon`, `Lat`, `Fecha`, `Hora`, `TIPOGAS_TipoID`, `SENSOR_ID_Sensor`)
@@ -85,7 +86,16 @@ DELIMITER ;
 
 INSERT INTO `EcoBreeze`.`MEDICION` (`Valor`, `Lon`, `Lat`, `Fecha`, `Hora`, `TIPOGAS_TipoID`, `SENSOR_ID_Sensor`)
 VALUES
-(3.5, '-0.3758', '39.4702', '2024-11-14', '10:00:00', 2, 1);
+-- Ozono (TIPOGAS_TipoID = 4)
+(0.03, '-0.3758', '39.4702', '2024-11-20', '10:00:00', 4,1),
+(0.05, '-0.3758', '39.4702', '2024-11-20', '10:30:00', 4, 1),
+(0.07, '-0.3758', '39.4702', '2024-11-20', '11:00:00', 4, 1),
+(0.1, '-0.3758', '39.4702', '2024-11-20', '11:30:00', 4, 1),
+(0.12, '-0.3758', '39.4702', '2024-11-20', '12:00:00', 4, 1),
+(0.08, '-0.3758', '39.4702', '2024-11-20', '12:30:00', 4, 1),
+(0.09, '-0.3758', '39.4702', '2024-11-20', '13:00:00', 4, 1),
+(0.06, '-0.3758', '39.4702', '2024-11-20', '13:30:00', 4, 1),
+(0.11, '-0.3758', '39.4702', '2024-11-20', '14:00:00', 4, 1),
 
 
 
