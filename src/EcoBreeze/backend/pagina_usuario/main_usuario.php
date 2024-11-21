@@ -32,7 +32,7 @@ if (isset($_SESSION['usuario_id'])) {
             $mediciones_json = json_encode($mediciones);
         } else {
             // Si hay un error, lo mostramos
-            $error_message = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
+            $error_message2 = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
             $mediciones_json = '[]'; // Asegura que siempre sea un JSON válido
         }
     }
@@ -46,28 +46,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtenemos el formulario
     $action = $_POST['action'] ?? '';
 
-    // Comprobamos si el formulario es cambiar contraseña
-    if ($action === 'cambiar_contrasena') {
-        $id = $_SESSION['usuario_id'] ?? null;
-        $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
-        $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
-        $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
-        
-        // Verificar que las nuevas contraseñas coincidan
-        if ($nuevaContrasena !== $confirmarContrasena) {
-            $error_message = 'Las nuevas contraseñas no coinciden.';
-        } 
-        // Verificación de contraseña compleja (descomentar si es necesario)
-        // elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
-        //     $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
-        // } 
-        else {
-            // Cambiar la contraseña y obtener el resultado
-            $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
+    // Usamos un switch para manejar las acciones de los formularios
+    switch ($action) {
+        case 'cambiar_contrasena':
+            $id = $_SESSION['usuario_id'] ?? null;
+            $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
+            $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
+            $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
 
-            // Comprobar si la respuesta es de éxito
-            if (isset($result['success'])) {
-                $success_message = $result['success'];  // Mensaje de éxito
+            // Verificar que las nuevas contraseñas coincidan
+            if ($nuevaContrasena !== $confirmarContrasena) {
+                $error_message = 'Las nuevas contraseñas no coinciden.';
+            }elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
+                $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
             } else {
                 $error_message = $result['error'];  // Mensaje de error
             }
