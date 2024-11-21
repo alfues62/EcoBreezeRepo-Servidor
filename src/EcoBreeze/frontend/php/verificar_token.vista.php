@@ -13,9 +13,9 @@
 
     <div class="message <?php echo $error ? 'error' : 'success'; ?>">
         <?php if ($error): ?>
-            <p><?php echo $error; ?></p>
+            <p>Error: <?php echo htmlspecialchars($error); ?></p>
         <?php else: ?>
-            <p><?php echo $message; ?></p>
+            <p><?php echo htmlspecialchars($message); ?></p>
         <?php endif; ?>
     </div>
 

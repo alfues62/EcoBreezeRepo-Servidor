@@ -1,9 +1,7 @@
 <?php
 session_start();
-require '../log.php';
-require '../SolicitudCurl.php';
+require_once '../config.php';
 include 'autentificar.php';
-include 'registrar_recuperar.php';
 
 // Verificamos si el usuario está logueado, de lo contrario lo redirigimos al login
 if (isset($_SESSION['usuario_id'])) {
@@ -19,22 +17,17 @@ if (isset($_SESSION['usuario_id'])) {
 }
 
 $error_message = '';
-$success_message = '';
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $contrasena = trim($_POST['contrasena'] ?? '');
-    $action = $_POST['action'] ?? '';
 
-     // Valida el email
+    // Valida el email
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error_message = 'Correo electrónico no válido.';
     } else {
-        switch ($action) {
-            case 'login':
-                // Intentar iniciar sesión con el formulario de login
-                $result = iniciarSesion($email, $contrasena);
+        // Intenta iniciar sesión
+        $result = iniciarSesion($email, $contrasena);
 
                 if (isset($result['error'])) {
                     $error_message = htmlspecialchars($result['error']);
@@ -74,5 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+// Incluye la vista de login con el mensaje de error
 include '../../frontend/php/login.vista.php';
 ?>

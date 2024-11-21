@@ -1,8 +1,6 @@
 <?php
-
-require_once '../SolicitudCurl.php';
-require_once '../log.php';
-require_once 'registrar.php';
+require_once '../config.php';
+include 'registrar.php';
 
 // Inicializamos las variables para los mensajes de éxito y error
 $success_message = '';
@@ -16,11 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_var(trim($_POST['email'] ?? ''), FILTER_SANITIZE_EMAIL);
     $contrasena = trim($_POST['contrasena'] ?? '');
     $contrasena_confirmar = trim($_POST['contrasena_confirmar'] ?? '');
-
-    // Convertimos la primera letra del nombre y del apellido a mayúscula
-    $nombre = ucfirst(strtolower($nombre));
-    $apellidos = ucfirst(strtolower($apellidos));
-
+    
+    
     if ($contrasena !== $contrasena_confirmar) {
         $error_message = 'Las contraseñas no coinciden.';
     } elseif (!preg_match('/^[a-zA-Z\s]+$/', $nombre)) {

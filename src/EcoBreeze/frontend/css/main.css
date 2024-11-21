@@ -1,66 +1,127 @@
-/* General */
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    padding-top: 70px; /* Ajusta este valor según la altura de tu barra */
+    
+}
+/* ----------------------------------------------------------------------- */
+/* BARRA DE NAVEGACION */
+.navbar {
+    position: fixed; /* Asegura que la barra esté fija */
+    top: 0; /* Ancla al borde superior */
+    width: 100%; /* Asegura que ocupe todo el ancho */
+    z-index: 1030; /* Asegura que esté por encima de otros elementos */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff; /* Fondo blanco */
+    color: #545454;
+    font: 700 33px "Poppins", sans-serif;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Agrega una sombra para que destaque */
+
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
-    display: flex; /* Activamos flexbox */
-    flex-direction: column; /* Apilamos los elementos verticalmente */
-    align-items: center; /* Centramos los elementos horizontalmente */
-    justify-content: center; /* Centramos los elementos verticalmente */
-    min-height: 100vh; /* Asegura que los elementos ocupen toda la altura */
+    font: 400 12px "Montserrat", serif;
 }
 
-/* Container */
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.logo {
+    height: 40px;
+    margin-right: 10px;
+}
+/* FIN BARRA DE NAVEGACION */
+/* ----------------------------------------------------------------------- */
+
+
+
+/* ----------------------------------------------------------------------- */
+/* MASTHEAD */
+.masthead {
+    position: relative;
+    height: 70vh;
+    background: url("../img/bg-masthead.jpg") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 90px; /* Igual a la altura de la barra */
+    margin-top: -90px; /* Contrarresta el desplazamiento */
+}
+/* FIN MASTHEAD */
+/* ----------------------------------------------------------------------- */
+
+
+
+/* ----------------------------------------------------------------------- */
+/* NUESTRO PRODUCTO */
+.titles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Headings */
+.section-title {
+    text-align: center;
+    font: 900 35px "Poppins", sans-serif;
+    color: #000;
+}
+
+.btn {
+
+    background-color: #4ca5aa;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    transition: background-color 0.3s;
+
+}
+
+.btn:hover {
+    background-color: #545454;;
+}
+/* FIN NUESTRO PRODUCTO */
+/* ----------------------------------------------------------------------- */
+
+
+/* ----------------------------------------------------------------------- */
+/* TEXTOS */
+
+
+/* Estilos generales para h1, h2 y h3 */
+h1, h2, h3 {
+    font-style: normal;
+    color: #545454; /* Color común para los encabezados */
+    margin-bottom: 20px; /* Margen inferior común */
+}
+
+/* Específicos para h1 */
 h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 30px; /* Aumentamos el margen inferior para asegurar espacio entre el título y el mensaje */
+    font-family: "Poppins", sans-serif;
+    font-weight: 900;
+    font-size: 35px;
 }
 
-/* Estilos para los mensajes */
-.message {
-    font-size: 18px;
-    margin-top: 20px; /* Asegura que haya espacio entre el título y el mensaje */
-    margin-bottom: 20px; /* Añade espacio después del mensaje */
-    text-align: center; /* Asegura que el texto del mensaje esté centrado */
+/* Específicos para h2 */
+h2 {
+    font-family: "Montserrat", serif;
+    font-weight: 400;
+    font-size: 40px;
 }
 
-/* Mensaje de éxito */
-.success {
-    color: green;
+/* Específicos para h3 */
+h3 {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
     font-size: 20px;
-    font-weight: bold;
-}
-
-/* Mensaje de error */
-.error {
-    color: red;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-/* Modal (if applicable for all modals) */
-.modal-footer a {
-    width: 100%;
-}
-
-/* Alignment */
-.text-center {
-    text-align: center;
-}
-
-.text-left {
-    text-align: left;
 }
