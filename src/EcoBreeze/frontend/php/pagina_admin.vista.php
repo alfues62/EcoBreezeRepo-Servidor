@@ -44,28 +44,28 @@
                 <tr>
                     <th>
                         ID
-                        <i class="bi bi-arrow-up cursor-pointer"></i>
-                        <i class="bi bi-arrow-down cursor-pointer"></i>
+                        <i class="bi bi-caret-up-fill cursor-pointer"></i>
+                        <i class="bi bi-caret-down-fill cursor-pointer"></i>
                     </th>
                     <th>
                         Nombre
-                        <i class="bi bi-arrow-up cursor-pointer"></i>
-                        <i class="bi bi-arrow-down cursor-pointer"></i>
+                        <i class="bi bi-caret-up-fill cursor-pointer"></i>
+                        <i class="bi bi-caret-down-fill cursor-pointer"></i>
                     </th>
                     <th>
                         Apellidos
-                        <i class="bi bi-arrow-up cursor-pointer"></i>
-                        <i class="bi bi-arrow-down cursor-pointer"></i>
+                        <i class="bi bi-caret-up-fill cursor-pointer"></i>
+                        <i class="bi bi-caret-down-fill cursor-pointer"></i>
                     </th>
                     <th>
                         Email
-                        <i class="bi bi-arrow-up cursor-pointer"></i>
-                        <i class="bi bi-arrow-down cursor-pointer"></i>
+                        <i class="bi bi-caret-up-fill cursor-pointer"></i>
+                        <i class="bi bi-caret-down-fill cursor-pointer"></i>
                     </th>
                     <th>
                         Última Medición
-                        <i class="bi bi-arrow-up cursor-pointer"></i>
-                        <i class="bi bi-arrow-down cursor-pointer"></i>
+                        <i class="bi bi-caret-up-fill cursor-pointer"></i>
+                        <i class="bi bi-caret-down-fill cursor-pointer"></i>
                     </th>
                 </tr>
             </thead>

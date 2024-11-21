@@ -37,16 +37,21 @@ $(document).ready(function() {
         filasOrdenadas.forEach(fila => tabla.appendChild(fila));
 
         actualizarPaginacion();
+        showPage(currentPage);  // Mostrar la página actual después de ordenar
     }
 
-    const encabezados = document.querySelectorAll('table th');
+    const upIcons = document.querySelectorAll('table th .bi-caret-up-fill');
+    const downIcons = document.querySelectorAll('table th .bi-caret-down-fill');
     
-    encabezados.forEach((encabezado, index) => {
-        let tipoOrden = 'asc';
+    upIcons.forEach((icono, index) => {
+        icono.addEventListener('click', () => {
+            ordenarTabla(index, 'asc');
+        });
+    });
 
-        encabezado.addEventListener('click', () => {
-            ordenarTabla(index, tipoOrden);
-            tipoOrden = tipoOrden === 'asc' ? 'desc' : 'asc';
+    downIcons.forEach((icono, index) => {
+        icono.addEventListener('click', () => {
+            ordenarTabla(index, 'desc');
         });
     });
 
@@ -92,6 +97,7 @@ $(document).ready(function() {
             }
             pageItem.on('click', function(e) {
                 e.preventDefault();
+                currentPage = i;  // Actualizar la página actual al hacer clic en una nueva página
                 showPage(i);
             });
             pagination.append(pageItem);
@@ -102,8 +108,7 @@ $(document).ready(function() {
         rows = $(".usuarioRow");
         totalRows = rows.length;
         totalPages = Math.ceil(totalRows / rowsPerPage);
-        currentPage = 1;
-        showPage(currentPage);
+        showPage(currentPage);  // Mostrar la página actual después de actualizar la paginación
     }
 
     showPage(currentPage);
