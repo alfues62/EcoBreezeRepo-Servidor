@@ -151,7 +151,7 @@
                     <li>Actualizaciones limitadas</li>
                     <li><s>Acceso App Móvil</s></li>
                 </ul>
-                <button class="btn" type="button">REGÍSTRATE</button>
+                <a href="../backend/login/main_login.php" class="btn">REGÍSTRATE</a></li>
             </div>
         </div>
 
@@ -161,7 +161,7 @@
         <!-- Plan Premium -->
         <div class="plan-container">
             <div class="plan">
-                <h3>Plan <span style="color: #4ca5aa;">PREMIUM</span> 49,99€</h3>
+                <h3>Plan <span style="color: #4ca5aa;">PREMIUM</span> 0,99€</h3>
                 <ul>
                     <li>Dispositivo EcoBreeze</li>
                     <li>Acceso App Móvil</li>

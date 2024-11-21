@@ -1,4 +1,3 @@
-/* General Styles */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
@@ -6,15 +5,6 @@ body {
     background-color: #ffffff;
 }
 
-h1 {
-    font-size: 45.5px;    
-    margin-bottom: 10px;
-}
-
-h2 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
 
 /* Navigation */
 .navbar {
@@ -53,6 +43,11 @@ h2 {
     margin-right: 10px;
 }
 
+#fotoPerfil{
+    height: 140px;
+    margin-bottom: 40px;
+}
+
 .btn-volver {
     color: #ffffff!important;
     text-decoration: none!important;
@@ -63,13 +58,14 @@ h2 {
 }
 
 /* Login Section */
-.login-container {
+.edicion-container {
     text-align: center;
-    margin-top: 120px; /* Ajusta según la altura de la barra de navegación */
     padding: 2rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+    color: #ffffff;
+    padding-top: 40px;
 }
 
 .input-container {
@@ -197,8 +193,7 @@ h2 {
 
 /* Register Link */
 .login-container p {
-    font-size: 15px;
-    color: #000 !important;
+    font-size: 12px;
 }
 
 .login-container a {
@@ -210,19 +205,49 @@ h2 {
     text-decoration: underline;
 }
 
-.form-group label {
-    font-weight: bold;
+
+
+
+
+
+
+
+.input-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
 }
 
-.btn-primary {
-    width: 100%; /* Personalizado para que el botón ocupe el ancho completo */
-    margin-top: 20px;
+.email-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
-.alert {
-    margin-top: 15px;
-}
-
-.modal-footer a {
+.email-wrapper input {
     width: 100%;
+    padding-right: 40px; /* Espacio para el ícono */
+}
+
+.edit-icon {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-icon .edit-svg {
+    width: 20px;
+    height: 20px;
+    fill: #555; /* Cambia el color si es necesario */
+}
+
+.edit-icon:hover .edit-svg {
+    fill: #000; /* Color al pasar el cursor */
 }

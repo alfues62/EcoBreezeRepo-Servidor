@@ -133,6 +133,8 @@
     background-color: #fff;
     padding-top: 90px; /* Igual a la altura de la barra */
     margin-top: 0; /* Elimina el margen superior */
+    margin-bottom: 50px;
+
 }
 
 
@@ -150,6 +152,7 @@
     height: 100%;
     max-width: 400px;
     justify-self: center;
+
 }
 
 .product-details {
@@ -207,6 +210,8 @@
     text-align: center;
     padding-top: 90px; /* Igual a la altura de la barra */
     margin-top: -90px; /* Contrarresta el desplazamiento */
+    margin-bottom: 50px;
+
 }
 
 
@@ -265,7 +270,12 @@
     padding: 0;
     margin-bottom: 20px;
     text-align: left;
+    margin-top: 20px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
 }
+
 
 .plan ul li s {
     color: #cccccc; /* Color gris para las características tachadas */
@@ -297,6 +307,7 @@
     padding: 50px;
     padding-top: 90px; /* Igual a la altura de la barra */
     margin-top: -90px; /* Contrarresta el desplazamiento */
+    margin-bottom: 50px;
 }
 
 #equipo-ecobreeze .container {
@@ -390,7 +401,6 @@
     width: 100%;
     max-width: 1200px; /* Limita el ancho máximo del contenedor */
     margin: 0 auto; /* Centra el contenedor */
-    display: flex;
     flex-wrap: wrap; /* Permite que los elementos se ajusten en pantallas pequeñas */
     justify-content: space-between;
     

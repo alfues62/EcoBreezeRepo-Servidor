@@ -13,9 +13,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         
     <!-- Core theme CSS -->
-    <link rel="stylesheet" href="/frontend/css/index.css">
-    <link rel="stylesheet" href="/frontend/css/main.css">
-    <link rel="stylesheet" href="/frontend/css/login.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/login.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,13 +33,12 @@
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
         <a href="#seccionInicio">
-            <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
+            <img src="../frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
     <ul class="navbar-nav">
-        <li><a href="index.html" class="btn btn-volver">VOLVER</a></li>
-        <button type="button" class="btn btn-secondary" onclick="window.location.href='/frontend/index.php'">Volver al Inicio</button>
+        <li><a href="/frontend/index.php" class="btn btn-volver">VOLVER</a></li>
 
     </ul>
 </nav>
@@ -77,11 +76,7 @@
         <div class="divider">
             <hr> <span>o</span> <hr>
         </div>
-        <div class="social-login">
-            <button class="btn-social google">G</button>
-            <button class="btn-social email">@</button>
-        </div>
-        <p>¿No tienes cuenta? <a href="#">REGÍSTRATE</a></p>
+        <p>¿Todavia no tienes cuenta? <a href="/src/EcoBreeze/backend/registrar/main_registro.php">Regístrate</a></p>
         <!-- Modal para mostrar errores -->
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
