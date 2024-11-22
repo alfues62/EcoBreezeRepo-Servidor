@@ -68,7 +68,7 @@ class UsuariosConsultasCRUD {
     public function loginHuella($email, $token_huella) {
         try {
             // Prepara la consulta para verificar el email y el token de huella
-            $stmt = $this->conn->prepare("SELECT ID, Nombre,Apellido, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
+            $stmt = $this->conn->prepare("SELECT ID, Nombre, Apellidos, ROL_RolID FROM USUARIO WHERE Email = :email AND token_huella = :token_huella");
             $stmt->bindParam(':email', $email);
             $stmt->bindParam(':token_huella', $token_huella);
             $stmt->execute();
