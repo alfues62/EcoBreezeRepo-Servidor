@@ -30,9 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Comprobar si las contraseñas coinciden
         if (password !== confirmPassword) {
             error = "Las contraseñas no coinciden.";
-        } 
-        // Si deseas activar la validación de complejidad más adelante, descomenta la siguiente línea
-        else if (!checkPasswordComplexity(password)) {
+        } else if (!checkPasswordComplexity(password)) {
             error = "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, un número y un carácter especial.";
         }
 
@@ -45,6 +43,12 @@ document.addEventListener("DOMContentLoaded", function () {
             errorMessageElement.style.display = "none"; // Ocultar el error
             submitButton.disabled = false; // Activar el botón de envío
         }
+    }
+
+    // Función para verificar la complejidad de la contraseña
+    function checkPasswordComplexity(password) {
+        const complexityRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return complexityRegex.test(password);
     }
 
     // Escuchar cambios en los campos de contraseña
