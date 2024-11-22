@@ -25,6 +25,7 @@ h2 {
     background-color: #ffffff;
     color: #545454;
     font: 700 20px "Poppins", sans-serif;
+    font-size: 32px !important;
 }
 
 .navbar-nav {
@@ -65,7 +66,7 @@ h2 {
 /* Login Section */
 .login-container {
     text-align: center;
-    margin-top: 120px; /* Ajusta según la altura de la barra de navegación */
+    margin-top: 40px; /* Ajusta según la altura de la barra de navegación */
     padding: 2rem;
     max-width: 600px;
     margin-left: auto;

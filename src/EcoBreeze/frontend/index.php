@@ -40,7 +40,7 @@
         <li><a href="#seccionInicio">INICIO</a></li>
         <li><a href="#seccionProducto">PRODUCTO</a></li>
         <li><a href="#planes">PLAN</a></li>
-        <li><a href="#equipo-ecobreeze">EQUIPO ECOBREZZE</a></li>
+        <li><a href="#calidad-aire">INFORMACIÓN</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
         <li><a href="/backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
     </ul>
@@ -175,42 +175,44 @@
 
 
 
-<!-- Equipo EcoBreeze Section -->
-<section id="equipo-ecobreeze" class="text-center">
-    <!-- Título de la sección -->
-    <h1 class="section-title">EQUIPO ECOBREZZE</h1>
-    
+<!-- Informacion Section -->
+<section id="calidad-aire" class="quality-air-section">
     <div class="container">
-        <!-- Contenido principal de la sección -->
-        <div class="row">
-            <!-- Columna izquierda: texto introductorio y la imagen -->
-            <div class="col-md-6 text-left">
-                <p>
-                    En EcoBreeze nos dedicamos a concienciar a las comunidades sobre la contaminación y la calidad del aire que respiran, ya sea en sus hogares, trabajos o en sus entornos cotidianos. A través de la <strong>tecnología avanzada y el análisis de datos</strong>, ayudamos a organizaciones, ciudadanos y gobiernos a entender el impacto de la contaminación atmosférica y a actuar con base en esa información.
-                </p>
-                <img src="img/equipo.png" alt="Equipo de EcoBreeze trabajando" class="img-fluid mt-3" />
+        <h2 class="section-title">¿Qué estás respirando?</h2>
+        <p class="section-subtitle">Conoce los principales contaminantes del aire, sus efectos y cómo protegerte.</p>
+        <div class="contaminants-container">
+            <!-- Contaminante 1 -->
+            <div class="contaminant">
+                <h3>CO₂ (Dióxido de Carbono)</h3>
+                <p><strong>Origen:</strong> Actividades humanas como combustión de combustibles fósiles.</p>
+                <p><strong>Efectos:</strong> Fatiga, dolores de cabeza y cambio climático.</p>
+                <p><strong>Solución:</strong> Mejora la ventilación en interiores.</p>
             </div>
-
-            <!-- Columna derecha: lista de departamentos -->
-            <div class="col-md-6 text-left">
-                <h3>Departamento de Investigación, Desarrollo e Innovación</h3>
-                <p>(I+D+i), dirigido por Hao, se encarga de impulsar la innovación y la creación de nuevas soluciones tecnológicas.</p>
-
-                <h3>Departamento de Software</h3>
-                <p>Bajo la dirección de Alex, se enfoca en desarrollar las plataformas digitales y algoritmos que analizan y visualizan los datos de calidad del aire.</p>
-
-                <h3>Departamento de Diseño Gráfico</h3>
-                <p>Liderado por Estela, asegura que nuestras soluciones sean intuitivas y atractivas para nuestros usuarios.</p>
-
-                <h3>Departamento de Hardware</h3>
-                <p>Dirigido por Aleix, diseña y construye los sensores y dispositivos que recolectan datos precisos sobre la calidad del aire.</p>
-
-                <h3>Departamento de Investigación Medioambiental</h3>
-                <p>Con la directora Lola a la cabeza, analiza el impacto de los datos obtenidos, ofreciendo estudios y recomendaciones para la mejora de la salud pública y ambiental.</p>
+            <!-- Contaminante 2 -->
+            <div class="contaminant">
+                <h3>CH₄ (Metano)</h3>
+                <p><strong>Origen:</strong> Agricultura, residuos y extracción de gas natural.</p>
+                <p><strong>Efectos:</strong> Contribuye al calentamiento global.</p>
+                <p><strong>Solución:</strong> Reducir emisiones industriales.</p>
+            </div>
+            <!-- Contaminante 3 -->
+            <div class="contaminant">
+                <h3>O₃ (Ozono)</h3>
+                <p><strong>Origen:</strong> Reacciones químicas en presencia de luz solar.</p>
+                <p><strong>Efectos:</strong> Problemas respiratorios y daño a cultivos.</p>
+                <p><strong>Solución:</strong> Evita actividades al aire libre en picos de ozono.</p>
+            </div>
+            <!-- Contaminante 4 -->
+            <div class="contaminant">
+                <h3>SO₂ (Dióxido de Azufre)</h3>
+                <p><strong>Origen:</strong> Quema de combustibles fósiles.</p>
+                <p><strong>Efectos:</strong> Irritación respiratoria y lluvia ácida.</p>
+                <p><strong>Solución:</strong> Promueve el uso de tecnologías limpias.</p>
             </div>
         </div>
     </div>
 </section>
+
 
 
 <!-- Sección de Contacto -->
@@ -254,35 +256,11 @@
 </section>
 
 
+<!-- Bootstrap core JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS -->
+<script src="js/scripts.js"></script>
 
-    <!-- Footer -->
-    <footer class="footer bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 text-center text-lg-start my-auto">
-                    <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="#!">About</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Contact</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                    </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2024. All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-6 text-center text-lg-end my-auto">
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="bi-twitter"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="bi-facebook"></i></a>
-                    <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Instagram"><i class="bi-instagram"></i></a>
-                </div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- Bootstrap core JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS -->
-    <script src="js/scripts.js"></script>
 </body>
 </html>

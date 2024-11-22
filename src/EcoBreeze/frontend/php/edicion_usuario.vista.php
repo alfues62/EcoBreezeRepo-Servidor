@@ -10,7 +10,9 @@
     <!-- Core theme CSS -->
     <link href="/frontend/css/index.css" rel="stylesheet" />    
     <link href="/frontend/css/main.css" rel="stylesheet" />
-    <link href="/frontend/css/edicion_usuario.css" rel="stylesheet" />
+    <link href="/frontend/css/edicion_usuario.css" rel="stylesheet" />    
+    <link href="/frontend/css/registro.css" rel="stylesheet" />
+
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

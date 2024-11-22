@@ -15,6 +15,8 @@
     <!-- Core theme CSS -->
     <link rel="stylesheet" href="/frontend/css/main.css">
     <link rel="stylesheet" href="/frontend/css/login.css">
+    <link rel="stylesheet" href="/frontend/css/registro.css">
+
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

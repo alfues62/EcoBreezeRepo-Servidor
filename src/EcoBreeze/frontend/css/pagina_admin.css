@@ -24,7 +24,7 @@ h1 {
 .navbar .navbar-brand {
     font-weight: bold;
     color: #007bff;
-    font-size: 1.3rem;
+    font-size: 32px;
 }
 
 .navbar-nav .nav-link {
@@ -151,6 +151,7 @@ button:disabled, .btn:disabled {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #000000 !important;
 }
 
 .modal-header {
@@ -184,7 +185,7 @@ button:disabled, .btn:disabled {
     }
 
     .navbar .navbar-brand {
-        font-size: 1.2rem;
+        font-size: 32px;
     }
 
     .navbar-nav .nav-link {

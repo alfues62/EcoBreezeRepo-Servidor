@@ -119,10 +119,17 @@ button:disabled, .btn:disabled {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #000000 !important;
 }
 
 .modal-header {
     border-bottom: 1px solid #ddd;
+}
+
+.modal-title {
+    margin-bottom: 0;
+    line-height: 1.5;
+    color: #000000 !important;
 }
 
 .modal-footer {
@@ -152,7 +159,7 @@ button:disabled, .btn:disabled {
     }
 
     .navbar .navbar-brand {
-        font-size: 1.2rem;
+        font-size: 32px;
     }
 
     .navbar-nav .nav-link {

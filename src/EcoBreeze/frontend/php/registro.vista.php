@@ -84,13 +84,6 @@
             </div>
             <button type="submit" class="btn btn-login">Registrar</button>
         </form>
-        <div class="divider">
-            <hr> <span>o</span> <hr>
-        </div>
-        <div class="social-login">
-            <button class="btn-social google">G</button>
-            <button class="btn-social email">@</button>
-        </div>
         </section>
 
         <!-- Mensajes de éxito y error -->

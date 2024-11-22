@@ -813,3 +813,22 @@
 2024-11-22 01:09:22 - Token de recuperación actualizado correctamente para el correo: fuset62@gmail.com
 2024-11-22 01:09:22 - Token de recuperación actualizado correctamente para el correo: 390ec5b493f5df31b661357e7e97a5dcdd94c8596164efe84eee35dfc0714e51
 2024-11-22 01:09:49 - Soy el api fuset62@gmail.com
+2024-11-22 08:25:27 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-22 08:25:39 - Correo no registrado
+2024-11-22 08:25:46 - Correo no registrado
+2024-11-22 08:25:52 - Correo no registrado
+2024-11-22 09:00:22 - Correo no registrado
+2024-11-22 09:00:32 - Correo no registrado
+2024-11-22 09:01:01 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-22 09:01:45 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-22 09:01:45 - Hubo un error al verificar el correo.
+2024-11-22 09:01:48 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-22 09:01:48 - Hubo un error al verificar el correo.
+2024-11-22 09:02:07 - Correo no registrado
+2024-11-22 09:02:17 - Correo no registrado
+2024-11-22 09:04:44 - Correo no registrado
+2024-11-22 09:21:51 - Correo no registrado
+2024-11-22 09:23:11 - Correo no registrado
+2024-11-22 10:11:40 - Correo no registrado
