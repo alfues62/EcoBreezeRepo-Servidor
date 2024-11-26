@@ -90,6 +90,8 @@
     </div>
 </section>
 
+
+
 <!-- Nuestro Producto Section -->
 <section id = "seccionProducto" class="our-product">
     <h1 class="section-title">NUESTRO PRODUCTO ECO BREZZE</h1>
@@ -185,31 +187,53 @@
             <div class="contaminant">
                 <h3>CO₂ (Dióxido de Carbono)</h3>
                 <p><strong>Origen:</strong> Actividades humanas como combustión de combustibles fósiles.</p>
-                <p><strong>Efectos:</strong> Fatiga, dolores de cabeza y cambio climático.</p>
-                <p><strong>Solución:</strong> Mejora la ventilación en interiores.</p>
+                <p><strong>Efectos salud:</strong> Fatiga, dolores de cabeza y cambio climático.</p>
+                <p><strong>Efectos medio ambiente:</strong> Contribuye al cambio climático como un gas de efecto invernadero.</p>
+                <div class="more-info">
+                    <p><strong>Límites recomendados:</strong> Mantener los niveles interiores por debajo de 1000 ppm.</p>
+                    <p><strong>Solución:</strong> Mejorar la ventilación en espacios cerrados. Reducir el uso de fuentes de energía que emiten dióxido de carbono.</p>
+                    <img src="/img/c02_image.jpg" alt="Gráfico de CO2" class="info-image">
+                </div>
+                
             </div>
             <!-- Contaminante 2 -->
             <div class="contaminant">
                 <h3>CH₄ (Metano)</h3>
                 <p><strong>Origen:</strong> Agricultura, residuos y extracción de gas natural.</p>
-                <p><strong>Efectos:</strong> Contribuye al calentamiento global.</p>
-                <p><strong>Solución:</strong> Reducir emisiones industriales.</p>
+                <p><strong>Efectos salud:</strong> Contribuye al calentamiento global.</p>
+                <p><strong>Efectos medio ambiente:</strong> Potente gas de efecto invernadero que contribuye significativamente al calentamiento global.</p>
+                <div class="more-info">
+                    <p><strong>Límites recomendados:</strong> Mantener los niveles laborales por debajo de 1000 ppm.</p>
+                    <p><strong>Solución:</strong> Reducir emisiones industriales.</p>
+                    <img src="/img/ch4_image.jpg" alt="Gráfico de CH4" class="info-image">
+                </div>
             </div>
             <!-- Contaminante 3 -->
             <div class="contaminant">
                 <h3>O₃ (Ozono)</h3>
                 <p><strong>Origen:</strong> Reacciones químicas en presencia de luz solar.</p>
-                <p><strong>Efectos:</strong> Problemas respiratorios y daño a cultivos.</p>
-                <p><strong>Solución:</strong> Evita actividades al aire libre en picos de ozono.</p>
+                <p><strong>Efectos salud:</strong> Problemas respiratorios y daño a cultivos.</p>
+                <p><strong>Efectos medio ambiente:</strong> Puede dañar cultivos, vegetación y materiales de construcción.</p>
+                <div class="more-info">
+                    <p><strong>Límites recomendados:</strong> Concentración en exteriores no superior a 70 ppb (promedio de 8 horas).</p>
+                    <p><strong>Solución:</strong> Evita actividades al aire libre en picos de ozono.</p>
+                    <img src="/img/ch4_image.jpg" alt="Gráfico de O3" class="info-image">
+                </div>
             </div>
             <!-- Contaminante 4 -->
             <div class="contaminant">
                 <h3>SO₂ (Dióxido de Azufre)</h3>
                 <p><strong>Origen:</strong> Quema de combustibles fósiles.</p>
-                <p><strong>Efectos:</strong> Irritación respiratoria y lluvia ácida.</p>
-                <p><strong>Solución:</strong> Promueve el uso de tecnologías limpias.</p>
+                <p><strong>Efectos salud:</strong> Irritación respiratoria y lluvia ácida.</p>
+                <p><strong>Efectos medio ambiente:</strong> Contribuye a la lluvia ácida, dañando ecosistemas acuáticos y vegetación.</p>
+                <div class="more-info">
+                    <p><strong>Límites recomendados:</strong> Concentraciones exteriores inferiores a 20 ppb (promedio diario).</p>
+                    <p><strong>Solución:</strong> Promueve el uso de tecnologías limpias.</p>
+                    <img src="/img/so2_image.jpeg" alt="Gráfico de SO2" class="info-image">
+                </div>
             </div>
         </div>
+        <p class="masInfo">Más información</p>
     </div>
 </section>
 
@@ -255,11 +279,19 @@
     </div>
 </section>
 
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2024 EcoBreeze. Todos los derechos reservados.</p>
+
+        </ul>
+    </div>
+</footer>
 
 <!-- Bootstrap core JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS -->
-<script src="js/scripts.js"></script>
+<script src="js/index.js"></script>
 
 
 </body>

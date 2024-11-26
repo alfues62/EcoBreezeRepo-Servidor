@@ -832,3 +832,19 @@
 2024-11-22 09:21:51 - Correo no registrado
 2024-11-22 09:23:11 - Correo no registrado
 2024-11-22 10:11:40 - Correo no registrado
+2024-11-26 09:41:14 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-26 09:41:51 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:41:51 - Hubo un error al verificar el correo.
+2024-11-26 09:42:01 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:42:01 - Hubo un error al verificar el correo.
+2024-11-26 09:42:08 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:42:08 - Hubo un error al verificar el correo.
+2024-11-26 09:42:55 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-26 09:43:08 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:43:08 - Hubo un error al verificar el correo.
+2024-11-26 09:44:39 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:44:39 - Hubo un error al verificar el correo.
+2024-11-26 09:44:56 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-26 09:44:56 - Hubo un error al verificar el correo.

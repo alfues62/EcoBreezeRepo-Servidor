@@ -417,6 +417,7 @@
 /* FIN CONTACTO */
 /* ----------------------------------------------------------------------- */
 
+
 /* ----------------------------------------------------------------------- */
 /* Informacion Section */
 
@@ -426,13 +427,11 @@
     padding-top: 130px; /* Igual a la altura de la barra */
     margin-top: 0; /* Elimina el margen superior */
     padding-bottom: 100px; /* Igual a la altura de la barra */
-
 }
 
 .section-title {
     font-size: 2rem;
     margin-bottom: 10px;
-
 }
 
 .section-subtitle {
@@ -454,6 +453,9 @@
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .contaminant h3 {
@@ -468,6 +470,58 @@
     margin: 5px 0;
 }
 
+.more-info {
+    display: none; /* Oculta la información adicional por defecto */
+}
+
+.more-info.visible {
+    display: block; /* Muestra la información cuando tiene la clase "visible" */
+}
+
+.more-info p {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.info-image {
+    width: 100%; /* Ajusta el tamaño de la imagen */
+    margin-top: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Cambios visuales para "Más Info" */
+.masInfo {
+    color: #4ca5aa;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: right;
+    margin-top: 20px;
+}
+
+.masInfo:hover {
+    text-decoration: underline;
+}
+
 /* FIN Informacion Section */
 /* ----------------------------------------------------------------------- */
 
+/* ----------------------------------------------------------------------- */
+/* Footer Section */
+.footer {
+    background-color: #4ca5aa; /* Color de fondo */
+    color: #ffffff; /* Color del texto */
+    text-align: center; /* Centrar contenido */
+    padding: 10px 0; /* Espaciado superior e inferior */
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+/* Contenedor para centrar contenido */
+.footer .container {
+    max-width: 1200px; /* Ancho máximo del footer */
+    margin: 0 auto; /* Centrar contenido horizontalmente */
+    padding: 0 15px; /* Espaciado interno */
+}
+
+/* FIN Footer Section */
+/* ----------------------------------------------------------------------- */
