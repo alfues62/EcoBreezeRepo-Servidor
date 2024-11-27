@@ -141,5 +141,6 @@
 
     <!-- Incluyendo login.js después de jQuery y Bootstrap -->
     <script src="/frontend/js/login.js"></script>
+    
 </body>
 </html>

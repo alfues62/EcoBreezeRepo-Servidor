@@ -40,7 +40,7 @@
     </ul>
 </nav>
 
-    <!-- Login Section -->
+    <!-- Registro Section -->
     <section class="login-container">
         <h1>Bienvenido a EcoBreeze</h1>
         <h2>CREA TU CUENTA</h2>
