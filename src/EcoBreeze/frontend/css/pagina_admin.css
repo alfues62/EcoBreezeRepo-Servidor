@@ -48,7 +48,7 @@ table {
     width: 100%;
     margin-top: 20px;
     border-collapse: collapse;
-    table-layout: fixed; /* Asegura que todas las columnas tengan el mismo tamaño */
+    table-layout: fixed; /* Fija el tamaño de las columnas */
 }
 
 table, th, td {
@@ -57,14 +57,36 @@ table, th, td {
 
 th, td {
     padding: 12px;
-    text-align: left;
-    word-wrap: break-word; /* Evita que las celdas se desborden */
+    text-align: center; /* Centrar contenido */
+    word-wrap: break-word; /* Ajustar texto largo */
+}
+
+/* Definir tamaños fijos para las columnas */
+th:nth-child(1), td:nth-child(1) { /* Columna ID */
+    width: 10%; /* Ajusta según tu diseño */
+}
+th:nth-child(2), td:nth-child(2) { /* Columna Nombre */
+    width: 25%;
+}
+th:nth-child(3), td:nth-child(3) { /* Columna Email */
+    width: 25%;
+}
+th:nth-child(4), td:nth-child(4) { /* Columna Rol */
+    width: 20%;
+}
+th:nth-child(5), td:nth-child(5) { /* Columna Última Medición o Acción */
+    width: 20%;
+}
+
+/* Altura fija para las filas */
+table tr {
+    height: 50px; /* Altura uniforme */
 }
 
 th {
     background-color: #f2f2f2;
     font-weight: bold;
-    position: relative; /* Para colocar las flechas de ordenación */
+    position: relative; /* Para colocar flechas de ordenación */
 }
 
 td {
@@ -191,20 +213,9 @@ button:disabled, .btn:disabled {
         font-size: 1rem;
     }
 
-    /* Asegúrate de que todas las celdas tengan el mismo ancho */
-table td, table th {
-    width: 20%; /* O cualquier porcentaje que funcione para tu tabla */
-    text-align: center; /* Alineación centrada, si lo prefieres */
-    border: 1px solid #ddd; /* Asegura que haya bordes uniformes */
-    padding: 8px; /* Añadir un poco de relleno para que las celdas no se vean apretadas */
-}
-
-/* Si quieres que las filas vacías tengan el mismo estilo */
-.usuarioRow td {
-    background-color: #f9f9f9; /* Color de fondo opcional para filas vacías */
-    height: 50px; /* Definir una altura consistente para las filas */
-}
-
+    table th, table td {
+        font-size: 0.9rem; /* Texto más pequeño en dispositivos móviles */
+    }
 
     h1 {
         font-size: 1.5rem;

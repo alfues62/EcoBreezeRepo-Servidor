@@ -813,3 +813,15 @@
 2024-11-22 01:09:22 - Token de recuperación actualizado correctamente para el correo: fuset62@gmail.com
 2024-11-22 01:09:22 - Token de recuperación actualizado correctamente para el correo: 390ec5b493f5df31b661357e7e97a5dcdd94c8596164efe84eee35dfc0714e51
 2024-11-22 01:09:49 - Soy el api fuset62@gmail.com
+2024-12-01 18:10:33 - Correo no registrado
+2024-12-01 18:10:38 - Correo no registrado
+2024-12-01 18:19:16 - Contraseña incorrecta
+2024-12-01 18:25:29 - Contraseña incorrecta
+2024-12-01 18:25:41 - ID del usuario: 8
+2024-12-01 18:25:41 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-01 18:25:41 - No se encontraron mediciones para el usuario.
+2024-12-01 18:25:46 - ID del usuario: 8
+2024-12-01 18:25:46 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-01 18:25:46 - No se encontraron mediciones para el usuario.
+Error de conexión a MySQL: SQLSTATE[HY000] [1049] Unknown database 'EcoBreeze'2024-12-01 18:36:17 - ID del usuario: 2
+2024-12-01 18:36:17 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"3","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-20","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"2","Valor":"0.05","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-20","Hora":"10:30:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"},{"IDMedicion":"1","Valor":"0.03","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-20","Hora":"10:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}

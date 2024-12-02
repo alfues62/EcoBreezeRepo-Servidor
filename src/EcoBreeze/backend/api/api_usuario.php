@@ -421,6 +421,27 @@ switch ($action) {
             ]);
         }
         break;
+
+    case 'eliminar_usuario':
+        $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
+    
+        // Verifica si se proporciona el ID del usuario
+        if ($id) {
+            // Llamamos al método de eliminación de usuario
+            $resultado = $usuariosAccionesCRUD->eliminarUsuario($id);
+    
+            // Maneja el resultado de la eliminación
+            if (isset($resultado['success']) && $resultado['success']) {
+                echo json_encode(['success' => true, 'message' => $resultado['message']]);
+            } else {
+                registrarError("Error al eliminar usuario: " . json_encode($resultado));
+                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al eliminar el usuario.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'error' => 'El ID del usuario es obligatorio.']);
+        }
+        break;
+        
     
     
     // FIN CASOS UNIVERSALES
