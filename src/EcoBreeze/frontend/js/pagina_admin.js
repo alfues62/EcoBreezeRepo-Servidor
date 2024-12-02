@@ -4,94 +4,82 @@ $(document).ready(function () {
     let totalRows = rows.length;
     let totalPages = Math.ceil(totalRows / rowsPerPage);
     let currentPage = 1;
+    let currentSortColumn = 4;  // Por defecto, ordenamos por "Última Medición"
+    let currentSortOrder = 'asc';
 
-    // Función para ordenar la tabla por columna
     function ordenarTabla(columnaIndex, tipo) {
+        currentSortColumn = columnaIndex;
+        currentSortOrder = tipo;
+
         const tabla = document.querySelector('table tbody');
         const filas = Array.from(tabla.rows);
 
-        const compararFilas = (filaA, filaB) => {
+        filas.sort((filaA, filaB) => {
             const celdaA = filaA.cells[columnaIndex].innerText.trim();
             const celdaB = filaB.cells[columnaIndex].innerText.trim();
 
-            if (columnaIndex === 4) { // Ordenar "Última Medición"
+            if (columnaIndex === 4) {
                 if (celdaA === 'N/A' && celdaB !== 'N/A') return 1;
                 if (celdaB === 'N/A' && celdaA !== 'N/A') return -1;
 
                 const fechaA = new Date(celdaA);
                 const fechaB = new Date(celdaB);
-
                 return tipo === 'asc' ? fechaA - fechaB : fechaB - fechaA;
             }
 
             if (!isNaN(celdaA) && !isNaN(celdaB)) {
-                return tipo === 'asc' 
-                    ? parseFloat(celdaA) - parseFloat(celdaB) 
-                    : parseFloat(celdaB) - parseFloat(celdaA);
+                return tipo === 'asc' ? parseFloat(celdaA) - parseFloat(celdaB) : parseFloat(celdaB) - parseFloat(celdaA);
             }
 
-            return tipo === 'asc'
-                ? celdaA.localeCompare(celdaB)
-                : celdaB.localeCompare(celdaA);
-        };
-
-        const filasOrdenadas = filas.sort(compararFilas);
+            return tipo === 'asc' ? celdaA.localeCompare(celdaB) : celdaB.localeCompare(celdaA);
+        });
 
         tabla.innerHTML = '';
-        filasOrdenadas.forEach(fila => tabla.appendChild(fila));
+        filas.forEach(fila => tabla.appendChild(fila));
 
         actualizarPaginacion();
-        showPage(currentPage);
+        mostrarPagina(currentPage);
     }
 
-    // Delegación de eventos para las flechas de ordenación
     $('table').on('click', '.bi-caret-up-fill', function () {
-        const columnaIndex = $(this).closest('th').index();
-        ordenarTabla(columnaIndex, 'asc');
+        ordenarTabla($(this).closest('th').index(), 'asc');
     });
 
     $('table').on('click', '.bi-caret-down-fill', function () {
-        const columnaIndex = $(this).closest('th').index();
-        ordenarTabla(columnaIndex, 'desc');
+        ordenarTabla($(this).closest('th').index(), 'desc');
     });
 
-    // Guardar el estado original de la columna
     function guardarEstadoOriginal() {
         $("table tbody tr").each(function () {
-            const celda = $(this).find("td").eq(4);
-            celda.attr("data-ultima-medicion", celda.html());
+            $(this).find("td").eq(4).attr("data-ultima-medicion", $(this).find("td").eq(4).html());
         });
     }
 
-    // Cambiar la columna a botones de eliminar usuario
     function mostrarBotonesEliminar() {
         $('th').eq(4).text('Acción');
         $("table tbody tr").each(function () {
             const celda = $(this).find("td").eq(4);
-            celda.html('<button class="eliminarUsuarioBtn">Eliminar Usuario</button>');
+            if (celda.html().trim() !== '&nbsp;') {
+                celda.html('<button class="eliminarUsuarioBtn">Eliminar Usuario</button>');
+            }
         });
+        ordenarTabla(currentSortColumn, currentSortOrder);
     }
 
-    // Restaurar la columna a "Última Medición"
     function mostrarUltimaMedicion() {
-        const th = $('th').eq(4);
-        th.html(`
+        $('th').eq(4).html(`
             Última Medición
             <i class="bi bi-caret-up-fill cursor-pointer"></i>
             <i class="bi bi-caret-down-fill cursor-pointer"></i>
         `);
-
         $("table tbody tr").each(function () {
             const celda = $(this).find("td").eq(4);
-            const ultimaMedicion = celda.attr("data-ultima-medicion");
-            celda.html(ultimaMedicion);
+            celda.html(celda.attr("data-ultima-medicion"));
         });
-
-        ordenarTabla(4, 'asc');
+        ordenarTabla(currentSortColumn, currentSortOrder);
     }
 
-    // Mostrar la página actual de la tabla
-    function showPage(page) {
+    function mostrarPagina(page) {
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
 
@@ -101,23 +89,19 @@ $(document).ready(function () {
         const rowsDisplayed = end > totalRows ? totalRows - start : rowsPerPage;
         const remainingRows = rowsPerPage - rowsDisplayed;
 
-        if (remainingRows > 0) {
-            for (let i = 0; i < remainingRows; i++) {
-                const emptyRow = $("<tr>").addClass("emptyRow");
-                const columnCount = rows.first().children().length;
-                for (let j = 0; j < columnCount; j++) {
-                    emptyRow.append("<td>&nbsp;</td>");
-                }
-                $("table tbody").append(emptyRow);
+        for (let i = 0; i < remainingRows; i++) {
+            const emptyRow = $("<tr>").addClass("emptyRow");
+            for (let j = 0; j < rows.first().children().length; j++) {
+                emptyRow.append("<td>&nbsp;</td>");
             }
+            $("table tbody").append(emptyRow);
         }
 
-        updatePagination(page);
+        actualizarPaginacion(page);
     }
 
-    function updatePagination(page) {
-        const pagination = $("#pagination");
-        pagination.empty();
+    function actualizarPaginacion(page) {
+        const pagination = $("#pagination").empty();
 
         for (let i = 1; i <= totalPages; i++) {
             const pageItem = $('<li class="page-item"><a class="page-link" href="#">' + i + '</a></li>');
@@ -127,20 +111,12 @@ $(document).ready(function () {
             pageItem.on('click', function (e) {
                 e.preventDefault();
                 currentPage = i;
-                showPage(i);
+                mostrarPagina(i);
             });
             pagination.append(pageItem);
         }
     }
 
-    function actualizarPaginacion() {
-        rows = $(".usuarioRow");
-        totalRows = rows.length;
-        totalPages = Math.ceil(totalRows / rowsPerPage);
-        showPage(currentPage);
-    }
-
-    // Manejo de botones
     $(document).on('click', '#eliminarUsuarioBtn', function () {
         mostrarBotonesEliminar();
     });
@@ -149,9 +125,37 @@ $(document).ready(function () {
         mostrarUltimaMedicion();
     });
 
-    // Inicializar la vista
+    $(document).on('click', '.eliminarUsuarioBtn', function () {
+        const fila = $(this).closest('tr');
+        const usuarioId = fila.find('td').eq(0).text();
+
+        const usuarioDatos = `
+            <strong>ID:</strong> ${usuarioId}<br>
+            <strong>Nombre:</strong> ${fila.find('td').eq(1).text()}<br>
+            <strong>Apellidos:</strong> ${fila.find('td').eq(2).text()}<br>
+            <strong>Email:</strong> ${fila.find('td').eq(3).text()}
+        `;
+        $('#modalUsuarioDatos').html(`
+            ¿Estás seguro de que deseas eliminar al siguiente usuario?<br>
+            ${usuarioDatos}
+        `);
+        $('#confirmarEliminarModal').modal('show');
+
+        $('#confirmarEliminarBtn').off('click').on('click', function () {
+            $('#deleteUserId').val(usuarioId);
+            $('#deleteForm').submit();
+        });
+    });
+
+    const successMessage = $('#successMessage').html();
+    const errorMessage = $('#errorMessage').html();
+    if (successMessage || errorMessage) {
+        $('#resultadoModalBody').html(successMessage ? successMessage : errorMessage);
+        $('#resultadoModal').modal('show');
+    }
+
     guardarEstadoOriginal();
     $('#ultimaMedicionBtn').trigger('click');
-    showPage(currentPage);
+    mostrarPagina(currentPage);
     ordenarTabla(4, 'asc');
 });

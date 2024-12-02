@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/frontend/css/main.css">
     <link rel="stylesheet" href="/frontend/css/pagina_admin.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Incluir Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
@@ -33,84 +32,93 @@
 
 <h1>Usuarios</h1>
 
-<?php if ($success_message): ?>
-    <p class="success"><?php echo $success_message; ?></p>
+<?php if (!empty($success_message)): ?>
+    <p class="success" id="successMessage" style="display:none;"><?php echo $success_message; ?></p>
 <?php endif; ?>
 
-<?php if ($error_message): ?>
-    <p class="error"><?php echo $error_message; ?></p>
+<?php if (!empty($error_message)): ?>
+    <p class="error" id="errorMessage" style="display:none;"><?php echo $error_message; ?></p>
 <?php endif; ?>
 
-<?php if (isset($usuarios) && is_array($usuarios) && count($usuarios) > 0): ?>
+<?php if (!empty($usuarios)): ?>
     <table class="table">
         <thead>
             <tr>
-                <th>
-                    ID
-                    <i class="bi bi-caret-up-fill cursor-pointer"></i>
-                    <i class="bi bi-caret-down-fill cursor-pointer"></i>
-                </th>
-                <th>
-                    Nombre
-                    <i class="bi bi-caret-up-fill cursor-pointer"></i>
-                    <i class="bi bi-caret-down-fill cursor-pointer"></i>
-                </th>
-                <th>
-                    Apellidos
-                    <i class="bi bi-caret-up-fill cursor-pointer"></i>
-                    <i class="bi bi-caret-down-fill cursor-pointer"></i>
-                </th>
-                <th>
-                    Email
-                    <i class="bi bi-caret-up-fill cursor-pointer"></i>
-                    <i class="bi bi-caret-down-fill cursor-pointer"></i>
-                </th>
-                <th>
-                    Última Medición
-                    <i class="bi bi-caret-up-fill cursor-pointer"></i>
-                    <i class="bi bi-caret-down-fill cursor-pointer"></i>
-                </th>
+                <th>ID <i class="bi bi-caret-up-fill cursor-pointer"></i> <i class="bi bi-caret-down-fill cursor-pointer"></i></th>
+                <th>Nombre <i class="bi bi-caret-up-fill cursor-pointer"></i> <i class="bi bi-caret-down-fill cursor-pointer"></i></th>
+                <th>Apellidos <i class="bi bi-caret-up-fill cursor-pointer"></i> <i class="bi bi-caret-down-fill cursor-pointer"></i></th>
+                <th>Email <i class="bi bi-caret-up-fill cursor-pointer"></i> <i class="bi bi-caret-down-fill cursor-pointer"></i></th>
+                <th>Última Medición <i class="bi bi-caret-up-fill cursor-pointer"></i> <i class="bi bi-caret-down-fill cursor-pointer"></i></th>
             </tr>
         </thead>
-        <tbody id="usuariosTableBody">
-            <?php foreach ($usuarios as $index => $usuario): ?>
-                <tr class="usuarioRow" data-index="<?php echo $index; ?>">
+        <tbody>
+            <?php foreach ($usuarios as $usuario): ?>
+                <tr class="usuarioRow">
                     <td><?php echo htmlspecialchars($usuario['ID']); ?></td>
                     <td><?php echo htmlspecialchars($usuario['Nombre']); ?></td>
                     <td><?php echo htmlspecialchars($usuario['Apellidos']); ?></td>
                     <td><?php echo htmlspecialchars($usuario['Email']); ?></td>
-                    <td>
-                        <?php
-                        // Mostrar "N/A" si la última medición es "N/A"
-                        if ($usuario['UltimaMedicion'] === 'N/A') {
-                            echo "<span class='na'>N/A</span>";
-                        } else {
-                            echo htmlspecialchars($usuario['UltimaMedicion']);
-                        }
-                        ?>
-                    </td>
+                    <td><?php echo $usuario['UltimaMedicion'] === 'N/A' ? "<span class='na'>N/A</span>" : htmlspecialchars($usuario['UltimaMedicion']); ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 
-    <!-- Paginación -->
     <nav>
-        <ul class="pagination" id="pagination">
-            <!-- Se llenará con la paginación en JavaScript -->
-        </ul>
+        <ul class="pagination" id="pagination"></ul>
     </nav>
-
 <?php else: ?>
     <p>No se encontraron usuarios con mediciones.</p>
 <?php endif; ?>
 
-<!-- Scripts de Bootstrap y jQuery -->
+<!-- Formulario oculto para enviar solicitudes de eliminación -->
+<form id="deleteForm" method="POST" action="/backend/pagina_admin/main_admin.php">
+    <input type="hidden" name="action" value="eliminar_usuario">
+    <input type="hidden" name="id" id="deleteUserId">
+</form>
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" role="dialog" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmarEliminarModalLabel">Confirmar Eliminación</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="modalUsuarioDatos"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="confirmarEliminarBtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal de resultado -->
+<div class="modal fade" id="resultadoModal" tabindex="-1" role="dialog" aria-labelledby="resultadoModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="resultadoModalLabel">Resultado</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="resultadoModalBody"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Enlazar el archivo JavaScript personalizado -->
 <script src="/frontend/js/pagina_admin.js"></script>
-
 </body>
 </html>
