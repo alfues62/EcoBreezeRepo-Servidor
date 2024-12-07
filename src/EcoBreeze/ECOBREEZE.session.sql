@@ -4,7 +4,7 @@ INSERT INTO SENSOR (MAC, USUARIO_ID)
 VALUES ('00:1A:2B:sasdaasdada', 12);  -- USUARIO_ID debe existir.
 
 -- 6. Verificar el SensorID recién insertado
-SELECT * FROM SENSOR;  -- Asegúrate de que el SensorID sea correcto.
+SELECT * FROM USUARIO;  -- Asegúrate de que el SensorID sea correcto.
 
 -- 7. Insertar una medición
 INSERT INTO `EcoBreeze`.`MEDICION` (`Valor`, `Lon`, `Lat`, `Fecha`, `Hora`, `TIPOGAS_TipoID`, `SENSOR_ID_Sensor`)

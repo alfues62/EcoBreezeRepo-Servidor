@@ -43,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['usuario_id'] = $result['ID'];
                     $_SESSION['nombre'] = $result['Nombre'];
                     $_SESSION['apellidos'] = $result['Apellidos'];
+                    $_SESSION['email'] = $email;
                     $_SESSION['rol'] = $result['Rol'];
 
                     // Verificamos el rol del usuario para redirigirlo

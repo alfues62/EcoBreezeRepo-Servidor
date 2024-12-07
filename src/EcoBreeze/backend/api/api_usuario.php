@@ -248,32 +248,34 @@ switch ($action) {
         }
     break;
 
-    case 'cambiar_correo':
+    case 'cambiar_token':
         $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request
         $contrasenaActual = $requestData['contrasena_actual'] ?? null; // Obtener la contraseña actual del request
         $nuevoCorreo = $requestData['nuevo_correo'] ?? null; // Obtener el nuevo correo del request
-        
-        // Verifica si se proporciona el ID del usuario, la contraseña actual y el nuevo correo
-        if ($id && $contrasenaActual && $nuevoCorreo) {
+        $token = $requestData['token'] ?? null; // Obtener el token del request
+        registrarError($id . $contrasenaActual . $nuevoCorreo . 'que tal');
+        // Verifica si se proporciona el ID del usuario, la contraseña actual, el nuevo correo y el token
+        if ($id && $contrasenaActual && $nuevoCorreo && $token) {
             // Verifica si el nuevo correo ya está en uso
             if ($usuariosConsultasCRUD->emailExistente($nuevoCorreo)) {
                 echo json_encode(['success' => false, 'error' => 'El email ya está registrado.']);
                 break;
             }
     
-            $resultado = $usuariosAccionesCRUD->cambiarCorreoPorID($id, $contrasenaActual, $nuevoCorreo);
+            $resultado = $usuariosAccionesCRUD->cambiarTokenPorID($id, $contrasenaActual, $token);
     
-            // Maneja el resultado de la actualización del correo
+            // Maneja el resultado de la actualización del token
             if (isset($resultado['success']) && $resultado['success']) {
-                echo json_encode(['success' => true, 'message' => $resultado['message']]);
+                echo json_encode(['success' => true, 'message' => 'Por favor, verifique su nuevo correo.']);
             } else {
-                registrarError("Error al cambiar correo: " . json_encode($resultado));
-                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar el correo.']);
+                registrarError("Error al cambiar token: " . json_encode($resultado));
+                echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al cambiar el token.']);
             }
         } else {
-            echo json_encode(['success' => false, 'error' => 'La contraseña actual y el nuevo correo son obligatorios.']);
+            echo json_encode(['success' => false, 'error' => 'La contraseña actual, el nuevo correo y el token son obligatorios.']);
         }
-    break;
+        break;
+    
 
     case 'recuperar_contrasena':
         $email = $requestData['email'] ?? null; // Obtener el correo electrónico del request
@@ -421,6 +423,27 @@ switch ($action) {
             ]);
         }
         break;
+
+    case 'cambiar_correo':
+        $email = $requestData['email'] ?? null;
+        $nuevoCorreo = $requestData['nuevo_correo'] ?? null;
+                
+        if ($email && $nuevoCorreo) {
+            // Llamamos al método para cambiar el correo
+            $resultado = $usuariosAccionesCRUD->cambiarCorreo($email, $nuevoCorreo);
+            
+            if (isset($resultado['error'])) {
+                echo json_encode(['success' => false, 'message' => $resultado['error']]);
+            } elseif (isset($resultado['success'])) {
+                echo json_encode(['success' => true, 'message' => $resultado['success']]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error inesperado.']);
+            }
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Correo actual y nuevo correo son obligatorios.']);
+        }
+        break;
+    
 
     case 'eliminar_usuario':
         $id = $requestData['id'] ?? null; // Obtener el ID del usuario del request

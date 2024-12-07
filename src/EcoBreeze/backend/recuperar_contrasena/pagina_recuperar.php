@@ -1,7 +1,7 @@
 <?php
 require_once '../log.php';
 require_once '../SolicitudCurl.php';
-require_once 'validar_token.php';
+require_once '../validar_token.php';
 require_once 'cambiar_contrasena_recuperar.php';
 
 // Obtener parámetros de la URL y sanitizarlos

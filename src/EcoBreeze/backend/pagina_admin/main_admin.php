@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
 $result = obtenerUltimaMedicion();
 
+
 // Comprobamos si hubo un error en la respuesta
 if ($result === false) {
     // Si la solicitud cURL falló, mostramos un mensaje de error
@@ -50,4 +51,3 @@ if ($result === false) {
 // Incluir la vista del administrador
 include '../../frontend/php/pagina_admin.vista.php';
 ?>
-    
