@@ -1031,4 +1031,6 @@ Error de conexión a MySQL: SQLSTATE[HY000] [1049] Unknown database 'EcoBreeze'2
 2024-12-03 14:27:54 - ID del usuario: 16
 2024-12-03 14:27:54 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
 2024-12-03 14:27:54 - No se encontraron mediciones para el usuario.
-Error de conexión a MySQL: SQLSTATE[HY000] [2002] Connection refused
+Error de conexión a MySQL: SQLSTATE[HY000] [2002] Connection refused2024-12-07 21:46:18 - ID del usuario: 11
+2024-12-07 21:46:18 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-07 21:46:18 - No se encontraron mediciones para el usuario.
