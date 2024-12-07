@@ -1,14 +1,94 @@
 openapi: 3.0.3
 info:
-  title: API de Usuarios
-  description: API para registrar y gestionar usuarios.
-  version: 1.0.0
+  title: API ECOBREEZE DATOS
+  description: API para obtener las mediciones de un usuario.
+  version: 2.0.0
 servers:
-  - url: http://localhost/api/api_datos.php
+  - url: http://localhost:8080/api/api_datos.yaml
     description: 'Servidor de desarrollo'
 
 paths:
-  /regsitrar:
+  /obtener_mediciones_usuario:
+    post:
+      summary: "Obtener mediciones de un usuario específico"
+      description: "Este endpoint obtiene las mediciones asociadas a un usuario, a partir de su ID."
+      tags:
+        - Usuarios
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_id:
+                  type: integer
+                  description: "ID único del usuario para obtener las mediciones."
+                  example: 123
+      responses:
+        '200':
+          description: "Mediciones obtenidas exitosamente"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  mediciones:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fecha:
+                          type: string
+                          format: date
+                          example: "2024-11-19"
+                        valor:
+                          type: number
+                          format: float
+                          example: 98.6
+        '400':
+          description: "Solicitud incorrecta, falta el ID del usuario"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "El ID del usuario es obligatorio."
+        '404':
+          description: "No se encontraron mediciones para el usuario"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "No se encontraron mediciones para este usuario."
+        '500':
+          description: "Error interno en el servidor"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  error:
+                    type: string
+                    example: "Error al obtener las mediciones."
+  /registrar:
     post:
       summary: "Registrar un nuevo usuario"
       description: "Este endpoint permite registrar un usuario con nombre, apellidos, correo y contraseña."
@@ -929,6 +1009,17 @@ paths:
                     example: "Error desconocido al obtener los datos del usuario."
 components:
   schemas:
+    Mediciones:
+      type: object
+      properties:
+        fecha:
+          type: string
+          format: date
+          description: "Fecha de la medición"
+        valor:
+          type: number
+          format: float
+          description: "Valor de la medición"
     ErrorResponse:
       type: object
       properties:
@@ -937,8 +1028,7 @@ components:
           example: false
         error:
           type: string
-          example: "Error inesperado."
-
+          description: "Mensaje de error"
     SuccessResponse:
       type: object
       properties:
@@ -948,7 +1038,6 @@ components:
         message:
           type: string
           example: "Operación realizada con éxito."
-
     Usuario:
       type: object
       properties:
@@ -972,7 +1061,6 @@ components:
           type: string
           description: "Rol del usuario (por ejemplo, 'admin' o 'usuario')."
           example: "admin"
-
     TokenHuella:
       type: object
       properties:
@@ -980,7 +1068,6 @@ components:
           type: string
           description: "Token único asociado a la huella dactilar del usuario."
           example: "123456789abcdef"
-
     Huella:
       type: object
       properties:
@@ -992,7 +1079,6 @@ components:
           type: string
           description: "Token de la huella."
           example: "abcdef12345"
-
     Sensor:
       type: object
       properties:
@@ -1013,7 +1099,6 @@ components:
           format: date
           description: "Fecha de instalación del sensor."
           example: "2024-11-19"
-
     CambioContrasena:
       type: object
       properties:
@@ -1029,7 +1114,6 @@ components:
           type: string
           description: "Nueva contraseña que el usuario desea establecer."
           example: "nuevacontrasena456"
-
     CambioCorreo:
       type: object
       properties:
@@ -1045,7 +1129,6 @@ components:
           type: string
           description: "Nuevo correo electrónico que el usuario desea usar."
           example: "juan.nuevo@example.com"
-
     RecuperarContrasena:
       type: object
       properties:
@@ -1061,7 +1144,6 @@ components:
           type: string
           description: "Nueva contraseña que el usuario desea establecer."
           example: "nuevaContrasena123"
-        
     ActualizarTokenRecuperacion:
       type: object
       properties:
@@ -1073,7 +1155,6 @@ components:
           type: string
           description: "Nuevo token de recuperación."
           example: "abcdef123456"
-
     ObtenerDatosUsuario:
       type: object
       properties:
