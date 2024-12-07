@@ -2,7 +2,7 @@
 require_once '../SolicitudCurl.php';  
 require_once '../log.php';            
 require_once 'cambiar_contrasena_recuperar.php';
-require_once 'validar_token.php';
+require_once '../validar_token.php';
 
 // Obtener los datos del formulario
 $email = $_POST['email'] ?? '';

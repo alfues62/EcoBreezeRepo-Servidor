@@ -5,28 +5,36 @@ require_once '../SolicitudCurl.php';
 require_once '../log.php';
 require_once 'obtener_datos.php';
 require_once 'cambiar_contrasena.php';
-require_once 'cambiar_correo.php';
+require_once 'actualizar_token_correo.php';
 require_once 'obtener_mediciones.php';
+require_once 'correo_cambiar_contrasena.php';
+require_once 'correo_cambiar_correo.php';
 
+// Variables globales de sesión
+$usuario_id = $_SESSION['usuario_id'] ?? null;
+$nombre = $_SESSION['nombre'] ?? null;
+$apellidos = $_SESSION['apellidos'] ?? null;
+$email = $_SESSION['email'] ?? null;
+$rol = $_SESSION['rol'] ?? null;
 
 // Variables para los mensajes de error y éxito
 $error_message = '';
 $success_message = '';
 
 // Verificamos si el usuario está logueado, de lo contrario lo redirigimos al login
-if (!isset($_SESSION['usuario_id'])) {
+if (!$usuario_id) {
     header('Location: ../login/main_login.php');
     exit();
 }
 
 // Obtener los datos del usuario
-if (isset($_SESSION['usuario_id'])) {
-    $usuario = obtenerDatosUsuario($_SESSION['usuario_id']);
+if ($usuario_id) {
+    $usuario = obtenerDatosUsuario($usuario_id);
     if (!$usuario) {
         $error_message = 'Error al obtener los datos del usuario.';
     } else {
         // Obtener las mediciones del usuario logueado
-        $mediciones = obtenerMedicionesUsuario($_SESSION['usuario_id']);
+        $mediciones = obtenerMedicionesUsuario($usuario_id);
         
         // Verificar si la respuesta es válida y contiene mediciones
         if (is_array($mediciones) && !isset($mediciones['error'])) {
@@ -51,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Usamos un switch para manejar las acciones de los formularios
     switch ($action) {
         case 'cambiar_contrasena':
-            $id = $_SESSION['usuario_id'] ?? null;
+            $id = $usuario_id;
             $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
             $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
             $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
@@ -59,13 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Verificar que las nuevas contraseñas coincidan
             if ($nuevaContrasena !== $confirmarContrasena) {
                 $error_message = 'Las nuevas contraseñas no coinciden.';
-            }elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
+            } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
                 $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
             } else {
                 // Cambiar la contraseña y obtener el resultado
                 $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
                 // Comprobar si la respuesta es de éxito
                 if (isset($result['success'])) {
+                    enviarCorreoCambioContrasena($email, $nombre, $apellidos);
                     $success_message = $result['success'];  // Mensaje de éxito
                 } else {
                     $error_message = $result['error'];  // Mensaje de error
@@ -73,24 +82,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             break;
 
-        case 'cambiar_correo':
-            $id = $_SESSION['usuario_id'] ?? null;
-            $nuevoCorreo = trim($_POST['email'] ?? '');
-            $contrasenaActual = trim($_POST['contrasena_actual_correo'] ?? '');
-
-            if ($id) {
-                // Cambiar el correo y obtener el resultado
-                $result = cambiarCorreo($id, $contrasenaActual, $nuevoCorreo);
-
-                if (isset($result['success'])) {
-                    $success_message = $result['success'];
+            case 'cambiar_correo':
+                $id = $usuario_id;
+                $nuevoCorreo = trim($_POST['nuevo_email'] ?? '');
+                $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
+            
+                if ($id) {
+                    // Generar un token directamente
+                    $token = bin2hex(random_bytes(32));
+            
+                    // Cambiar el correo y obtener el resultado
+                    $result = cambiarToken($id, $contrasenaActual, $nuevoCorreo, $token);
+            
+                    if (isset($result['success'])) {
+                        // Enviar el correo de notificación
+                        enviarCorreoCambio($email, $nuevoCorreo, $token, $nombre, $apellidos);
+                        $success_message = $result['success'];
+                    } else {
+                        $error_message = $result['error'];
+                    }
                 } else {
-                    $error_message = $result['error'];
+                    $error_message = 'No estás autenticado. Por favor, inicia sesión.';
                 }
-            } else {
-                $error_message = 'No estás autenticado. Por favor, inicia sesión.';
-            }
-            break;
+                break;
+            
+            
 
         default:
             $error_message = 'Acción no válida.';

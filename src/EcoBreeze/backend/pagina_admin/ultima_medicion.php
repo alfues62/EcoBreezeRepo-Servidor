@@ -8,11 +8,11 @@ function obtenerUltimaMedicion() {
 
     if ($result && isset($result['success']) && $result['success']) {
         return $result;  // Asumiendo que los usuarios y sus mediciones están en 'usuarios'
+
     } else {
         $error_message = $result['error'] ?? 'Error desconocido.';
         registrarError($error_message); // Registra el error
         return ['error' => $error_message];
     }
 }
-
 ?>

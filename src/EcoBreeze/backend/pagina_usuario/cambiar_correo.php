@@ -1,14 +1,12 @@
 <?php
 
-// Función para cambiar la contraseña
-function cambiarCorreo($id, $contrasenaActual, $nuevoCorreo) {
+function cambiarCorreo($email, $nuevoCorreo) {
     
     $error_message = '';
 
     $url = 'http://host.docker.internal:8080/api/api_usuario.php?action=cambiar_correo';
     $data = json_encode([
-        'id' => $id,
-        'contrasena_actual' => $contrasenaActual,
+        'email' => $email,
         'nuevo_correo' => $nuevoCorreo
     ]);
 
