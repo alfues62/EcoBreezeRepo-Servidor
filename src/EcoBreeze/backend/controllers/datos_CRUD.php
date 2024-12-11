@@ -189,7 +189,5 @@ class DatosCRUD {
             return ['error' => 'Error al insertar la notificación.'];
         }
     }
-    
-    
 
 }

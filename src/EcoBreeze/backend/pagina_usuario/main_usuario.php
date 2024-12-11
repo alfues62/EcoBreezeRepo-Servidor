@@ -15,98 +15,72 @@ $usuario_id = $_SESSION['usuario_id'] ?? null;
 $nombre = $_SESSION['nombre'] ?? null;
 $apellidos = $_SESSION['apellidos'] ?? null;
 $email = $_SESSION['email'] ?? null;
-$rol = $_SESSION['rol'] ?? null;
 
-// Variables para los mensajes de error y éxito
-$error_message = '';
-$success_message = '';
-
-// Verificamos si el usuario está logueado, de lo contrario lo redirigimos al login
+// Redirigir si el usuario no está logueado
 if (!$usuario_id) {
     header('Location: ../login/main_login.php');
     exit();
 }
 
+// Inicialización de variables
+$error_message = '';
+$success_message = '';
+
 // Obtener los datos del usuario
-if ($usuario_id) {
-    $usuario = obtenerDatosUsuario($usuario_id);
-    if (!$usuario) {
-        $error_message = 'Error al obtener los datos del usuario.';
-    } else {
-        // Obtener las mediciones del usuario logueado
-        $mediciones = obtenerMedicionesUsuario($usuario_id);
-        
-        // Verificar si la respuesta es válida y contiene mediciones
-        if (is_array($mediciones) && !isset($mediciones['error'])) {
-            // Si las mediciones están bien, las convertimos a JSON
-            $mediciones_json = json_encode($mediciones);
-        } else {
-            // Si hay un error, lo mostramos
-            $error_message2 = 'Error al obtener las mediciones: ' . ($mediciones['error'] ?? 'Datos inválidos.');
-            $mediciones_json = '[]'; // Asegura que siempre sea un JSON válido
-        }
-    }
+$usuario = obtenerDatosUsuario($usuario_id);
+if (!$usuario) {
+    $error_message = 'Error al obtener los datos del usuario.';
 } else {
-    $error_message = 'No estás autenticado. Por favor, inicia sesión.';
-    $mediciones_json = '[]'; // Asegura que siempre sea un JSON válido
+    // Obtener las mediciones del usuario logueado
+    $mediciones = obtenerMedicionesUsuario($usuario_id);
+    $mediciones_json = (is_array($mediciones) && !isset($mediciones['error'])) ? json_encode($mediciones) : '[]';
 }
 
-// Comprobamos si el formulario fue enviado
+// Procesamiento del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Obtenemos el formulario
     $action = $_POST['action'] ?? '';
 
-    // Usamos un switch para manejar las acciones de los formularios
     switch ($action) {
         case 'cambiar_contrasena':
-            $id = $usuario_id;
             $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
             $nuevaContrasena = trim($_POST['nueva_contrasena'] ?? '');
             $confirmarContrasena = trim($_POST['confirmar_contrasena'] ?? '');
 
-            // Verificar que las nuevas contraseñas coincidan
+            // Verificar que las contraseñas coincidan y tengan formato válido
             if ($nuevaContrasena !== $confirmarContrasena) {
                 $error_message = 'Las nuevas contraseñas no coinciden.';
             } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/', $nuevaContrasena)) {
-                $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.'; 
+                $error_message = 'La contraseña debe tener al menos 8 caracteres, incluir al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.';
             } else {
-                // Cambiar la contraseña y obtener el resultado
-                $result = cambiarContrasena($id, $contrasenaActual, $nuevaContrasena);
-                // Comprobar si la respuesta es de éxito
+                // Cambiar la contraseña
+                $result = cambiarContrasena($usuario_id, $contrasenaActual, $nuevaContrasena);
                 if (isset($result['success'])) {
                     enviarCorreoCambioContrasena($email, $nombre, $apellidos);
-                    $success_message = $result['success'];  // Mensaje de éxito
+                    $success_message = $result['success'];
                 } else {
-                    $error_message = $result['error'];  // Mensaje de error
+                    $error_message = $result['error'];
                 }
             }
             break;
 
-            case 'cambiar_correo':
-                $id = $usuario_id;
-                $nuevoCorreo = trim($_POST['nuevo_email'] ?? '');
-                $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
-            
-                if ($id) {
-                    // Generar un token directamente
-                    $token = bin2hex(random_bytes(32));
-            
-                    // Cambiar el correo y obtener el resultado
-                    $result = cambiarToken($id, $contrasenaActual, $nuevoCorreo, $token);
-            
-                    if (isset($result['success'])) {
-                        // Enviar el correo de notificación
-                        enviarCorreoCambio($email, $nuevoCorreo, $token, $nombre, $apellidos);
-                        $success_message = $result['success'];
-                    } else {
-                        $error_message = $result['error'];
-                    }
+        case 'cambiar_correo':
+            $nuevoCorreo = trim($_POST['nuevo_email'] ?? '');
+            $contrasenaActual = trim($_POST['contrasena_actual'] ?? '');
+
+            if ($usuario_id) {
+                $token = bin2hex(random_bytes(32)); // Generar token
+                $result = cambiarToken($usuario_id, $contrasenaActual, $nuevoCorreo, $token);
+
+                if (isset($result['success'])) {
+                    enviarCorreoCambio($email, $nuevoCorreo, $token, $nombre, $apellidos);
+                    $success_message = $result['success'];
                 } else {
-                    $error_message = 'No estás autenticado. Por favor, inicia sesión.';
+                    $error_message = $result['error'];
                 }
-                break;
-            
-            
+            } else {
+                $error_message = 'No estás autenticado. Por favor, inicia sesión.';
+            }
+            break;
 
         default:
             $error_message = 'Acción no válida.';
@@ -114,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Incluye la vista de la página de usuario
+// Incluir la vista
 include '../../frontend/php/pagina_usuario.vista.php';
-
 ?>

@@ -4,10 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Datos de Usuario</title>
+
+    <!-- Hojas de estilo -->
     <link rel="stylesheet" href="/frontend/css/main.css">
     <link rel="stylesheet" href="/frontend/css/pagina_usuario.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Leaflet (Mapa y mapa de calor) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.heat/dist/leaflet-heat.css">
+    
+    <!-- Scripts de JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+    
+    <!-- Scripts de Bootstrap y jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/frontend/index.php">Mi Aplicación</a>
@@ -66,7 +83,7 @@
         </div>
     <?php endif; ?>
 
-    
+    <div id="map" style="width: 100%; height: 500px;"></div>
 
     <!-- Modal para modificar el perfil -->
     <div class="modal fade" id="modificarPerfilModal" tabindex="-1" role="dialog" aria-labelledby="modificarPerfilModalLabel" aria-hidden="true">
@@ -204,15 +221,14 @@
         </div>
     </div>
 
-<!-- Scripts de Bootstrap y jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Enlazar el archivo JavaScript personalizado -->
 <script>
     // Pasa las mediciones de PHP a JavaScript
     window.mediciones = <?php echo $mediciones_json; ?>;
+    window.mapaMediciones = <?php echo $mediciones_json; ?>;
 </script>
 <script src="/frontend/js/pagina_usuario.js"></script>
+<script src="/frontend/js/mapa.js"></script>
+
 </body>
 </html>
