@@ -50,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`USUARIO` (
     FOREIGN KEY (`ROL_RolID`)
     REFERENCES `EcoBreeze`.`ROL` (`RolID`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 8
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
@@ -59,19 +58,23 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `EcoBreeze`.`SENSOR`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EcoBreeze`.`SENSOR` (
-  `SensorID` INT NOT NULL AUTO_INCREMENT,
-  `MAC` VARCHAR(45) NOT NULL,
-  `USUARIO_ID` INT NOT NULL,
-  PRIMARY KEY (`SensorID`, `USUARIO_ID`, `MAC`),
-  UNIQUE INDEX `MAC_UNIQUE` (`MAC` ASC) VISIBLE,
-  UNIQUE INDEX `ID Sensor_UNIQUE` (`SensorID` ASC) VISIBLE,
-  INDEX `fk_SENSOR_USUARIO1_idx` (`USUARIO_ID` ASC) VISIBLE,
+  `SensorID` INT NOT NULL AUTO_INCREMENT,   -- Identificador único del sensor
+  `MAC` VARCHAR(45) NOT NULL,              -- Dirección MAC del sensor
+  `USUARIO_ID` INT NOT NULL,               -- ID del usuario vinculado al sensor
+  PRIMARY KEY (`SensorID`, `USUARIO_ID`, `MAC`), -- Clave primaria compuesta
+  UNIQUE INDEX `MAC_UNIQUE` (`MAC` ASC) VISIBLE, -- La MAC debe ser única
+  UNIQUE INDEX `ID Sensor_UNIQUE` (`SensorID` ASC) VISIBLE, -- El ID del sensor debe ser único
+  UNIQUE INDEX `USUARIO_UNIQUE` (`USUARIO_ID` ASC) VISIBLE, -- Cada usuario debe ser único
+  INDEX `fk_SENSOR_USUARIO1_idx` (`USUARIO_ID` ASC) VISIBLE, -- Índice para la FK
   CONSTRAINT `fk_SENSOR_USUARIO1`
     FOREIGN KEY (`USUARIO_ID`)
-    REFERENCES `EcoBreeze`.`USUARIO` (`ID`))
+    REFERENCES `EcoBreeze`.`USUARIO` (`ID`) -- Relación con la tabla USUARIO
+    ON DELETE CASCADE                       -- Al eliminar un usuario, también se elimina su sensor
+)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 
 -- -----------------------------------------------------
@@ -111,22 +114,22 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `EcoBreeze`.`MEDICION`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICION` (
-  `IDMedicion` INT NOT NULL AUTO_INCREMENT,
-  `Valor` FLOAT NULL DEFAULT NULL,
-  `Lon` VARCHAR(45) NULL DEFAULT NULL,
-  `Lat` VARCHAR(45) NULL DEFAULT NULL,
-  `Fecha` DATE NULL DEFAULT NULL,
-  `Hora` TIME NULL DEFAULT NULL,
-  `TIPOGAS_TipoID` INT NOT NULL,
-  `Categoria` VARCHAR(45) DEFAULT 'Null',
-  `SENSOR_ID_Sensor` INT NOT NULL,
-  PRIMARY KEY (`IDMedicion`, `TIPOGAS_TipoID`, `SENSOR_ID_Sensor`),
-  INDEX `SENSOR_ID_Sensor_UNIQUE` (`SENSOR_ID_Sensor` ASC) VISIBLE,
-  INDEX `fk_MEDICION_TIPOGAS1_idx` (`TIPOGAS_TipoID` ASC) VISIBLE,
-  INDEX `fk_MEDICION_SENSOR1_idx` (`SENSOR_ID_Sensor` ASC) VISIBLE,
+  `IDMedicion` INT NOT NULL AUTO_INCREMENT,        -- Identificador único de la medición
+  `Valor` FLOAT NULL DEFAULT NULL,                -- Valor de la medición
+  `Lon` VARCHAR(45) NULL DEFAULT NULL,            -- Longitud
+  `Lat` VARCHAR(45) NULL DEFAULT NULL,            -- Latitud
+  `Fecha` DATE NULL DEFAULT NULL,                 -- Fecha de la medición
+  `Hora` TIME NULL DEFAULT NULL,                  -- Hora de la medición
+  `TIPOGAS_TipoID` INT NOT NULL,                  -- Tipo de gas medido
+  `Categoria` VARCHAR(45) DEFAULT 'Null',         -- Categoría de la medición
+  `SENSOR_ID_Sensor` INT NULL,                    -- Referencia al sensor (puede ser NULL)
+  PRIMARY KEY (`IDMedicion`),                     -- La clave primaria es únicamente IDMedicion
+  INDEX `fk_MEDICION_SENSOR1_idx` (`SENSOR_ID_Sensor` ASC), -- Índice para búsquedas por sensor
+  INDEX `fk_MEDICION_TIPOGAS1_idx` (`TIPOGAS_TipoID` ASC),  -- Índice para búsquedas por tipo de gas
   CONSTRAINT `fk_MEDICION_SENSOR1`
     FOREIGN KEY (`SENSOR_ID_Sensor`)
-    REFERENCES `EcoBreeze`.`SENSOR` (`SensorID`),
+    REFERENCES `EcoBreeze`.`SENSOR` (`SensorID`)
+    ON DELETE SET NULL,                           -- Al eliminar un sensor, SENSOR_ID_Sensor será NULL
   CONSTRAINT `fk_MEDICION_TIPOGAS1`
     FOREIGN KEY (`TIPOGAS_TipoID`)
     REFERENCES `EcoBreeze`.`TIPOGAS` (`TipoID`))
@@ -154,6 +157,7 @@ CREATE TABLE IF NOT EXISTS `EcoBreeze`.`NOTIFICACION` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
+
 
 
 -- 1. Insertar un rol

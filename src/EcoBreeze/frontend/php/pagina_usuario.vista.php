@@ -132,12 +132,20 @@
                     <form action="/backend/pagina_usuario/main_usuario.php" method="POST">
                         <input type="hidden" name="action" value="cambiar_correo">
                         <div class="form-group">
-                            <label for="email">Nuevo Correo Electrónico:</label>
-                            <input type="email" name="email" id="email" class="form-control" value="<?php echo htmlspecialchars($usuario['Email'] ?? ''); ?>" required>
+                            <label for="email_actual">Correo Electrónico Actual:</label>
+                            <input type="email" id="email_actual" class="form-control" value="<?php echo htmlspecialchars($usuario['Email'] ?? ''); ?>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevo_email">Nuevo Correo Electrónico:</label>
+                            <input type="email" name="nuevo_email" id="nuevo_email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmar_nuevo_email">Confirmar Nuevo Correo Electrónico:</label>
+                            <input type="email" name="confirmar_nuevo_email" id="confirmar_nuevo_email" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <label for="contrasena_actual_correo">Contraseña Actual:</label>
-                            <input type="password" name="contrasena_actual_correo" id="contrasena_actual_correo" class="form-control" required>
+                            <input type="password" name="contrasena_actual" id="contrasena_actual" class="form-control" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Cambiar Correo</button>
                     </form>
@@ -145,6 +153,8 @@
             </div>
         </div>
     </div>
+
+
 
         <!-- Mensajes de éxito y error -->
         <div id="successMessage" style="display:none;">
