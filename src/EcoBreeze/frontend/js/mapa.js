@@ -12,7 +12,10 @@ var mapaMediciones = window.mapaMediciones;
 // Crear un array para los puntos del mapa de calor
 var heatData = [];
 
-// Definir la intensidad del calor basada en el valor de la medición
+// Definir el valor máximo de intensidad
+var maxIntensity = 0;
+
+// Recorrer las mediciones para agregar datos al mapa de calor
 mapaMediciones.forEach(function(medicion) {
     var lat = medicion.Lat;
     var lon = medicion.Lon;
@@ -22,6 +25,11 @@ mapaMediciones.forEach(function(medicion) {
     if (valor > 0) {  // Puedes ajustar esta condición según tus datos
         // Agregar la coordenada y la intensidad (valor) al array heatData
         heatData.push([lat, lon, valor]);
+
+        // Encontrar el valor máximo de intensidad
+        if (valor > maxIntensity) {
+            maxIntensity = valor;
+        }
     }
 });
 
@@ -31,5 +39,5 @@ L.heatLayer(heatData, {
     blur: 15,    // Desenfoque
     maxZoom: 13, // Nivel de zoom máximo
     minOpacity: 0.5,  // Opacidad mínima
-    max: 100  // Intensidad máxima (ajusta según los valores de tus datos)
+    max: maxIntensity  // Usar el valor máximo encontrado para la intensidad
 }).addTo(map);
