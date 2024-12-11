@@ -196,6 +196,7 @@
 /* ----------------------------------------------------------------------- */
 
 
+
 /* ----------------------------------------------------------------------- */
 /* PLANES */
 
@@ -217,7 +218,7 @@
     font-size: 16px;
     font-weight: 400;
     margin-bottom: 20px;
-    margin: 40px;
+    margin: 20px;
 }
 
 
@@ -226,7 +227,8 @@
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 69px;
+    padding-bottom: 100px;
 }
 
 /* Contenedor que rodea cada plan para tener control de la separación */
@@ -246,9 +248,17 @@
 
 }
 
+.product-image {
+    width: 100%;
+    height: 100%;
+    max-width: 305px;
+    justify-self: center;
+
+}
+
 /* Estilo de los títulos de los planes */
 .plan h3 {
-    font-size: 24px;
+    font-size: 43px;
     font-weight: 700;
     margin-bottom: 20px;
     text-align: left;
@@ -277,16 +287,8 @@
 }
 
 /* Botones de los planes - utiliza el estilo general */
-.plan .btn {
-    background-color: #4ca5aa; /* Color de fondo del botón */
-    color: #ffffff; /* Color del texto del botón */
-    border: none;
-    padding: 12px 24px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 18px;
-    font-family: "Poppins", sans-serif;
-    transition: background-color 0.3s;
+#comprarButton.btn {
+    width: -webkit-fill-available;
 }
 
 .plan .btn:hover {

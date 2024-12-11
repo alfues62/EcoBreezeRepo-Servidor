@@ -250,6 +250,21 @@ h2 {
     margin: 0 auto;
 }
 
+.mt-3 {
+    margin-top: 1rem !important;
+    display: flex;
+    justify-content: flex-start; /* Alínea elementos a la izquierda */
+    flex-direction: row-reverse; /* Esto mantiene el checkbox a la izquierda si quieres el texto a la derecha */
+    gap: 2 rem; /* Espaciado controlado entre el texto y el checkbox */
+    margin-right: 0; /* Elimina el margen automático que empuja los elementos */
+    padding-left: 0; /* Asegúrate de que no haya padding adicional */
+}
+
+input#politica.form-check-input{
+    margin-left: 20px;
+}
+
+
 /* Ajuste para dispositivos móviles */
 @media (max-width: 768px) {
     .container {

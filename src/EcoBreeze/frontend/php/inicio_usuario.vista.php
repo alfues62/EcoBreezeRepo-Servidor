@@ -38,7 +38,7 @@
         <li><a href="/backend/pagina_usuario/main_usuario.php">INICIO</a></li>
         <li><a href="#seccionProducto">MAPA GLOBAL</a></li>
         <li><a href="/backend/logout.php">CERRAR SESIÓN</a></li>
-        <a href="#seccionInicio">
+        <a href="../../php/edicion_usuario.vista.php">
             <img src="/frontend/img/perfil.png" alt="Logo" class="logo">
         </a>
         

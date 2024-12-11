@@ -849,3 +849,212 @@
 2024-11-26 09:44:56 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
 2024-11-26 09:44:56 - Hubo un error al verificar el correo.
 2024-11-27 11:21:26 - Correo no registrado
+2024-11-29 12:19:17 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-29 12:19:29 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:19:29 - Hubo un error al verificar el correo.
+2024-11-29 12:19:34 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:19:34 - Hubo un error al verificar el correo.
+2024-11-29 12:20:01 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:20:01 - Hubo un error al verificar el correo.
+2024-11-29 12:21:08 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:21:08 - Hubo un error al verificar el correo.
+2024-11-29 12:21:21 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:21:21 - Hubo un error al verificar el correo.
+2024-11-29 12:21:33 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:21:33 - Hubo un error al verificar el correo.
+2024-11-29 12:22:52 - Error en insertar usuario: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+
+2024-11-29 12:23:06 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:23:06 - Hubo un error al verificar el correo.
+2024-11-29 12:23:39 - Error en verificar correo: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'token' in 'field list'
+2024-11-29 12:23:39 - Hubo un error al verificar el correo.
+Error de conexión a MySQL: SQLSTATE[HY000] [1130] Host '172.18.0.3' is not allowed to connect to this MySQL server2024-11-29 12:36:58 - Error al decodificar JSON: Syntax error
+Error de conexión a MySQL: SQLSTATE[HY000] [1130] Host '172.18.0.3' is not allowed to connect to this MySQL server2024-11-29 12:38:27 - Error al decodificar JSON: Syntax error
+Error de conexión a MySQL: SQLSTATE[HY000] [1130] Host '172.18.0.3' is not allowed to connect to this MySQL server2024-11-29 12:46:34 - Error al decodificar JSON: Syntax error
+2024-11-29 12:50:07 - ID del usuario: 8
+2024-11-29 12:50:07 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-29 12:50:07 - No se encontraron mediciones para el usuario.
+2024-11-29 12:51:15 - ID del usuario: 8
+2024-11-29 12:51:15 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-11-29 12:51:15 - No se encontraron mediciones para el usuario.
+2024-11-29 13:00:14 - El email ya está registrado.
+2024-12-02 18:52:37 - No se ha verificado el correo y el token ha expirado. El usuario ha sido eliminado.
+2024-12-02 19:48:37 - ID del usuario: 10
+2024-12-02 19:48:37 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 19:48:37 - No se encontraron mediciones para el usuario.
+2024-12-02 19:50:44 - Contraseña incorrecta
+2024-12-02 19:51:00 - ID del usuario: 10
+2024-12-02 19:51:00 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 19:51:00 - No se encontraron mediciones para el usuario.
+2024-12-02 19:58:26 - ID del usuario: 10
+2024-12-02 19:58:26 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 19:58:26 - No se encontraron mediciones para el usuario.
+2024-12-02 19:58:32 - ID del usuario: 10
+2024-12-02 19:58:32 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 19:58:32 - No se encontraron mediciones para el usuario.
+2024-12-02 19:58:42 - Correo no registrado
+2024-12-02 19:59:14 - Correo no registrado
+2024-12-02 20:00:39 - Correo no registrado
+2024-12-02 23:31:35 - ID del usuario: 1
+2024-12-02 23:31:35 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:31:35 - No se encontraron mediciones para el usuario.
+2024-12-02 23:31:48 - ID del usuario: 10
+2024-12-02 23:31:48 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:31:48 - No se encontraron mediciones para el usuario.
+2024-12-02 23:31:56 - ID del usuario: 10
+2024-12-02 23:31:56 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:31:56 - No se encontraron mediciones para el usuario.
+2024-12-02 23:32:08 - ID del usuario: 10
+2024-12-02 23:32:08 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:32:08 - No se encontraron mediciones para el usuario.
+2024-12-02 23:32:30 - ID del usuario: 10
+2024-12-02 23:32:30 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:32:30 - No se encontraron mediciones para el usuario.
+2024-12-02 23:32:58 - ID del usuario: 10
+2024-12-02 23:32:58 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:32:58 - No se encontraron mediciones para el usuario.
+2024-12-02 23:33:58 - ID del usuario: 10
+2024-12-02 23:33:58 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:33:58 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:48 - ID del usuario: 10
+2024-12-02 23:34:48 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:48 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:52 - ID del usuario: 10
+2024-12-02 23:34:52 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:52 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:53 - ID del usuario: 10
+2024-12-02 23:34:53 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:53 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:54 - ID del usuario: 10
+2024-12-02 23:34:54 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:54 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:54 - ID del usuario: 10
+2024-12-02 23:34:54 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:54 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:55 - ID del usuario: 10
+2024-12-02 23:34:55 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:55 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:57 - ID del usuario: 10
+2024-12-02 23:34:57 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:57 - No se encontraron mediciones para el usuario.
+2024-12-02 23:34:59 - ID del usuario: 10
+2024-12-02 23:34:59 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:34:59 - No se encontraron mediciones para el usuario.
+2024-12-02 23:35:00 - ID del usuario: 10
+2024-12-02 23:35:00 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:35:00 - No se encontraron mediciones para el usuario.
+2024-12-02 23:35:01 - ID del usuario: 10
+2024-12-02 23:35:01 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:35:01 - No se encontraron mediciones para el usuario.
+2024-12-02 23:35:14 - ID del usuario: 10
+2024-12-02 23:35:14 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:35:14 - No se encontraron mediciones para el usuario.
+2024-12-02 23:44:25 - ID del usuario: 10
+2024-12-02 23:44:25 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-02 23:44:25 - No se encontraron mediciones para el usuario.
+2024-12-03 19:05:59 - Contraseña incorrecta
+2024-12-03 19:06:11 - ID del usuario: 10
+2024-12-03 19:06:11 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:06:11 - No se encontraron mediciones para el usuario.
+2024-12-03 19:07:13 - ID del usuario: 10
+2024-12-03 19:07:13 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:07:14 - No se encontraron mediciones para el usuario.
+2024-12-03 19:12:53 - ID del usuario: 10
+2024-12-03 19:12:53 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:12:53 - No se encontraron mediciones para el usuario.
+2024-12-03 19:14:24 - ID del usuario: 10
+2024-12-03 19:14:24 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:14:24 - No se encontraron mediciones para el usuario.
+2024-12-03 19:18:40 - ID del usuario: 10
+2024-12-03 19:18:40 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:18:40 - No se encontraron mediciones para el usuario.
+2024-12-03 19:18:43 - ID del usuario: 10
+2024-12-03 19:18:44 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:18:44 - No se encontraron mediciones para el usuario.
+2024-12-03 19:18:53 - ID del usuario: 10
+2024-12-03 19:18:53 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:18:53 - No se encontraron mediciones para el usuario.
+2024-12-03 19:19:06 - ID del usuario: 10
+2024-12-03 19:19:06 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:19:06 - No se encontraron mediciones para el usuario.
+2024-12-03 19:19:06 - ID del usuario: 10
+2024-12-03 19:19:06 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:19:06 - No se encontraron mediciones para el usuario.
+2024-12-03 19:19:07 - ID del usuario: 10
+2024-12-03 19:19:07 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-03 19:19:07 - No se encontraron mediciones para el usuario.
+2024-12-05 13:11:08 - ID del usuario: 8
+2024-12-05 13:11:08 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"2","Valor":"0.04","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-29","Hora":"12:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"3","TipoGas":"CO"},{"IDMedicion":"1","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-07","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-12-05 13:11:12 - ID del usuario: 8
+2024-12-05 13:11:12 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"2","Valor":"0.04","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-29","Hora":"12:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"3","TipoGas":"CO"},{"IDMedicion":"1","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-07","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-12-05 13:14:17 - ID del usuario: 8
+2024-12-05 13:14:17 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"2","Valor":"0.04","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-29","Hora":"12:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"3","TipoGas":"CO"},{"IDMedicion":"1","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-07","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-12-05 13:14:51 - ID del usuario: 8
+2024-12-05 13:14:51 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"2","Valor":"0.04","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-29","Hora":"12:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"3","TipoGas":"CO"},{"IDMedicion":"1","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-07","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-12-05 13:15:41 - ID del usuario: 8
+2024-12-05 13:15:41 - Resultado de obtener mediciones: {"success":true,"mediciones":[{"IDMedicion":"2","Valor":"0.04","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-29","Hora":"12:00:00","Categoria":"Bajo","TIPOGAS_TipoID":"3","TipoGas":"CO"},{"IDMedicion":"1","Valor":"0.07","Lon":"-0.3758","Lat":"39.4702","Fecha":"2024-11-07","Hora":"11:00:00","Categoria":"Normal","TIPOGAS_TipoID":"2","TipoGas":"O3"}]}
+2024-12-11 11:51:35 - ID del usuario: 10
+2024-12-11 11:51:35 - Resultado de obtener mediciones: {"success":false,"error":"No se encontraron mediciones para el usuario."}
+2024-12-11 11:51:35 - No se encontraron mediciones para el usuario.
+2024-12-11 20:39:35 - Error: Acción no válida: insertar_mediciones
+2024-12-11 20:39:38 - Error: Acción no válida: insertar_mediciones
+2024-12-11 20:40:29 - Error: Acción no válida: insertar_mediciones
+2024-12-11 20:46:33 - Error: Acción no válida: insertar_mediciones
+Error al insertar mediciones: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`MEDICIONESAPI`, CONSTRAINT `MEDICIONESAPI_ibfk_1` FOREIGN KEY (`TIPOGAS_TipoID`) REFERENCES `TIPOGAS` (`TipoID`) ON DELETE CASCADE)
+2024-12-11 20:47:51 - Resultado de insertar mediciones: {"success":false,"error":"Error al insertar las mediciones"}
+Error al insertar mediciones: SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`EcoBreeze`.`MEDICIONESAPI`, CONSTRAINT `MEDICIONESAPI_ibfk_1` FOREIGN KEY (`TIPOGAS_TipoID`) REFERENCES `TIPOGAS` (`TipoID`) ON DELETE CASCADE)
+2024-12-11 20:48:07 - Resultado de insertar mediciones: {"success":false,"error":"Error al insertar las mediciones"}
+2024-12-11 20:52:25 - Resultado de insertar mediciones: {"success":true,"message":"Mediciones insertadas correctamente"}
+2024-12-11 21:20:11 - Error al decodificar JSON: Syntax error
+2024-12-11 21:20:18 - Error al decodificar JSON: Syntax error
+2024-12-11 21:23:49 - Error al decodificar JSON: Syntax error
+2024-12-11 21:23:51 - Error al decodificar JSON: Syntax error
+2024-12-11 21:25:31 - Error al decodificar JSON: Syntax error
+2024-12-11 21:25:34 - Error al decodificar JSON: Syntax error
+2024-12-11 21:25:40 - Error al decodificar JSON: Syntax error
+2024-12-11 21:27:02 - Error al decodificar JSON: Syntax error
+2024-12-11 21:27:04 - Error al decodificar JSON: Syntax error
+2024-12-11 21:28:56 - Error al decodificar JSON: Syntax error
+2024-12-11 21:28:58 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:39 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:41 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:42 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:42 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:42 - Error al decodificar JSON: Syntax error
+2024-12-11 21:34:43 - Error al decodificar JSON: Syntax error
+2024-12-11 21:47:46 - Error al decodificar JSON: Syntax error
+2024-12-11 21:47:47 - Error al decodificar JSON: Syntax error
+2024-12-11 21:47:50 - Error al decodificar JSON: Syntax error
+2024-12-11 21:52:05 - Error al decodificar JSON: Syntax error
+2024-12-11 21:56:04 - Error al decodificar JSON: Syntax error
+2024-12-11 21:56:05 - Error al decodificar JSON: Syntax error
+2024-12-11 21:56:06 - Error al decodificar JSON: Syntax error
+2024-12-11 21:56:09 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:22 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:24 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:37 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:38 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:38 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:38 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:39 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:39 - Error al decodificar JSON: Syntax error
+2024-12-11 21:59:40 - Error al decodificar JSON: Syntax error
+2024-12-11 22:04:54 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:04:54 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:04:55 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:04:55 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:04:55 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:04:55 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:07:24 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:07:25 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:07:25 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:07:25 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:08:21 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:17 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:18 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:18 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:38 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:39 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:09:51 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error
+2024-12-11 22:10:00 - ERROR MEDICIONESSSSSSSSSSSSSError al decodificar JSON: Syntax error

@@ -1,39 +1,48 @@
-/* Estilo general del body */
-body {
-    font-family: Arial, sans-serif;
+/* Navigation */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #ffffff;
+    color: #545454;
+    font: 700 20px "Poppins", sans-serif;
+    font-size: 32px !important;
+}
+
+.navbar-nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
 }
 
-/* Estilo para el encabezado */
-h1 {
-    color: #333;
-    text-align: center;
-    margin-top: 30px;
-    font-size: 2rem;
-    text-transform: uppercase;
+.navbar-nav li {
+    margin-left: 20px;
 }
 
-/* Navbar */
-.navbar {
-    margin-bottom: 20px;
-    border-bottom: 2px solid #ddd;
+.navbar-nav a {
+    color: #545454;
+    text-decoration: none;
 }
 
-.navbar .navbar-brand {
-    font-weight: bold;
-    color: #007bff;
-    font-size: 32px;
+.navbar-nav a:hover {
+    color: #4ca5aa;
 }
 
-.navbar-nav .nav-link {
-    font-size: 1.1rem;
-    color: #555;
+.logo {
+    height: 40px;
+    margin-right: 10px;
 }
 
-.navbar-nav .nav-link:hover {
-    color: #007bff;
+.btn-volver {
+    color: #ffffff!important;
+    text-decoration: none!important;
+    font-family: "Montserrat", serif !important;
+    font-size: 12px !important;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 /* Contenedor principal */
@@ -43,63 +52,111 @@ h1 {
     margin: 0 auto;
 }
 
-/* Estilo de la tabla */
+/* Tabla estilizada */
 table {
     width: 100%;
     margin-top: 20px;
-    border-collapse: collapse;
-    table-layout: fixed; /* Asegura que todas las columnas tengan el mismo tamaño */
-}
-
-table, th, td {
-    border: 1px solid #ddd;
+    border-collapse: collapse; /* Elimina espacios entre bordes */
+    table-layout: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Evita desbordamientos en esquinas */
 }
 
 th, td {
-    padding: 12px;
-    text-align: left;
-    word-wrap: break-word; /* Evita que las celdas se desborden */
+    padding: 15px; /* Espaciado interno */
+    text-align: left; /* Alineación a la izquierda */
+    vertical-align: middle; /* Centra verticalmente */
+    font-family: "Poppins", sans-serif; /* Fuente moderna */
+    font-size: 0.95rem; /* Tamaño cómodo */
+    color: #333; /* Texto oscuro para legibilidad */
 }
 
 th {
-    background-color: #f2f2f2;
-    font-weight: bold;
-    position: relative; /* Para colocar las flechas de ordenación */
+    background-color: #4ca5aa !important; /* Color de cabecera */
+    color: black; /* Texto blanco */
+    font-weight: bold; /* Resalta texto */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    position: relative; /* Requerido para las flechas */
+    letter-spacing: 0.05em; /* Espaciado entre letras */
 }
 
 td {
-    background-color: #fff;
+    background-color: #fff; /* Fondo blanco */
+    transition: background-color 0.3s ease; /* Suaviza cambios de fondo */
 }
 
-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+/* Alterna colores en las filas */
+table tr:nth-child(even) td {
+    background-color: #f9f9f9; /* Fondo para filas pares */
+}
+
+/* Hover efecto en filas */
+table tr:hover td {
+    background-color: #e8f6f7; /* Color suave al pasar el mouse */
 }
 
 /* Flechas de ordenación */
-th .sort-arrow {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+th i {
+    margin-left: 5px;
+    font-size: 0.8rem; /* Tamaño reducido */
+    opacity: 0.8; /* Opacidad inicial */
+    cursor: pointer; /* Cursor de clic */
+    transition: opacity 0.2s ease; /* Suaviza hover */
+}
+
+th:hover i {
+    opacity: 1; /* Resalta en hover */
+}
+
+th.asc i::after {
+    content: "▲"; /* Flecha ascendente */
+    font-size: 0.8rem;
+}
+
+th.desc i::after {
+    content: "▼"; /* Flecha descendente */
+    font-size: 0.8rem;
+}
+
+/* Estilo para "N/A" */
+.na {
+    color: #888; /* Color de texto más claro */
+    font-style: italic; /* Estilo cursivo */
+}
+
+/* Bordes y espaciado */
+table, th, td {
+    border: 1px solid #ddd; /* Bordes suaves */
+}
+
+/* Paginación */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a {
+    display: block;
+    padding: 10px 15px;
+    background: #4ca5aa; /* Fondo turquesa */
+    color: white; /* Texto blanco */
+    text-decoration: none;
+    border-radius: 5px; /* Bordes redondeados */
+    font-family: "Poppins", sans-serif;
     font-size: 0.9rem;
-    color: #777;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.3s ease;
+    transition: background 0.3s ease;
 }
 
-th:hover .sort-arrow {
-    opacity: 1;
-}
-
-th.asc .sort-arrow {
-    content: '▲'; /* Flecha ascendente */
-    color: #007bff;
-}
-
-th.desc .sort-arrow {
-    content: '▼'; /* Flecha descendente */
-    color: #007bff;
+.pagination li a:hover {
+    background: #333; /* Oscurece en hover */
 }
 
 /* Estilo de botones */
@@ -178,6 +235,12 @@ button:disabled, .btn:disabled {
     margin: 0 auto;
 }
 
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #4ca5aa;
+    border-color: #4ca5aa;
+}
 /* Ajuste para dispositivos móviles */
 @media (max-width: 768px) {
     .container {
@@ -192,29 +255,26 @@ button:disabled, .btn:disabled {
         font-size: 1rem;
     }
 
-    /* Asegúrate de que todas las celdas tengan el mismo ancho */
-table td, table th {
-    width: 20%; /* O cualquier porcentaje que funcione para tu tabla */
-    text-align: center; /* Alineación centrada, si lo prefieres */
-    border: 1px solid #ddd; /* Asegura que haya bordes uniformes */
-    padding: 8px; /* Añadir un poco de relleno para que las celdas no se vean apretadas */
-}
-
-/* Si quieres que las filas vacías tengan el mismo estilo */
-.usuarioRow td {
-    background-color: #f9f9f9; /* Color de fondo opcional para filas vacías */
-    height: 50px; /* Definir una altura consistente para las filas */
-}
-
-
-    h1 {
-        font-size: 1.5rem;
-        text-transform: none;
+    th, td {
+        font-size: 0.85rem; /* Tamaño más pequeño para móviles */
+        padding: 10px; /* Reduce el relleno */
     }
 
-    .modal-content {
-        width: 90%;
-        margin: 0 auto;
+    .pagination li a {
+        padding: 8px 12px;
+        font-size: 0.8rem; /* Texto más pequeño */
+    }
+
+    table td, table th {
+        width: 20%; /* Asegura proporción en móviles */
+        text-align: center; /* Alineación centrada */
+        border: 1px solid #ddd; /* Bordes uniformes */
+        padding: 8px; /* Espaciado más pequeño */
+    }
+
+    .usuarioRow td {
+        background-color: #f9f9f9; /* Color opcional */
+        height: 50px; /* Altura consistente */
     }
 }
 

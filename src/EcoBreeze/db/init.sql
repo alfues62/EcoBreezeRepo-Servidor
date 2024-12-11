@@ -204,6 +204,31 @@ END//
 
 DELIMITER ;
 
+
+-- -----------------------------------------------------
+-- Table `EcoBreeze`.`MEDICION`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICIONESAPI` (
+  `ID` INT NOT NULL AUTO_INCREMENT,
+  `Valor` DECIMAL(10, 2) NOT NULL,        -- Valor de la medición
+  `Lon` DECIMAL(10, 6) NOT NULL,          -- Longitud
+  `Lat` DECIMAL(10, 6) NOT NULL,          -- Latitud
+  `Fecha` DATE NOT NULL,                  -- Fecha de la medición
+  `Hora` TIME NOT NULL,                   -- Hora de la medición
+  `TIPOGAS_TipoID` INT NOT NULL,          -- Referencia a TIPOGAS
+  PRIMARY KEY (`ID`),
+  FOREIGN KEY (`TIPOGAS_TipoID`) REFERENCES `TIPOGAS` (`TipoID`) 
+    ON DELETE CASCADE,                    -- Relación con TIPOGAS, eliminando las mediciones si se elimina un tipo de gas
+  INDEX `TIPOGAS_TipoID_INDEX` (`TIPOGAS_TipoID`)  -- Índice para mejorar las consultas con relación
+) ENGINE = InnoDB
+AUTO_INCREMENT = 1
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

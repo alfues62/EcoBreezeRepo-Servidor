@@ -6,9 +6,8 @@
     <title>Política de Privacidad - EcoBreeze</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/politica-privacidad.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/politica-privacidad.css">
+    <link rel="stylesheet" href="/frontend/css/politica-privacidad.css">
+    <link rel="stylesheet" href="/frontend/css/main.css">
 
 
 </head>

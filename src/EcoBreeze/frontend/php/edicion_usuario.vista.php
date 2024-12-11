@@ -11,7 +11,6 @@
     <link href="/frontend/css/index.css" rel="stylesheet" />    
     <link href="/frontend/css/main.css" rel="stylesheet" />
     <link href="/frontend/css/edicion_usuario.css" rel="stylesheet" />    
-    <link href="/frontend/css/registro.css" rel="stylesheet" />
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,122 +41,79 @@
         </a>        
     </ul>
 </nav>
-    <!-- Edicion Section -->
-    <section class="edicion-container">
-        <a href="#">
-            <img src="/frontend/img/perfil.png" alt="Perfil" id="fotoPerfil">
-        </a> 
-        <h3>Editar foto</h3>
-        <!-- CAMBIARRRRRRRRRRRRRR -->
-        <form action="/backend/registrar/.php" method="POST" class="login-form">
-            <div class="input-container">
-                <input type="text" name="nombre" id="nombre" placeholder="Nombre">
-            </div>
-            <div class="input-container">
-                <input type="text" name="apellidos" id="apellidos" placeholder="Apellidos">
-            </div>
-            <div class="input-container">
-                <div class="email-wrapper">
-                    <input type="text" name="email" id="email" placeholder="Correo electrónico">
-                    <button type="button" class="edit-icon">
-                        <!-- Ícono de edición -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="edit-svg">
-                            <path d="M15.232 2.232a1.5 1.5 0 012.121 0l4.415 4.415a1.5 1.5 0 010 2.121l-12.02 12.02a.75.75 0 01-.328.196l-5.25 1.5a.75.75 0 01-.93-.93l1.5-5.25a.75.75 0 01.196-.328l12.02-12.02zm1.061 1.061L4.5 17.086v3.414h3.414L19.707 6.707l-3.414-3.414zM20.293 7.707l-3.414-3.414 1.415-1.415 3.414 3.414-1.415 1.415z" />
-                        </svg>
-                    </button>
-                </div>
-            </div>
+<section class="edicion-container text-center mt-5 pt-5">
+    <h2 class="mb-4">Opciones de Edición</h2>
+    <div class ="contenedor-cajas">
+        <!-- Caja para cambiar el correo -->
+        <div class="button-container">
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#changeEmailModal">
+                Cambiar Correo Electrónico
+            </button>
+        </div>
 
-            <div class="input-container">
-                <div class="password-wrapper">
-                    <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña actual" />
-                    <div class="toggle-button">
-                        <!-- Icono inicial (ojo abierto) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="eye-icon">
-                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="input-container">
-                <div class="password-wrapper">
-                    <input type="password" name="contrasena" id="contrasena_nueva" placeholder="Contraseña nueva" />
-                    <div class="toggle-button">
-                        <!-- Icono inicial (ojo abierto) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="eye-icon">
-                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <div class="input-container">
-                <div class="password-wrapper">
-                    <input type="password" name="contrasena_confirmar" id="contrasena_nueva_confirmar" placeholder="Repite contraseña" />
-                    <div class="toggle-button">
-                        <!-- Icono inicial (ojo abierto) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="eye-icon">
-                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                            <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-login">CONFIRMAR</button>
-
-
-    </section>
-
-    <!-- Mensajes de éxito y error -->
-    <div id="successMessage" style="display:none;">
-        <?php echo isset($success_message) && $success_message != '' ? $success_message : ''; ?>
-    </div>
-    <div id="errorMessage" style="display:none;">
-        <?php echo isset($error_message) && $error_message != '' ? $error_message : ''; ?>
-    </div>
-
-    <!-- Modal para registro exitoso -->
-    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="successModalLabel">Registro Exitoso</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="successMessageContent"></p>
-                </div>
-                <div class="modal-footer">
-                    <a href="/backend/login/main_login.php" class="btn btn-secondary">Ir a Login</a>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
-                </div>
-            </div>
+        <!-- Caja para cambiar la contraseña -->
+        <div class="button-container">
+            <button class="btn btn-secondary btn-lg" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                Cambiar Contraseña
+            </button>
         </div>
     </div>
+</section>
 
-    <!-- Modal para registro con error -->
-    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Error en el Registro</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p id="errorMessageContent"></p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                </div>
+<!-- Modal for Changing Email -->
+<div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeEmailModalLabel">Cambiar Correo Electrónico</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="newEmail" class="form-label">Nuevo Correo Electrónico</label>
+                        <input type="email" class="form-control" id="newEmail" placeholder="Ingresa tu nuevo correo">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Modal for Changing Password -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changePasswordModalLabel">Cambiar Contraseña</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Contraseña Actual</label>
+                        <input type="password" class="form-control" id="currentPassword" placeholder="Ingresa tu contraseña actual">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="newPassword" placeholder="Ingresa tu nueva contraseña">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirma tu nueva contraseña">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
