@@ -101,7 +101,7 @@ class DatosCRUD {
 
     public function obtenerMedicionesAPI() {
         try {
-            // Consulta SQL para obtener todas las mediciones de la tabla MEDICIONESAPI relacionadas con TIPOGAS
+            // Consulta SQL para obtener todas las mediciones de la tabla MEDICIONESAPI
             $query = "
                 SELECT * FROM MEDICIONESAPI;
             ";
@@ -109,21 +109,22 @@ class DatosCRUD {
             // Prepara y ejecuta la consulta
             $stmt = $this->conn->prepare($query);
             $stmt->execute();
+            error_log("Consulta exitosa: Se obtuvieron mediciones.\n", 3, $this->logFile);
     
             // Verifica si se encontraron resultados
             if ($stmt->rowCount() > 0) {
                 $mediciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                registrarError("PORFAVORFUNCIONA");
-                return json_encode(['success' => true, 'mediciones' => $mediciones]);
+                return ['success' => true, 'mediciones' => $mediciones]; // Devuelve un array PHP
             } else {
-                return json_encode(['success' => false, 'error' => 'No se encontraron mediciones.']);
+                return ['success' => false, 'error' => 'No se encontraron mediciones.']; // Devuelve un array PHP
             }
         } catch (PDOException $e) {
             // Manejo de errores
             error_log("Error en obtener mediciones API: " . $e->getMessage() . "\n", 3, $this->logFile);
-            return json_encode(['success' => false, 'error' => 'Error al obtener las mediciones.']);
+            return ['success' => false, 'error' => 'Error al obtener las mediciones.']; // Devuelve un array PHP
         }
     }
+    
     
 
 }

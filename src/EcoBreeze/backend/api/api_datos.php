@@ -75,11 +75,10 @@ switch ($action) {
         // Maneja el resultado de la obtención de mediciones
         if (isset($resultado['success']) && $resultado['success']) {
             // Si la consulta fue exitosa, devuelve las mediciones
-            registrarError("API" .$resultado);
             echo json_encode(['success' => true, 'mediciones' => $resultado['mediciones']]);
         } else {
             // Si hay algún error, lo registra y devuelve un mensaje de error
-            registrarError("Error al obtener mediciones: " . json_encode($resultado));
+            registrarError("Que SSSSSSSSSS" . $resultado);
             echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener las mediciones.']);
         }
     break;

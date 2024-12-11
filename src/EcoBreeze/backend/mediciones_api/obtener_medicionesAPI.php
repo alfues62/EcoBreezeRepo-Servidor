@@ -5,7 +5,7 @@ require_once '../SolicitudCurl.php';
 function obtenerMediciones() {
 
     // URL de la API que devuelve las mediciones
-    $url = 'http://host.docker.internal:8080/api/api_mediciones.php?action=obtener_mediciones';
+    $url = 'http://host.docker.internal:8080/api/api_datos.php?action=obtener_mediciones';
 
     // Realizar la solicitud cURL para obtener las mediciones
     $result = hacerSolicitudCurl($url, json_encode([]));
@@ -17,7 +17,6 @@ function obtenerMediciones() {
     } else {
         // Si no es exitoso, devolver el mensaje de error
         $error_message = htmlspecialchars($result['error'] ?? 'Error desconocido.');
-        registrarError("ERROR MEDICIONESSSSSSSSSSSSS" .$error_message);
         return ['error' => $error_message];
     }
 }
