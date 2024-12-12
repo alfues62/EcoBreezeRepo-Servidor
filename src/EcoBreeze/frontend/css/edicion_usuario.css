@@ -7,13 +7,10 @@ body {
 }
 
 /* Navegación */
-.navbar {
+.navbar-brand {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-bottom: 1px solid #ddd;
+    font-size: 32px
 }
 
 .navbar-nav {
@@ -22,6 +19,8 @@ body {
     align-items: center;
     margin: 0;
     padding: 0;
+    flex-direction: row;
+    
 }
 
 .navbar-nav li {
@@ -31,12 +30,15 @@ body {
 .navbar-nav a {
     color: #545454;
     text-decoration: none;
-    font-weight: 600;
+    padding: 5px 10px;
+    transition: color 0.3s ease;
 }
 
 .navbar-nav a:hover {
     color: #4ca5aa;
+    text-decoration: underline;
 }
+
 
 .logo {
     height: 40px;
@@ -60,8 +62,8 @@ body {
 
 .button-container {
     width: 90%;
-    max-width: 700px;
-    height: 200px; /* Altura de cada caja */
+    max-width: 600px;
+    height: 300px; /* Altura de cada caja */
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -85,26 +87,6 @@ body {
     width: 70%;
     max-width: 400px;
     transition: background-color 0.3s ease;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    color: #fff;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-    border: none;
-    color: #fff;
-}
-
-.btn-secondary:hover {
-    background-color: #5a6268;
 }
 
 /* Modales */

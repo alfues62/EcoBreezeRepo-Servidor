@@ -99,6 +99,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Incluye la vista de la página de usuario
-include '../../frontend/php/pagina_usuario.vista.php';
+include '../../frontend/php/inicio_usuario.vista.php';
 
 ?>

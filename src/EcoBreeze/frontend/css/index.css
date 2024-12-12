@@ -206,7 +206,6 @@
     color: #000;
     text-align: center;
     padding-top: 90px; /* Igual a la altura de la barra */
-    margin-top: -90px; /* Contrarresta el desplazamiento */
     
 }
 
@@ -298,6 +297,99 @@
 
 /* FIN PLANES */
 /* ----------------------------------------------------------------------- */
+
+
+/* ----------------------------------------------------------------------- */
+/* MAPA */
+
+/* Contenedor del mapa */
+.contenedorMapa {
+    padding-top: 20px; /* Margen superior igual a la altura de la barra */
+    width: 100%;
+    height: calc(100vh - 69px); /* Altura completa menos la barra de navegación */
+}
+
+.mapa-section{
+    background-color: #ffffff;
+    padding: 50px;
+    padding-top: 90px; /* Igual a la altura de la barra */
+    margin-top: -90px; /* Contrarresta el desplazamiento */
+    padding-bottom: 100px;
+}
+
+/* Estilos del mapa */
+#map {
+    margin-top: 0;
+    height: 70vh; /* Ajusta el alto al 70% de la ventana */
+    width: 90%;   /* Ocupa el 90% del ancho de la pantalla */
+    max-width: 1400px; /* Ancho máximo para pantallas grandes */
+    margin: 0 auto; /* Centrado horizontal */
+    background: lightgray; /* Fondo para identificar problemas */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+}
+
+/* Botón VOLVER */
+.btn-volverMapa {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-family: "Montserrat", serif !important;
+    font-size: 12px !important;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #4ca5aa;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family: "Poppins", sans-serif;
+    transition: background-color 0.3s;
+}
+
+/* Efecto hover para el botón */
+.btn-volverMapa:hover {
+    background-color: #3a848a;
+    color: white;
+}
+
+/* Leyenda del mapa */
+.legend {
+    font-family: "Montserrat", serif !important;
+    background: white;
+    padding: 10px;
+    line-height: 1.5;
+    border-radius: 5px;
+    font-size: 14px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.legend i {
+    font-family: "Montserrat", serif !important;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin-right: 8px;
+    border-radius: 3px;
+}
+
+/* Responsividad */
+@media screen and (max-width: 768px) {
+    #map {
+        width: 90%; /* Más ancho en pantallas pequeñas */
+        height: 400px; /* Altura menor */
+    }
+
+    .btn-volverMapa {
+        font-size: 16px; /* Tamaño del texto reducido */
+        padding: 10px 20px;
+    }
+}
+/* FIN MAPA */
+/* ----------------------------------------------------------------------- */
+
+
 
 /* ----------------------------------------------------------------------- */
 /* CONTACTO */

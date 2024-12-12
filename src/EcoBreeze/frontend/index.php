@@ -11,9 +11,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
     <!-- Core theme CSS -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/index.css">
+
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+    
 </head>
 <body>
     
@@ -45,9 +48,6 @@
         <li><a href="/backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
     </ul>
 </nav>
-
-
-
 
 
 <!-- Masthead -->
@@ -127,14 +127,29 @@
 </section>
 
 <!-- Mapa Section -->
-<section id = "mapa" class="our-product">
-    <h1 class="section-title">MAPA</h1>
-    
+<section id="mapa" class="mapa-section py-5">
+    <div class="container d-flex flex-column align-items-center">
+        <h1 class="section-title">MAPA</h1>
+        <div class="row align-items-center">
+            <!-- Texto Informativo -->
+            <div class="col-md-6">
+                <h3 class="lead text-left">
+                    La calidad del aire tiene un impacto directo en nuestra salud y bienestar. Identificar las zonas contaminadas es fundamental para evitar riesgos respiratorios y proteger a nuestros seres queridos.
+                    <br><br>
+                    Gracias a nuestro sistema avanzado, podrás visualizar las zonas con mala calidad del aire. Úsalo para planificar tus actividades al aire libre y evitar áreas con alta contaminación.
+                </h3>
+            </div>
+            <!-- Imagen Informativa -->
+            <div class="col-md-6 text-center">
+                <img src="/frontend/img/mapa.png" alt="Calidad del Aire" class="product-image rounded shadow">
+            </div>
+        </div>
+        <!-- Botón para el Mapa Completo -->
+        <div class="mt-4 text-center">
+            <a href="/backend/mediciones_api/obtener_medicionesAPI.php" class="btn btn-mapa">Ver mapa</a>
+        </div>
+    </div>
 </section>
-
-
-
-
 
 
 
@@ -253,6 +268,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS -->
 <script src="js/index.js"></script>
+<script src="/js/map.js"></script>
+
 
 
 </body>

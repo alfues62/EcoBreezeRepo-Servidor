@@ -206,7 +206,7 @@ DELIMITER ;
 
 
 -- -----------------------------------------------------
--- Table `EcoBreeze`.`MEDICION`
+-- Table `EcoBreeze`.`MEDICIONAPI`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICIONESAPI` (
   `ID` INT NOT NULL AUTO_INCREMENT,

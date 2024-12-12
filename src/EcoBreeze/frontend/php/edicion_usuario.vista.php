@@ -35,14 +35,14 @@
     <ul class="navbar-nav">
         <li><a href="#seccionInicio">INICIO</a></li>
         <li><a href="#seccionProducto">GRÁFICA</a></li>
-        <li><a href="#planes">CERRAR SESIÓN</a></li>
+        <li><a href="/backend/logout.php">CERRAR SESIÓN</a></li>
         <a href="#seccionInicio">
             <img src="/frontend/img/perfil.png" alt="Logo" class="logo">
         </a>        
     </ul>
 </nav>
 <section class="edicion-container text-center mt-5 pt-5">
-    <h2 class="mb-4">Opciones de Edición</h2>
+    <h1 class="mb-4">Opciones de Edición</h1>
     <div class ="contenedor-cajas">
         <!-- Caja para cambiar el correo -->
         <div class="button-container">

@@ -7,10 +7,13 @@
     <!-- Bootstrap icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Core theme CSS -->
     <link rel="stylesheet" href="/frontend/css/index.css">
     <link rel="stylesheet" href="/frontend/css/main.css">
     <link rel="stylesheet" href="/frontend/css/inicio_usuario.css">
+    <link rel="stylesheet" href="/frontend/css/pagina_usuario.css">
 
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,57 +27,47 @@
 
 </head>
 <body>
-    
-
 <!-- Navigation -->
 <nav class="navbar fixed-top">
     <div class="navbar-brand">
-        <a href="/frontend/index.php">
+        <a href="#seccionInicio">
             <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
         </a>
         <span>EcoBreeze</span>
     </div>
     <ul class="navbar-nav">
-        <li><a href="/backend/pagina_usuario/main_usuario.php">INICIO</a></li>
-        <li><a href="../../php/grafica_usuario">MAPA GLOBAL</a></li>
+        <li><a href="#seccionInicio">INICIO</a></li>
+        <li><a href="#seccionProducto">GRÁFICA</a></li>
         <li><a href="/backend/logout.php">CERRAR SESIÓN</a></li>
-        <a href="../../php/edicion_usuario.vista.php">
+        <a href="#seccionInicio">
             <img src="/frontend/img/perfil.png" alt="Logo" class="logo">
-        </a>
-        
+        </a>        
     </ul>
 </nav>
 
-
-<!-- Inicio Section -->
-<section id="inicio" class="text-center">
-    <div class="container-inicio">
-        <!-- Plan Gratuito -->
-        <div class="inicio-container1">
-            <div class="plan">
-                <h1 class="section-title">DISPOSITIVO ECOBREZZE</h1>
-                <img src="/frontend/img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
-
+    <?php if ($usuario): ?>
+        
+        <div class="container mt-5">
+            <h2>Gráfica de Mediciones</h2>
+            <div style="width: 100%; max-width: 800px; margin: 0 auto;">
+                <canvas id="graficaMediciones" width="400" height="200"></canvas>
             </div>
+            
+            <div id="error-message" style="color: red; font-weight: bold;"></div>
+            <div id="mediciones-container"></div>  <!-- Contenedor para mostrar las mediciones recibidas -->
         </div>
+    <?php endif; ?>
 
-        <!-- Línea de separación -->
-        <div class="separador separador-inicio"></div>
-
-        <!-- Plan Premium -->
-        <div class="inicio-container2">
-            <div class="plan_inicio">
-                <h2 h2-title>¡ESTÁS A SOLO UN PASO DE HACERTE PREMIUM!</h2>
-                <ul>
-                    <h2>Plan <span style="color: #4ca5aa;">PREMIUM  0,99 €</span></h2>
-                <ul-textos>
-                    <li>Dispositivo EcoBreeze</li>
-                    <li>Acceso App Móvil</li>
-                    <li>Registro de Datos Completo</li>
-                    <li>Mediciones en Tiempo Real</li>
-                </ul>
-                <button class="btn btn-comprar" type="button">COMPRAR AHORA</button>
-            </div>
-        </div>
-    </div>
-</section>
+    
+<!-- Scripts de Bootstrap y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- Enlazar el archivo JavaScript personalizado -->
+<script>
+    // Pasa las mediciones de PHP a JavaScript
+    window.mediciones = <?php echo $mediciones_json; ?>;
+</script>
+<script src="/frontend/js/pagina_usuario.js"></script>
+</body>
+</html>
