@@ -198,6 +198,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-background-lines"></script>
 <!-- Enlazar el archivo JavaScript personalizado -->
 <script>
     // Pasa las mediciones de PHP a JavaScript
