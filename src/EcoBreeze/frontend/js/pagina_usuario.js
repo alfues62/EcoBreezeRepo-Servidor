@@ -54,41 +54,6 @@ document.addEventListener('DOMContentLoaded', function () {
         5: { optimo: [0, 0.02], moderado: [0.021, 0.075], alto: [0.076, Infinity] } // SO4
     };
 
-    const backgroundLinesPlugin = {
-        id: 'backgroundLines',
-        beforeDraw: (chart) => {
-            const { ctx, chartArea: { top, bottom, left, right }, scales: { y } } = chart;
-            const tipoGasSeleccionado = chart.config.options.tipoGasSeleccionado;
-            const rangos = rangosPorGas[tipoGasSeleccionado];
-    
-            if (!rangos) return;
-    
-            ctx.save();
-    
-            // Dibujar líneas de fondo
-            const drawLine = (value, color) => {
-                const yPos = y.getPixelForValue(value);
-                ctx.beginPath();
-                ctx.moveTo(left, yPos);
-                ctx.lineTo(right, yPos);
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 2;
-                ctx.stroke();
-                ctx.closePath();
-            };
-    
-            // Líneas para los rangos óptimo, moderado y alto
-            drawLine(rangos.optimo[1], 'green');
-            drawLine(rangos.moderado[1], 'yellow');
-            drawLine(rangos.alto[0], 'red');
-    
-            ctx.restore();
-        }
-    };
-    
-    // Registrar el plugin Chart.register
-    Chart.register(backgroundLinesPlugin);
-
     function determinarNivelPromedio(mediciones) {
         if (mediciones.length === 0) return 'No hay mediciones disponibles';
 
@@ -166,16 +131,44 @@ document.addEventListener('DOMContentLoaded', function () {
                         title: { display: true, text: 'Valor' },
                         beginAtZero: true,
                         min: escalaY.min,
-                        max: escalaY.max
-                    }
-                },
-                plugins: {
-                    backgroundLines: {
-                        tipoGasSeleccionado: tipoGasSeleccionado
+                        max: escalaY.max,
+                        grid: {
+                            color: function(context) {
+                                const valor = context.tick.value; // Valor de la línea de la cuadrícula
+                                const rangos = rangosPorGas[tipoGasSeleccionado];
+        
+                                if (!rangos) return 'rgba(0, 0, 0, 0.1)'; // Si no hay rangos, color predeterminado
+        
+                                // Comprobar límites de rangos y devolver colores
+                                if (valor === rangos.optimo[1]) {
+                                    return 'green'; // Límite superior del rango óptimo
+                                }
+                                if (valor === rangos.moderado[1]) {
+                                    return 'yellow'; // Límite superior del rango moderado
+                                }
+                                if (valor === rangos.alto[0]) {
+                                    return 'red'; // Límite inferior del rango alto
+                                }
+        
+                                return 'rgba(0, 0, 0, 0.1)'; // Color predeterminado para otras líneas
+                            },
+                            lineWidth: function(context) {
+                                const valor = context.tick.value; // Valor de la línea de la cuadrícula
+                                const rangos = rangosPorGas[tipoGasSeleccionado];
+        
+                                if (!rangos) return 1; // Si no hay rangos, ancho predeterminado
+        
+                                // Aumentar el ancho para líneas de rangos
+                                if (valor === rangos.optimo[1] || valor === rangos.moderado[1] || valor === rangos.alto[0]) {
+                                    return 2; // Más grueso para líneas importantes
+                                }
+        
+                                return 1; // Ancho predeterminado
+                            }
+                        }
                     }
                 }
-            },
-            plugins: [backgroundLinesPlugin]
+            }
         });
 
         document.getElementById('error-message').innerText = '';
