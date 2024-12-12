@@ -1,16 +1,19 @@
+version: '3.8'
+
 services:
   php:
-    image: haoxux/biometria-php:v2
+    build:
+      context: .  # La raíz del proyecto, donde está el Dockerfile
+      dockerfile: dockerfile  # Nombre del Dockerfile (si no es "Dockerfile" deberías poner el nombre correcto)
     container_name: php-backend
     volumes:
-      - ./backend:/var/www/html/backend          #Mapeo la carpeta de backend
-      - ./frontend:/var/www/html/frontend        #Mapeo la carpeta de frontend
-      - ./db:/var/www/html/db                    #Mapeo la carpeta de db
-      - ./logs:/var/www/html/logs                #Mapeo la carpeta de logs
-      - ./.env:/var/www/html/.env                #Mapeo lel archivo .env
-      - ./init.sh:/usr/local/bin/init.sh         #Mapeo el archivo de permiso
+      - ./backend:/var/www/html/backend
+      - ./frontend:/var/www/html/frontend
+      - ./db:/var/www/html/db
+      - ./logs:/var/www/html/logs
+      - ./.env:/var/www/html/.env
     ports:
-      - "8080:80"  # Sigue exponiendo el puerto 8080 para acceso externo
+      - "8080:80"
     depends_on:
       - db
     environment:
@@ -19,7 +22,6 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-    command: ["/bin/bash", "/usr/local/bin/init.sh"]
 
   db:
     image: haoxux/biometria-sql:v0
@@ -37,4 +39,3 @@ services:
 
 volumes:
   db_data:
-

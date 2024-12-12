@@ -1,0 +1,81 @@
+\doxysection{Datos\+CRUD Class Reference}
+\hypertarget{class_datos_c_r_u_d}{}\label{class_datos_c_r_u_d}\index{DatosCRUD@{DatosCRUD}}
+
+
+Clase encargada de gestionar las operaciones CRUD relacionadas con las mediciones en la base de datos.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_datos_c_r_u_d_a4b880bb6394416b9a9f32355695fae7e}\label{class_datos_c_r_u_d_a4b880bb6394416b9a9f32355695fae7e} 
+{\bfseries \+\_\+\+\_\+construct} (\$conn)
+\item 
+\mbox{\hyperlink{class_datos_c_r_u_d_af276a265619a0c8861a2189539319ca1}{obtener\+Mediciones\+Usuario}} (\$usuario\+Id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Clase encargada de gestionar las operaciones CRUD relacionadas con las mediciones en la base de datos. 
+
+Esta clase se encarga de realizar operaciones de lectura sobre las mediciones de los usuarios. Permite obtener las mediciones asociadas a un usuario específico desde la base de datos, gestionando las consultas SQL necesarias para obtener los datos de las mediciones.
+
+Métodos principales\+:
+\begin{DoxyEnumerate}
+\item Obtener las mediciones asociadas a un usuario específico.
+\item Devolver las mediciones en formato JSON.
+\item Manejar posibles errores durante las consultas y registrar los errores en un archivo de log.
+\end{DoxyEnumerate}
+
+\begin{DoxyNote}{Note}
+Utiliza {\ttfamily PDO} para interactuar con la base de datos de manera segura y eficiente. 
+
+Esta clase solo realiza consultas de lectura sobre las mediciones sin modificar los registros existentes en la base de datos. 
+
+La clase tiene un mecanismo de manejo de errores que registra los fallos en un archivo de log especificado.
+
+{\bfseries{Método principal}}\+: {\ttfamily \doxylink{class_datos_c_r_u_d_af276a265619a0c8861a2189539319ca1}{obtener\+Mediciones\+Usuario()}} Este método recibe el ID de un usuario y devuelve un conjunto de mediciones asociadas a ese usuario.
+\end{DoxyNote}
+Ejemplo de uso\+: 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\$datosCRUD\ =\ \textcolor{keyword}{new}\ \mbox{\hyperlink{class_datos_c_r_u_d}{DatosCRUD}}(\$conn);}
+\DoxyCodeLine{\$result\ =\ \$datosCRUD-\/>obtenerMedicionesUsuario(\$usuarioId);}
+\DoxyCodeLine{echo\ \$result;\ \ \textcolor{comment}{//\ Resultado\ en\ formato\ JSON\ con\ las\ mediciones\ o\ un\ mensaje\ de\ error.}}
+
+\end{DoxyCode}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_datos_c_r_u_d_af276a265619a0c8861a2189539319ca1}\index{DatosCRUD@{DatosCRUD}!obtenerMedicionesUsuario@{obtenerMedicionesUsuario}}
+\index{obtenerMedicionesUsuario@{obtenerMedicionesUsuario}!DatosCRUD@{DatosCRUD}}
+\doxysubsubsection{\texorpdfstring{obtenerMedicionesUsuario()}{obtenerMedicionesUsuario()}}
+{\footnotesize\ttfamily \label{class_datos_c_r_u_d_af276a265619a0c8861a2189539319ca1} 
+Datos\+CRUD\+::obtener\+Mediciones\+Usuario (\begin{DoxyParamCaption}\item[{}]{\$usuario\+Id}{}\end{DoxyParamCaption})}
+
+Obtiene las mediciones asociadas a un usuario específico desde la base de datos.
+
+Este método consulta las mediciones registradas para un usuario dado utilizando su ID. La información obtenida incluye detalles como valores, ubicación, fecha, hora, y tipo de gas. Si no se encuentran registros o ocurre un error, se devuelve un mensaje descriptivo.
+
+Diseño\+:
+
+Entrada\+: usuario\+Id (int) -\/-\/-\/\texorpdfstring{$>$}{>} \mbox{[}\doxylink{class_datos_c_r_u_d_af276a265619a0c8861a2189539319ca1}{obtener\+Mediciones\+Usuario()}\mbox{]} -\/-\/-\/\texorpdfstring{$>$}{>} Consulta a la base de datos -\/-\/-\/\texorpdfstring{$>$}{>} Respuesta con datos o mensaje de error.
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}mediciones"{}\+: \mbox{[} \{ "{}\+IDMedicion"{}\+: 1, "{}\+Valor"{}\+: 50, "{}\+Lon"{}\+: -\/0.\+376288, "{}\+Lat"{}\+: 39.\+469907, "{}\+Fecha"{}\+: "{}2024-\/12-\/07"{}, "{}\+Hora"{}\+: "{}12\+:00\+:00"{}, "{}\+Categoria"{}\+: "{}\+Alto"{}, "{}\+TIPOGAS\+\_\+\+Tipo\+ID"{}\+: 2, "{}\+Tipo\+Gas"{}\+: "{}\+CO2"{} \}, ... \mbox{]} \}
+\item En caso de error o datos no encontrados\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Mensaje descriptivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$usuario\+Id} & El ID del usuario cuyas mediciones se desean obtener. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string Un JSON con las mediciones del usuario o un mensaje de error. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+GTI\+\_\+\+Carpeta/\+Biometria\+Repos/\+Eco\+Breeze\+Repo-\/\+Servidor/src/\+Eco\+Breeze/backend/controllers/datos\+\_\+\+CRUD.\+php\end{DoxyCompactItemize}
