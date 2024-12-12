@@ -39,7 +39,7 @@
     
 
 <!-- Navigation -->
-<nav class="navbar fixed-top">
+<nav class="navbar fixed-top" style="margin-bottom: 200px" >
     <div class="navbar-brand">
         <a href="/frontend/index.php">
             <img src="/frontend/img/logoBio.png" alt="Logo" class="logo">
@@ -57,20 +57,10 @@
     </ul>
 </nav>
 
-
-<?php if ($usuario): ?>
-        <div class="container mt-5">
-            <h2>Gráfica de Mediciones</h2>
-            <div id="grafica" style="width: 100%; max-width: 800px; height: 100%; max-height:400px; margin: 0 auto;">
-                <canvas id="graficaMediciones" width="400" height="400"></canvas>
-            </div>
-            
-            <div id="error-message" style="color: red; font-weight: bold;"></div>
-            <div id="mediciones-container"></div>  <!-- Contenedor para mostrar las mediciones recibidas -->
-        </div>
-<?php endif; ?>
-
-    <div id="map" style="width: 100%; height: 500px;"></div>
+<div style="width: 100%; height: 100vh;">
+    <div id="map" style="width: 100%; height: 100%;"></div>
+</div>
+    
 
     <!-- Mensajes de éxito y error -->
     <div id="successMessage" style="display:none;">

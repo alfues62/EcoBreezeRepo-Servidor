@@ -89,5 +89,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Incluir la vista
-include '../../frontend/php/inicio_usuario.vista.php';
+include '../../frontend/php/mapa_usuario.vista.php';
 ?>

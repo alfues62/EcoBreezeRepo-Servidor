@@ -106,6 +106,39 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'Usuario ID, Título, Cuerpo y Fecha son obligatorios.']);
         }
     break;
+
+    case 'insertar_mediciones':
+        // Obtener el array de mediciones desde la solicitud
+        $mediciones = $requestData['mediciones'] ?? null;
+        
+        // Verifica si se proporciona el array de mediciones
+        if ($mediciones && is_array($mediciones) && count($mediciones) > 0) {
+            // Llama a la función para insertar las mediciones
+            $resultado = $datosCRUD->insertarMedicionesAPI($mediciones);  // Llama a la función para insertar las mediciones
+            logMessage("Resultado de insertar mediciones: " . print_r($resultado, true)); // Registra el resultado completo
+    
+            // Imprime la respuesta como JSON
+            echo $resultado;  // Directamente imprime la respuesta JSON obtenida
+        } else {
+            // Si no se proporciona el array de mediciones, devolver un error
+            echo json_encode(['success' => false, 'error' => 'El array de mediciones es obligatorio y no puede estar vacío.']);
+        }
+        break;
+
+    case 'obtener_mediciones':
+        // Llama al CRUD para obtener todas las mediciones
+        $resultado = $datosCRUD->obtenerMedicionesAPI();  // Llama a la función que no requiere parámetro de usuario
+        
+        // Maneja el resultado de la obtención de mediciones
+        if (isset($resultado['success']) && $resultado['success']) {
+            // Si la consulta fue exitosa, devuelve las mediciones
+            echo json_encode(['success' => true, 'mediciones' => $resultado['mediciones']]);
+        } else {
+            // Si hay algún error, lo registra y devuelve un mensaje de error
+            registrarError("Que SSSSSSSSSS" . $resultado);
+            echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al obtener las mediciones.']);
+        }
+    break;
     
     default:
         // Maneja métodos no permitidos

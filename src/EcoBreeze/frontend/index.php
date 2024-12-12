@@ -11,9 +11,12 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+
     <!-- Core theme CSS -->
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/index.css">
+
     <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +26,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-
+    
 </head>
 <body>
     
@@ -38,16 +41,13 @@
     </div>
     <ul class="navbar-nav">
         <li><a href="#seccionInicio">INICIO</a></li>
-        <li><a href="#seccionProducto">PRODUCTO</a></li>
         <li><a href="#planes">PLAN</a></li>
+        <li><a href="#mapa">MAPA</a></li>
         <li><a href="#calidad-aire">INFORMACIÓN</a></li>
         <li><a href="#contacto">CONTACTO</a></li>
         <li><a href="/backend/login/main_login.php" class="btn btn-login">INICIAR SESIÓN</a></li>
     </ul>
 </nav>
-
-
-
 
 
 <!-- Masthead -->
@@ -91,68 +91,26 @@
 </section>
 
 
-
-<!-- Nuestro Producto Section -->
-<section id = "seccionProducto" class="our-product">
-    <h1 class="section-title">NUESTRO PRODUCTO ECO BREZZE</h1>
-    <div class="container">
-        <div class="product-content">
-            <!-- Contenedor para la imagen y el botón -->
-            <div class="product-image-button">
-                <img src="img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
-                <div class="button-container">
-                    <button class="btn" id="comprarButton" aria-label="Comprar ahora el producto Eco Breeze">Comprar ahora</button>
-                </div>
-            </div>
-            
-            <!-- Contenedor para los detalles del producto -->
-            <div class="product-details">
-                <section class="product-feature">
-                    <div class="titles">
-                        <h2>SENSOR</h2>
-                        <h3>CO2</h3>
-                    </div>
-                    <p>El CO₂ en espacios cerrados puede acumularse rápidamente, afectando la concentración y causando fatiga. Monitorearlo ayuda a mejorar la ventilación, la calidad de vida y el rendimiento.</p>
-                </section>
-                <section class="product-feature">
-                    <div class="titles">
-                        <h2>SENSOR</h2>
-                        <h3>CH4</h3>
-                    </div>
-                    <p>El metano es un gas inflamable que, en altos niveles, desplaza el oxígeno y aumenta el riesgo de explosión. Su monitoreo en industrias y agricultura mejora la seguridad y ayuda a combatir el cambio climático.</p>
-                </section>
-                <section class="product-feature">
-                    <div class="titles">
-                        <h2>SENSOR</h2>
-                        <h3>O3</h3>
-                    </div>
-                    <p>El ozono es un contaminante perjudicial que puede irritar ojos, garganta y vías respiratorias, empeorando afecciones como el asma y problemas pulmonares, especialmente en niños, ancianos y personas con enfermedades respiratorias crónicas.</p>
-                </section>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-
-
 <!-- Planes Section -->
 <section id="planes" class="text-center">
-    <h1 class="section-title">PLANES</h1>
-    <p>EcoBreeze es una solución integral para monitorear la calidad del aire, compuesta por un dispositivo avanzado de sensores y una aplicación móvil intuitiva. Nuestro dispositivo cuenta con sensores de alta precisión para medir niveles de CO₂, O₃, CH₄, permitiéndote saber en tiempo real la calidad del aire que respiras.</p>
+    <h1 class="section-title">PLAN</h1>
+    <p>En EcoBreeze, ofrecemos una solución integral para monitorear la calidad del aire, combinando un dispositivo avanzado de sensores con una aplicación móvil intuitiva. Nuestro dispositivo está equipado con sensores de alta precisión que miden niveles de contaminantes como CO₂, O₃ y CH₄, brindando información en tiempo real sobre la calidad del aire que respiras.</p>
+    <p>Nuestro objetivo es que tanto tú como los demás usuarios de nuestros servicios puedan colaborar en la creación de mapas detallados que identifiquen las áreas más y menos contaminadas. Esto nos permitirá conocer qué zonas presentan mayor contaminación y tomar decisiones informadas para proteger nuestra salud y el medio ambiente.</p>
     <div class="container-planes">
         <!-- Plan Gratuito -->
         <div class="plan-container">
             <div class="plan">
-                <h3>Plan 
-                <span style="color: #4ca5aa;">GRATUITO</span></h3>
+                <h3>Plan <span style="color: #4ca5aa;">PREMIUM</span> 0,99€</h3>
+                <h2 style="font-size: 0.9em; color: #666;text-align: left;">¡Paga una sola vez y disfruta de todo para siempre!</h2>
                 <ul>
-                    <li>1 cuenta</li>
-                    <li>Mapa calidad del aire</li>
-                    <li>Actualizaciones limitadas</li>
-                    <li><s>Acceso App Móvil</s></li>
+                    <li>Dispositivo EcoBreeze</li>
+                    <li>Acceso App Móvil</li>
+                    <li>Registro de Datos Completo</li>
+                    <li>Mediciones en Tiempo Real</li>
                 </ul>
-                <a href="backend/login/main_login.php" class="btn">REGÍSTRATE</a></li>
+                <div class="button-container">
+                    <button class="btn" id="comprarButton" aria-label="Comprar ahora el producto Eco Breeze">Comprar ahora</button>
+                </div>
             </div>
         </div>
 
@@ -161,16 +119,34 @@
 
         <!-- Plan Premium -->
         <div class="plan-container">
-            <div class="plan">
-                <h3>Plan <span style="color: #4ca5aa;">PREMIUM</span> 0,99€</h3>
-                <ul>
-                    <li>Dispositivo EcoBreeze</li>
-                    <li>Acceso App Móvil</li>
-                    <li>Registro de Datos Completo</li>
-                    <li>Mediciones en Tiempo Real</li>
-                </ul>
-                <button class="btn" type="button">COMPRAR</button>
+            <div class="product-image-button">
+                <img src="img/producti.png" alt="Imagen del Producto Eco Breeze, un dispositivo para monitoreo de calidad del aire" class="product-image">
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mapa Section -->
+<section id="mapa" class="mapa-section py-5">
+    <div class="container d-flex flex-column align-items-center">
+        <h1 class="section-title">MAPA</h1>
+        <div class="row align-items-center">
+            <!-- Texto Informativo -->
+            <div class="col-md-6">
+                <h3 class="lead text-left">
+                    La calidad del aire tiene un impacto directo en nuestra salud y bienestar. Identificar las zonas contaminadas es fundamental para evitar riesgos respiratorios y proteger a nuestros seres queridos.
+                    <br><br>
+                    Gracias a nuestro sistema avanzado, podrás visualizar las zonas con mala calidad del aire. Úsalo para planificar tus actividades al aire libre y evitar áreas con alta contaminación.
+                </h3>
+            </div>
+            <!-- Imagen Informativa -->
+            <div class="col-md-6 text-center">
+                <img src="/frontend/img/mapa.png" alt="Calidad del Aire" class="product-image rounded shadow">
+            </div>
+        </div>
+        <!-- Botón para el Mapa Completo -->
+        <div class="mt-4 text-center">
+            <a href="/backend/mediciones_api/obtener_medicionesAPI.php" class="btn btn-mapa">Ver mapa</a>
         </div>
     </div>
 </section>
@@ -217,7 +193,7 @@
                 <div class="more-info">
                     <p><strong>Límites recomendados:</strong> Concentración en exteriores no superior a 70 ppb (promedio de 8 horas).</p>
                     <p><strong>Solución:</strong> Evita actividades al aire libre en picos de ozono.</p>
-                    <img src="/img/ch4_image.jpg" alt="Gráfico de O3" class="info-image">
+                    <img src="/img/o3_image.jpg" alt="Gráfico de O3" class="info-image">
                 </div>
             </div>
             <!-- Contaminante 4 -->
@@ -292,7 +268,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS -->
 <script src="js/index.js"></script>
-
+<script src="/js/map.js"></script>
 
 </body>
 </html>

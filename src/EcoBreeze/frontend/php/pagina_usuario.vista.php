@@ -74,8 +74,8 @@
 
         <div class="container mt-5">
             <h2>Gráfica de Mediciones</h2>
-            <div style="width: 100%; max-width: 800px; margin: 0 auto;">
-                <canvas id="graficaMediciones" width="400" height="200"></canvas>
+            <div id="grafica" style="width: 100%; max-width: 800px; height: 100%; max-height:400px; margin: 0 auto;">
+                <canvas id="graficaMediciones" width="400" height="400"></canvas>
             </div>
             
             <div id="error-message" style="color: red; font-weight: bold;"></div>
