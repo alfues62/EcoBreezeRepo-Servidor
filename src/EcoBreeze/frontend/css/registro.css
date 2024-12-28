@@ -148,6 +148,26 @@ h2 {
     fill: #888888; /* Cambiar color al activar */
 }
 
+.mt-3{
+    margin-top: 1rem !important;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row-reverse;
+    gap: 2 rem;
+    margin-right: 0;
+    padding-left: 0;
+}
+
+.form-check-input[type=checkbox] {
+    margin-left: 20px;
+}
+
+
+.form-check-input:checked {
+    background-color: #6ebfbf; /* Color de fondo cuando está marcado */
+    border-color: #6ebfbf; /* Color del borde cuando está marcado */
+}
+
 /* Divider */
 .divider {
     display: flex;
