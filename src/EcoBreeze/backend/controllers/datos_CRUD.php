@@ -198,8 +198,8 @@ class DatosCRUD {
             // Consulta SQL para insertar una medición en la tabla MEDICIONESAPI
             $query = "
                 INSERT INTO `MEDICIONESAPI` 
-                (`Valor`, `Lon`, `Lat`, `Fecha`, `Hora`, `TIPOGAS_TipoID`)
-                VALUES (?, ?, ?, ?, ?, ?)
+                (`ValorAQI`, `Lon`, `Lat`, `Fecha`, `Hora`)
+                VALUES (?, ?, ?, ?, ?)
             ";
     
             // Preparamos la consulta
@@ -207,15 +207,14 @@ class DatosCRUD {
     
             // Recorremos cada medición y la insertamos en la base de datos
             foreach ($mediciones as $medicion) {
-                $valor = $medicion['value'];
+                $valorAQI = $medicion['ValorAQI'];  // Valor AQI
                 $lon = $medicion['longitude'];
                 $lat = $medicion['latitude'];
                 $fecha = date('Y-m-d', strtotime($medicion['time']));
                 $hora = date('H:i:s', strtotime($medicion['time']));
-                $tipoGasId = $medicion['tipoGasId']; // Usamos el valor directamente del array
     
                 // Ejecutamos la consulta de inserción
-                $stmt->execute([$valor, $lon, $lat, $fecha, $hora, $tipoGasId]);
+                $stmt->execute([$valorAQI, $lon, $lat, $fecha, $hora]);
             }
     
             // Confirmamos la transacción
@@ -229,6 +228,7 @@ class DatosCRUD {
             return json_encode(['success' => false, 'error' => 'Error al insertar las mediciones']);
         }
     }
+    
 
     public function obtenerMedicionesAPI() {
         try {

@@ -11,6 +11,7 @@ $urls = [
 ];
 
 // Función para procesar una URL y devolver los datos extraídos
+// Función para procesar una URL y devolver los datos extraídos
 function processUrl($url) {
     try {
         // Obtener el contenido JSON de la URL
@@ -23,32 +24,27 @@ function processUrl($url) {
             return [];
         }
 
-        // Extraer los datos
-        $time = $data['data']['time']['iso'];
+        // Extraer los datos de AQI y la localización
+        $aqi = $data['data']['aqi'];  // Aquí está el valor de AQI
         list($latitude, $longitude) = $data['data']['city']['geo'] ?? [null, null];
-        $iaqi = $data['data']['iaqi'];
+        $time = $data['data']['time']['iso'];  // Obtenemos la fecha y hora
 
-        // Crear un array de datos procesados, solo para los tipos específicos
-        $airData = [];
-        foreach ($iaqi as $type => $valueData) {
-            // Filtrar solo los tipos de gas que necesitamos
-            if (in_array(strtoupper($type), ['O3', 'CO', 'NO2', 'SO4'])) {
-                $airData[] = [
-                    'time' => $time,
-                    'latitude' => $latitude,
-                    'longitude' => $longitude,
-                    'tipoGasId' => getTipoGasId($type), // Mapeamos el tipo de gas a su TipoID
-                    'value' => $valueData['v'],
-                ];
-            }
-        }
+        // Crear un array con los datos que queremos insertar
+        $airData = [
+            'time' => $time,
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'ValorAQI' => $aqi,  // Guardamos el valor de AQI
+        ];
 
-        return $airData;
+        return [$airData];  // Retornamos los datos en un array
+
     } catch (Exception $e) {
         echo "Error procesando la URL $url: " . $e->getMessage() . "\n";
         return [];
     }
 }
+
 
 // Función para obtener el TipoID (simulamos que existe esta relación)
 function getTipoGasId($type) {
@@ -122,6 +118,7 @@ function fetchAirDataAndSend($urls) {
         echo "No se encontraron datos de calidad del aire para enviar.";
     }
 }
+
 
 // Llamar a la función principal
 fetchAirDataAndSend($urls);
