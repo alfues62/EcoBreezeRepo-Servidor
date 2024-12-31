@@ -137,11 +137,22 @@
                     La calidad del aire tiene un impacto directo en nuestra salud y bienestar. Identificar las zonas contaminadas es fundamental para evitar riesgos respiratorios y proteger a nuestros seres queridos.
                     <br><br>
                     Gracias a nuestro sistema avanzado, podrás visualizar las zonas con mala calidad del aire. Úsalo para planificar tus actividades al aire libre y evitar áreas con alta contaminación.
+                    <br><br>
+                    <strong>¿Qué es el AQI?</strong><br>
+                    El <strong>Índice de Calidad del Aire (AQI)</strong> es un indicador utilizado para medir la calidad del aire y su impacto en la salud. Los valores de AQI varían entre 0 y 500, donde un valor más bajo indica una mejor calidad del aire y un valor más alto representa mayor contaminación. A continuación, te presentamos los umbrales y sus efectos en la salud:
+                    <br><br>
+                    
                 </h3>
             </div>
             <!-- Imagen Informativa -->
             <div class="col-md-6 text-center">
-                <img src="/frontend/img/mapa.png" alt="Calidad del Aire" class="product-image rounded shadow">
+                
+                <h3 class="lead text-left" id= "textosAQI">
+                    <li><strong>Buena ( ≤ 50 ):</strong> La calidad del aire es satisfactoria, y el riesgo de efectos adversos en la salud es mínimo.</li>
+                    <li><strong>Moderada ( 51 - 100 ):</strong> La calidad del aire es aceptable, pero puede haber un riesgo moderado para algunas personas, especialmente aquellas con afecciones respiratorias.</li>
+                    <li><strong>Mala ( > 100 ):</strong> La calidad del aire afecta a toda la población, y se recomienda reducir las actividades al aire libre, especialmente para los grupos sensibles.</li>
+                </h3>
+                <img src="/frontend/img/mapa.png" alt="Calidad del Aire" class="product-image rounded shadow" id= "imagenAQI">
             </div>
         </div>
         <!-- Botón para el Mapa Completo -->

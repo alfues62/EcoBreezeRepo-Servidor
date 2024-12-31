@@ -198,8 +198,8 @@ class DatosCRUD {
             // Consulta SQL para insertar una medición en la tabla MEDICIONESAPI
             $query = "
                 INSERT INTO `MEDICIONESAPI` 
-                (`ValorAQI`, `Lon`, `Lat`, `Fecha`, `Hora`)
-                VALUES (?, ?, ?, ?, ?)
+                (`ValorAQI`, `CO2`, `NO2`, `O3`, `SO2`, `Lon`, `Lat`, `Fecha`, `Hora`)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ";
     
             // Preparamos la consulta
@@ -207,14 +207,21 @@ class DatosCRUD {
     
             // Recorremos cada medición y la insertamos en la base de datos
             foreach ($mediciones as $medicion) {
+                // Asignar valores a las variables
                 $valorAQI = $medicion['ValorAQI'];  // Valor AQI
                 $lon = $medicion['longitude'];
                 $lat = $medicion['latitude'];
                 $fecha = date('Y-m-d', strtotime($medicion['time']));
                 $hora = date('H:i:s', strtotime($medicion['time']));
+                
+                // Verificamos si los gases existen en la medición, si no, asignamos null
+                $co2 = $medicion['CO2'] ?? null;   // CO₂
+                $no2 = $medicion['NO2'] ?? null;   // NO₂
+                $o3 = $medicion['O3'] ?? null;     // O₃
+                $so2 = $medicion['SO2'] ?? null;   // SO₂
     
                 // Ejecutamos la consulta de inserción
-                $stmt->execute([$valorAQI, $lon, $lat, $fecha, $hora]);
+                $stmt->execute([$valorAQI, $co2, $no2, $o3, $so2, $lon, $lat, $fecha, $hora]);
             }
     
             // Confirmamos la transacción

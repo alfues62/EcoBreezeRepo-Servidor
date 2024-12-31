@@ -94,7 +94,7 @@ if (isset($mediciones['error'])) {
 
         // Añadir marcadores al mapa
         mediciones.forEach(medicion => {
-    const { Lat, Lon, ValorAQI, Fecha, Hora } = medicion; // Asegúrate de que 'ValorAQI' esté correctamente asignado
+        const { Lat, Lon, ValorAQI, Fecha, Hora, CO2, NO2, O3, SO2 } = medicion;
 
     // Verifica si el valor es correcto
     console.log("Valor AQI: ", ValorAQI);
@@ -110,23 +110,29 @@ if (isset($mediciones['error'])) {
         fillOpacity: 0.65
     }).addTo(map);
 
-    // Crear el contenido del popup con una estructura más bonita
+    // Crear el contenido del popup con los 4 gases añadidos
     const popupContent = `
-        <div style="font-family: 'Arial', sans-serif;">
-            <h4 style="margin: 0; color: black ;"><strong>Detalles de la medición</strong></h4>
-            <p style="margin: 5px 0;"><i class="bi bi-calendar"></i> <strong>Fecha:</strong> ${Fecha}</p>
-            <p style="margin: 5px 0;"><i class="bi bi-clock"></i> <strong>Hora:</strong> ${Hora}</p>
-            <p style="margin: 5px 0;"><i class="bi bi-thermometer-half"></i> <strong>Valor AQI:</strong> <span style="color: ${color};">${ValorAQI}</span></p>
-            <p style="margin: 5px 0;"><i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> ${Lat}, ${Lon}</p>
-            <p style="margin: 5px 0;">El valor AQI de <strong>${ValorAQI}</strong> indica una <strong>${color === 'green' ? 'buena calidad' : (color === 'yellow' ? 'calidad moderada' : 'mala calidad')}</strong> del aire.</p>
-        </div>
-    `;
+    <div style="font-family: 'Arial', sans-serif;">
+        <h4 style="margin: 0; color: black ;"><strong>Detalles de la medición</strong></h4>
+        <p style="margin: 5px 0;"><i class="bi bi-calendar"></i> <strong>Fecha:</strong> ${Fecha}</p>
+        <p style="margin: 5px 0;"><i class="bi bi-clock"></i> <strong>Hora:</strong> ${Hora}</p>
+        <p style="margin: 5px 0;"><i class="bi bi-thermometer-half"></i> <strong>Valor AQI:</strong> <span style="color: black;">${ValorAQI}</span></p>
+        <p style="margin: 5px 0;"><i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> ${Lat}, ${Lon}</p>
+        <p style="margin: 5px 0;">El valor AQI de <strong>${ValorAQI}</strong> indica una <strong>${color === 'green' ? 'buena calidad' : (color === 'yellow' ? 'calidad moderada' : 'mala calidad')}</strong> del aire.</p>
+        <hr>
+        <h5>Gases detectados:</h5>
+        <ul>
+            <li><strong>CO₂:</strong> <span style="color: ${CO2 > Math.max(NO2, O3, SO2) ? 'red' : 'black'};">${CO2 || 'No disponible'}</span></li>
+            <li><strong>NO₂:</strong> <span style="color: ${NO2 > Math.max(CO2, O3, SO2) ? 'red' : 'black'};">${NO2 || 'No disponible'}</span></li>
+            <li><strong>O₃:</strong> <span style="color: ${O3 > Math.max(CO2, NO2, SO2) ? 'red' : 'black'};">${O3 || 'No disponible'}</span></li>
+            <li><strong>SO₂:</strong> <span style="color: ${SO2 > Math.max(CO2, NO2, O3) ? 'red' : 'black'};">${SO2 || 'No disponible'}</span></li>
+        </ul>
+    </div>
+`;
 
     // Asigna el popup con el contenido
     marker.bindPopup(popupContent);
 });
-
-
 
 
         // Crear la leyenda con un degradado de color

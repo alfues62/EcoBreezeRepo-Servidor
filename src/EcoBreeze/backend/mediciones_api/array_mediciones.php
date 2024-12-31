@@ -29,12 +29,22 @@ function processUrl($url) {
         list($latitude, $longitude) = $data['data']['city']['geo'] ?? [null, null];
         $time = $data['data']['time']['iso'];  // Obtenemos la fecha y hora
 
+        // Extraer los valores de los gases usando las equivalencias proporcionadas
+        $co2 = $data['data']['iaqi']['co']['v'] ?? null;   // CO₂
+        $no2 = $data['data']['iaqi']['no2']['v'] ?? null;   // NO₂
+        $o3 = $data['data']['iaqi']['o3']['v'] ?? null;    // O₃
+        $so2 = $data['data']['iaqi']['so2']['v'] ?? null;  // SO₂
+
         // Crear un array con los datos que queremos insertar
         $airData = [
             'time' => $time,
             'latitude' => $latitude,
             'longitude' => $longitude,
             'ValorAQI' => $aqi,  // Guardamos el valor de AQI
+            'CO2' => $co2,       // Guardamos el valor de CO₂
+            'NO2' => $no2,       // Guardamos el valor de NO₂
+            'O3' => $o3,         // Guardamos el valor de O₃
+            'SO2' => $so2,       // Guardamos el valor de SO₂
         ];
 
         return [$airData];  // Retornamos los datos en un array
@@ -43,20 +53,6 @@ function processUrl($url) {
         echo "Error procesando la URL $url: " . $e->getMessage() . "\n";
         return [];
     }
-}
-
-
-// Función para obtener el TipoID (simulamos que existe esta relación)
-function getTipoGasId($type) {
-    // Aquí asignamos los valores de TipoID según el tipo de gas
-    $gasTypes = [
-        'O3' => 2, // O3 -> TipoID = 1
-        'CO' => 3, // CO -> TipoID = 2
-        'NO2' => 4, // NO2 -> TipoID = 3
-        'SO4' => 5, // SO4 -> TipoID = 4
-    ];
-
-    return $gasTypes[strtoupper($type)] ?? null; // Devuelve el TipoID o null si no se encuentra
 }
 
 // Función para hacer una solicitud cURL a una API
@@ -119,8 +115,5 @@ function fetchAirDataAndSend($urls) {
     }
 }
 
-
 // Llamar a la función principal
 fetchAirDataAndSend($urls);
-
-?>
