@@ -77,16 +77,31 @@ function determinarNivelPromedio(mediciones) {
     }
 }
 
-// Función para calcular los promedios de los gases
-function calcularPromedios(mediciones) {
+// Función para calcular los promedios de los gases filtrando solo por fecha
+function calcularPromedios(mediciones, fechaSeleccionada) {
     const promedios = {};
 
     mediciones.forEach(medicion => {
-        if (!promedios[medicion.gas]) {
-            promedios[medicion.gas] = { total: 0, cantidad: 0 };
+        // Filtrar solo por fecha
+        if (medicion.Fecha !== fechaSeleccionada) {
+            return; // Si no coincide la fecha, no procesamos esta medición
         }
-        promedios[medicion.gas].total += medicion.valor;
-        promedios[medicion.gas].cantidad += 1;
+
+        // Asegurarse de que Valor sea un número
+        const valor = parseFloat(medicion.Valor);
+        const gas = medicion.TIPOGAS_TipoID;  // Usar TIPOGAS_TipoID como identificador del gas
+
+        // Verificar que el valor sea un número válido
+        if (isNaN(valor)) return;
+
+        // Si el gas no existe en el objeto promedios, inicializarlo
+        if (!promedios[gas]) {
+            promedios[gas] = { total: 0, cantidad: 0 };
+        }
+
+        // Acumular el valor y la cantidad
+        promedios[gas].total += valor;
+        promedios[gas].cantidad += 1;
     });
 
     // Calcular el promedio final para cada gas
@@ -94,10 +109,11 @@ function calcularPromedios(mediciones) {
         promedios[gas].promedio = promedios[gas].total / promedios[gas].cantidad;
     }
 
+    console.log(promedios);  // Para verificar los resultados en consola
     return promedios;
 }
 
-// Función para actualizar la tabla con los promedios
+// Función para actualizar la tabla con los promedios filtrados solo por fecha
 function actualizarTabla(promedios) {
     const tabla = document.getElementById("tablaPromedios").getElementsByTagName('tbody')[0];
     tabla.innerHTML = '';  // Limpiar tabla
@@ -107,10 +123,26 @@ function actualizarTabla(promedios) {
         const celdaGas = fila.insertCell(0);
         const celdaPromedio = fila.insertCell(1);
 
-        celdaGas.textContent = gas;
+        // Aquí puedes usar una función para obtener el nombre del gas
+        celdaGas.textContent = obtenerNombreGas(gas);
         celdaPromedio.textContent = promedios[gas].promedio.toFixed(2); // Mostrar promedio con dos decimales
     }
 }
+
+// Función para obtener el nombre del gas basado en TIPOGAS_TipoID
+function obtenerNombreGas(tipoGasID) {
+    const nombresGas = {
+        "2": "O3 (Ozono)",
+        "3": "CO (Monóxido de carbono)",
+        "4": "NO2 (Dióxido de nitrógeno)",
+        "5": "SO4 (Sulfato)"
+    };
+
+    return nombresGas[tipoGasID] || "Desconocido";
+}
+
+
+
 
     
     const actualizarGrafica = (fechaSeleccionada, tipoGasSeleccionado) => {
@@ -137,11 +169,7 @@ function actualizarTabla(promedios) {
         if (grafica) grafica.destroy();
     
         const ctx = graficaCanvas.getContext('2d');
-        const escalaY = escalasPorGas[tipoGasSeleccionado] || { min: 0, max: 50 };
-        
-        // Llamar a las funciones para calcular los promedios y actualizar la tabla
-        const promedios = calcularPromedios(mediciones);
-        actualizarTabla(promedios);    
+        const escalaY = escalasPorGas[tipoGasSeleccionado] || { min: 0, max: 50 }; 
         
         grafica = new Chart(ctx, {
             type: 'bar',
@@ -209,6 +237,7 @@ function actualizarTabla(promedios) {
         document.getElementById('error-message').innerText = '';
     };
     
+
     const fechaSelector = document.createElement('input');
     fechaSelector.type = 'date';
     fechaSelector.id = 'fechaSelector';
@@ -245,6 +274,11 @@ function actualizarTabla(promedios) {
         }
 
         actualizarGrafica(fechaSeleccionada, tipoGasSeleccionado);
+        // Filtramos y calculamos los promedios
+        const promedios = calcularPromedios(mediciones, fechaSeleccionada);
+
+        // Actualizamos la tabla con los promedios
+        actualizarTabla(promedios);
     });
 
     const today = new Date().toISOString().split('T')[0];
