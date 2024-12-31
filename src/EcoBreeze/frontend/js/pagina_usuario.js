@@ -54,28 +54,65 @@ document.addEventListener('DOMContentLoaded', function () {
         5: { optimo: [0, 0.02], moderado: [0.021, 0.075], alto: [0.076, Infinity] } // SO4
     };
 
-    function determinarNivelPromedio(mediciones) {
-        if (mediciones.length === 0) return 'No hay mediciones disponibles';
+    // Función para determinar el nivel de gas basado en las mediciones
+function determinarNivelPromedio(mediciones) {
+    if (mediciones.length === 0) return 'No hay mediciones disponibles';
 
-        const sumaValores = mediciones.reduce((acumulado, medicion) => acumulado + parseFloat(medicion.Valor), 0);
-        const promedio = sumaValores / mediciones.length;
+    const sumaValores = mediciones.reduce((acumulado, medicion) => acumulado + parseFloat(medicion.Valor), 0);
+    const promedio = sumaValores / mediciones.length;
 
-        const tipoGas = mediciones[0].TIPOGAS_TipoID;
-        const rangos = rangosPorGas[tipoGas];
+    const tipoGas = mediciones[0].TIPOGAS_TipoID;
+    const rangos = rangosPorGas[tipoGas];
 
-        if (!rangos) return 'Tipo de gas desconocido';
+    if (!rangos) return 'Tipo de gas desconocido';
 
-        if (promedio >= rangos.optimo[0] && promedio <= rangos.optimo[1]) {
-            return `¡Todo está bien! El nivel de gas es seguro y adecuado para el ambiente.`;
-        } else if (promedio >= rangos.moderado[0] && promedio <= rangos.moderado[1]) {
-            return `¡Atento! Los niveles de gas estan empezando a elevarse, te recomendamos tomar precauciones`;
-        } else if (promedio >= rangos.alto[0]) {
-            return `¡Cuidado! El nivel de gas está bastante alto, te recomendamos ir a un sitio seguro donde los niveles sean mas bajos.`;
-        } else {
-            return 'Nivel desconocido';
+    if (promedio >= rangos.optimo[0] && promedio <= rangos.optimo[1]) {
+        return `¡Todo está bien! El nivel de gas es seguro y adecuado para el ambiente.`;
+    } else if (promedio >= rangos.moderado[0] && promedio <= rangos.moderado[1]) {
+        return `¡Atento! Los niveles de gas estan empezando a elevarse, te recomendamos tomar precauciones.`;
+    } else if (promedio >= rangos.alto[0]) {
+        return `¡Cuidado! El nivel de gas está bastante alto, te recomendamos ir a un sitio seguro donde los niveles sean más bajos.`;
+    } else {
+        return 'Nivel desconocido';
+    }
+}
+
+// Función para calcular los promedios de los gases
+function calcularPromedios(mediciones) {
+    const promedios = {};
+
+    mediciones.forEach(medicion => {
+        if (!promedios[medicion.gas]) {
+            promedios[medicion.gas] = { total: 0, cantidad: 0 };
         }
+        promedios[medicion.gas].total += medicion.valor;
+        promedios[medicion.gas].cantidad += 1;
+    });
+
+    // Calcular el promedio final para cada gas
+    for (const gas in promedios) {
+        promedios[gas].promedio = promedios[gas].total / promedios[gas].cantidad;
     }
 
+    return promedios;
+}
+
+// Función para actualizar la tabla con los promedios
+function actualizarTabla(promedios) {
+    const tabla = document.getElementById("tablaPromedios").getElementsByTagName('tbody')[0];
+    tabla.innerHTML = '';  // Limpiar tabla
+
+    for (const gas in promedios) {
+        const fila = tabla.insertRow();
+        const celdaGas = fila.insertCell(0);
+        const celdaPromedio = fila.insertCell(1);
+
+        celdaGas.textContent = gas;
+        celdaPromedio.textContent = promedios[gas].promedio.toFixed(2); // Mostrar promedio con dos decimales
+    }
+}
+
+    
     const actualizarGrafica = (fechaSeleccionada, tipoGasSeleccionado) => {
         console.log('Filtrando mediciones para la fecha:', fechaSeleccionada, 'y tipo de gas:', tipoGasSeleccionado);
 
@@ -84,30 +121,28 @@ document.addEventListener('DOMContentLoaded', function () {
             const medicionFecha = m.Fecha;
             return m.TIPOGAS_TipoID === tipoGasSeleccionado && medicionFecha === fechaSeleccionada;
         });
-
+    
         medicionesFiltradas.sort((a, b) => {
             const dateA = new Date(`${a.Fecha}T${a.Hora}`);
             const dateB = new Date(`${b.Fecha}T${b.Hora}`);
             return dateA - dateB;
         });
 
-        if (medicionesFiltradas.length === 0) {
-            document.getElementById('error-message').innerText = `No hay mediciones para el tipo de gas seleccionado (${tipoGasSeleccionado}) en la fecha: ${fechaSeleccionada}.`;
-            if (grafica) grafica.destroy();
-            return;
-        }
-
         const nivelPromedio = determinarNivelPromedio(medicionesFiltradas);
         document.getElementById('nivelPromedio').innerText = nivelPromedio;
-
+    
         const labels = medicionesFiltradas.map(m => `${m.Fecha} ${m.Hora}`);
         const dataValues = medicionesFiltradas.map(m => parseFloat(m.Valor));
-
+    
         if (grafica) grafica.destroy();
-
+    
         const ctx = graficaCanvas.getContext('2d');
         const escalaY = escalasPorGas[tipoGasSeleccionado] || { min: 0, max: 50 };
-
+        
+        // Llamar a las funciones para calcular los promedios y actualizar la tabla
+        const promedios = calcularPromedios(mediciones);
+        actualizarTabla(promedios);    
+        
         grafica = new Chart(ctx, {
             type: 'bar',
             data: {
@@ -136,9 +171,9 @@ document.addEventListener('DOMContentLoaded', function () {
                             color: function(context) {
                                 const valor = context.tick.value; // Valor de la línea de la cuadrícula
                                 const rangos = rangosPorGas[tipoGasSeleccionado];
-        
+    
                                 if (!rangos) return 'rgba(0, 0, 0, 0.1)'; // Si no hay rangos, color predeterminado
-        
+    
                                 // Comprobar límites de rangos y devolver colores
                                 if (valor === rangos.optimo[1]) {
                                     return 'green'; // Límite superior del rango óptimo
@@ -149,20 +184,20 @@ document.addEventListener('DOMContentLoaded', function () {
                                 if (valor === rangos.alto[0]) {
                                     return 'red'; // Límite inferior del rango alto
                                 }
-        
+    
                                 return 'rgba(0, 0, 0, 0.1)'; // Color predeterminado para otras líneas
                             },
                             lineWidth: function(context) {
                                 const valor = context.tick.value; // Valor de la línea de la cuadrícula
                                 const rangos = rangosPorGas[tipoGasSeleccionado];
-        
+    
                                 if (!rangos) return 1; // Si no hay rangos, ancho predeterminado
-        
+    
                                 // Aumentar el ancho para líneas de rangos
                                 if (valor === rangos.optimo[1] || valor === rangos.moderado[1] || valor === rangos.alto[0]) {
                                     return 2; // Más grueso para líneas importantes
                                 }
-        
+    
                                 return 1; // Ancho predeterminado
                             }
                         }
@@ -170,10 +205,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-
+    
         document.getElementById('error-message').innerText = '';
     };
-
+    
     const fechaSelector = document.createElement('input');
     fechaSelector.type = 'date';
     fechaSelector.id = 'fechaSelector';
@@ -216,6 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
     fechaSelector.value = today;
 
     actualizarGrafica(today, '2');
+
+
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -249,3 +286,6 @@ document.addEventListener('DOMContentLoaded', function () {
         togglePasswordVisibility(inputId, toggleButton);
     });
 });
+
+
+

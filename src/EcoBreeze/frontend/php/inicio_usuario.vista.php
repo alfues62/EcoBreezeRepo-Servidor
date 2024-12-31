@@ -68,7 +68,29 @@
             <div id="error-message" style="color: red; font-weight: bold;"></div>
             <div id="mediciones-container"></div>  <!-- Contenedor para mostrar las mediciones recibidas -->
         </div>
+<div id="debug-container" style="margin-top: 20px; padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9;">
+    <h4>Debug Info</h4>
+    <pre id="debug-output" style="white-space: pre-wrap;"></pre>
+</div>
+
+<div id="grafica-tabla-container" style="display: flex; gap: 20px;">
+    <canvas id="graficaMediciones"></canvas>
+    <table id="tablaPromedios" border="1" style="width: 300px; text-align: center;">
+        <thead>
+            <tr>
+                <th>Gas</th>
+                <th>Promedio</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Aquí se llenará dinámicamente con JavaScript -->
+        </tbody>
+    </table>
+</div>
+
+
 <?php endif; ?>
+
 
     <div id="map" style="width: 100%; height: 500px;"></div>
 
