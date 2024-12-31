@@ -118,16 +118,106 @@ function actualizarTabla(promedios) {
     const tabla = document.getElementById("tablaPromedios").getElementsByTagName('tbody')[0];
     tabla.innerHTML = '';  // Limpiar tabla
 
-    for (const gas in promedios) {
-        const fila = tabla.insertRow();
-        const celdaGas = fila.insertCell(0);
-        const celdaPromedio = fila.insertCell(1);
+    let gasPeor = null;
+    let peorPromedio = -Infinity;
+    let rangoPeor = '';
 
-        // Aquí puedes usar una función para obtener el nombre del gas
-        celdaGas.textContent = obtenerNombreGas(gas);
-        celdaPromedio.textContent = promedios[gas].promedio.toFixed(2); // Mostrar promedio con dos decimales
+    // Determinar el gas con el peor promedio (según el rango)
+    for (const gas in promedios) {
+        const promedio = promedios[gas].promedio;
+        const rango = rangosPorGas[gas];
+
+        if (rango) {
+            let rangoActual = '';
+
+            // Determinar en qué rango se encuentra el promedio de cada gas
+            if (promedio >= rango.optimo[0] && promedio <= rango.optimo[1]) {
+                rangoActual = 'optimo';
+            } else if (promedio >= rango.moderado[0] && promedio <= rango.moderado[1]) {
+                rangoActual = 'moderado';
+            } else if (promedio >= rango.alto[0] && promedio <= rango.alto[1]) {
+                rangoActual = 'alto';
+            }
+
+            // El gas con el promedio más alto en el rango alto se considera el peor
+            if (rangoActual === 'alto' || (rangoPeor === '' && rangoActual !== 'optimo')) {
+                // Si el gas está en el rango alto, o si no se ha asignado un peor gas
+                // asignamos el gas con el peor promedio
+                if (promedio > peorPromedio) {
+                    peorPromedio = promedio;
+                    gasPeor = gas;
+                    rangoPeor = rangoActual;
+                }
+            }
+        }
+    }
+
+    // Si encontramos un gas con el peor promedio, lo agregamos al principio de la tabla
+    if (gasPeor) {
+        const filaPeor = tabla.insertRow();
+        const celdaGasPeor = filaPeor.insertCell(0);
+        const celdaPromedioPeor = filaPeor.insertCell(1);
+
+        // Obtener el nombre del gas
+        celdaGasPeor.textContent = obtenerNombreGas(gasPeor);
+        const promedioPeor = promedios[gasPeor].promedio;
+        celdaPromedioPeor.textContent = promedioPeor.toFixed(2);
+
+        // Asignar color de fondo para el gas con el peor promedio
+        const rangoPeorGas = rangosPorGas[gasPeor];
+        let colorFondoPeor = '';
+
+        if (rangoPeorGas) {
+            if (promedioPeor >= rangoPeorGas.optimo[0] && promedioPeor <= rangoPeorGas.optimo[1]) {
+                colorFondoPeor = 'lightgreen';  // Rango óptimo
+            } else if (promedioPeor >= rangoPeorGas.moderado[0] && promedioPeor <= rangoPeorGas.moderado[1]) {
+                colorFondoPeor = 'yellow';  // Rango moderado
+            } else if (promedioPeor >= rangoPeorGas.alto[0] && promedioPeor <= rangoPeorGas.alto[1]) {
+                colorFondoPeor = 'red';  // Rango alto
+            }
+        }
+
+        // Asignar el color de fondo a la fila del gas con el peor promedio
+        celdaGasPeor.style.backgroundColor = colorFondoPeor;
+        celdaPromedioPeor.style.backgroundColor = colorFondoPeor;
+    }
+
+    // Luego, agregamos el resto de las filas como lo hacíamos antes
+    for (const gas in promedios) {
+        if (gas !== gasPeor) {  // Saltar el gas con el peor promedio
+            const fila = tabla.insertRow();
+            const celdaGas = fila.insertCell(0);
+            const celdaPromedio = fila.insertCell(1);
+
+            // Aquí puedes usar una función para obtener el nombre del gas
+            celdaGas.textContent = obtenerNombreGas(gas);
+            const promedio = promedios[gas].promedio;
+
+            // Mostrar promedio con dos decimales
+            celdaPromedio.textContent = promedio.toFixed(2);
+
+            // Asignar color de fondo según el rango del promedio
+            const rango = rangosPorGas[gas];
+
+            if (rango) {
+                let colorFondo = '';
+                if (promedio >= rango.optimo[0] && promedio <= rango.optimo[1]) {
+                    colorFondo = 'lightgreen';  // Rango óptimo
+                } else if (promedio >= rango.moderado[0] && promedio <= rango.moderado[1]) {
+                    colorFondo = 'yellow';  // Rango moderado
+                } else if (promedio >= rango.alto[0] && promedio <= rango.alto[1]) {
+                    colorFondo = 'red';  // Rango alto
+                }
+
+                // Asignar color de fondo tanto al nombre del gas como al promedio
+                celdaGas.style.backgroundColor = colorFondo;
+                celdaPromedio.style.backgroundColor = colorFondo;
+            }
+        }
     }
 }
+
+
 
 // Función para obtener el nombre del gas basado en TIPOGAS_TipoID
 function obtenerNombreGas(tipoGasID) {
