@@ -5,7 +5,7 @@ FROM php:8.0-apache
 RUN docker-php-ext-install pdo pdo_mysql
 
 # Instala msmtp para el envío de correos
-RUN apt-get update && apt-get install -y msmtp msmtp-mta
+RUN apt-get update && apt-get install -y msmtp msmtp-mta unzip git
 
 # Configura msmtp para usar Gmail como servidor SMTP
 RUN echo "defaults" > /etc/msmtprc && \
@@ -66,6 +66,18 @@ RUN apachectl configtest && echo "Configuración de Apache válida." || (echo "E
 
 # Configura PHP para que utilice msmtp para el envío de correos
 RUN echo "sendmail_path = /usr/bin/msmtp -t" >> /usr/local/etc/php/conf.d/sendmail.ini
+
+# Instala Composer
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && \
+    php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
+    php -r "unlink('composer-setup.php');"
+
+# Instala PHPUnit usando Composer global
+RUN composer global require phpunit/phpunit --prefer-dist && \
+    ln -s /root/.composer/vendor/bin/phpunit /usr/local/bin/phpunit
+
+# Verifica que PHPUnit esté instalado correctamente
+RUN phpunit --version
 
 # Expone el puerto 80
 EXPOSE 80
