@@ -57,18 +57,43 @@
     </ul>
 </nav>
 
-
 <?php if ($usuario): ?>
-        <div class="container mt-5">
-            <h2>Gráfica de Mediciones</h2>
-            <div id="grafica" style="width: 100%; max-width: 800px; height: 100%; max-height:400px; margin: 0 auto;">
+    <div class="container mt-5">
+        <h2>Gráfica de Mediciones</h2>
+        <!-- Contenedor flex que alinea la gráfica y el contenedor vertical de nivelGas y tabla -->
+        <div class="flex-container" style="display: flex; justify-content: space-between; align-items: flex-start;">
+            <!-- Contenedor de la gráfica -->
+            <div id="grafica" style="width: 100%; max-width: 800px; height: 100%; max-height: 400px;">
                 <canvas id="graficaMediciones" width="400" height="400"></canvas>
             </div>
-            
-            <div id="error-message" style="color: red; font-weight: bold;"></div>
-            <div id="mediciones-container"></div>  <!-- Contenedor para mostrar las mediciones recibidas -->
+
+            <!-- Contenedor flex vertical para nivelGas y tablaPromedios con el mismo width -->
+            <div style="display: flex; flex-direction: column; align-items: flex-start; width: 300px; margin-left: 20px;">
+                <!-- Contenedor de nivelGas -->
+                <div id="nivelGas" style="font-size: 16px; color: black; margin-bottom: 20px; width: 100%;"></div>
+                
+                <!-- Contenedor de la tabla -->
+                <table id="tablaPromedios" border="1" style="width: 100%; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th>Gas</th>
+                            <th>Promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Aquí se llenará dinámicamente con JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
+
+        <!-- Mensajes de error y contenedor para las mediciones -->
+        <div id="error-message" style="color: red; font-weight: bold;"></div>
+        <div id="mediciones-container"></div>
+    </div>
 <?php endif; ?>
+
+
 
     <div id="map" style="width: 100%; height: 500px;"></div>
 

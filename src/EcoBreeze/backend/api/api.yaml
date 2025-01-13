@@ -4,7 +4,7 @@ info:
   description: API para obtener las mediciones de un usuario.
   version: 2.0.0
 servers:
-  - url: http://localhost:8080/api/api_datos.yaml
+  - url: http://localhost:8080/api/api.yaml
     description: 'Servidor de desarrollo'
 
 paths:

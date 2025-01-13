@@ -175,3 +175,32 @@ button:disabled, .btn:disabled {
         font-size: 1.5rem;
     }
 }
+
+
+#grafica-tabla-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+#graficaMediciones {
+    width: 600px;
+    height: 400px;
+}
+
+#tablaPromedios {
+    border-collapse: collapse;
+    width: 300px;
+    text-align: center;
+}
+
+#tablaPromedios th, #tablaPromedios td {
+    padding: 8px;
+    border: 1px solid #ddd;
+}
+
+#tablaPromedios th {
+    background-color: #f4f4f4;
+}

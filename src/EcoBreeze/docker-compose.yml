@@ -12,6 +12,10 @@ services:
       - ./db:/var/www/html/db
       - ./logs:/var/www/html/logs
       - ./.env:/var/www/html/.env
+      - ./phpunit.xml:/var/www/html/phpunit.xml
+      - ./test:/var/www/html/test
+
+
     ports:
       - "8080:80"
     depends_on:
