@@ -74,7 +74,7 @@ if (isset($mediciones['error'])) {
     </div>
     <script>
         // Crear el mapa
-        const map = L.map('map').setView([39.4699, -0.3763], 10); // Vista inicial en Valencia
+        const map = L.map('map').setView([39.62842074544928, -0.3761891236455961], 10); // Vista inicial en Valencia
 
         // Añadir un mapa base (OpenStreetMap)
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -94,44 +94,60 @@ if (isset($mediciones['error'])) {
 
         // Añadir marcadores al mapa
         mediciones.forEach(medicion => {
-            const { Lat, Lon, Valor, Fecha, Hora, TIPOGAS_TipoID } = medicion;
+        const { Lat, Lon, ValorAQI, Fecha, Hora, CO2, NO2, O3, SO2 } = medicion;
 
-            // Determinar el color del marcador según la calidad del aire
-            const color = getColor(Valor);
+    // Verifica si el valor es correcto
+    console.log("Valor AQI: ", ValorAQI);
 
-            // Crear un marcador con un círculo
-            const marker = L.circleMarker([Lat, Lon], {
-                color: color,
-                radius: 10,
-                fillColor: color,
-                fillOpacity: 0.7
-            }).addTo(map);
+    // Determina el color según el valor de AQI
+    const color = getColor(ValorAQI);
 
-            // Añadir un popup con los detalles de la medición
-            marker.bindPopup(`
-                <strong>Detalles de la medición:</strong><br>
-                Fecha: ${Fecha}<br>
-                Hora: ${Hora}<br>
-                Valor: ${Valor}<br>
-                Tipo de Gas: ${TIPOGAS_TipoID}<br>
-                Latitud: ${Lat}, Longitud: ${Lon}
-            `);
-        });
+    // Crear un marcador en el mapa
+    const marker = L.circleMarker([Lat, Lon], {
+        color: color,
+        radius: 10,
+        fillColor: color,
+        fillOpacity: 0.65
+    }).addTo(map);
 
-        // Crear la leyenda
+    // Crear el contenido del popup con los 4 gases añadidos
+    const popupContent = `
+    <div style="font-family: 'Arial', sans-serif;">
+        <h4 style="margin: 0; color: black ;"><strong>Detalles de la medición</strong></h4>
+        <p style="margin: 5px 0;"><i class="bi bi-calendar"></i> <strong>Fecha:</strong> ${Fecha}</p>
+        <p style="margin: 5px 0;"><i class="bi bi-clock"></i> <strong>Hora:</strong> ${Hora}</p>
+        <p style="margin: 5px 0;"><i class="bi bi-thermometer-half"></i> <strong>Valor AQI:</strong> <span style="color: black;">${ValorAQI}</span></p>
+        <p style="margin: 5px 0;"><i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> ${Lat}, ${Lon}</p>
+        <p style="margin: 5px 0;">El valor AQI de <strong>${ValorAQI}</strong> indica una <strong>${color === 'green' ? 'buena calidad' : (color === 'yellow' ? 'calidad moderada' : 'mala calidad')}</strong> del aire.</p>
+        <hr>
+        <h5>Gases detectados:</h5>
+        <ul>
+            <li><strong>CO₂:</strong> <span style="color: ${CO2 > Math.max(NO2, O3, SO2) ? 'red' : 'black'};">${CO2 || 'No disponible'}</span></li>
+            <li><strong>NO₂:</strong> <span style="color: ${NO2 > Math.max(CO2, O3, SO2) ? 'red' : 'black'};">${NO2 || 'No disponible'}</span></li>
+            <li><strong>O₃:</strong> <span style="color: ${O3 > Math.max(CO2, NO2, SO2) ? 'red' : 'black'};">${O3 || 'No disponible'}</span></li>
+            <li><strong>SO₂:</strong> <span style="color: ${SO2 > Math.max(CO2, NO2, O3) ? 'red' : 'black'};">${SO2 || 'No disponible'}</span></li>
+        </ul>
+    </div>
+`;
+
+    // Asigna el popup con el contenido
+    marker.bindPopup(popupContent);
+});
+
+
+        // Crear la leyenda con un degradado de color
         const legend = L.control({ position: 'bottomright' });
 
         legend.onAdd = function () {
             const div = L.DomUtil.create('div', 'legend');
             div.innerHTML = `
                 <strong>Calidad del Aire</strong><br>
-                <i style="background: green"></i> Buena (≤50)<br>
-                <i style="background: yellow"></i> Moderada (≤100)<br>
-                <i style="background: red"></i> Mala (>100)
+                <i style="background: green"></i> Buena ( ≤ 50 )<br>
+                <i style="background: yellow"></i> Moderada ( ≤ 100 )<br>
+                <i style="background: red"></i> Mala ( > 100 )
             `;
             return div;
         };
-
         legend.addTo(map);
     </script>
 </body>

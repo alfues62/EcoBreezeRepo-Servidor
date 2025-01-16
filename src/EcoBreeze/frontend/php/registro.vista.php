@@ -85,7 +85,7 @@
             <!-- Política de privacidad -->
             <div class="form-check mt-3">
                 <input type="checkbox" id="politica" name="politica" class="form-check-input">
-                <label for="politica" class="form-check-label">He leído y acepto la <a href="/backend/registrar/politica-privacidad.php" target="_blank">Política de Privacidad</a>.</label>
+                <label for="politica" class="form-check-label">He leído y acepto la <a href="/frontend/php/politica_privacidad_vista.php" target="_blank">Política de Privacidad</a>.</label>
             </div>
             <button type="submit" class="btn btn-login">Registrar</button>
         </form>

@@ -162,18 +162,18 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- Table `EcoBreeze`.`MEDICIONAPI`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `EcoBreeze`.`MEDICIONESAPI` (
-  `ID` INT NOT NULL AUTO_INCREMENT,
-  `Valor` DECIMAL(10, 2) NOT NULL,        -- Valor de la medición
-  `Lon` DECIMAL(10, 6) NOT NULL,          -- Longitud
-  `Lat` DECIMAL(10, 6) NOT NULL,          -- Latitud
-  `Fecha` DATE NOT NULL,                  -- Fecha de la medición
-  `Hora` TIME NOT NULL,                   -- Hora de la medición
-  `TIPOGAS_TipoID` INT NOT NULL,          -- Referencia a TIPOGAS
-  PRIMARY KEY (`ID`),
-  FOREIGN KEY (`TIPOGAS_TipoID`) REFERENCES `TIPOGAS` (`TipoID`) 
-    ON DELETE CASCADE,                    -- Relación con TIPOGAS, eliminando las mediciones si se elimina un tipo de gas
-  INDEX `TIPOGAS_TipoID_INDEX` (`TIPOGAS_TipoID`)  -- Índice para mejorar las consultas con relación
-) ENGINE = InnoDB
+  `ID` INT NOT NULL AUTO_INCREMENT,         -- ID único de la medición
+  `ValorAQI` DECIMAL(10, 2) NOT NULL,       -- Valor del índice de calidad del aire (AQI)
+  `CO2` DECIMAL(10, 2) NULL,                -- Valor de CO₂
+  `NO2` DECIMAL(10, 2) NULL,                -- Valor de NO2
+  `O3` DECIMAL(10, 2) NULL,                 -- Valor de O₃
+  `SO2` DECIMAL(10, 2) NULL,                -- Valor de SO₂
+  `Lon` DECIMAL(10, 6) NOT NULL,            -- Longitud
+  `Lat` DECIMAL(10, 6) NOT NULL,            -- Latitud
+  `Fecha` DATE NOT NULL,                    -- Fecha de la medición
+  `Hora` TIME NOT NULL,                     -- Hora de la medición
+  PRIMARY KEY (`ID`)                        -- Definimos la clave primaria
+)ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
