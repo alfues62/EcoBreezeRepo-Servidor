@@ -13,7 +13,7 @@ var mapaMediciones = window.mapaMediciones;
 var heatData = [];
 
 // Crear un elemento de selección para filtrar por tipo de gas
-var gasSelector = L.control({ position: 'top-right' });
+var gasSelector = L.control({ position: 'topright' });
 gasSelector.onAdd = function () {
     var div = L.DomUtil.create('div', 'info');
     div.innerHTML = '<select id="gasType">' +
@@ -29,7 +29,7 @@ gasSelector.onAdd = function () {
 gasSelector.addTo(map);
 
 // Crear un elemento de selección para filtrar por fecha
-var dateSelector = L.control({ position: 'top-right' });
+var dateSelector = L.control({ position: 'topright' });
 dateSelector.onAdd = function () {
     var div = L.DomUtil.create('div', 'info');
     var today = new Date().toISOString().split('T')[0]; // Fecha de hoy en formato yyyy-mm-dd
