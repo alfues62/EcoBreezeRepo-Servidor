@@ -6,14 +6,14 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Obtener las mediciones del mapa desde PHP
+// Obtener las mediciones del mapa desde PHP (asumimos que `mapaMediciones` está poblado)
 var mapaMediciones = window.mapaMediciones;
 
 // Crear un array para los puntos del mapa de calor
 var heatData = [];
 
 // Crear un elemento de selección para filtrar por tipo de gas
-var gasSelector = L.control({ position: 'top-right' });
+var gasSelector = L.control({ position: 'topright' });
 gasSelector.onAdd = function () {
     var div = L.DomUtil.create('div', 'info');
     div.innerHTML = '<select id="gasType">' +
@@ -29,7 +29,7 @@ gasSelector.onAdd = function () {
 gasSelector.addTo(map);
 
 // Crear un elemento de selección para filtrar por fecha
-var dateSelector = L.control({ position: 'top-right' });
+var dateSelector = L.control({ position: 'topright' });
 dateSelector.onAdd = function () {
     var div = L.DomUtil.create('div', 'info');
     var today = new Date().toISOString().split('T')[0]; // Fecha de hoy en formato yyyy-mm-dd
@@ -53,7 +53,7 @@ function updateHeatMap(gasType, selectedDate) {
 
     // Filtrar las mediciones según el tipo de gas y la fecha seleccionada
     mapaMediciones.forEach(function(medicion) {
-        var medicionDate = medicion.Fecha; // Asegúrate de que el campo de fecha esté en formato yyyy-mm-dd
+        var medicionDate = medicion.Fecha; // Asegúrate de que el campo de fecha en tus mediciones esté en formato yyyy-mm-dd
         if (
             (gasType === '' || medicion.TIPOGAS_TipoID == gasType) && // Filtrar por tipo de gas
             (!selectedDate || medicionDate === selectedDate) // Filtrar por fecha

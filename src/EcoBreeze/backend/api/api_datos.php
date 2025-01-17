@@ -38,7 +38,6 @@ switch ($action) {
         if ($usuario_id) {
             // Llama a la función para obtener las mediciones
             $resultado = $datosCRUD->obtenerMedicionesUsuario($usuario_id);  // Llama a la función de mediciones
-            logMessage("Resultado de obtener mediciones: " . print_r($resultado, true)); // Registra el resultado completo
     
             // Imprime la respuesta tal cual, ya que es JSON
             echo $resultado;  // Directamente imprime la respuesta JSON obtenida
@@ -48,6 +47,15 @@ switch ($action) {
         }
     break;
 
+    case 'obtener_mediciones_todos_usuarios':
+        // Llama a la función para obtener las mediciones de todos los usuarios
+        $resultado = $datosCRUD->obtenerMedicionesTodosUsuarios();  // Llama a la función de mediciones para todos los usuarios
+    
+        // Imprime la respuesta tal cual, ya que es JSON
+        echo $resultado;  // Directamente imprime la respuesta JSON obtenida
+        
+    break;
+    
     case 'obtener_notificaciones_usuario':
         // Obtener el ID del usuario desde la solicitud
         $usuario_id = $requestData['usuario_id'] ?? null;
@@ -106,6 +114,52 @@ switch ($action) {
             echo json_encode(['success' => false, 'error' => 'Usuario ID, Título, Cuerpo y Fecha son obligatorios.']);
         }
     break;
+
+    case 'insertar_medicion_usuario':
+        // Obtener los datos de la solicitud
+        $usuarioID = $requestData['usuario_id'] ?? null;  // ID del usuario
+        $valor = $requestData['valor'] ?? null;          // Valor de la medición
+        $lon = $requestData['lon'] ?? null;              // Longitud de la medición
+        $lat = $requestData['lat'] ?? null;              // Latitud de la medición
+        $fecha = $requestData['fecha'] ?? null;          // Fecha de la medición
+        $hora = $requestData['hora'] ?? null;            // Hora de la medición
+        $tipoGas = $requestData['tipo_gas'] ?? null;     // Tipo de gas medido
+    
+        // Registrar los valores recibidos en el log
+        logMessage("ID del usuario: " . ($usuarioID ?? "No recibido"));
+        logMessage("Valor: " . ($valor ?? "No recibido"));
+        logMessage("Longitud: " . ($lon ?? "No recibido"));
+        logMessage("Latitud: " . ($lat ?? "No recibido"));
+        logMessage("Fecha: " . ($fecha ?? "No recibido"));
+        logMessage("Hora: " . ($hora ?? "No recibido"));
+        logMessage("Tipo de Gas: " . ($tipoGas ?? "No recibido"));
+    
+        // Verificar si los datos necesarios están presentes
+        if (!empty($usuarioID) && !empty($valor) && !empty($tipoGas) && !empty($fecha) && !empty($hora)) {
+            try {
+                // Llamar a la función para insertar la medición
+                $resultado = $datosCRUD->insertarMedicion($usuarioID, $valor, $lon, $lat, $fecha, $hora, $tipoGas);
+    
+                // Manejar la respuesta de la inserción
+                if (isset($resultado['success'])) {
+                    logMessage("Medición insertada con éxito: " . json_encode($resultado));
+                    echo json_encode(['success' => true, 'message' => $resultado['success']]);
+                } else {
+                    logMessage("Error al insertar medición: " . json_encode($resultado));
+                    echo json_encode(['success' => false, 'error' => $resultado['error'] ?? 'Error desconocido al insertar la medición.']);
+                }
+            } catch (Exception $e) {
+                // Registrar cualquier excepción en los logs
+                logMessage("Excepción al insertar medición: " . $e->getMessage());
+                echo json_encode(['success' => false, 'error' => 'Excepción al insertar la medición: ' . $e->getMessage()]);
+            }
+        } else {
+            // Si falta algún dato necesario, devolver un error
+            logMessage("Error: Datos incompletos para insertar la medición.");
+            echo json_encode(['success' => false, 'error' => 'Usuario ID, Valor, Tipo de Gas, Fecha y Hora son obligatorios.']);
+        }
+    break;
+    
 
     case 'insertar_mediciones':
         // Obtener el array de mediciones desde la solicitud

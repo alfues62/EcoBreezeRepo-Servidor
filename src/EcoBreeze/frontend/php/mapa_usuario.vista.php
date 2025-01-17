@@ -22,13 +22,14 @@
     <!-- Roboto -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     
-    <!-- Leaflet (Mapa y mapa de calor) -->
+<!-- Leaflet (Mapa y mapa de calor) -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet.heat/dist/leaflet-heat.css">
-    
-    <!-- Scripts de JavaScript -->
+    <!-- Incluir Leaflet y plugin de mapa de calor -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
+
     
     <!-- Scripts de Bootstrap y jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -57,7 +58,7 @@
     </ul>
 </nav>
 
-<div style="width: 100%; height: 100vh;">
+<div style="margin-top :50px ;width: 100%; height: 80vh;">
     <div id="map" style="width: 100%; height: 100%;"></div>
 </div>
     
@@ -121,8 +122,9 @@
     window.mediciones = <?php echo $mediciones_json; ?>;
     window.mapaMediciones = <?php echo $mediciones_json; ?>;
 </script>
-<script src="/frontend/js/pagina_usuario.js"></script>
 <script src="/frontend/js/mapa.js"></script>
+<script src="/frontend/js/pagina_usuario.js"></script>
+
 
 </body>
 </html>

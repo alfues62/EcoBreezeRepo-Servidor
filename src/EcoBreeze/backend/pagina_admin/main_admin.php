@@ -5,6 +5,7 @@ require_once '../SolicitudCurl.php';  // Incluye la clase para hacer la solicitu
 require_once '../log.php';  // Incluye el archivo de logging
 require_once 'ultima_medicion.php';  // Incluye la función obtenerUltimaMedicion
 require_once 'eliminar_usuario.php';  // Incluye la función eliminarUsuario
+require_once 'obtener_todos_datos.php';  
 
 // Variables para los mensajes de error y éxito
 $error_message = '';
@@ -47,6 +48,9 @@ if ($result === false) {
         $error_message = 'No se encontraron usuarios con mediciones.';
     }
 }
+
+$datosMapa = obtenerMediciones();
+
 
 // Incluir la vista del administrador
 include '../../frontend/php/pagina_admin.vista.php';

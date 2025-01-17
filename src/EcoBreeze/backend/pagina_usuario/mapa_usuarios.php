@@ -36,6 +36,7 @@ if (!$usuario) {
     $mediciones_json = (is_array($mediciones) && !isset($mediciones['error'])) ? json_encode($mediciones) : '[]';
 }
 
+
 // Procesamiento del formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';

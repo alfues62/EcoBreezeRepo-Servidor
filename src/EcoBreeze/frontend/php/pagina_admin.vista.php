@@ -8,7 +8,17 @@
     <link rel="stylesheet" href="/frontend/css/pagina_admin.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Leaflet (Mapa y mapa de calor) -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.heat/dist/leaflet-heat.css">
+    <!-- Incluir Leaflet y plugin de mapa de calor -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-heat@0.2.0/leaflet-heat.js"></script>
+    <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
 </head>
+
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/frontend/index.php">Mi Aplicación</a>
@@ -71,6 +81,8 @@
     <p>No se encontraron usuarios con mediciones.</p>
 <?php endif; ?>
 
+<div id="map" style="height: 400px;"></div>
+
 <!-- Formulario oculto para enviar solicitudes de eliminación -->
 <form id="deleteForm" method="POST" action="/backend/pagina_admin/main_admin.php">
     <input type="hidden" name="action" value="eliminar_usuario">
@@ -116,9 +128,16 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    var mapaMediciones = <?php echo json_encode($datosMapa); ?>;
+
+</script>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="/frontend/js/pagina_admin.js"></script>
+<script src="/frontend/js/mapa_admin.js"></script>
+
 </body>
 </html>

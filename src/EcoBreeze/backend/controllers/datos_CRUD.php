@@ -88,7 +88,7 @@ class DatosCRUD {
     public function obtenerMedicionesUsuario($usuarioId) {
         try {
             $query = "
-                SELECT 
+                SELECT
                     m.IDMedicion, 
                     m.Valor, 
                     m.Lon, 
@@ -127,6 +127,48 @@ class DatosCRUD {
         }
     }
 
+    public function obtenerMedicionesTodosUsuarios() {
+        try {
+            $query = "
+                SELECT
+                    m.IDMedicion, 
+                    m.Valor, 
+                    m.Lon, 
+                    m.Lat, 
+                    m.Fecha, 
+                    m.Hora, 
+                    m.Categoria,
+                    m.TIPOGAS_TipoID,
+                    tg.TipoGas,
+                    u.ID AS UsuarioID,
+                    u.Nombre AS UsuarioNombre
+                FROM 
+                    MEDICION m
+                INNER JOIN 
+                    SENSOR s ON m.SENSOR_ID_Sensor = s.SensorID
+                INNER JOIN 
+                    USUARIO u ON s.USUARIO_ID = u.ID
+                INNER JOIN 
+                    TIPOGAS tg ON m.TIPOGAS_TipoID = tg.TipoID
+                ORDER BY 
+                    m.Fecha DESC, m.Hora DESC;
+            ";
+    
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+    
+            if ($stmt->rowCount() > 0) {
+                $mediciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return json_encode(['success' => true, 'mediciones' => $mediciones]);
+            } else {
+                return json_encode(['success' => false, 'error' => 'No se encontraron mediciones.']);
+            }
+        } catch (PDOException $e) {
+            error_log("Error en obtener mediciones todos los usuarios: " . $e->getMessage() . "\n", 3, $this->logFile);
+            return json_encode(['success' => false, 'error' => 'Error al obtener las mediciones de los usuarios.']);
+        }
+    }
+    
     public function obtenerNotificacionesUsuario($usuarioId) {
         try {
             $query = "
@@ -189,6 +231,57 @@ class DatosCRUD {
             return ['error' => 'Error al insertar la notificación.'];
         }
     }
+
+    public function insertarMedicion($usuarioID, $valor, $lon, $lat, $fecha, $hora, $tipoGas, $categoria = 'Null') {
+        try {
+            // Validar los parámetros requeridos
+            if (empty($usuarioID) || empty($valor) || empty($tipoGas) || empty($fecha) || empty($hora)) {
+                return ['error' => 'Los campos usuarioID, valor, tipoGas, fecha y hora son obligatorios.'];
+            }
+    
+            // Consultar el sensor asignado al usuario
+            $querySensor = "SELECT SensorID FROM SENSOR WHERE USUARIO_ID = :usuario_id LIMIT 1";
+            $stmtSensor = $this->conn->prepare($querySensor);
+            $stmtSensor->bindParam(':usuario_id', $usuarioID, PDO::PARAM_INT);
+            $stmtSensor->execute();
+    
+            $sensor = $stmtSensor->fetch(PDO::FETCH_ASSOC);
+    
+            if (!$sensor) {
+                return ['error' => 'No se encontró un sensor asignado al usuario especificado.'];
+            }
+    
+            // Obtener el ID del sensor
+            $sensorID = $sensor['SensorID'];
+    
+            // Definir la consulta para insertar la medición
+            $query = "INSERT INTO MEDICION (Valor, Lon, Lat, Fecha, Hora, TIPOGAS_TipoID, Categoria, SENSOR_ID_Sensor) 
+                        VALUES (:valor, :lon, :lat, :fecha, :hora, :tipoGas, :categoria, :sensor_id)";
+    
+            // Preparar la consulta
+            $stmt = $this->conn->prepare($query);
+    
+            // Asociar los parámetros con los valores de entrada
+            $stmt->bindParam(':valor', $valor, PDO::PARAM_STR);
+            $stmt->bindParam(':lon', $lon, PDO::PARAM_STR);
+            $stmt->bindParam(':lat', $lat, PDO::PARAM_STR);
+            $stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
+            $stmt->bindParam(':hora', $hora, PDO::PARAM_STR);
+            $stmt->bindParam(':tipoGas', $tipoGas, PDO::PARAM_INT);
+            $stmt->bindParam(':categoria', $categoria, PDO::PARAM_STR);
+            $stmt->bindParam(':sensor_id', $sensorID, PDO::PARAM_INT);
+    
+            // Ejecutar la consulta
+            $stmt->execute();
+    
+            return ['success' => 'Medición insertada con éxito.'];
+        } catch (PDOException $e) {
+            // Registrar el error en el log para depuración
+            logMessage("Error en insertar medición: " . $e->getMessage());
+            return ['error' => 'Error al insertar la medición.'];
+        }
+    }
+    
 
     public function insertarMedicionesAPI($mediciones) {
         try {
