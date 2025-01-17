@@ -1,0 +1,618 @@
+\doxysection{Usuarios\+Acciones\+CRUD Class Reference}
+\hypertarget{class_usuarios_acciones_c_r_u_d}{}\label{class_usuarios_acciones_c_r_u_d}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_usuarios_acciones_c_r_u_d_aa9f2d224c50da3f0f81b6ebb6a8b51fb}\label{class_usuarios_acciones_c_r_u_d_aa9f2d224c50da3f0f81b6ebb6a8b51fb} 
+{\bfseries \+\_\+\+\_\+construct} (\$conn)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_acedb8d6511169749b0b08725c344e009}{registrar}} (\$nombre, \$apellidos, \$email, \$contrasena\+Hash, \$token)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_ace4cadfbd16187fc61d2f437ee8a9723}{verificar\+Correo}} (\$email, \$token)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a716c4e465729d50fc134f5ecfd495dc1}{insertar\+Sensor}} (\$usuario\+ID, \$mac)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a37a2569148d9d5d8bfe39ad269f9281b}{cambiar\+Contrasena\+Por\+ID}} (\$id, \$contrasena\+Actual, \$nueva\+Contrasena)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a1cdd0fce92ed3b377e882f8d78762f66}{cambiar\+Token\+Por\+ID}} (\$id, \$contrasena\+Actual, \$token)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a1cdda48bdee4d2d338e09bc9bcf2cc44}{cambiar\+Correo}} (\$email, \$nuevo\+Correo)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a06303f69e35e70bca18644bb82de3670}{recuperar\+Contrasena}} (\$email, \$token, \$nueva\+\_\+contrasena)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a34e68b628fad59270cb33fba51d82490}{cambiar\+Contrasena\+Por\+Correo}} (\$email, \$nueva\+Contrasena)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a98fd005d3a36b08cc03861755d66fea7}{actualizar\+Token\+Recuperacion}} (\$email, \$token)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a342159e2682f6f6aaaf3eaa614bb052c}{subir\+Token\+Huella}} (\$id, \$token\+Huella)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a46f9c2979fa7aee192b04f72dbec0aab}{registrar\+Admin}} (\$nombre, \$apellidos, \$email, \$contrasena\+Hash)
+\item 
+\mbox{\hyperlink{class_usuarios_acciones_c_r_u_d_a8b811b893bded50c0bbd55f3f2e1f385}{eliminar\+Usuario}} (\$id\+Usuario)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a98fd005d3a36b08cc03861755d66fea7}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!actualizarTokenRecuperacion@{actualizarTokenRecuperacion}}
+\index{actualizarTokenRecuperacion@{actualizarTokenRecuperacion}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{actualizarTokenRecuperacion()}{actualizarTokenRecuperacion()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a98fd005d3a36b08cc03861755d66fea7} 
+Usuarios\+Acciones\+CRUD\+::actualizar\+Token\+Recuperacion (\begin{DoxyParamCaption}\item[{}]{\$email}{, }\item[{}]{\$token}{}\end{DoxyParamCaption})}
+
+Actualiza el token de recuperación para un usuario basado en su correo electrónico.
+
+Este método permite actualizar el token de recuperación de un usuario y su fecha de expiración. Si el usuario está verificado y se encuentra en la base de datos, se genera un nuevo token y se actualiza en la base de datos con una expiración de 2 horas. Si la actualización es exitosa, se devuelve un mensaje de éxito junto con los datos del usuario.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item email (string, correo electrónico del usuario para actualizar el token de recuperación).
+\item token (string, el nuevo token de recuperación generado).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Consultar al usuario en la base de datos utilizando su correo electrónico.
+\item Si el usuario no existe, se retorna un error indicando que el correo no fue encontrado.
+\item Verificar que el usuario esté verificado.
+\item Si el usuario está verificado, generar una nueva fecha de expiración para el token (2 horas).
+\item Actualizar el token y la expiración en la base de datos.
+\item Verificar si la actualización fue exitosa y registrar la información en el log.
+\item Si la actualización es exitosa, se devuelve un mensaje de éxito con los datos del usuario.
+\item Si ocurre un error en el proceso, se captura la excepción y se registra en el log.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Token de recuperación registrado y actualizado con éxito."{}, "{}nombre"{}\+: "{}\+Nombre del usuario"{}, "{}apellidos"{}\+: "{}\+Apellidos del usuario"{}, "{}email"{}\+: "{}\+Correo electrónico del usuario"{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$email} & El correo electrónico del usuario cuyo token de recuperación se actualizará. \\
+\hline
+string & {\em \$token} & El nuevo token de recuperación generado. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a34e68b628fad59270cb33fba51d82490}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!cambiarContrasenaPorCorreo@{cambiarContrasenaPorCorreo}}
+\index{cambiarContrasenaPorCorreo@{cambiarContrasenaPorCorreo}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{cambiarContrasenaPorCorreo()}{cambiarContrasenaPorCorreo()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a34e68b628fad59270cb33fba51d82490} 
+Usuarios\+Acciones\+CRUD\+::cambiar\+Contrasena\+Por\+Correo (\begin{DoxyParamCaption}\item[{}]{\$email}{, }\item[{}]{\$nueva\+Contrasena}{}\end{DoxyParamCaption})}
+
+Cambia la contraseña de un usuario por su correo electrónico.
+
+Este método permite a un usuario cambiar su contraseña utilizando su correo electrónico. Primero, se verifica que el usuario exista en la base de datos y luego se actualiza la contraseña, el token de recuperación y la expiración del token. Si la contraseña no cambia, se notificará que no se realizaron cambios.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item email (string, correo electrónico del usuario).
+\item nueva\+Contrasena (string, nueva contraseña que el usuario desea establecer).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Consultar al usuario utilizando su correo electrónico para obtener su ID y el hash de la contraseña.
+\item Si el usuario no existe, se retorna un error indicando que no se encontró al usuario.
+\item Si el usuario existe, se genera un hash de la nueva contraseña.
+\item Se prepara la consulta para actualizar la contraseña del usuario, y se establece el token y la expiración a 0.
+\item Si se actualiza la contraseña correctamente, se retorna un mensaje de éxito.
+\item Si no se realizaron cambios (la contraseña ya es la misma), se retorna un mensaje de error.
+\item En caso de error, se registra el error y se retorna un mensaje indicando que hubo un problema al cambiar la contraseña.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Contraseña y token actualizados con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$email} & El correo electrónico del usuario que desea cambiar su contraseña. \\
+\hline
+string & {\em \$nueva\+Contrasena} & La nueva contraseña que el usuario desea establecer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a37a2569148d9d5d8bfe39ad269f9281b}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!cambiarContrasenaPorID@{cambiarContrasenaPorID}}
+\index{cambiarContrasenaPorID@{cambiarContrasenaPorID}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{cambiarContrasenaPorID()}{cambiarContrasenaPorID()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a37a2569148d9d5d8bfe39ad269f9281b} 
+Usuarios\+Acciones\+CRUD\+::cambiar\+Contrasena\+Por\+ID (\begin{DoxyParamCaption}\item[{}]{\$id}{, }\item[{}]{\$contrasena\+Actual}{, }\item[{}]{\$nueva\+Contrasena}{}\end{DoxyParamCaption})}
+
+Cambia la contraseña de un usuario por su ID.
+
+Este método permite actualizar la contraseña de un usuario en la base de datos. Se verifica que la contraseña actual ingresada coincida con la almacenada antes de proceder con el cambio.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item id (int, ID del usuario cuya contraseña se desea cambiar).
+\item contrasena\+Actual (string, contraseña actual del usuario para verificar su autenticidad).
+\item nueva\+Contrasena (string, nueva contraseña que será almacenada tras la verificación).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Obtener la contraseña almacenada del usuario por su ID.
+\item Verificar si el usuario existe.
+\item Comparar la contraseña actual ingresada con el hash almacenado.
+\item Si coincide\+:
+\begin{DoxyItemize}
+\item Hashear la nueva contraseña.
+\item Actualizar el hash de la contraseña en la base de datos.
+\item Retornar éxito si se actualizó correctamente.
+\end{DoxyItemize}
+\item Si no coincide, retornar un mensaje de error.
+\item Registrar en el log cualquier error ocurrido durante el proceso.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Contraseña actualizada con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & El ID del usuario cuya contraseña será actualizada. \\
+\hline
+string & {\em \$contrasena\+Actual} & La contraseña actual del usuario para validar. \\
+\hline
+string & {\em \$nueva\+Contrasena} & La nueva contraseña que será almacenada. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a1cdda48bdee4d2d338e09bc9bcf2cc44}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!cambiarCorreo@{cambiarCorreo}}
+\index{cambiarCorreo@{cambiarCorreo}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{cambiarCorreo()}{cambiarCorreo()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a1cdda48bdee4d2d338e09bc9bcf2cc44} 
+Usuarios\+Acciones\+CRUD\+::cambiar\+Correo (\begin{DoxyParamCaption}\item[{}]{\$email}{, }\item[{}]{\$nuevo\+Correo}{}\end{DoxyParamCaption})}
+
+Cambia el correo electrónico de un usuario.
+
+Este método permite actualizar la dirección de correo electrónico de un usuario en la base de datos, también restableciendo el token y su fecha de expiración para garantizar la validez de los datos del usuario.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item email (string, correo electrónico actual del usuario que desea cambiar).
+\item nuevo\+Correo (string, nuevo correo electrónico que se desea asignar al usuario).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Iniciar una transacción para asegurar la integridad de los cambios.
+\item Preparar y ejecutar una consulta SQL para actualizar el correo electrónico del usuario.
+\item Establecer el valor del token y la expiración a 0 para invalidar cualquier token asociado.
+\item Verificar si se actualizó el correo electrónico correctamente.
+\item Si la actualización es exitosa, confirmar la transacción y retornar un mensaje de éxito.
+\item Si no se realizaron cambios, revertir la transacción y retornar un mensaje de error.
+\item Registrar cualquier error ocurrido durante el proceso en un archivo de log.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Correo electrónico actualizado con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$email} & El correo electrónico actual del usuario. \\
+\hline
+string & {\em \$nuevo\+Correo} & El nuevo correo electrónico que se desea asignar al usuario. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a1cdd0fce92ed3b377e882f8d78762f66}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!cambiarTokenPorID@{cambiarTokenPorID}}
+\index{cambiarTokenPorID@{cambiarTokenPorID}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{cambiarTokenPorID()}{cambiarTokenPorID()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a1cdd0fce92ed3b377e882f8d78762f66} 
+Usuarios\+Acciones\+CRUD\+::cambiar\+Token\+Por\+ID (\begin{DoxyParamCaption}\item[{}]{\$id}{, }\item[{}]{\$contrasena\+Actual}{, }\item[{}]{\$token}{}\end{DoxyParamCaption})}
+
+Cambia el token de un usuario por su ID.
+
+Este método permite actualizar el token de un usuario en la base de datos tras validar su contraseña actual. También establece una nueva fecha de expiración para el token, configurada a 24 horas a partir del momento de la actualización.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item id (int, ID del usuario cuyo token se desea cambiar).
+\item contrasena\+Actual (string, contraseña actual del usuario para validar su autenticidad).
+\item token (string, nuevo token que será asignado al usuario).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Consultar la contraseña almacenada del usuario por su ID.
+\item Verificar si el usuario existe.
+\item Comparar la contraseña actual ingresada con el hash almacenado en la base de datos.
+\item Si coincide\+:
+\begin{DoxyItemize}
+\item Preparar y ejecutar una consulta para actualizar el token y establecer su expiración a 24 horas desde el momento actual.
+\item Verificar si el token fue actualizado correctamente.
+\item Retornar éxito si la operación fue exitosa.
+\end{DoxyItemize}
+\item Si no coincide, retornar un mensaje de error indicando que la contraseña es incorrecta.
+\item Registrar cualquier error ocurrido durante el proceso en un archivo de log.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Token actualizado con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & El ID del usuario cuyo token será actualizado. \\
+\hline
+string & {\em \$contrasena\+Actual} & La contraseña actual del usuario para validar. \\
+\hline
+string & {\em \$token} & El nuevo token que será asignado al usuario. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a8b811b893bded50c0bbd55f3f2e1f385}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!eliminarUsuario@{eliminarUsuario}}
+\index{eliminarUsuario@{eliminarUsuario}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{eliminarUsuario()}{eliminarUsuario()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a8b811b893bded50c0bbd55f3f2e1f385} 
+Usuarios\+Acciones\+CRUD\+::eliminar\+Usuario (\begin{DoxyParamCaption}\item[{}]{\$id\+Usuario}{}\end{DoxyParamCaption})}
+
+Elimina un usuario y su(s) sensor(es) asociado(s) de la base de datos.
+
+Este método permite eliminar un usuario de la tabla {\ttfamily USUARIO}, y debido a la configuración de la base de datos (ON DELETE CASCADE), los sensores asociados también se eliminarán automáticamente. Si el usuario no se encuentra, o si no se puede eliminar, se registra un error y se retorna un mensaje adecuado.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item id\+Usuario (int, el ID del usuario que se desea eliminar).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Se verifica si el usuario existe en la base de datos con el ID proporcionado.
+\item Si el usuario existe, se procede a eliminarlo y a eliminar los sensores asociados de manera automática.
+\item Si la eliminación es exitosa, se retorna un mensaje de éxito.
+\item Si no se puede eliminar el usuario o no se encuentra, se retorna un mensaje de error.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Usuario y sensor(es) asociados eliminados con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+No se pudo eliminar el usuario."{} \} o \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+No se encontró el usuario con ese ID."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id\+Usuario} & El ID del usuario que se desea eliminar. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a716c4e465729d50fc134f5ecfd495dc1}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!insertarSensor@{insertarSensor}}
+\index{insertarSensor@{insertarSensor}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{insertarSensor()}{insertarSensor()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a716c4e465729d50fc134f5ecfd495dc1} 
+Usuarios\+Acciones\+CRUD\+::insertar\+Sensor (\begin{DoxyParamCaption}\item[{}]{\$usuario\+ID}{, }\item[{}]{\$mac}{}\end{DoxyParamCaption})}
+
+Inserta un nuevo sensor en la base de datos.
+
+Este método permite registrar un sensor asociado a un usuario en la base de datos utilizando su ID y la dirección MAC del sensor. En caso de éxito, devuelve un mensaje confirmando la operación; si ocurre un error, registra el detalle en el log y devuelve un mensaje de error.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item usuario\+ID (int, ID del usuario al que se asociará el sensor)
+\item mac (string, dirección MAC del sensor)
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Preparar la consulta SQL para insertar el sensor.
+\item Ejecutar la consulta con los parámetros proporcionados.
+\item Retornar éxito si la inserción es exitosa.
+\item En caso de error, registrar el mensaje de error en el log y devolver un mensaje de error al cliente.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Sensor insertado con éxito."{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Error al insertar el sensor."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$usuario\+ID} & El ID del usuario al que se asociará el sensor. \\
+\hline
+string & {\em \$mac} & La dirección MAC del sensor. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a06303f69e35e70bca18644bb82de3670}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!recuperarContrasena@{recuperarContrasena}}
+\index{recuperarContrasena@{recuperarContrasena}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{recuperarContrasena()}{recuperarContrasena()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a06303f69e35e70bca18644bb82de3670} 
+Usuarios\+Acciones\+CRUD\+::recuperar\+Contrasena (\begin{DoxyParamCaption}\item[{}]{\$email}{, }\item[{}]{\$token}{, }\item[{}]{\$nueva\+\_\+contrasena}{}\end{DoxyParamCaption})}
+
+Recupera la contraseña de un usuario a través de un token de recuperación.
+
+Este método permite a un usuario recuperar su contraseña utilizando un token de recuperación enviado previamente. El token se valida y, si es válido y no ha expirado, se actualiza la contraseña con la nueva proporcionada por el usuario. Además, se limpia el token y su fecha de expiración para garantizar la seguridad.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item email (string, correo electrónico del usuario para recuperar la contraseña).
+\item token (string, token de recuperación asociado al usuario).
+\item nueva\+\_\+contrasena (string, nueva contraseña que el usuario desea establecer).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Iniciar una transacción para asegurar que todas las operaciones se realicen de manera atómica.
+\item Consultar al usuario por su correo y verificar si existe.
+\item Si el usuario no existe, se retorna un error.
+\item Verificar si el token ha expirado comparando la fecha actual con la fecha de expiración del token.
+\begin{DoxyItemize}
+\item Si el token ha expirado, se restablecen los valores del token y la fecha de expiración, y se notifica al usuario.
+\end{DoxyItemize}
+\item Validar si el token proporcionado coincide con el almacenado.
+\item Si el token es válido, proceder a hashear la nueva contraseña y actualizarla en la base de datos.
+\item Si la actualización de la contraseña es exitosa, se confirma la transacción y se retorna un mensaje de éxito.
+\item Si la actualización no se realizó correctamente, se revierte la transacción y se retorna un mensaje de error.
+\item En caso de error durante el proceso, se revierte la transacción y se registra el error.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Contraseña actualizada con éxito."{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$email} & El correo electrónico del usuario que desea recuperar su contraseña. \\
+\hline
+string & {\em \$token} & El token de recuperación asociado al usuario. \\
+\hline
+string & {\em \$nueva\+\_\+contrasena} & La nueva contraseña que el usuario desea establecer. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_acedb8d6511169749b0b08725c344e009}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!registrar@{registrar}}
+\index{registrar@{registrar}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{registrar()}{registrar()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_acedb8d6511169749b0b08725c344e009} 
+Usuarios\+Acciones\+CRUD\+::registrar (\begin{DoxyParamCaption}\item[{}]{\$nombre}{, }\item[{}]{\$apellidos}{, }\item[{}]{\$email}{, }\item[{}]{\$contrasena\+Hash}{, }\item[{}]{\$token}{}\end{DoxyParamCaption})}
+
+Registra un nuevo usuario en la base de datos.
+
+Este método permite insertar un usuario con los datos proporcionados, estableciendo el rol predeterminado y configurando un token de verificación con una expiración de 24 horas. Antes de la inserción, verifica si el correo electrónico ya está registrado. Si el registro existe pero el token ha expirado, se elimina el usuario y se procede con un nuevo registro. En caso de éxito, se solicita al usuario verificar su correo.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item nombre (String)
+\item apellidos (String)
+\item email (String, único)
+\item contrasena\+Hash (String, contraseña ya cifrada)
+\item token (String, generado para la verificación)
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Verificar si el correo ya está registrado\+:
+\begin{DoxyItemize}
+\item Si el token ha expirado, eliminar el registro previo.
+\item Si no ha expirado\+: a. Si el usuario está verificado, devolver un mensaje de error. b. Si no está verificado, devolver un mensaje de registro pendiente.
+\end{DoxyItemize}
+\item Insertar el usuario con los campos proporcionados y valores predeterminados.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Usuario insertado con éxito. Por favor verifica tu correo."{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Mensaje descriptivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nombre} & El nombre del usuario. \\
+\hline
+string & {\em \$apellidos} & Los apellidos del usuario. \\
+\hline
+string & {\em \$email} & El correo electrónico del usuario. \\
+\hline
+string & {\em \$contrasena\+Hash} & La contraseña cifrada del usuario. \\
+\hline
+string & {\em \$token} & El token generado para la verificación. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a46f9c2979fa7aee192b04f72dbec0aab}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!registrarAdmin@{registrarAdmin}}
+\index{registrarAdmin@{registrarAdmin}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{registrarAdmin()}{registrarAdmin()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a46f9c2979fa7aee192b04f72dbec0aab} 
+Usuarios\+Acciones\+CRUD\+::registrar\+Admin (\begin{DoxyParamCaption}\item[{}]{\$nombre}{, }\item[{}]{\$apellidos}{, }\item[{}]{\$email}{, }\item[{}]{\$contrasena\+Hash}{}\end{DoxyParamCaption})}
+
+Registra un nuevo administrador en el sistema.
+
+Este método permite registrar un nuevo usuario con rol de administrador en la base de datos. Se le asigna el rol de administrador automáticamente (ROL\+\_\+\+Rol\+ID = 1) y se garantiza que el campo de verificación está marcado como \textquotesingle{}1\textquotesingle{} (verificado).
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item nombre (string, el nombre del administrador).
+\item apellidos (string, los apellidos del administrador).
+\item email (string, el correo electrónico del administrador).
+\item contrasena\+Hash (string, la contraseña del administrador, ya hasheada).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Se prepara la consulta para insertar los datos del administrador en la tabla {\ttfamily USUARIO}.
+\item Los campos {\ttfamily token}, {\ttfamily expiracion\+\_\+token} y {\ttfamily token\+\_\+huella} se dejan como {\ttfamily NULL} por defecto.
+\item Se asigna el valor de {\ttfamily ROL\+\_\+\+Rol\+ID} como {\ttfamily 1}, indicando que el usuario es un administrador.
+\item Si la inserción es exitosa, se retorna un mensaje de éxito.
+\item Si ocurre un error en el proceso, se captura la excepción y se registra en el log.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Administrador añadido con éxito."{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Error al insertar un administrador."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$nombre} & El nombre del administrador. \\
+\hline
+string & {\em \$apellidos} & Los apellidos del administrador. \\
+\hline
+string & {\em \$email} & El correo electrónico del administrador. \\
+\hline
+string & {\em \$contrasena\+Hash} & La contraseña hasheada del administrador. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_a342159e2682f6f6aaaf3eaa614bb052c}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!subirTokenHuella@{subirTokenHuella}}
+\index{subirTokenHuella@{subirTokenHuella}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{subirTokenHuella()}{subirTokenHuella()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_a342159e2682f6f6aaaf3eaa614bb052c} 
+Usuarios\+Acciones\+CRUD\+::subir\+Token\+Huella (\begin{DoxyParamCaption}\item[{}]{\$id}{, }\item[{}]{\$token\+Huella}{}\end{DoxyParamCaption})}
+
+Actualiza el token de huella para un usuario basado en su ID.
+
+Este método permite subir el token de huella para un usuario, utilizando su ID. Si el usuario existe, se actualiza el token de huella en la base de datos.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item id (int, el ID del usuario para actualizar el token de huella).
+\item token\+Huella (string, el nuevo token de huella que se va a asignar al usuario).
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Consultar al usuario en la base de datos utilizando su ID.
+\item Si el usuario no existe, se retorna un error indicando que no se encontró el usuario.
+\item Si el usuario existe, se actualiza el token de huella con el valor proporcionado.
+\item Verificar si la actualización fue exitosa y retornar un mensaje de éxito o error según corresponda.
+\item Si ocurre un error en el proceso, se captura la excepción y se registra en el log.
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: true, "{}message"{}\+: "{}\+Token de huella actualizado con éxito."{} \}
+\item En caso de error\+: \{ "{}success"{}\+: false, "{}error"{}\+: "{}\+Motivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$id} & El ID del usuario cuyo token de huella se actualizará. \\
+\hline
+string & {\em \$token\+Huella} & El nuevo token de huella generado. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+\Hypertarget{class_usuarios_acciones_c_r_u_d_ace4cadfbd16187fc61d2f437ee8a9723}\index{UsuariosAccionesCRUD@{UsuariosAccionesCRUD}!verificarCorreo@{verificarCorreo}}
+\index{verificarCorreo@{verificarCorreo}!UsuariosAccionesCRUD@{UsuariosAccionesCRUD}}
+\doxysubsubsection{\texorpdfstring{verificarCorreo()}{verificarCorreo()}}
+{\footnotesize\ttfamily \label{class_usuarios_acciones_c_r_u_d_ace4cadfbd16187fc61d2f437ee8a9723} 
+Usuarios\+Acciones\+CRUD\+::verificar\+Correo (\begin{DoxyParamCaption}\item[{}]{\$email}{, }\item[{}]{\$token}{}\end{DoxyParamCaption})}
+
+Verifica la dirección de correo electrónico de un usuario.
+
+Este método permite validar un correo electrónico utilizando un token de verificación. Si el token es válido y no ha expirado, el usuario es marcado como verificado. Si el token ha expirado o es inválido, se devuelve un mensaje descriptivo y se elimina al usuario si corresponde.
+
+Diseño\+:
+
+Entrada\+:
+\begin{DoxyItemize}
+\item email (String, correo electrónico del usuario)
+\item token (String, token de verificación)
+\end{DoxyItemize}
+
+Proceso\+:
+\begin{DoxyEnumerate}
+\item Consultar al usuario en la base de datos utilizando el correo.
+\begin{DoxyItemize}
+\item Si no existe, retornar error\+: "{}\+Correo no encontrado."{}
+\end{DoxyItemize}
+\item Verificar si ya está marcado como verificado\+:
+\begin{DoxyItemize}
+\item Si está verificado, retornar éxito\+: "{}\+El correo ya estaba verificado."{}
+\end{DoxyItemize}
+\item Comparar la fecha de expiración del token con la fecha actual\+:
+\begin{DoxyItemize}
+\item Si el token ha expirado, eliminar al usuario y retornar error\+: "{}\+El token ha expirado."{}
+\end{DoxyItemize}
+\item Validar el token\+:
+\begin{DoxyItemize}
+\item Si no coincide, retornar error\+: "{}\+Token no válido."{}
+\end{DoxyItemize}
+\item Si las validaciones pasan, marcar al usuario como verificado\+:
+\begin{DoxyItemize}
+\item Actualizar el estado a verificado y borrar el token.
+\item Retornar éxito\+: "{}\+Correo verificado con éxito."{}
+\end{DoxyItemize}
+\end{DoxyEnumerate}
+
+Salida\+:
+\begin{DoxyItemize}
+\item En caso de éxito\+: \{ "{}success"{}\+: "{}\+Correo verificado con éxito."{} \}
+\item En caso de error\+: \{ "{}error"{}\+: "{}\+Mensaje descriptivo del error."{} \}
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$email} & El correo electrónico a verificar. \\
+\hline
+string & {\em \$token} & El token de verificación asociado al correo. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array Un array con un mensaje de éxito o error. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+GTI\+\_\+\+Carpeta/\+Biometria\+Repos/\+Eco\+Breeze\+Repo-\/\+Servidor/src/\+Eco\+Breeze/backend/controllers/usuario\+\_\+acciones\+\_\+\+CRUD.\+php\end{DoxyCompactItemize}

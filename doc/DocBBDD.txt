@@ -1,0 +1,185 @@
+## Documentación del Modelo de Base de Datos EcoBreeze
+
+### Introducción
+El esquema `EcoBreeze` está diseñado para gestionar datos relacionados con usuarios, sensores, mediciones ambientales y notificaciones. Este documento describe las tablas principales, sus columnas, relaciones y propósito.
+
+---
+
+### 1. Tabla `ROL`
+- **Descripción**: Define los roles de los usuarios dentro del sistema.
+- **Columnas**:
+  - `RolID` (INT): Identificador único del rol.
+  - `Rol` (VARCHAR(45)): Nombre del rol (e.g., Admin, User).
+- **Relaciones**:
+  - Relacionada con la tabla `USUARIO` a través de `ROL_RolID`.
+
+---
+
+### 2. Tabla `USUARIO`
+- **Descripción**: Almacena la información de los usuarios registrados.
+- **Columnas**:
+  - `ID` (INT): Identificador único del usuario.
+  - `Nombre`, `Apellidos` (VARCHAR(45)): Nombre y apellidos del usuario.
+  - `Email` (VARCHAR(45)): Correo electrónico, debe ser único.
+  - `ContrasenaHash` (VARCHAR(255)): Contraseña cifrada del usuario.
+  - `Verificado` (TINYINT): Indica si el usuario ha verificado su cuenta.
+  - `token`, `expiracion_token` (VARCHAR(255)): Tokens para verificación y recuperación.
+  - `token_huella` (VARCHAR(255)): Token de huella.
+  - `ROL_RolID` (INT): Relación con el rol del usuario.
+- **Relaciones**:
+  - Relacionada con `ROL` mediante `ROL_RolID`, que es una clave foránea que referencia la columna `RolID` en la tabla `ROL`.
+  - Relacionada con `SENSOR` y `NOTIFICACION`.
+
+---
+
+### 3. Tabla `SENSOR`
+- **Descripción**: Representa los sensores vinculados a los usuarios.
+- **Columnas**:
+  - `SensorID` (INT): Identificador único del sensor.
+  - `MAC` (VARCHAR(45)): Dirección MAC única.
+  - `USUARIO_ID` (INT): Relación con el usuario propietario.
+- **Relaciones**:
+  - Relacionada con `USUARIO` mediante `USUARIO_ID`.
+  - Relacionada con `MEDICION`.
+
+---
+
+### 4. Tabla `TIPOGAS`
+- **Descripción**: Define los tipos de gases que se pueden medir.
+- **Columnas**:
+  - `TipoID` (INT): Identificador único del tipo de gas.
+  - `TipoGas` (VARCHAR(45)): Nombre del tipo de gas (e.g., CO, NO2).
+- **Relaciones**:
+  - Relacionada con `UMBRAL` y `MEDICION`.
+
+---
+
+### 5. Tabla `UMBRAL`
+- **Descripción**: Define los umbrales de categorías para cada tipo de gas.
+- **Columnas**:
+  - `ID` (INT): Identificador único del umbral.
+  - `ValorUmbral` (FLOAT): Valor del umbral.
+  - `Categoria` (VARCHAR(45)): Categoría asociada (e.g., Bajo, Medio, Alto).
+  - `TIPOGAS_TipoID` (INT): Relación con un tipo de gas.
+- **Relaciones**:
+  - Relacionada con `TIPOGAS` mediante `TIPOGAS_TipoID`.
+
+---
+
+### 6. Tabla `MEDICION`
+- **Descripción**: Almacena las mediciones realizadas por los sensores.
+- **Columnas**:
+  - `IDMedicion` (INT): Identificador único de la medición.
+  - `Valor` (FLOAT): Valor registrado.
+  - `Lon`, `Lat` (DECIMAL(10,7)): Coordenadas de la medición.
+  - `Fecha`, `Hora` (DATE, TIME): Fecha y hora de la medición.
+  - `TIPOGAS_TipoID` (INT): Relación con el tipo de gas medido.
+  - `SENSOR_ID_Sensor` (INT): Relación con el sensor.
+  - `Categoria` (VARCHAR(45)): Categoría asignada automáticamente.
+- **Relaciones**:
+  - Relacionada con `TIPOGAS` y `SENSOR`.
+- **Trigger**:
+  - `asignar_categoria`: Asigna automáticamente una categoría basada en el valor medido.
+
+---
+
+### 7. Tabla `NOTIFICACION`
+- **Descripción**: Gestiona las notificaciones enviadas a los usuarios.
+- **Columnas**:
+  - `NotificacionID` (INT): Identificador único de la notificación.
+  - `Titulo` (VARCHAR(255)): Título de la notificación.
+  - `Cuerpo` (TEXT): Contenido.
+  - `Fecha` (DATETIME): Fecha y hora de la notificación.
+  - `USUARIO_ID` (INT): Relación con el usuario.
+- **Relaciones**:
+  - Relacionada con `USUARIO` mediante `USUARIO_ID`.
+
+---
+
+### 8. Tabla `MEDICIONESAPI`
+- **Descripción**: Almacena mediciones obtenidas de APIs externas.
+- **Columnas**:
+  - `ID` (INT): Identificador único.
+  - `Valor` (DECIMAL(10,7)): Valor registrado.
+  - `Lon`, `Lat` (DECIMAL(10,7)): Coordenadas.
+  - `Fecha`, `Hora` (DATE, TIME): Fecha y hora de la medición.
+  - `TIPOGAS_TipoID` (INT): Relación con un tipo de gas.
+- **Relaciones**:
+  - Relacionada con `TIPOGAS` mediante `TIPOGAS_TipoID`.
+
+---
+
+### Relaciones entre Tablas
+- **`ROL` - `USUARIO`**: Un rol puede estar asociado con varios usuarios; un usuario tiene un rol.
+- **`USUARIO` - `SENSOR`**: Un usuario puede tener varios sensores; un sensor pertenece a un usuario.
+- **`TIPOGAS` - `UMBRAL`**: Cada tipo de gas tiene múltiples umbrales; un umbral pertenece a un tipo de gas.
+- **`TIPOGAS` - `MEDICION`**: Cada tipo de gas puede estar en múltiples mediciones; una medición está asociada con un tipo de gas.
+- **`USUARIO` - `NOTIFICACION`**: Un usuario puede recibir varias notificaciones; una notificación pertenece a un usuario.
+
+---
+
+### Propósito de las Tablas
+1. **`ROL`**: Define niveles de acceso.
+2. **`USUARIO`**: Gestor de información personal y autenticación.
+3. **`SENSOR`**: Control de dispositivos asociados.
+4. **`TIPOGAS`**: Clasificación de gases medidos.
+5. **`UMBRAL`**: Reglas para categorizar valores de mediciones.
+6. **`MEDICION`**: Registro de datos obtenidos por sensores.
+7. **`NOTIFICACION`**: Comunicaciones con usuarios.
+8. **`MEDICIONESAPI`**: Datos de fuentes externas.
+
+### Notas Adicionales
+- Se utilizó `InnoDB` como motor de almacenamiento para soportar transacciones y claves foráneas.
+- Todas las tablas están codificadas en `utf8mb4` para soporte de caracteres extendidos.
+- Las claves foráneas aseguran la integridad referencial entre tablas.
+- La base de datos se inicializa con los siguientes datos:
+  ```sql
+  -- 1. Insertar roles
+  INSERT INTO ROL (RolID, Rol) VALUES (2, 'User');
+  INSERT INTO ROL (RolID, Rol) VALUES (1, 'Admin');
+
+  -- 2. Insertar tipos de gas
+  INSERT INTO TIPOGAS (TipoGas) VALUES ('O3');
+  INSERT INTO TIPOGAS (TipoGas) VALUES ('CO');
+  INSERT INTO TIPOGAS (TipoGas) VALUES ('NO2');
+  INSERT INTO TIPOGAS (TipoGas) VALUES ('S04');
+
+  -- 3. Insertar umbrales
+  INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) VALUES 
+  (1, 0, 'Bajo', 2),
+  (2, 0.05, 'Normal', 2),
+  (3, 0.1, 'Alto', 2);
+  INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) VALUES 
+  (4, 0, 'Bajo', 3),
+  (5, 4.4, 'Medio', 3),
+  (6, 9.4, 'Alto', 3);
+  INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) VALUES 
+  (7, 0, 'Bajo', 4),
+  (8, 0.02, 'Medio', 4),
+  (9, 0.05, 'Alto', 4);
+  INSERT INTO UMBRAL (ID, ValorUmbral, Categoria, TIPOGAS_TipoID) VALUES 
+  (10, 0, 'Bajo', 5),
+  (11, 0.02, 'Medio', 5),
+  (12, 0.075, 'Alto', 5);
+
+  -- Crear trigger para asignar categoría
+  DELIMITER //
+  CREATE TRIGGER asignar_categoria 
+  BEFORE INSERT ON MEDICION
+  FOR EACH ROW
+  BEGIN
+      DECLARE CategoriaEncontrada VARCHAR(45);
+      SELECT Categoria
+      INTO CategoriaEncontrada
+      FROM UMBRAL
+      WHERE TIPOGAS_TipoID = NEW.TIPOGAS_TipoID
+        AND NEW.Valor >= ValorUmbral
+      ORDER BY ValorUmbral DESC
+      LIMIT 1;
+      SET NEW.Categoria = COALESCE(CategoriaEncontrada, 'Peligro');
+  END//
+  DELIMITER ;
+  ```
+
+Este diseño garantiza una estructura robusta para la gestión de datos ambientales y la integración con APIs externas.
+
